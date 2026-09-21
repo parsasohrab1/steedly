@@ -1,0 +1,17 @@
+export const theme = {
+  bg: '#f7f5f0',
+  surface: '#ffffff',
+  surface2: '#eef0e9',
+  text: '#151f19',
+  textMuted: '#5c6a62',
+  border: '#dde3da',
+  green: '#1c3d2c',
+  green2: '#25503a',
+  gold: '#b8901f',
+  ok: '#2f7d4f',
+  okSoft: '#dcefe2',
+  watch: '#b8901f',
+  watchSoft: '#f1e4bd',
+  alert: '#c24a2f',
+  alertSoft: '#f6ddd5',
+};
