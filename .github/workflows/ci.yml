@@ -175,3 +175,34 @@ jobs:
         with:
           name: steedly-debug-apk
           path: android/app/build/outputs/apk/debug/*.apk
+
+      # Release build (R8 minified). Signed when the repository secrets are set:
+      # ANDROID_KEYSTORE_BASE64, ANDROID_KEYSTORE_PASSWORD, ANDROID_KEY_ALIAS, ANDROID_KEY_PASSWORD.
+      # Without them an unsigned APK is built, which still verifies the release configuration.
+      - name: Restore release signing key
+        env:
+          KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+        run: |
+          if [ -n "$KEYSTORE_BASE64" ]; then
+            echo "$KEYSTORE_BASE64" | base64 -d > "$RUNNER_TEMP/steedly-release.jks"
+            echo "STEEDLY_KEYSTORE_FILE=$RUNNER_TEMP/steedly-release.jks" >> "$GITHUB_ENV"
+          else
+            echo "::warning::Release signing secrets are not set; building an unsigned release APK"
+          fi
+
+      - name: Build release APK
+        env:
+          STEEDLY_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          STEEDLY_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          STEEDLY_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: ./gradlew assembleRelease --stacktrace
+
+      - name: Remove signing key
+        if: always()
+        run: rm -f "$RUNNER_TEMP/steedly-release.jks"
+
+      - name: Upload release APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: steedly-release-apk
+          path: android/app/build/outputs/apk/release/*.apk

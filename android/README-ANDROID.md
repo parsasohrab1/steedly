@@ -136,8 +136,10 @@ applicationId = "ir.steedly.app"  // تغییر دهید
 برای انتشار در کافه‌بازار، باید اپلیکیشن را امضا کنید:
 
 1. یک Keystore ایجاد کنید:
+> کلید نسخه نهایی ساخته شده است؛ راهنمای کامل و اثرانگشت‌ها: [`RELEASE-SIGNING.md`](RELEASE-SIGNING.md)
+
 ```bash
-keytool -genkey -v -keystore steedly-key.jks -keyalg RSA -keysize 2048 -validity 10000 -alias steedly
+keytool -genkey -v -keystore steedly-release.jks -keyalg RSA -keysize 2048 -validity 10000 -alias steedly
 ```
 
 2. فایل `keystore.properties` را در پوشه `android` ایجاد کنید:
@@ -145,7 +147,7 @@ keytool -genkey -v -keystore steedly-key.jks -keyalg RSA -keysize 2048 -validity
 storePassword=your_store_password
 keyPassword=your_key_password
 keyAlias=steedly
-storeFile=../steedly-key.jks
+storeFile=steedly-release.jks
 ```
 
 3. در `app/build.gradle.kts` اضافه کنید:
