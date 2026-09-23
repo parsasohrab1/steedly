@@ -6,6 +6,7 @@ import {
   createOrder,
   getOrders,
   getOrder,
+  cancelOrder,
   updateOrderStatus
 } from '../controllers/shopController';
 import { authenticate, authorize } from '../middleware/auth';
@@ -21,6 +22,7 @@ router.get('/categories', getCategories);
 router.post('/orders', authenticate, createOrder);
 router.get('/orders', authenticate, getOrders);
 router.get('/orders/:id', authenticate, getOrder);
+router.put('/orders/:id/cancel', authenticate, cancelOrder);
 router.put('/orders/:id/status', authenticate, authorize('admin'), updateOrderStatus);
 
 export default router;

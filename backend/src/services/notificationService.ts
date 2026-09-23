@@ -1,5 +1,5 @@
 import { query } from '../database/connection';
-import { getCache, setCache } from '../database/redis';
+import { getCache, setCache, deleteCache, deleteCacheByPattern } from '../database/redis';
 import { sendPushNotificationToUser } from './pushService';
 
 export interface Notification {
@@ -12,6 +12,12 @@ export interface Notification {
   is_read: boolean;
   created_at: string;
 }
+
+// Drop every cached list (one key per limit) and the unread counter for a user
+const invalidateUserCache = async (userId: number) => {
+  await deleteCacheByPattern(`notifications:${userId}:*`);
+  await deleteCache(`notifications:unread:${userId}`);
+};
 
 // Create notification
 export const createNotification = async (
@@ -30,7 +36,7 @@ export const createNotification = async (
     );
 
     // Invalidate user notifications cache
-    await setCache(`notifications:${userId}`, null, 0);
+    await invalidateUserCache(userId);
 
     // Send push notification if enabled
     try {
@@ -90,7 +96,7 @@ export const markAsRead = async (notificationId: number, userId: number) => {
     );
 
     // Invalidate cache
-    await setCache(`notifications:${userId}`, null, 0);
+    await invalidateUserCache(userId);
   } catch (error) {
     console.error('Error marking notification as read:', error);
     throw error;
@@ -106,7 +112,7 @@ export const markAllAsRead = async (userId: number) => {
     );
 
     // Invalidate cache
-    await setCache(`notifications:${userId}`, null, 0);
+    await invalidateUserCache(userId);
   } catch (error) {
     console.error('Error marking all as read:', error);
     throw error;
@@ -146,7 +152,7 @@ export const deleteNotification = async (notificationId: number, userId: number)
     );
 
     // Invalidate cache
-    await setCache(`notifications:${userId}`, null, 0);
+    await invalidateUserCache(userId);
   } catch (error) {
     console.error('Error deleting notification:', error);
     throw error;

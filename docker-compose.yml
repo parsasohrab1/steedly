@@ -49,6 +49,10 @@ services:
       REDIS_URL: redis://redis:6379
       JWT_SECRET: ${JWT_SECRET:-your-secret-key-change-in-production}
       FRONTEND_URL: http://localhost:3001
+      API_URL: ${API_URL:-http://localhost:3000/api}
+      PAYMENT_GATEWAY: ${PAYMENT_GATEWAY:-mock}
+      ZARINPAL_MERCHANT_ID: ${ZARINPAL_MERCHANT_ID:-}
+      ZARINPAL_SANDBOX: ${ZARINPAL_SANDBOX:-true}
     ports:
       - "3000:3000"
     depends_on:

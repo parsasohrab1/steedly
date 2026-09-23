@@ -182,7 +182,12 @@ export default function LoginPage() {
           </div>
         </form>
 
-        <div className="text-center">
+        <div className="text-center space-y-2">
+          {isLogin && (
+            <Link href="/auth/forgot-password" className="block text-sm text-primary-600 hover:text-primary-500">
+              رمز عبور خود را فراموش کرده‌اید؟
+            </Link>
+          )}
           <Link href="/" className="text-sm text-primary-600 hover:text-primary-500">
             بازگشت به صفحه اصلی
           </Link>

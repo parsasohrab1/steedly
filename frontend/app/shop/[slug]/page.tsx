@@ -58,7 +58,7 @@ export default function ProductPage() {
         product_id: product.id,
         name: product.name,
         slug: product.slug,
-        price: parseFloat(product.price),
+        price: Number(product.price),
         image_url: product.image_url || product.images?.[0] || '',
         stock_quantity: product.stock_quantity,
       }, quantity);

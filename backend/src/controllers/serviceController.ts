@@ -160,7 +160,7 @@ export const updateVeterinarian = async (
     if (check.rows.length === 0) {
       return next(createError('Veterinarian not found', 404));
     }
-    if (check.rows[0].user_id !== parseInt(req.user!.id)) {
+    if (check.rows[0].user_id !== req.user!.id) {
       return next(createError('Unauthorized', 403));
     }
 
@@ -345,7 +345,7 @@ export const updateTransporter = async (
     if (check.rows.length === 0) {
       return next(createError('Transporter not found', 404));
     }
-    if (check.rows[0].user_id !== parseInt(req.user!.id)) {
+    if (check.rows[0].user_id !== req.user!.id) {
       return next(createError('Unauthorized', 403));
     }
 
@@ -468,9 +468,19 @@ export const getBookings = async (
     const userId = req.user!.id;
 
     const result = await query(
-      `SELECT * FROM service_bookings 
-       WHERE user_id = $1 
-       ORDER BY created_at DESC`,
+      `SELECT sb.*,
+              COALESCE(v.full_name, t.company_name, t.contact_name) AS provider_name,
+              COALESCE(v.phone, t.phone) AS provider_phone,
+              EXISTS (
+                SELECT 1 FROM service_reviews sr WHERE sr.booking_id = sb.id
+              ) AS has_review
+       FROM service_bookings sb
+       LEFT JOIN veterinarians v
+         ON sb.service_type = 'veterinarian' AND v.id = sb.service_provider_id
+       LEFT JOIN horse_transporters t
+         ON sb.service_type = 'transporter' AND t.id = sb.service_provider_id
+       WHERE sb.user_id = $1
+       ORDER BY sb.created_at DESC`,
       [userId]
     );
 
@@ -496,6 +506,36 @@ export const updateBookingStatus = async (
       return next(createError('Invalid status', 400));
     }
 
+    const bookingResult = await query(
+      'SELECT * FROM service_bookings WHERE id = $1',
+      [id]
+    );
+    if (bookingResult.rows.length === 0) {
+      return next(createError('Booking not found', 404));
+    }
+    const booking = bookingResult.rows[0];
+
+    // Admins can set any status; the provider behind the booking can manage it;
+    // the customer who made it may only cancel it.
+    const user = req.user!;
+    let allowed = user.role === 'admin';
+    if (!allowed) {
+      const providerTable = booking.service_type === 'veterinarian' ? 'veterinarians' : 'horse_transporters';
+      const providerResult = await query(
+        `SELECT user_id FROM ${providerTable} WHERE id = $1`,
+        [booking.service_provider_id]
+      );
+      const isProvider = providerResult.rows[0]?.user_id === user.id;
+      const isOwner = booking.user_id === user.id;
+      allowed = isProvider || (isOwner && status === 'cancelled');
+    }
+    if (!allowed) {
+      return next(createError('Insufficient permissions', 403));
+    }
+    if (['completed', 'cancelled'].includes(booking.status)) {
+      return next(createError(`Booking is already ${booking.status}`, 400));
+    }
+
     const result = await query(
       `UPDATE service_bookings 
        SET status = $1, updated_at = CURRENT_TIMESTAMP 
@@ -503,10 +543,6 @@ export const updateBookingStatus = async (
        RETURNING *`,
       [status, id]
     );
-
-    if (result.rows.length === 0) {
-      return next(createError('Booking not found', 404));
-    }
 
     res.json({
       success: true,

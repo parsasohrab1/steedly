@@ -1,3 +1,4 @@
+import { AuthRequest } from '../../middleware/auth';
 import { Request, Response, NextFunction } from 'express';
 import { register, login, getProfile } from '../../controllers/authController';
 import { query } from '../../database/connection';
@@ -11,14 +12,14 @@ const mockQuery = query as jest.MockedFunction<typeof query>;
 const mockBcrypt = bcrypt as jest.Mocked<typeof bcrypt>;
 
 describe('Auth Controller', () => {
-  let mockRequest: Partial<Request>;
+  let mockRequest: Partial<AuthRequest>;
   let mockResponse: Partial<Response>;
   let mockNext: NextFunction;
 
   beforeEach(() => {
     mockRequest = {
       body: {},
-      user: { id: '1' },
+      user: { id: 1, email: 'test@example.com', role: 'user' },
     };
     mockResponse = {
       json: jest.fn(),
@@ -98,6 +99,7 @@ describe('Auth Controller', () => {
             id: 1,
             email: 'test@example.com',
             password_hash: hashedPassword,
+            is_active: true,
             full_name: 'Test User',
           },
         ],
@@ -129,6 +131,7 @@ describe('Auth Controller', () => {
             id: 1,
             email: 'test@example.com',
             password_hash: hashedPassword,
+            is_active: true,
           },
         ],
       });

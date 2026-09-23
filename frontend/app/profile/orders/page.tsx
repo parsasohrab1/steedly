@@ -9,7 +9,7 @@ import { FaArrowRight, FaBox } from 'react-icons/fa';
 interface Order {
   id: number;
   order_number: string;
-  total_amount: number;
+  total_amount: number | string;
   status: string;
   payment_status: string;
   created_at: string;
@@ -123,7 +123,7 @@ export default function OrdersPage() {
                 <div className="flex justify-between items-center mb-2">
                   <span className="text-gray-600">مبلغ کل:</span>
                   <span className="text-xl font-bold text-primary-600">
-                    {order.total_amount.toLocaleString('fa-IR')} تومان
+                    {Number(order.total_amount).toLocaleString('fa-IR')} تومان
                   </span>
                 </div>
                 <div className="flex justify-between items-center">

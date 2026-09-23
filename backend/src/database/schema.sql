@@ -248,3 +248,22 @@ CREATE INDEX IF NOT EXISTS idx_notifications_user ON notifications(user_id);
 CREATE INDEX IF NOT EXISTS idx_notifications_read ON notifications(user_id, is_read);
 CREATE INDEX IF NOT EXISTS idx_notifications_created ON notifications(created_at DESC);
 
+
+-- Online payments (Zarinpal gateway)
+CREATE TABLE IF NOT EXISTS payments (
+    id SERIAL PRIMARY KEY,
+    order_id INTEGER REFERENCES orders(id) ON DELETE CASCADE,
+    user_id INTEGER REFERENCES users(id),
+    amount DECIMAL(12,2) NOT NULL,
+    gateway VARCHAR(50) NOT NULL DEFAULT 'zarinpal',
+    authority VARCHAR(100) UNIQUE,
+    status VARCHAR(50) DEFAULT 'pending', -- 'pending', 'paid', 'failed'
+    ref_id VARCHAR(100),
+    card_pan VARCHAR(50),
+    client VARCHAR(20) DEFAULT 'web', -- 'web' or 'android' (decides where the callback redirects)
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    verified_at TIMESTAMP
+);
+
+CREATE INDEX IF NOT EXISTS idx_payments_order ON payments(order_id);
+CREATE INDEX IF NOT EXISTS idx_bookings_user ON service_bookings(user_id);
