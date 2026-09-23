@@ -5,6 +5,7 @@ package ir.steedly.app.ui.screens.settings
 import android.content.Context
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
@@ -13,12 +14,14 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.imageLoader
 import ir.steedly.app.BuildConfig
+import ir.steedly.app.data.remote.RetrofitClient
 import ir.steedly.app.data.local.SettingsManager
 import ir.steedly.app.repository.OfflineRepository
 import ir.steedly.app.ui.components.AppTopBar
@@ -81,6 +84,10 @@ fun SettingsScreen(
                 }
             }
 
+            if (BuildConfig.DEBUG) {
+                ServerAddressCard(snackbar)
+            }
+
             SettingsCard("اعلان‌ها") {
                 SwitchRow("اعلان سفارش‌ها و رزروها", "نمایش اعلان هنگام تغییر وضعیت سفارش یا رزرو", notifications) {
                     scope.launch { viewModel.setNotifications(it) }
@@ -139,5 +146,85 @@ private fun SwitchRow(title: String, subtitle: String?, checked: Boolean, onChan
             }
         }
         Switch(checked = checked, onCheckedChange = onChange)
+    }
+}
+
+/**
+ * Debug builds only: choose which backend the app talks to, e.g. the IP of the
+ * computer running `npm run dev` on the same Wi-Fi network.
+ */
+@Composable
+private fun ServerAddressCard(snackbar: SnackbarHostState) {
+    val scope = rememberCoroutineScope()
+    var input by remember { mutableStateOf(RetrofitClient.baseUrl) }
+    var current by remember { mutableStateOf(RetrofitClient.baseUrl) }
+    var busy by remember { mutableStateOf(false) }
+
+    SettingsCard("آدرس سرور (نسخه آزمایشی)") {
+        Text(
+            "IP کامپیوتری که بک‌اند روی آن اجرا می‌شود را وارد کنید. گوشی و کامپیوتر باید به یک شبکه Wi-Fi وصل باشند.",
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+        OutlinedTextField(
+            value = input,
+            onValueChange = { input = it },
+            modifier = Modifier.fillMaxWidth(),
+            label = { Text("آدرس سرور") },
+            placeholder = { Text("192.168.1.10:3000") },
+            singleLine = true,
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Uri)
+        )
+        Text(
+            "در حال استفاده: $current",
+            style = MaterialTheme.typography.labelSmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            OutlinedButton(
+                enabled = !busy,
+                onClick = {
+                    val url = RetrofitClient.normalizeBaseUrl(input)
+                    if (url == null) {
+                        scope.launch { snackbar.showSnackbar("آدرس نامعتبر است") }
+                        return@OutlinedButton
+                    }
+                    scope.launch {
+                        busy = true
+                        val ok = RetrofitClient.checkHealth(url)
+                        busy = false
+                        snackbar.showSnackbar(if (ok) "اتصال برقرار است ✓" else "سرور پاسخ نداد: $url")
+                    }
+                }
+            ) { Text("تست اتصال") }
+            Button(
+                enabled = !busy,
+                onClick = {
+                    val url = RetrofitClient.normalizeBaseUrl(input)
+                    if (url == null) {
+                        scope.launch { snackbar.showSnackbar("آدرس نامعتبر است") }
+                        return@Button
+                    }
+                    scope.launch {
+                        SettingsManager.setServerUrl(url)
+                        RetrofitClient.setBaseUrl(url)
+                        input = url
+                        current = url
+                        snackbar.showSnackbar("آدرس سرور ذخیره شد")
+                    }
+                }
+            ) { Text("ذخیره") }
+        }
+        TextButton(
+            enabled = !busy,
+            onClick = {
+                scope.launch {
+                    SettingsManager.setServerUrl(null)
+                    RetrofitClient.setBaseUrl(RetrofitClient.DEFAULT_BASE_URL)
+                    input = RetrofitClient.DEFAULT_BASE_URL
+                    current = RetrofitClient.DEFAULT_BASE_URL
+                }
+            }
+        ) { Text("بازگشت به آدرس پیش‌فرض") }
     }
 }

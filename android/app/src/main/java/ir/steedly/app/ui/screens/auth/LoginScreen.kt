@@ -86,7 +86,16 @@ fun LoginScreen(navController: NavController) {
         }
     }
 
-    Scaffold(topBar = { AppTopBar(if (isRegister) "ثبت‌نام" else "ورود", onBack = { navController.popBackStack() }) }) { padding ->
+    Scaffold(
+        topBar = {
+            AppTopBar(if (isRegister) "ثبت‌نام" else "ورود", onBack = { navController.popBackStack() }, actions = {
+                // Reachable before login so a test build can be pointed at the right server
+                IconButton(onClick = { navController.navigate(Routes.SETTINGS) }) {
+                    Icon(Icons.Default.Settings, contentDescription = "تنظیمات")
+                }
+            })
+        }
+    ) { padding ->
         Column(
             modifier = Modifier
                 .padding(padding)

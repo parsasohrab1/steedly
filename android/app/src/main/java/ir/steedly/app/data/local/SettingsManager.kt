@@ -6,6 +6,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
+import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
@@ -20,6 +21,7 @@ object SettingsManager {
     private val OFFLINE_MODE_KEY = booleanPreferencesKey("offline_mode")
     private val NOTIFICATIONS_KEY = booleanPreferencesKey("notifications_enabled")
     private val LAST_NOTIFIED_ID_KEY = intPreferencesKey("last_notified_id")
+    private val SERVER_URL_KEY = stringPreferencesKey("server_url")
 
     private var context: Context? = null
 
@@ -52,4 +54,14 @@ object SettingsManager {
 
     suspend fun getLastNotifiedId(): Int = read(LAST_NOTIFIED_ID_KEY, 0).first()
     suspend fun setLastNotifiedId(id: Int) = write(LAST_NOTIFIED_ID_KEY, id)
+
+    // Custom API base URL (debug builds); null means the build-time default
+    suspend fun getServerUrl(): String? =
+        context?.settingsDataStore?.data?.first()?.get(SERVER_URL_KEY)
+
+    suspend fun setServerUrl(url: String?) {
+        context?.settingsDataStore?.edit {
+            if (url == null) it.remove(SERVER_URL_KEY) else it[SERVER_URL_KEY] = url
+        }
+    }
 }
