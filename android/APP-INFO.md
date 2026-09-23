@@ -4,12 +4,12 @@
 
 ### Package Name (Application ID)
 ```
-ir.asbban.app
+ir.steedly.app
 ```
 
 ### Bundle Name
 ```
-AsbBan
+Steedly
 ```
 
 ### Version
@@ -23,13 +23,13 @@ AsbBan
 اگر هنوز keystore ندارید، از دستور زیر استفاده کنید:
 
 ```bash
-keytool -genkey -v -keystore asb-ban-key.jks -keyalg RSA -keysize 2048 -validity 10000 -alias asb-ban
+keytool -genkey -v -keystore steedly-key.jks -keyalg RSA -keysize 2048 -validity 10000 -alias steedly
 ```
 
 ### اطلاعات Key (بعد از ساخت)
 
-1. **Keystore File**: `asb-ban-key.jks` (یا مسیر کامل)
-2. **Key Alias**: `asb-ban`
+1. **Keystore File**: `steedly-key.jks` (یا مسیر کامل)
+2. **Key Alias**: `steedly`
 3. **Key Algorithm**: RSA
 4. **Key Size**: 2048 bit
 5. **Validity**: 10000 days (~27 years)
@@ -41,8 +41,8 @@ keytool -genkey -v -keystore asb-ban-key.jks -keyalg RSA -keysize 2048 -validity
 ```properties
 storePassword=YOUR_STORE_PASSWORD
 keyPassword=YOUR_KEY_PASSWORD
-keyAlias=asb-ban
-storeFile=../asb-ban-key.jks
+keyAlias=steedly
+storeFile=../steedly-key.jks
 ```
 
 ⚠️ **مهم**: این فایل را در `.gitignore` قرار دهید و هرگز commit نکنید!
@@ -50,17 +50,17 @@ storeFile=../asb-ban-key.jks
 ## ساختار Package
 
 ```
-Package: ir.asbban.app
-├── Main Activity: ir.asbban.app.MainActivity
-├── Application: ir.asbban.app.AsbBanApplication
-└── Namespace: ir.asbban.app
+Package: ir.steedly.app
+├── Main Activity: ir.steedly.app.MainActivity
+├── Application: ir.steedly.app.SteedlyApplication
+└── Namespace: ir.steedly.app
 ```
 
 ## اطلاعات برای کافه‌بازار
 
 ### نام اپلیکیشن
 ```
-اسب بان
+استیدلی
 ```
 
 ### دسته‌بندی
@@ -86,9 +86,9 @@ Package: ir.asbban.app
 ```
 
 ### اطلاعات تماس
-- **ایمیل**: info@asb-ban.ir
+- **ایمیل**: info@steedly.ir
 - **تلفن**: 021-12345678
-- **وب‌سایت**: https://asb-ban.ir
+- **وب‌سایت**: https://steedly.ir
 
 ## مراحل ساخت و امضا
 
@@ -96,13 +96,13 @@ Package: ir.asbban.app
 
 ```bash
 cd android
-keytool -genkey -v -keystore asb-ban-key.jks -keyalg RSA -keysize 2048 -validity 10000 -alias asb-ban
+keytool -genkey -v -keystore steedly-key.jks -keyalg RSA -keysize 2048 -validity 10000 -alias steedly
 ```
 
 سوالات:
-- **First and last name**: Asb Ban
+- **First and last name**: Steedly
 - **Organizational unit**: Development
-- **Organization**: Asb Ban
+- **Organization**: Steedly
 - **City**: Tehran
 - **State**: Tehran
 - **Country code**: IR
@@ -114,8 +114,8 @@ cd android
 cat > keystore.properties << EOF
 storePassword=YOUR_STORE_PASSWORD
 keyPassword=YOUR_KEY_PASSWORD
-keyAlias=asb-ban
-storeFile=../asb-ban-key.jks
+keyAlias=steedly
+storeFile=../steedly-key.jks
 EOF
 ```
 
@@ -210,7 +210,7 @@ android/app/build/outputs/apk/release/app-release.apk
 
 ## چک‌لیست قبل از آپلود
 
-- [ ] Package name: `ir.asbban.app`
+- [ ] Package name: `ir.steedly.app`
 - [ ] Version code افزایش یافته
 - [ ] Version name به‌روز شده
 - [ ] Keystore ساخته شده
@@ -224,20 +224,20 @@ android/app/build/outputs/apk/release/app-release.apk
 
 کافه‌بازار نیاز به اطلاعات زیر دارد:
 
-1. **Package Name**: `ir.asbban.app`
+1. **Package Name**: `ir.steedly.app`
 2. **SHA-1 Fingerprint**: (برای دریافت از keystore)
 3. **SHA-256 Fingerprint**: (برای دریافت از keystore)
 
 ### دریافت Fingerprint
 
 ```bash
-keytool -list -v -keystore asb-ban-key.jks -alias asb-ban
+keytool -list -v -keystore steedly-key.jks -alias steedly
 ```
 
 یا:
 
 ```bash
-keytool -list -v -keystore asb-ban-key.jks -alias asb-ban | grep -E "(SHA1|SHA256)"
+keytool -list -v -keystore steedly-key.jks -alias steedly | grep -E "(SHA1|SHA256)"
 ```
 
 ## به‌روزرسانی نسخه

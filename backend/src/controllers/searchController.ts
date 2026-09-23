@@ -59,7 +59,7 @@ export const globalSearch = async (
       let productQuery = `
         SELECT 
           p.id, p.name, p.slug, p.short_description, p.price,
-          p.images, p.image_url, pc.name as category_name
+          p.images, p.images[1] as image_url, pc.name as category_name
         FROM products p
         LEFT JOIN product_categories pc ON p.category_id = pc.id
         WHERE p.is_active = true

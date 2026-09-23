@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { cartService, CartItem } from '@/lib/cart';
-import { shopAPI } from '@/lib/api';
+import { shopAPI, paymentsAPI } from '@/lib/api';
 import { FaLock } from 'react-icons/fa';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import ErrorMessage from '@/components/ErrorMessage';
@@ -46,10 +46,23 @@ export default function CheckoutPage() {
       });
 
       if (response.data.success) {
-        // Clear cart
+        const orderId = response.data.data.id;
+        // The order now exists (stock is reserved), so the cart is no longer needed
         cartService.clear();
-        // Redirect to order success page
-        router.push(`/orders/${response.data.data.id}/success`);
+
+        if (formData.payment_method === 'online') {
+          try {
+            const payment = await paymentsAPI.requestPayment(orderId);
+            window.location.href = payment.data.data.payment_url;
+            return;
+          } catch {
+            // The order page offers a "pay now" retry if the gateway is unavailable
+            router.push(`/orders/${orderId}/success?payment=failed`);
+            return;
+          }
+        }
+
+        router.push(`/orders/${orderId}/success`);
       }
     } catch (err: any) {
       setError(err.response?.data?.message || 'خطا در ثبت سفارش. لطفاً دوباره تلاش کنید.');

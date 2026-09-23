@@ -11,11 +11,10 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        maven { url = uri("https://jitpack.io") }
-        maven { url = uri("https://repo.neshan.org/artifactory/public-maven") }
+        // Neshan map SDK
+        maven { url = uri("https://maven.neshan.org/artifactory/public-maven") }
     }
 }
 
-rootProject.name = "AsbBan"
+rootProject.name = "Steedly"
 include(":app")
-

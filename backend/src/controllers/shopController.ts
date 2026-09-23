@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { query } from '../database/connection';
+import { query, getClient } from '../database/connection';
 import { createError } from '../middleware/errorHandler';
 import { AuthRequest } from '../middleware/auth';
 import { sendOrderConfirmationEmail, sendOrderStatusUpdateEmail } from '../services/emailService';
@@ -58,12 +58,17 @@ export const getProducts = async (
     params.push(limit, offset);
 
     const result = await query(queryText, params);
-    const countResult = await query(
-      `SELECT COUNT(*) FROM products WHERE is_active = true${
-        categoryId ? ' AND category_id = $1' : ''
-      }${search ? (categoryId ? ' AND' : ' WHERE') + ' (name ILIKE $' + (categoryId ? '2' : '1') + ' OR description ILIKE $' + (categoryId ? '2' : '1') + ')' : ''}`,
-      categoryId && search ? [categoryId, `%${search}%`] : categoryId ? [categoryId] : search ? [`%${search}%`] : []
-    );
+    // Reuse the same filters (without pagination) for the total count
+    const countParams = params.slice(0, params.length - 2);
+    let countQuery = 'SELECT COUNT(*) FROM products p WHERE p.is_active = true';
+    let countParam = 1;
+    if (categoryId) {
+      countQuery += ` AND p.category_id = $${countParam++}`;
+    }
+    if (search) {
+      countQuery += ` AND (p.name ILIKE $${countParam} OR p.description ILIKE $${countParam})`;
+    }
+    const countResult = await query(countQuery, countParams);
 
     res.json({
       success: true,
@@ -137,67 +142,88 @@ export const createOrder = async (
   res: Response,
   next: NextFunction
 ) => {
-  try {
-    const { items, shipping_address, payment_method } = req.body;
-    const userId = req.user!.id;
+  const { items, shipping_address, payment_method } = req.body;
+  const userId = req.user!.id;
 
-    if (!items || !Array.isArray(items) || items.length === 0) {
-      return next(createError('Order items are required', 400));
+  if (!items || !Array.isArray(items) || items.length === 0) {
+    return next(createError('Order items are required', 400));
+  }
+  if (!shipping_address || typeof shipping_address !== 'string' || !shipping_address.trim()) {
+    return next(createError('Shipping address is required', 400));
+  }
+  const paymentMethod = payment_method || 'online';
+  if (!['online', 'cash'].includes(paymentMethod)) {
+    return next(createError('Invalid payment method', 400));
+  }
+
+  // Merge duplicate lines and reject non-positive / fractional quantities
+  const quantities = new Map<number, number>();
+  for (const item of items) {
+    const productId = Number(item?.product_id);
+    const quantity = Number(item?.quantity);
+    if (!Number.isInteger(productId) || !Number.isInteger(quantity) || quantity <= 0) {
+      return next(createError('Invalid order item', 400));
     }
+    quantities.set(productId, (quantities.get(productId) || 0) + quantity);
+  }
 
-    // Calculate total and validate products
-    let totalAmount = 0;
-    const orderItems = [];
+  const client = await getClient();
+  let orderId: number;
+  let orderNumber: string;
+  let totalAmount = 0;
 
-    for (const item of items) {
-      const product = await query(
-        'SELECT id, name, price, stock_quantity FROM products WHERE id = $1 AND is_active = true',
-        [item.product_id]
+  try {
+    await client.query('BEGIN');
+
+    const lineItems: { product_id: number; quantity: number; price: string }[] = [];
+    for (const [productId, quantity] of quantities) {
+      // Lock the row so concurrent orders cannot oversell the same stock
+      const product = await client.query(
+        'SELECT id, name, price, stock_quantity FROM products WHERE id = $1 AND is_active = true FOR UPDATE',
+        [productId]
       );
 
       if (product.rows.length === 0) {
-        return next(createError(`Product ${item.product_id} not found`, 404));
+        throw createError(`Product ${productId} not found`, 404);
+      }
+      if (product.rows[0].stock_quantity < quantity) {
+        throw createError(`Insufficient stock for ${product.rows[0].name}`, 400);
       }
 
-      if (product.rows[0].stock_quantity < item.quantity) {
-        return next(createError(`Insufficient stock for ${product.rows[0].name}`, 400));
-      }
-
-      const itemTotal = parseFloat(product.rows[0].price) * item.quantity;
-      totalAmount += itemTotal;
-
-      orderItems.push({
-        product_id: item.product_id,
-        quantity: item.quantity,
-        price: product.rows[0].price
-      });
+      totalAmount += parseFloat(product.rows[0].price) * quantity;
+      lineItems.push({ product_id: productId, quantity, price: product.rows[0].price });
     }
 
-    // Create order
-    const orderNumber = generateOrderNumber();
-    const orderResult = await query(
+    orderNumber = generateOrderNumber();
+    const orderResult = await client.query(
       `INSERT INTO orders 
        (user_id, order_number, total_amount, shipping_address, payment_method, status, payment_status)
        VALUES ($1, $2, $3, $4, $5, 'pending', 'pending')
-       RETURNING *`,
-      [userId, orderNumber, totalAmount, shipping_address, payment_method]
+       RETURNING id`,
+      [userId, orderNumber, totalAmount, shipping_address.trim(), paymentMethod]
     );
+    orderId = orderResult.rows[0].id;
 
-    const orderId = orderResult.rows[0].id;
-
-    // Create order items and update stock
-    for (const item of orderItems) {
-      await query(
+    for (const item of lineItems) {
+      await client.query(
         'INSERT INTO order_items (order_id, product_id, quantity, price) VALUES ($1, $2, $3, $4)',
         [orderId, item.product_id, item.quantity, item.price]
       );
-
-      await query(
+      await client.query(
         'UPDATE products SET stock_quantity = stock_quantity - $1 WHERE id = $2',
         [item.quantity, item.product_id]
       );
     }
 
+    await client.query('COMMIT');
+  } catch (error) {
+    await client.query('ROLLBACK').catch(() => undefined);
+    client.release();
+    return next(error);
+  }
+  client.release();
+
+  try {
     const finalOrder = await query(
       `SELECT o.*, 
         json_agg(
@@ -225,7 +251,7 @@ export const createOrder = async (
     const user = userResult.rows[0];
 
     // Prepare order items for email
-    const orderItems = finalOrder.rows[0].items.map((item: any) => ({
+    const emailItems = finalOrder.rows[0].items.map((item: any) => ({
       name: item.product_name,
       quantity: item.quantity,
       price: parseFloat(item.price),
@@ -252,7 +278,7 @@ export const createOrder = async (
         {
           orderNumber,
           totalAmount,
-          items: orderItems,
+          items: emailItems,
           shippingAddress: shipping_address,
         }
       );
@@ -268,6 +294,64 @@ export const createOrder = async (
     });
   } catch (error) {
     next(error);
+  }
+};
+
+export const cancelOrder = async (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  const { id } = req.params;
+  const userId = req.user!.id;
+  const client = await getClient();
+
+  try {
+    await client.query('BEGIN');
+
+    const orderResult = await client.query(
+      'SELECT * FROM orders WHERE id = $1 AND user_id = $2 FOR UPDATE',
+      [id, userId]
+    );
+    if (orderResult.rows.length === 0) {
+      throw createError('Order not found', 404);
+    }
+    const order = orderResult.rows[0];
+
+    // Once paid or handed to shipping, cancellation needs support (refund)
+    if (order.status !== 'pending' || order.payment_status === 'paid') {
+      throw createError('Only unpaid pending orders can be cancelled', 400);
+    }
+
+    const itemsResult = await client.query(
+      'SELECT product_id, quantity FROM order_items WHERE order_id = $1',
+      [id]
+    );
+    for (const item of itemsResult.rows) {
+      await client.query(
+        'UPDATE products SET stock_quantity = stock_quantity + $1 WHERE id = $2',
+        [item.quantity, item.product_id]
+      );
+    }
+
+    const updated = await client.query(
+      `UPDATE orders SET status = 'cancelled', updated_at = CURRENT_TIMESTAMP
+       WHERE id = $1 RETURNING *`,
+      [id]
+    );
+
+    await client.query('COMMIT');
+
+    res.json({
+      success: true,
+      message: 'Order cancelled',
+      data: updated.rows[0]
+    });
+  } catch (error) {
+    await client.query('ROLLBACK').catch(() => undefined);
+    next(error);
+  } finally {
+    client.release();
   }
 };
 

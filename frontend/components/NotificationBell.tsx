@@ -160,7 +160,7 @@ export default function NotificationBell() {
                     key={notification.id}
                     onClick={() => handleNotificationClick(notification)}
                     className={`w-full text-right p-4 hover:bg-gray-50 transition ${
-                      !notification.is_read ? 'bg-blue-50' : ''
+                      !notification.is_read ? 'bg-primary-50' : ''
                     }`}
                   >
                     <div className="flex items-start gap-3">
@@ -171,7 +171,7 @@ export default function NotificationBell() {
                         <div className="flex items-center gap-2 mb-1">
                           <h4 className="font-semibold text-sm">{notification.title}</h4>
                           {!notification.is_read && (
-                            <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
+                            <span className="w-2 h-2 bg-primary-500 rounded-full"></span>
                           )}
                         </div>
                         <p className="text-xs text-gray-600 line-clamp-2">{notification.message}</p>

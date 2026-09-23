@@ -1,11 +1,11 @@
 {
-  "name": "پلتفرم جامع اطلاعات اسب",
-  "short_name": "اسب بان",
+  "name": "استیدلی | Steedly — سلامت و مراقبت اسب",
+  "short_name": "استیدلی",
   "description": "مرجع جامع اطلاعات، خدمات و فروشگاه آنلاین اسب",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#0ea5e9",
+  "theme_color": "#0f766e",
   "orientation": "portrait-primary",
   "icons": [
     {
@@ -17,6 +17,11 @@
       "src": "/icon-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
+    },
+    {
+      "src": "/logo-mark.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
     }
   ],
   "categories": ["lifestyle", "sports"],

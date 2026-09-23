@@ -45,6 +45,15 @@ export const authAPI = {
     api.post('/auth/login', data),
   getProfile: () => api.get('/auth/profile'),
   updateProfile: (data: any) => api.put('/auth/profile', data),
+  forgotPassword: (email: string) => api.post('/auth/forgot-password', { email }),
+  resetPassword: (token: string, newPassword: string) =>
+    api.post('/auth/reset-password', { token, newPassword }),
+};
+
+export const paymentsAPI = {
+  requestPayment: (orderId: string | number) =>
+    api.post(`/payments/orders/${orderId}/request`, { client: 'web' }),
+  getOrderPayments: (orderId: string | number) => api.get(`/payments/orders/${orderId}`),
 };
 
 export const blogAPI = {
@@ -58,15 +67,19 @@ export const blogAPI = {
   deletePost: (id: number) => api.delete(`/blog/posts/${id}`),
 };
 
+type GeoParams = { latitude?: number | string; longitude?: number | string; radius?: number | string };
+
 export const servicesAPI = {
-  getVeterinarians: (params?: { region?: string; specialization?: string }) =>
+  getVeterinarians: (params?: GeoParams & { region?: string; specialization?: string }) =>
     api.get('/services/veterinarians', { params }),
   getVeterinarian: (id: string) => api.get(`/services/veterinarians/${id}`),
-  getTransporters: (params?: { region?: string }) =>
+  getTransporters: (params?: GeoParams & { region?: string }) =>
     api.get('/services/transporters', { params }),
   getTransporter: (id: string) => api.get(`/services/transporters/${id}`),
   createBooking: (data: any) => api.post('/services/bookings', data),
   getBookings: () => api.get('/services/bookings'),
+  updateBookingStatus: (id: number, status: string) =>
+    api.put(`/services/bookings/${id}/status`, { status }),
   createReview: (data: any) => api.post('/services/reviews', data),
   getReviews: (serviceType: string, providerId: string) =>
     api.get(`/services/reviews/${serviceType}/${providerId}`),
@@ -80,6 +93,7 @@ export const shopAPI = {
   createOrder: (data: any) => api.post('/shop/orders', data),
   getOrders: () => api.get('/shop/orders'),
   getOrder: (id: string) => api.get(`/shop/orders/${id}`),
+  cancelOrder: (id: string | number) => api.put(`/shop/orders/${id}/cancel`),
 };
 
 export const competitionsAPI = {

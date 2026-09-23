@@ -248,7 +248,7 @@ export default function SearchPage() {
                 )}
                 {result.price && (
                   <p className="text-lg font-bold text-primary-600">
-                    {result.price.toLocaleString('fa-IR')} تومان
+                    {Number(result.price).toLocaleString('fa-IR')} تومان
                   </p>
                 )}
                 {result.date && (

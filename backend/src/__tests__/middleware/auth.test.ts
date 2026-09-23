@@ -1,11 +1,11 @@
 import { Request, Response, NextFunction } from 'express';
-import { authenticate } from '../../middleware/auth';
+import { authenticate, AuthRequest } from '../../middleware/auth';
 import jwt from 'jsonwebtoken';
 
 jest.mock('jsonwebtoken');
 
 describe('Auth Middleware', () => {
-  let mockRequest: Partial<Request>;
+  let mockRequest: Partial<AuthRequest>;
   let mockResponse: Partial<Response>;
   let mockNext: NextFunction;
 
@@ -30,7 +30,7 @@ describe('Auth Middleware', () => {
       authorization: `Bearer ${token}`,
     };
 
-    (jwt.verify as jest.Mock).mockReturnValueOnce({ id: '1', email: 'test@example.com' });
+    (jwt.verify as jest.Mock).mockReturnValueOnce({ id: '1', email: 'test@example.com', role: 'user' });
 
     await authenticate(
       mockRequest as Request,
@@ -38,7 +38,7 @@ describe('Auth Middleware', () => {
       mockNext
     );
 
-    expect(mockRequest.user).toEqual({ id: '1', email: 'test@example.com' });
+    expect(mockRequest.user).toEqual({ id: 1, email: 'test@example.com', role: 'user' });
     expect(mockNext).toHaveBeenCalled();
   });
 
@@ -51,11 +51,8 @@ describe('Auth Middleware', () => {
       mockNext
     );
 
-    expect(mockResponse.status).toHaveBeenCalledWith(401);
-    expect(mockResponse.json).toHaveBeenCalledWith(
-      expect.objectContaining({
-        success: false,
-      })
+    expect(mockNext).toHaveBeenCalledWith(
+      expect.objectContaining({ statusCode: 401 })
     );
   });
 
@@ -75,7 +72,10 @@ describe('Auth Middleware', () => {
       mockNext
     );
 
-    expect(mockResponse.status).toHaveBeenCalledWith(401);
+    expect(mockNext).toHaveBeenCalledWith(
+      expect.objectContaining({ statusCode: 401 })
+    );
+    expect(mockRequest.user).toBeUndefined();
   });
 });
 

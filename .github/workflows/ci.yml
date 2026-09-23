@@ -17,7 +17,7 @@ jobs:
         env:
           POSTGRES_USER: test_user
           POSTGRES_PASSWORD: test_password
-          POSTGRES_DB: asb_ban_test
+          POSTGRES_DB: steedly_test
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -44,21 +44,25 @@ jobs:
         with:
           node-version: '18'
           cache: 'npm'
-          cache-dependency-path: backend/package-lock.json
+          # npm workspaces: one lockfile at the repository root
+          cache-dependency-path: package-lock.json
 
       - name: Install dependencies
-        working-directory: ./backend
         run: npm ci
 
       - name: Run linter
         working-directory: ./backend
         run: npm run lint || true
 
+      - name: Type check
+        working-directory: ./backend
+        run: npx tsc --noEmit
+
       - name: Run tests
         working-directory: ./backend
         env:
           NODE_ENV: test
-          DATABASE_URL: postgresql://test_user:test_password@localhost:5432/asb_ban_test
+          DATABASE_URL: postgresql://test_user:test_password@localhost:5432/steedly_test
           REDIS_URL: redis://localhost:6379/1
           JWT_SECRET: test-secret-key
         run: npm test -- --coverage
@@ -82,15 +86,19 @@ jobs:
         with:
           node-version: '18'
           cache: 'npm'
-          cache-dependency-path: frontend/package-lock.json
+          # npm workspaces: one lockfile at the repository root
+          cache-dependency-path: package-lock.json
 
       - name: Install dependencies
-        working-directory: ./frontend
         run: npm ci
 
       - name: Run linter
         working-directory: ./frontend
         run: npm run lint || true
+
+      - name: Type check
+        working-directory: ./frontend
+        run: npx tsc --noEmit
 
       - name: Run tests
         working-directory: ./frontend
@@ -121,8 +129,8 @@ jobs:
           file: ./Dockerfile
           target: backend-prod
           push: false
-          tags: asb-ban-backend:latest
-          cache-from: type=registry,ref=asb-ban-backend:latest
+          tags: steedly-backend:latest
+          cache-from: type=registry,ref=steedly-backend:latest
           cache-to: type=inline
 
       - name: Build frontend image
@@ -132,7 +140,38 @@ jobs:
           file: ./Dockerfile
           target: frontend-prod
           push: false
-          tags: asb-ban-frontend:latest
-          cache-from: type=registry,ref=asb-ban-frontend:latest
+          tags: steedly-frontend:latest
+          cache-from: type=registry,ref=steedly-frontend:latest
           cache-to: type=inline
 
+
+  android-build:
+    name: Android Build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: android
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: Unit tests
+        run: ./gradlew testDebugUnitTest --stacktrace
+
+      - name: Build debug APK
+        run: ./gradlew assembleDebug --stacktrace
+
+      - name: Upload debug APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: steedly-debug-apk
+          path: android/app/build/outputs/apk/debug/*.apk

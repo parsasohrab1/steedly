@@ -355,7 +355,7 @@ export async function seedContent() {
     // Get admin user ID
     const adminResult = await query(
       'SELECT id FROM users WHERE email = $1',
-      ['admin@asb-ban.ir']
+      ['admin@steedly.ir']
     );
     
     if (adminResult.rows.length === 0) {
@@ -400,7 +400,7 @@ export async function seedContent() {
       
       if (categoryResult.rows.length > 0) {
         await query(
-          `INSERT INTO products (name, slug, description, short_description, price, stock_quantity, category_id, image_url, is_active)
+          `INSERT INTO products (name, slug, description, short_description, price, stock_quantity, category_id, images, is_active)
            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, true)
            ON CONFLICT (slug) DO NOTHING`,
           [
@@ -411,7 +411,8 @@ export async function seedContent() {
             product.price,
             product.stock_quantity,
             categoryResult.rows[0].id,
-            product.image_url
+            // products.images is TEXT[]; node-postgres converts JS arrays
+            [product.image_url]
           ]
         );
         console.log(`✅ Product created: ${product.name}`);

@@ -16,7 +16,7 @@ export default async function ShopPage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold mb-8 text-center">فروشگاه اسب بان</h1>
+      <h1 className="text-4xl font-bold mb-8 text-center">فروشگاه استیدلی</h1>
 
       {products.length === 0 ? (
         <div className="text-center py-16">
@@ -46,11 +46,11 @@ export default async function ShopPage() {
                 </p>
                 <div className="flex items-center justify-between">
                   <span className="text-xl font-bold text-primary-600">
-                    {product.price.toLocaleString('fa-IR')} تومان
+                    {Number(product.price).toLocaleString('fa-IR')} تومان
                   </span>
                   {product.compare_at_price && (
                     <span className="text-sm text-gray-400 line-through">
-                      {product.compare_at_price.toLocaleString('fa-IR')}
+                      {Number(product.compare_at_price).toLocaleString('fa-IR')}
                     </span>
                   )}
                 </div>

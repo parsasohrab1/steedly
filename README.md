@@ -1,5 +1,9 @@
+<p align="center"><img src="brand/logo-horizontal.svg" width="440" alt="استیدلی | Steedly"></p>
+
 # **سند نیازمندی‌های نرم‌افزاری (SRS) و طرح توسعه نرم‌افزار (SDP)  
-برای پلتفرم جامع اطلاعات اسب**
+برای استیدلی (Steedly) — پلتفرم سلامت و مراقبت اسب**
+
+> راهنمای هویت بصری و رنگ‌های سازمانی: [`brand/BRAND.md`](brand/BRAND.md)
 
 ---
 

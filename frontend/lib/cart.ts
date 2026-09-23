@@ -9,7 +9,7 @@ export interface CartItem {
   stock_quantity: number;
 }
 
-const CART_STORAGE_KEY = 'asb_ban_cart';
+const CART_STORAGE_KEY = 'steedly_cart';
 
 export const cartService = {
   // Get all cart items

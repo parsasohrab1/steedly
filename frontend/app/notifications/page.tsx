@@ -140,7 +140,7 @@ export default function NotificationsPage() {
             <div
               key={notification.id}
               className={`bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition ${
-                !notification.is_read ? 'border-r-4 border-blue-500' : ''
+                !notification.is_read ? 'border-r-4 border-primary-500' : ''
               }`}
             >
               <div className="flex items-start justify-between">
@@ -150,7 +150,7 @@ export default function NotificationsPage() {
                       {getTypeLabel(notification.type)}
                     </span>
                     {!notification.is_read && (
-                      <span className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">
+                      <span className="text-xs bg-primary-100 text-primary-700 px-2 py-1 rounded">
                         خوانده نشده
                       </span>
                     )}
@@ -173,7 +173,7 @@ export default function NotificationsPage() {
                   {!notification.is_read && (
                     <button
                       onClick={() => handleMarkAsRead(notification.id)}
-                      className="p-2 text-blue-600 hover:bg-blue-50 rounded"
+                      className="p-2 text-primary-600 hover:bg-primary-50 rounded"
                       title="خوانده شده"
                     >
                       <FaCheck />

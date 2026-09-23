@@ -7,10 +7,10 @@ export default function Home() {
       {/* Hero Section */}
       <section className="text-center mb-16">
         <h1 className="text-5xl font-bold mb-4 text-primary-700">
-          پلتفرم جامع اطلاعات اسب
+          سلامت و مراقبت اسب، در یک جا
         </h1>
         <p className="text-xl text-gray-600 mb-8">
-          مرجع کامل اطلاعات، خدمات و فروشگاه آنلاین برای علاقه‌مندان به اسب
+          دامپزشک و اسب‌کش نزدیک شما، مقالات تخصصی سلامت اسب، فروشگاه و تقویم مسابقات
         </p>
         <div className="flex gap-4 justify-center">
           <Link

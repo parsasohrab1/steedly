@@ -13,22 +13,26 @@ const createTransporter = () => {
   });
 };
 
+// Brand mark shown at the top of every email (PNG: SVG is not supported by most mail clients)
+const LOGO_URL = `${process.env.FRONTEND_URL || 'http://localhost:3001'}/icon-192x192.png`;
+
 // Email templates
 const emailTemplates = {
   // Registration confirmation
   registration: (data: { name: string; email: string }) => ({
-    subject: 'خوش آمدید به اسب بان - تایید ثبت‌نام',
+    subject: 'خوش آمدید به استیدلی - تایید ثبت‌نام',
     html: `
-      <div dir="rtl" style="font-family: Tahoma, Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f5f5f5;">
+      <div dir="rtl" style="font-family: Tahoma, Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #F3F8F7;">
         <div style="background-color: #ffffff; padding: 30px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-          <h1 style="color: #2c5530; text-align: center; margin-bottom: 30px;">خوش آمدید به اسب بان</h1>
+          <div style="text-align: center; margin-bottom: 12px;"><img src="${LOGO_URL}" width="64" height="64" alt="استیدلی" style="border-radius: 14px;" /></div>
+          <h1 style="color: #0F766E; text-align: center; margin-bottom: 30px;">خوش آمدید به استیدلی</h1>
           
           <p style="color: #333; font-size: 16px; line-height: 1.6; margin-bottom: 20px;">
             سلام <strong>${data.name}</strong>،
           </p>
           
           <p style="color: #333; font-size: 16px; line-height: 1.6; margin-bottom: 20px;">
-            ثبت‌نام شما با موفقیت انجام شد. اکنون می‌توانید از تمامی خدمات پلتفرم اسب بان استفاده کنید.
+            ثبت‌نام شما با موفقیت انجام شد. اکنون می‌توانید از تمامی خدمات پلتفرم استیدلی استفاده کنید.
           </p>
           
           <div style="background-color: #f8f9fa; padding: 20px; border-radius: 5px; margin: 20px 0;">
@@ -41,7 +45,7 @@ const emailTemplates = {
           
           <p style="color: #666; font-size: 14px; margin-top: 30px; text-align: center; border-top: 1px solid #eee; padding-top: 20px;">
             با تشکر،<br>
-            <strong>تیم اسب بان</strong>
+            <strong>تیم استیدلی</strong>
           </p>
         </div>
       </div>
@@ -50,11 +54,12 @@ const emailTemplates = {
 
   // Password reset
   passwordReset: (data: { name: string; resetLink: string }) => ({
-    subject: 'بازیابی رمز عبور - اسب بان',
+    subject: 'بازیابی رمز عبور - استیدلی',
     html: `
-      <div dir="rtl" style="font-family: Tahoma, Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f5f5f5;">
+      <div dir="rtl" style="font-family: Tahoma, Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #F3F8F7;">
         <div style="background-color: #ffffff; padding: 30px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-          <h1 style="color: #2c5530; text-align: center; margin-bottom: 30px;">بازیابی رمز عبور</h1>
+          <div style="text-align: center; margin-bottom: 12px;"><img src="${LOGO_URL}" width="64" height="64" alt="استیدلی" style="border-radius: 14px;" /></div>
+          <h1 style="color: #0F766E; text-align: center; margin-bottom: 30px;">بازیابی رمز عبور</h1>
           
           <p style="color: #333; font-size: 16px; line-height: 1.6; margin-bottom: 20px;">
             سلام <strong>${data.name}</strong>،
@@ -65,7 +70,7 @@ const emailTemplates = {
           </p>
           
           <div style="text-align: center; margin: 30px 0;">
-            <a href="${data.resetLink}" style="display: inline-block; background-color: #2c5530; color: #ffffff; padding: 12px 30px; text-decoration: none; border-radius: 5px; font-size: 16px; font-weight: bold;">
+            <a href="${data.resetLink}" style="display: inline-block; background-color: #0F766E; color: #ffffff; padding: 12px 30px; text-decoration: none; border-radius: 5px; font-size: 16px; font-weight: bold;">
               بازیابی رمز عبور
             </a>
           </div>
@@ -76,7 +81,7 @@ const emailTemplates = {
           
           <p style="color: #666; font-size: 14px; margin-top: 30px; text-align: center; border-top: 1px solid #eee; padding-top: 20px;">
             با تشکر،<br>
-            <strong>تیم اسب بان</strong>
+            <strong>تیم استیدلی</strong>
           </p>
         </div>
       </div>
@@ -91,11 +96,12 @@ const emailTemplates = {
     items: Array<{ name: string; quantity: number; price: number }>;
     shippingAddress: string;
   }) => ({
-    subject: `تایید سفارش ${data.orderNumber} - اسب بان`,
+    subject: `تایید سفارش ${data.orderNumber} - استیدلی`,
     html: `
-      <div dir="rtl" style="font-family: Tahoma, Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f5f5f5;">
+      <div dir="rtl" style="font-family: Tahoma, Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #F3F8F7;">
         <div style="background-color: #ffffff; padding: 30px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-          <h1 style="color: #2c5530; text-align: center; margin-bottom: 30px;">سفارش شما ثبت شد</h1>
+          <div style="text-align: center; margin-bottom: 12px;"><img src="${LOGO_URL}" width="64" height="64" alt="استیدلی" style="border-radius: 14px;" /></div>
+          <h1 style="color: #0F766E; text-align: center; margin-bottom: 30px;">سفارش شما ثبت شد</h1>
           
           <p style="color: #333; font-size: 16px; line-height: 1.6; margin-bottom: 20px;">
             سلام <strong>${data.name}</strong>،
@@ -111,7 +117,7 @@ const emailTemplates = {
             <p style="color: #666; font-size: 14px; margin: 5px 0;"><strong>آدرس ارسال:</strong> ${data.shippingAddress}</p>
           </div>
           
-          <h2 style="color: #2c5530; font-size: 18px; margin-top: 30px; margin-bottom: 15px;">محصولات سفارش:</h2>
+          <h2 style="color: #0F766E; font-size: 18px; margin-top: 30px; margin-bottom: 15px;">محصولات سفارش:</h2>
           <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
             <thead>
               <tr style="background-color: #f8f9fa;">
@@ -137,7 +143,7 @@ const emailTemplates = {
           
           <p style="color: #666; font-size: 14px; margin-top: 30px; text-align: center; border-top: 1px solid #eee; padding-top: 20px;">
             با تشکر،<br>
-            <strong>تیم اسب بان</strong>
+            <strong>تیم استیدلی</strong>
           </p>
         </div>
       </div>
@@ -151,11 +157,12 @@ const emailTemplates = {
     status: string;
     statusText: string;
   }) => ({
-    subject: `به‌روزرسانی وضعیت سفارش ${data.orderNumber} - اسب بان`,
+    subject: `به‌روزرسانی وضعیت سفارش ${data.orderNumber} - استیدلی`,
     html: `
-      <div dir="rtl" style="font-family: Tahoma, Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f5f5f5;">
+      <div dir="rtl" style="font-family: Tahoma, Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #F3F8F7;">
         <div style="background-color: #ffffff; padding: 30px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-          <h1 style="color: #2c5530; text-align: center; margin-bottom: 30px;">به‌روزرسانی سفارش</h1>
+          <div style="text-align: center; margin-bottom: 12px;"><img src="${LOGO_URL}" width="64" height="64" alt="استیدلی" style="border-radius: 14px;" /></div>
+          <h1 style="color: #0F766E; text-align: center; margin-bottom: 30px;">به‌روزرسانی سفارش</h1>
           
           <p style="color: #333; font-size: 16px; line-height: 1.6; margin-bottom: 20px;">
             سلام <strong>${data.name}</strong>،
@@ -166,7 +173,7 @@ const emailTemplates = {
           </p>
           
           <div style="background-color: #f8f9fa; padding: 20px; border-radius: 5px; margin: 20px 0; text-align: center;">
-            <p style="color: #2c5530; font-size: 18px; font-weight: bold; margin: 0;">
+            <p style="color: #0F766E; font-size: 18px; font-weight: bold; margin: 0;">
               ${data.statusText}
             </p>
           </div>
@@ -177,7 +184,7 @@ const emailTemplates = {
           
           <p style="color: #666; font-size: 14px; margin-top: 30px; text-align: center; border-top: 1px solid #eee; padding-top: 20px;">
             با تشکر،<br>
-            <strong>تیم اسب بان</strong>
+            <strong>تیم استیدلی</strong>
           </p>
         </div>
       </div>
@@ -192,11 +199,12 @@ const emailTemplates = {
     bookingDate: string;
     bookingTime: string;
   }) => ({
-    subject: `یادآوری رزرو ${data.serviceName} - اسب بان`,
+    subject: `یادآوری رزرو ${data.serviceName} - استیدلی`,
     html: `
-      <div dir="rtl" style="font-family: Tahoma, Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f5f5f5;">
+      <div dir="rtl" style="font-family: Tahoma, Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #F3F8F7;">
         <div style="background-color: #ffffff; padding: 30px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-          <h1 style="color: #2c5530; text-align: center; margin-bottom: 30px;">یادآوری رزرو</h1>
+          <div style="text-align: center; margin-bottom: 12px;"><img src="${LOGO_URL}" width="64" height="64" alt="استیدلی" style="border-radius: 14px;" /></div>
+          <h1 style="color: #0F766E; text-align: center; margin-bottom: 30px;">یادآوری رزرو</h1>
           
           <p style="color: #333; font-size: 16px; line-height: 1.6; margin-bottom: 20px;">
             سلام <strong>${data.name}</strong>،
@@ -218,7 +226,7 @@ const emailTemplates = {
           
           <p style="color: #666; font-size: 14px; margin-top: 30px; text-align: center; border-top: 1px solid #eee; padding-top: 20px;">
             با تشکر،<br>
-            <strong>تیم اسب بان</strong>
+            <strong>تیم استیدلی</strong>
           </p>
         </div>
       </div>
@@ -249,7 +257,7 @@ export const sendEmail = async (
     const templateData = emailTemplates[template](data);
 
     const mailOptions = {
-      from: `"اسب بان" <${process.env.SMTP_USER}>`,
+      from: `"استیدلی" <${process.env.SMTP_USER}>`,
       to,
       subject: templateData.subject,
       html: templateData.html,

@@ -19,6 +19,7 @@ import notificationsRoutes from './routes/notifications';
 import searchRoutes from './routes/search';
 import uploadRoutes from './routes/upload';
 import pushRoutes from './routes/push';
+import paymentRoutes from './routes/payments';
 
 dotenv.config();
 
@@ -66,6 +67,7 @@ app.use('/api/notifications', notificationsRoutes);
 app.use('/api/search', searchRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/push', pushRoutes);
+app.use('/api/payments', paymentRoutes);
 
 // 404 handler
 app.use((req: Request, res: Response) => {

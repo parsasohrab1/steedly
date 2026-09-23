@@ -58,7 +58,7 @@ export default function ProductPage() {
         product_id: product.id,
         name: product.name,
         slug: product.slug,
-        price: parseFloat(product.price),
+        price: Number(product.price),
         image_url: product.image_url || product.images?.[0] || '',
         stock_quantity: product.stock_quantity,
       }, quantity);
@@ -175,7 +175,7 @@ export default function ProductPage() {
           {/* Price */}
           <div className="mb-6">
             <span className="text-4xl font-bold text-primary-600">
-              {product.price.toLocaleString('fa-IR')}
+              {Number(product.price).toLocaleString('fa-IR')}
             </span>
             <span className="text-gray-600 mr-2">تومان</span>
           </div>

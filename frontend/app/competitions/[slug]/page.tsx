@@ -139,7 +139,7 @@ export default function CompetitionPage() {
               {competition.competition_type}
             </span>
             {competition.is_international && (
-              <span className="px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm font-semibold flex items-center gap-2">
+              <span className="px-4 py-2 bg-primary-100 text-primary-700 rounded-full text-sm font-semibold flex items-center gap-2">
                 <FaFlag />
                 بین‌المللی
               </span>

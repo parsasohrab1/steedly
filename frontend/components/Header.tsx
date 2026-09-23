@@ -3,9 +3,10 @@
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
-import { FaHorse, FaBars, FaTimes, FaUser, FaShoppingCart } from 'react-icons/fa';
+import { FaBars, FaTimes, FaUser, FaShoppingCart } from 'react-icons/fa';
 import SearchBar from './SearchBar';
 import NotificationBell from './NotificationBell';
+import Logo from './Logo';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -34,9 +35,8 @@ export default function Header() {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 text-primary-600">
-            <FaHorse className="text-2xl" />
-            <span className="text-xl font-bold">اسب بان</span>
+          <Link href="/" aria-label="استیدلی - صفحه اصلی">
+            <Logo />
           </Link>
 
           {/* Desktop Navigation */}

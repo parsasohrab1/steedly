@@ -3,13 +3,13 @@
 ## مشکل: npm error ENOENT
 
 ### علت
-شما در مسیر اشتباه هستید. `package.json` در پوشه `asb-ban` قرار دارد.
+شما در مسیر اشتباه هستید. `package.json` در پوشه `steedly` قرار دارد.
 
 ### راه حل
 
 #### 1. به مسیر صحیح بروید:
 ```bash
-cd asb-ban
+cd steedly
 ```
 
 #### 2. سپس دستور را اجرا کنید:
@@ -24,9 +24,9 @@ npm run dev
 
 ## مسیرهای صحیح
 
-- **پروژه اصلی**: `C:\Users\asus\Documents\asbban\asb-ban`
-- **Backend**: `C:\Users\asus\Documents\asbban\asb-ban\backend`
-- **Frontend**: `C:\Users\asus\Documents\asbban\asb-ban\frontend`
+- **پروژه اصلی**: `C:\Users\asus\Documents\steedly\steedly`
+- **Backend**: `C:\Users\asus\Documents\steedly\steedly\backend`
+- **Frontend**: `C:\Users\asus\Documents\steedly\steedly\frontend`
 
 ## دستورات مفید
 
@@ -39,7 +39,7 @@ Get-Location
 
 ### رفتن به مسیر پروژه
 ```bash
-cd C:\Users\asus\Documents\asbban\asb-ban
+cd C:\Users\asus\Documents\steedly\steedly
 ```
 
 ### اجرای Backend

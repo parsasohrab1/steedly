@@ -1,3 +1,4 @@
+import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import Header from '@/components/Header';
 
@@ -12,7 +13,7 @@ describe('Header Component', () => {
   it('renders logo and navigation links', () => {
     render(<Header />);
 
-    expect(screen.getByText('اسب بان')).toBeInTheDocument();
+    expect(screen.getByText('استیدلی')).toBeInTheDocument();
     expect(screen.getByText('مقالات')).toBeInTheDocument();
     expect(screen.getByText('خدمات')).toBeInTheDocument();
     expect(screen.getByText('فروشگاه')).toBeInTheDocument();

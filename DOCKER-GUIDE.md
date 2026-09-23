@@ -5,43 +5,57 @@
 - Docker Desktop یا Docker Engine
 - Docker Compose
 
-## اجرای سریع
-
-### 1. ساخت و اجرای Containerها
+## اجرای سریع (سه دستور)
 
 ```bash
-docker-compose up -d
+cp .env.example .env              # یک بار؛ در صورت نیاز مقادیر را تغییر دهید
+docker compose up -d --build      # ساخت و اجرای همه سرویس‌ها
+docker compose run --rm seed      # یک بار: کاربر مدیر و محتوای نمونه
 ```
 
-این دستور:
-- PostgreSQL را در پورت 5432 راه‌اندازی می‌کند
-- Redis را در پورت 6379 راه‌اندازی می‌کند
-- Backend را در پورت 3000 راه‌اندازی می‌کند
-- Frontend را در پورت 3001 راه‌اندازی می‌کند
+سپس:
+
+| سرویس | آدرس |
+|--------|------|
+| وب‌سایت | http://localhost:3001 |
+| API | http://localhost:3000/api |
+| سلامت API | http://localhost:3000/health |
+
+ورود مدیر (بعد از seed): `admin@steedly.ir` / `admin123` — **حتماً رمز را عوض کنید.**
+
+این دستورها PostgreSQL (پورت 5432) و Redis (پورت 6379) را هم اجرا می‌کنند و جدول‌ها در اولین اجرا
+به‌طور خودکار از `backend/src/database/schema.sql` ساخته می‌شوند. اجرای دوباره `seed` تکراری ایجاد نمی‌کند.
+
+### اتصال اپ اندروید (نسخه آزمایشی)
+
+1. IP کامپیوتر را پیدا کنید (ویندوز: `ipconfig`، مک: `ipconfig getifaddr en0`).
+2. در اپ: صفحه ورود ← ⚙️ ← «آدرس سرور» ← مثلاً `192.168.1.10:3000` ← «تست اتصال» ← «ذخیره».
+3. برای پرداخت آزمایشی از گوشی، در `.env` مقدار `API_URL` را روی همان IP بگذارید
+   (`http://192.168.1.10:3000/api`) و `docker compose up -d` را دوباره اجرا کنید.
 
 ### 2. مشاهده لاگ‌ها
 
 ```bash
 # همه سرویس‌ها
-docker-compose logs -f
+docker compose logs -f
 
 # فقط backend
-docker-compose logs -f backend
+docker compose logs -f backend
 
 # فقط frontend
-docker-compose logs -f frontend
+docker compose logs -f frontend
 ```
 
 ### 3. توقف Containerها
 
 ```bash
-docker-compose down
+docker compose down
 ```
 
 ### 4. توقف و حذف Volumeها
 
 ```bash
-docker-compose down -v
+docker compose down -v
 ```
 
 ## ساخت Imageها
@@ -49,13 +63,13 @@ docker-compose down -v
 ### ساخت Backend Image
 
 ```bash
-docker build -t asb-ban-backend:latest --target backend-prod .
+docker build -t steedly-backend:latest --target backend-prod .
 ```
 
 ### ساخت Frontend Image
 
 ```bash
-docker build -t asb-ban-frontend:latest --target frontend-prod .
+docker build -t steedly-frontend:latest --target frontend-prod .
 ```
 
 ## متغیرهای محیطی
@@ -64,9 +78,9 @@ docker build -t asb-ban-frontend:latest --target frontend-prod .
 
 ```env
 # Database
-POSTGRES_USER=asb_ban
+POSTGRES_USER=steedly
 POSTGRES_PASSWORD=your_secure_password
-POSTGRES_DB=asb_ban
+POSTGRES_DB=steedly
 
 # JWT
 JWT_SECRET=your-secret-key-change-in-production
@@ -80,20 +94,20 @@ FRONTEND_URL=http://localhost:3001
 
 ```bash
 # اتصال به PostgreSQL
-docker-compose exec postgres psql -U asb_ban -d asb_ban
+docker compose exec postgres psql -U steedly -d steedly
 
 # اتصال به Redis CLI
-docker-compose exec redis redis-cli
+docker compose exec redis redis-cli
 ```
 
 ## اجرای Migrationها
 
 ```bash
 # اجرای schema
-docker-compose exec backend npm run migrate
+docker compose exec backend npm run migrate
 
 # اجرای seed
-docker-compose exec backend npm run seed
+docker compose exec backend npm run seed
 ```
 
 ## Troubleshooting
@@ -102,17 +116,17 @@ docker-compose exec backend npm run seed
 
 ```bash
 # بررسی وضعیت containerها
-docker-compose ps
+docker compose ps
 
 # بررسی لاگ‌های PostgreSQL
-docker-compose logs postgres
+docker compose logs postgres
 ```
 
 ### مشکل در Build
 
 ```bash
 # پاک کردن cache و rebuild
-docker-compose build --no-cache
+docker compose build --no-cache
 ```
 
 ### مشکل در Port
@@ -135,6 +149,6 @@ ports:
 
 ```bash
 # Build برای production
-docker-compose -f docker-compose.prod.yml up -d
+docker compose -f docker-compose.prod.yml up -d
 ```
 

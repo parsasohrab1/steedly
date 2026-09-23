@@ -1,4 +1,4 @@
--- Database Schema for ASB-BAN Platform
+-- Database Schema for Steedly Platform
 
 -- Users Table
 CREATE TABLE IF NOT EXISTS users (
@@ -234,13 +234,15 @@ CREATE TABLE IF NOT EXISTS push_subscriptions (
 );
 
 -- Create indexes for better performance
+-- Full-text indexes use the built-in 'simple' configuration: stock PostgreSQL ships no
+-- 'persian' configuration, and 'simple' tokenises Persian text without stemming.
 CREATE INDEX IF NOT EXISTS idx_blog_posts_category ON blog_posts(category_id);
 CREATE INDEX IF NOT EXISTS idx_blog_posts_author ON blog_posts(author_id);
 CREATE INDEX IF NOT EXISTS idx_blog_posts_published ON blog_posts(is_published, published_at);
-CREATE INDEX IF NOT EXISTS idx_blog_posts_title ON blog_posts USING gin(to_tsvector('persian', title));
-CREATE INDEX IF NOT EXISTS idx_blog_posts_content ON blog_posts USING gin(to_tsvector('persian', content));
+CREATE INDEX IF NOT EXISTS idx_blog_posts_title ON blog_posts USING gin(to_tsvector('simple', title));
+CREATE INDEX IF NOT EXISTS idx_blog_posts_content ON blog_posts USING gin(to_tsvector('simple', content));
 CREATE INDEX IF NOT EXISTS idx_products_category ON products(category_id);
-CREATE INDEX IF NOT EXISTS idx_products_name ON products USING gin(to_tsvector('persian', name));
+CREATE INDEX IF NOT EXISTS idx_products_name ON products USING gin(to_tsvector('simple', name));
 CREATE INDEX IF NOT EXISTS idx_orders_user ON orders(user_id);
 CREATE INDEX IF NOT EXISTS idx_competitions_dates ON competitions(start_date, end_date);
 CREATE INDEX IF NOT EXISTS idx_competitions_type ON competitions(competition_type);
@@ -248,3 +250,22 @@ CREATE INDEX IF NOT EXISTS idx_notifications_user ON notifications(user_id);
 CREATE INDEX IF NOT EXISTS idx_notifications_read ON notifications(user_id, is_read);
 CREATE INDEX IF NOT EXISTS idx_notifications_created ON notifications(created_at DESC);
 
+
+-- Online payments (Zarinpal gateway)
+CREATE TABLE IF NOT EXISTS payments (
+    id SERIAL PRIMARY KEY,
+    order_id INTEGER REFERENCES orders(id) ON DELETE CASCADE,
+    user_id INTEGER REFERENCES users(id),
+    amount DECIMAL(12,2) NOT NULL,
+    gateway VARCHAR(50) NOT NULL DEFAULT 'zarinpal',
+    authority VARCHAR(100) UNIQUE,
+    status VARCHAR(50) DEFAULT 'pending', -- 'pending', 'paid', 'failed'
+    ref_id VARCHAR(100),
+    card_pan VARCHAR(50),
+    client VARCHAR(20) DEFAULT 'web', -- 'web' or 'android' (decides where the callback redirects)
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    verified_at TIMESTAMP
+);
+
+CREATE INDEX IF NOT EXISTS idx_payments_order ON payments(order_id);
+CREATE INDEX IF NOT EXISTS idx_bookings_user ON service_bookings(user_id);

@@ -313,7 +313,7 @@ function RecentProducts() {
             <div className="flex-1">
               <p className="font-semibold text-sm">{product.name}</p>
               <p className="text-xs text-gray-500">
-                {product.price.toLocaleString('fa-IR')} تومان
+                {Number(product.price).toLocaleString('fa-IR')} تومان
               </p>
             </div>
             <div className="flex gap-2">
