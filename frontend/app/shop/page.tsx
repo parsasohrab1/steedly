@@ -46,11 +46,11 @@ export default async function ShopPage() {
                 </p>
                 <div className="flex items-center justify-between">
                   <span className="text-xl font-bold text-primary-600">
-                    {product.price.toLocaleString('fa-IR')} تومان
+                    {Number(product.price).toLocaleString('fa-IR')} تومان
                   </span>
                   {product.compare_at_price && (
                     <span className="text-sm text-gray-400 line-through">
-                      {product.compare_at_price.toLocaleString('fa-IR')}
+                      {Number(product.compare_at_price).toLocaleString('fa-IR')}
                     </span>
                   )}
                 </div>

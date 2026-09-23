@@ -62,6 +62,35 @@ async function seed() {
 
     console.log('✅ Product categories created');
 
+    // Sample service providers around Tehran so the services list, map and booking can be tried out
+    const veterinarians = [
+      { full_name: 'دکتر سارا احمدی', specialization: 'جراحی و ارتوپدی اسب', region: 'تهران - لواسان', phone: '09120000001', lat: 35.8219, lng: 51.6336, address: 'لواسان، خیابان امام' },
+      { full_name: 'دکتر رضا کریمی', specialization: 'بیماری‌های داخلی و گوارش (کولیک)', region: 'کرج', phone: '09120000002', lat: 35.8400, lng: 50.9391, address: 'کرج، بلوار جمهوری' },
+      { full_name: 'دکتر مریم حسینی', specialization: 'دندانپزشکی و مراقبت سم', region: 'تهران - شهریار', phone: '09120000003', lat: 35.6597, lng: 51.0590, address: 'شهریار، جاده باغستان' },
+    ];
+    for (const vet of veterinarians) {
+      await query(
+        `INSERT INTO veterinarians (full_name, specialization, region, phone, latitude, longitude, address, rating, total_reviews, is_verified)
+         SELECT $1::varchar, $2::varchar, $3::varchar, $4::varchar, $5::numeric, $6::numeric, $7::text, 4.6, 12, true
+         WHERE NOT EXISTS (SELECT 1 FROM veterinarians WHERE phone = $4::varchar)`,
+        [vet.full_name, vet.specialization, vet.region, vet.phone, vet.lat, vet.lng, vet.address]
+      );
+    }
+    const transporters = [
+      { company_name: 'اسب‌کش امین', contact_name: 'علی امینی', region: 'تهران', phone: '09120000011', lat: 35.7219, lng: 51.3347, equipment: 'تریلر دو اسبه با کف ضدلغزش', transport_info: 'حمل بین‌شهری با همراه دامپزشک' },
+      { company_name: 'حمل اسب البرز', contact_name: 'حسن رضایی', region: 'کرج', phone: '09120000012', lat: 35.8327, lng: 50.9915, equipment: 'کامیون چهار اسبه با تهویه', transport_info: 'حمل مسابقات و نمایشگاه‌ها' },
+    ];
+    for (const t of transporters) {
+      await query(
+        `INSERT INTO horse_transporters (company_name, contact_name, region, phone, latitude, longitude, equipment, transport_info, rating, total_reviews, is_verified)
+         SELECT $1::varchar, $2::varchar, $3::varchar, $4::varchar, $5::numeric, $6::numeric, $7::text, $8::text, 4.4, 8, true
+         WHERE NOT EXISTS (SELECT 1 FROM horse_transporters WHERE phone = $4::varchar)`,
+        [t.company_name, t.contact_name, t.region, t.phone, t.lat, t.lng, t.equipment, t.transport_info]
+      );
+    }
+
+    console.log('✅ Sample veterinarians and transporters created');
+
     console.log('🎉 Database seed completed successfully!');
     
     // Import and run content seed

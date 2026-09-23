@@ -175,7 +175,7 @@ export default function ProductPage() {
           {/* Price */}
           <div className="mb-6">
             <span className="text-4xl font-bold text-primary-600">
-              {product.price.toLocaleString('fa-IR')}
+              {Number(product.price).toLocaleString('fa-IR')}
             </span>
             <span className="text-gray-600 mr-2">تومان</span>
           </div>

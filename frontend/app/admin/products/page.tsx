@@ -111,7 +111,7 @@ export default function AdminProductsPage() {
                     </td>
                     <td className="px-6 py-4 text-sm">{product.category_name || '-'}</td>
                     <td className="px-6 py-4 text-sm font-semibold">
-                      {product.price.toLocaleString('fa-IR')} تومان
+                      {Number(product.price).toLocaleString('fa-IR')} تومان
                     </td>
                     <td className="px-6 py-4 text-sm">
                       <span className={product.stock_quantity > 0 ? 'text-green-600' : 'text-red-600'}>

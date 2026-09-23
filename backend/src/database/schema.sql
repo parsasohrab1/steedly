@@ -234,13 +234,15 @@ CREATE TABLE IF NOT EXISTS push_subscriptions (
 );
 
 -- Create indexes for better performance
+-- Full-text indexes use the built-in 'simple' configuration: stock PostgreSQL ships no
+-- 'persian' configuration, and 'simple' tokenises Persian text without stemming.
 CREATE INDEX IF NOT EXISTS idx_blog_posts_category ON blog_posts(category_id);
 CREATE INDEX IF NOT EXISTS idx_blog_posts_author ON blog_posts(author_id);
 CREATE INDEX IF NOT EXISTS idx_blog_posts_published ON blog_posts(is_published, published_at);
-CREATE INDEX IF NOT EXISTS idx_blog_posts_title ON blog_posts USING gin(to_tsvector('persian', title));
-CREATE INDEX IF NOT EXISTS idx_blog_posts_content ON blog_posts USING gin(to_tsvector('persian', content));
+CREATE INDEX IF NOT EXISTS idx_blog_posts_title ON blog_posts USING gin(to_tsvector('simple', title));
+CREATE INDEX IF NOT EXISTS idx_blog_posts_content ON blog_posts USING gin(to_tsvector('simple', content));
 CREATE INDEX IF NOT EXISTS idx_products_category ON products(category_id);
-CREATE INDEX IF NOT EXISTS idx_products_name ON products USING gin(to_tsvector('persian', name));
+CREATE INDEX IF NOT EXISTS idx_products_name ON products USING gin(to_tsvector('simple', name));
 CREATE INDEX IF NOT EXISTS idx_orders_user ON orders(user_id);
 CREATE INDEX IF NOT EXISTS idx_competitions_dates ON competitions(start_date, end_date);
 CREATE INDEX IF NOT EXISTS idx_competitions_type ON competitions(competition_type);
