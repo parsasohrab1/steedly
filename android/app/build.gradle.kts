@@ -122,6 +122,9 @@ dependencies {
     // WorkManager (cache cleanup + notification sync)
     implementation("androidx.work:work-runtime-ktx:2.9.0")
 
+    // AppCompat: the Neshan SDK's resources extend Theme.AppCompat
+    implementation("androidx.appcompat:appcompat:1.6.1")
+
     // Neshan Maps (no Google Play Services needed, works on Cafe Bazaar / Myket devices)
     implementation("neshan-android-sdk:mobile-sdk:1.0.3")
     implementation("neshan-android-sdk:common-sdk:0.0.3")
