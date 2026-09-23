@@ -9,7 +9,7 @@ type PaymentClient = 'web' | 'android';
 
 const apiBaseUrl = () => process.env.API_URL || 'http://localhost:3000/api';
 const frontendUrl = () => process.env.FRONTEND_URL || 'http://localhost:3001';
-const androidScheme = () => process.env.ANDROID_PAYMENT_SCHEME || 'asbban';
+const androidScheme = () => process.env.ANDROID_PAYMENT_SCHEME || 'steedly';
 
 // Where the user's browser is sent once the gateway returns
 export const buildResultRedirect = (

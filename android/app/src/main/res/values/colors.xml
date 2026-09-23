@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Steedly brand colours: keep in sync with brand/BRAND.md and ui/theme/Color.kt -->
+<resources>
+    <color name="brand_primary">#0F766E</color>
+    <color name="brand_primary_dark">#0A3F3C</color>
+    <color name="brand_accent">#F2B544</color>
+    <color name="brand_ink">#0B2E2C</color>
+</resources>

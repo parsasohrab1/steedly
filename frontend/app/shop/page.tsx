@@ -16,7 +16,7 @@ export default async function ShopPage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold mb-8 text-center">فروشگاه اسب بان</h1>
+      <h1 className="text-4xl font-bold mb-8 text-center">فروشگاه استیدلی</h1>
 
       {products.length === 0 ? (
         <div className="text-center py-16">

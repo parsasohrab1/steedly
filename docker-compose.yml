@@ -3,27 +3,27 @@ version: '3.8'
 services:
   postgres:
     image: postgres:15-alpine
-    container_name: asb-ban-postgres
+    container_name: steedly-postgres
     environment:
-      POSTGRES_USER: ${POSTGRES_USER:-asb_ban}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-asb_ban_password}
-      POSTGRES_DB: ${POSTGRES_DB:-asb_ban}
+      POSTGRES_USER: ${POSTGRES_USER:-steedly}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-steedly_password}
+      POSTGRES_DB: ${POSTGRES_DB:-steedly}
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./backend/src/database/schema.sql:/docker-entrypoint-initdb.d/schema.sql
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U asb_ban"]
+      test: ["CMD-SHELL", "pg_isready -U steedly"]
       interval: 10s
       timeout: 5s
       retries: 5
     networks:
-      - asb-ban-network
+      - steedly-network
 
   redis:
     image: redis:7-alpine
-    container_name: asb-ban-redis
+    container_name: steedly-redis
     ports:
       - "6379:6379"
     volumes:
@@ -34,18 +34,18 @@ services:
       timeout: 5s
       retries: 5
     networks:
-      - asb-ban-network
+      - steedly-network
 
   backend:
     build:
       context: .
       dockerfile: Dockerfile
       target: backend-prod
-    container_name: asb-ban-backend
+    container_name: steedly-backend
     environment:
       NODE_ENV: production
       PORT: 3000
-      DATABASE_URL: postgresql://${POSTGRES_USER:-asb_ban}:${POSTGRES_PASSWORD:-asb_ban_password}@postgres:5432/${POSTGRES_DB:-asb_ban}
+      DATABASE_URL: postgresql://${POSTGRES_USER:-steedly}:${POSTGRES_PASSWORD:-steedly_password}@postgres:5432/${POSTGRES_DB:-steedly}
       REDIS_URL: redis://redis:6379
       JWT_SECRET: ${JWT_SECRET:-your-secret-key-change-in-production}
       FRONTEND_URL: http://localhost:3001
@@ -63,7 +63,7 @@ services:
     volumes:
       - ./uploads:/app/uploads
     networks:
-      - asb-ban-network
+      - steedly-network
     restart: unless-stopped
 
   frontend:
@@ -71,7 +71,7 @@ services:
       context: .
       dockerfile: Dockerfile
       target: frontend-prod
-    container_name: asb-ban-frontend
+    container_name: steedly-frontend
     environment:
       NODE_ENV: production
       NEXT_PUBLIC_API_URL: http://localhost:3000/api
@@ -80,7 +80,7 @@ services:
     depends_on:
       - backend
     networks:
-      - asb-ban-network
+      - steedly-network
     restart: unless-stopped
 
 volumes:
@@ -88,6 +88,6 @@ volumes:
   redis_data:
 
 networks:
-  asb-ban-network:
+  steedly-network:
     driver: bridge
 

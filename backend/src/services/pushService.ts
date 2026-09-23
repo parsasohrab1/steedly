@@ -5,7 +5,7 @@ import { query } from '../database/connection';
 // These should be set in environment variables
 const vapidPublicKey = process.env.VAPID_PUBLIC_KEY;
 const vapidPrivateKey = process.env.VAPID_PRIVATE_KEY;
-const vapidSubject = process.env.VAPID_SUBJECT || 'mailto:support@asb-ban.ir';
+const vapidSubject = process.env.VAPID_SUBJECT || 'mailto:support@steedly.ir';
 
 if (vapidPublicKey && vapidPrivateKey) {
   webpush.setVapidDetails(vapidSubject, vapidPublicKey, vapidPrivateKey);

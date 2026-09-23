@@ -33,7 +33,7 @@ describe('Payment Controller', () => {
       'http://web/orders/7/success?payment=success&ref_id=R1'
     );
     expect(buildResultRedirect('android', 7, 'failed')).toBe(
-      'asbban://payment/result?payment=failed&order_id=7'
+      'steedly://payment/result?payment=failed&order_id=7'
     );
   });
 
@@ -49,7 +49,7 @@ describe('Payment Controller', () => {
 
     expect(mockVerify).toHaveBeenCalledWith('A1', 5000);
     expect(mockQuery.mock.calls[2][0]).toContain("payment_status = 'paid'");
-    expect(res.redirect).toHaveBeenCalledWith('asbban://payment/result?payment=success&ref_id=R99&order_id=7');
+    expect(res.redirect).toHaveBeenCalledWith('steedly://payment/result?payment=success&ref_id=R99&order_id=7');
   });
 
   it('does not verify when the user cancelled at the gateway', async () => {

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Steedly mark (horse head on a heartbeat line). Source: brand/logo-mark.svg -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <group
+        android:scaleX="0.13"
+        android:scaleY="0.13"
+        android:translateX="20.72"
+        android:translateY="18.25">
+        <path android:fillColor="#FFFFFF" android:pathData="M286 70L318 136C354 152 378 188 390 236C402 284 406 336 404 432L300 432C300 372 288 330 264 304C248 318 224 332 198 340C176 346 156 346 140 340C120 333 108 318 112 300C115 288 122 278 132 268L202 176C218 154 240 138 266 128Z" />
+        <path android:strokeColor="@color/brand_primary" android:strokeWidth="9" android:strokeLineCap="round" android:fillColor="#00000000" android:pathData="M318 150C348 170 364 206 370 250C375 290 376 330 374 400" />
+        <path android:fillColor="@color/brand_primary" android:pathData="M208 204C216 192 232 188 244 194C236 204 222 208 208 204Z" />
+        <path android:fillColor="@color/brand_primary" android:pathData="M125 312a7 7 0 1 0 14 0a7 7 0 1 0 -14 0Z" />
+        <path android:strokeColor="@color/brand_accent" android:strokeWidth="20" android:strokeLineCap="round" android:strokeLineJoin="round" android:fillColor="#00000000" android:pathData="M60 432L176 432L198 384L222 470L248 402L266 432L452 432" />
+    </group>
+</vector>

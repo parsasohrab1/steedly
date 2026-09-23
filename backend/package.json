@@ -1,7 +1,7 @@
 {
-  "name": "asb-ban-backend",
+  "name": "steedly-backend",
   "version": "1.0.0",
-  "description": "Backend API for ASB-BAN platform",
+  "description": "Backend API for Steedly platform",
   "main": "dist/index.js",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",

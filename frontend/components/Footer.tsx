@@ -1,26 +1,29 @@
 import Link from 'next/link';
-import { FaHorse } from 'react-icons/fa';
+import Image from 'next/image';
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-800 text-white mt-16">
+    <footer className="bg-primary-950 text-white mt-16">
       <div className="container mx-auto px-4 py-8">
         <div className="grid md:grid-cols-4 gap-8">
           {/* About */}
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <FaHorse className="text-2xl" />
-              <span className="text-xl font-bold">اسب بان</span>
+              <Image src="/logo-mark.svg" alt="" width={40} height={40} />
+              <span className="flex flex-col leading-none">
+                <span className="text-xl font-bold">استیدلی</span>
+                <span className="text-xs text-accent-400" dir="ltr">Steedly</span>
+              </span>
             </div>
-            <p className="text-gray-400">
-              پلتفرم جامع اطلاعات، خدمات و فروشگاه آنلاین برای علاقه‌مندان به اسب
+            <p className="text-primary-100/70">
+              سلامت و مراقبت اسب: دامپزشک و اسب‌کش، مقالات تخصصی، فروشگاه و مسابقات در یک پلتفرم
             </p>
           </div>
 
           {/* Quick Links */}
           <div>
             <h3 className="font-bold mb-4">دسترسی سریع</h3>
-            <ul className="space-y-2 text-gray-400">
+            <ul className="space-y-2 text-primary-100/70">
               <li>
                 <Link href="/blog" className="hover:text-white transition">
                   مقالات
@@ -47,7 +50,7 @@ export default function Footer() {
           {/* Services */}
           <div>
             <h3 className="font-bold mb-4">خدمات</h3>
-            <ul className="space-y-2 text-gray-400">
+            <ul className="space-y-2 text-primary-100/70">
               <li>
                 <Link href="/services/veterinarians" className="hover:text-white transition">
                   دامپزشکان
@@ -69,15 +72,15 @@ export default function Footer() {
           {/* Contact */}
           <div>
             <h3 className="font-bold mb-4">تماس با ما</h3>
-            <ul className="space-y-2 text-gray-400">
-              <li>ایمیل: info@asb-ban.ir</li>
+            <ul className="space-y-2 text-primary-100/70">
+              <li>ایمیل: info@steedly.ir</li>
               <li>تلفن: 021-12345678</li>
             </ul>
           </div>
         </div>
 
-        <div className="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
-          <p>&copy; {new Date().getFullYear()} اسب بان. تمامی حقوق محفوظ است.</p>
+        <div className="border-t border-gray-700 mt-8 pt-8 text-center text-primary-100/70">
+          <p>&copy; {new Date().getFullYear()} استیدلی. تمامی حقوق محفوظ است.</p>
         </div>
       </div>
     </footer>

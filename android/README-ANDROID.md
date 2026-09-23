@@ -1,4 +1,4 @@
-# راهنمای اپلیکیشن اندروید اسب بان
+# راهنمای اپلیکیشن اندروید استیدلی
 
 ## پیش‌نیازها
 
@@ -17,11 +17,20 @@
 
 ### 2. پیکربندی API
 
-فایل `app/src/main/java/ir/asbban/app/data/remote/RetrofitClient.kt` را باز کنید و آدرس API را تغییر دهید:
+آدرس بک‌اند در `android/gradle.properties` تعریف می‌شود (باید با `/api/` تمام شود):
 
-```kotlin
-private const val BASE_URL = "http://your-api-url.com/api/"
+```properties
+STEEDLY_API_URL_DEBUG=http://10.0.2.2:3000/api/     # شبیه‌ساز → کامپیوتر خودتان
+STEEDLY_API_URL_RELEASE=https://api.steedly.ir/api/
 ```
+
+برای گوشی واقعی در شبکه محلی، IP کامپیوتر را بگذارید (مثلاً `http://192.168.1.10:3000/api/`) و آن IP را
+به `res/xml/network_security_config.xml` اضافه کنید (HTTP فقط برای آدرس‌های توسعه مجاز است).
+
+### پرداخت آنلاین (زرین‌پال)
+
+پس از پرداخت، بک‌اند کاربر را به `steedly://payment/result?...` برمی‌گرداند و اپ صفحه نتیجه پرداخت را باز می‌کند.
+در بک‌اند مقدار `API_URL` باید آدرسی باشد که مرورگر گوشی به آن دسترسی دارد.
 
 ### 3. اجرای اپلیکیشن
 
@@ -35,7 +44,7 @@ android/
 ├── app/
 │   ├── src/
 │   │   ├── main/
-│   │   │   ├── java/ir/asbban/app/
+│   │   │   ├── java/ir/steedly/app/
 │   │   │   │   ├── data/
 │   │   │   │   │   ├── model/          # مدل‌های داده
 │   │   │   │   │   ├── remote/          # API Service و Retrofit
@@ -45,7 +54,7 @@ android/
 │   │   │   │   │   ├── navigation/      # Navigation
 │   │   │   │   │   └── theme/           # تم و استایل
 │   │   │   │   ├── MainActivity.kt
-│   │   │   │   └── AsbBanApplication.kt
+│   │   │   │   └── SteedlyApplication.kt
 │   │   │   └── res/                     # منابع (رنگ، استایل، ...)
 │   │   └── test/                        # تست‌ها
 │   └── build.gradle.kts
@@ -91,8 +100,8 @@ android/
 
 1. در `build.gradle.kts`:
 ```kotlin
-namespace = "ir.asbban.app"  // تغییر دهید
-applicationId = "ir.asbban.app"  // تغییر دهید
+namespace = "ir.steedly.app"  // تغییر دهید
+applicationId = "ir.steedly.app"  // تغییر دهید
 ```
 
 2. پوشه‌های Java را به package name جدید تغییر نام دهید
@@ -111,7 +120,7 @@ applicationId = "ir.asbban.app"  // تغییر دهید
 در `app/src/main/res/values/strings.xml`:
 ```xml
 <resources>
-    <string name="app_name">اسب بان</string>
+    <string name="app_name">استیدلی</string>
 </resources>
 ```
 
@@ -121,15 +130,15 @@ applicationId = "ir.asbban.app"  // تغییر دهید
 
 1. یک Keystore ایجاد کنید:
 ```bash
-keytool -genkey -v -keystore asb-ban-key.jks -keyalg RSA -keysize 2048 -validity 10000 -alias asb-ban
+keytool -genkey -v -keystore steedly-key.jks -keyalg RSA -keysize 2048 -validity 10000 -alias steedly
 ```
 
 2. فایل `keystore.properties` را در پوشه `android` ایجاد کنید:
 ```properties
 storePassword=your_store_password
 keyPassword=your_key_password
-keyAlias=asb-ban
-storeFile=../asb-ban-key.jks
+keyAlias=steedly
+storeFile=../steedly-key.jks
 ```
 
 3. در `app/build.gradle.kts` اضافه کنید:
@@ -177,7 +186,7 @@ android {
 
 ### 7. اطلاعات مورد نیاز برای کافه‌بازار
 
-- نام اپلیکیشن: اسب بان
+- نام اپلیکیشن: استیدلی
 - دسته‌بندی: سبک زندگی / ورزش
 - توضیحات: پلتفرم جامع اطلاعات، خدمات و فروشگاه آنلاین اسب
 - آیکون: 512x512 PNG

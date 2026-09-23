@@ -15,7 +15,7 @@
 #### استفاده:
 ```kotlin
 // در MainActivity، ImageLoader به صورت global تنظیم شده است
-val application = application as AsbBanApplication
+val application = application as SteedlyApplication
 val imageLoader = application.imageLoader
 
 // در Composable
@@ -86,7 +86,7 @@ offlineRepository.cacheProducts(products)
 
 #### استفاده:
 ```kotlin
-// در AsbBanApplication
+// در SteedlyApplication
 WorkManagerInitializer.initialize(this)
 ```
 
@@ -110,7 +110,7 @@ WorkManagerInitializer.initialize(this)
 #### استفاده:
 ```kotlin
 // در Theme.kt
-AsbBanTheme(
+SteedlyTheme(
     darkTheme = null, // null = استفاده از تنظیمات
     content = { ... }
 )
@@ -144,11 +144,11 @@ implementation("com.google.code.gson:gson:2.10.1")
 
 ### 1. Application Class
 
-`AsbBanApplication` باید در `AndroidManifest.xml` ثبت شود:
+`SteedlyApplication` باید در `AndroidManifest.xml` ثبت شود:
 
 ```xml
 <application
-    android:name=".AsbBanApplication"
+    android:name=".SteedlyApplication"
     ...>
 ```
 
@@ -170,7 +170,7 @@ val MIGRATION_1_2 = object : Migration(1, 2) {
 
 ```proguard
 -keep class androidx.work.** { *; }
--keep class ir.asbban.app.work.** { *; }
+-keep class ir.steedly.app.work.** { *; }
 ```
 
 ---
@@ -183,7 +183,7 @@ val MIGRATION_1_2 = object : Migration(1, 2) {
 @Composable
 fun ShopScreen(navController: NavController) {
     val context = LocalContext.current
-    val application = context.applicationContext as AsbBanApplication
+    val application = context.applicationContext as SteedlyApplication
     val database = application.database
     val isOnline = NetworkMonitor.isOnline(context)
     

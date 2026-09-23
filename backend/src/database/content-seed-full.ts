@@ -355,7 +355,7 @@ export async function seedContent() {
     // Get admin user ID
     const adminResult = await query(
       'SELECT id FROM users WHERE email = $1',
-      ['admin@asb-ban.ir']
+      ['admin@steedly.ir']
     );
     
     if (adminResult.rows.length === 0) {

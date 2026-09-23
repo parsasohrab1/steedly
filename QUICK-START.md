@@ -10,7 +10,7 @@
 ```env
 DB_HOST=localhost
 DB_PORT=5432
-DB_NAME=asb_ban
+DB_NAME=steedly
 DB_USER=postgres
 DB_PASSWORD=postgres
 JWT_SECRET=your-super-secret-jwt-key-change-in-production
@@ -35,12 +35,12 @@ NEXT_PUBLIC_API_URL=http://localhost:3000/api
 1. PostgreSQL را راه‌اندازی کنید
 2. دیتابیس ایجاد کنید:
 ```sql
-CREATE DATABASE asb_ban;
+CREATE DATABASE steedly;
 ```
 
 3. Schema را اجرا کنید:
 ```bash
-psql -U postgres -d asb_ban -f backend/src/database/schema.sql
+psql -U postgres -d steedly -f backend/src/database/schema.sql
 ```
 
 ### 3. راه‌اندازی Redis (اختیاری)

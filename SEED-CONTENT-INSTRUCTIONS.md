@@ -12,7 +12,7 @@ npm run seed
 ```
 
 این دستور:
-- کاربر ادمین ایجاد می‌کند (email: `admin@asb-ban.ir`, password: `admin123`)
+- کاربر ادمین ایجاد می‌کند (email: `admin@steedly.ir`, password: `admin123`)
 - دسته‌بندی‌های بلاگ و محصولات را ایجاد می‌کند
 - سپس محتوای کامل را اضافه می‌کند
 

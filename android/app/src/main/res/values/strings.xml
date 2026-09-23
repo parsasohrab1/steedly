@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">اسب بان</string>
+    <string name="app_name">استیدلی</string>
     <string name="home">خانه</string>
     <string name="blog">مقالات</string>
     <string name="shop">فروشگاه</string>
@@ -12,6 +12,6 @@
     <string name="password">رمز عبور</string>
     <string name="full_name">نام کامل</string>
     <string name="phone">تلفن</string>
-    <string name="neshan_api_key">YOUR_NESHAN_API_KEY</string>
+    <string name="notification_channel_name">سفارش‌ها و رزروها</string>
+    <string name="notification_channel_description">اطلاع‌رسانی وضعیت سفارش‌ها، پرداخت‌ها و رزرو خدمات</string>
 </resources>
-

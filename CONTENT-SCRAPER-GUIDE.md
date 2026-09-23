@@ -226,7 +226,7 @@ python import_to_database.py
 
 ```bash
 # Import فایل SQL
-psql -U postgres -d asb_ban -f scraped_content/data/scraped_content.sql
+psql -U postgres -d steedly -f scraped_content/data/scraped_content.sql
 ```
 
 ### روش 3: استفاده از Backend API

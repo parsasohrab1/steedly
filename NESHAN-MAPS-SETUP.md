@@ -56,41 +56,23 @@ repositories {
 
 ### 2. Dependency
 
-در `app/build.gradle.kts`:
+در `android/settings.gradle.kts` مخزن نشان و در `app/build.gradle.kts` کتابخانه‌ها:
 ```kotlin
-implementation("ir.neshan:neshan-android-sdk:1.0.0")
+maven { url = uri("https://maven.neshan.org/artifactory/public-maven") }
+
+implementation("neshan-android-sdk:mobile-sdk:1.0.3")
+implementation("neshan-android-sdk:common-sdk:0.0.3")
 ```
 
-### 3. API Key در Strings
+### 3. ثبت اپ در پنل نشان
 
-در `app/src/main/res/values/strings.xml`:
-```xml
-<string name="neshan_api_key">YOUR_NESHAN_API_KEY</string>
-```
+SDK نسخه ۱ کلید API در کد ندارد؛ نام بسته `ir.steedly.app` و اثرانگشت SHA-1 امضای اپ
+(debug و release — راهنما در `android/GET-FINGERPRINT.md`) را در [پنل توسعه‌دهندگان نشان](https://platform.neshan.org) ثبت کنید.
 
-### 4. API Key در Manifest
+### 4. استفاده در اپ
 
-در `AndroidManifest.xml`:
-```xml
-<meta-data
-    android:name="ir.neshan.maps.API_KEY"
-    android:value="@string/neshan_api_key" />
-```
-
-### 5. استفاده در MapScreen
-
-```kotlin
-MapView(context).apply {
-    setApiKey(context.getString(R.string.neshan_api_key))
-    moveCamera(LatLng(35.6892, 51.3890), 12f)
-    
-    addMarker(
-        MarkerOptions()
-            .position(LatLng(lat, lng))
-            .title("عنوان")
-    )
-}
-```
+پیاده‌سازی در `ui/screens/services/MapScreenNeshan.kt` است: موقعیت کاربر (بدون نیاز به Google Play Services)،
+نمایش دامپزشک‌ها/اسب‌کش‌ها با `Marker` و انتخاب شعاع جستجو.
 
 ## مزایای استفاده از نشان
 

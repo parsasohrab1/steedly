@@ -4,8 +4,8 @@
 
 ### 1. اطلاعات پایه اپلیکیشن
 
-- **نام اپلیکیشن**: اسب بان
-- **Package Name**: ir.asbban.app
+- **نام اپلیکیشن**: استیدلی
+- **Package Name**: ir.steedly.app
 - **نسخه**: 1.0.0
 - **Min SDK**: 24 (Android 7.0)
 - **Target SDK**: 34 (Android 14)
@@ -17,7 +17,7 @@
 - اندازه: 512x512 پیکسل
 - فرمت: PNG با پس‌زمینه شفاف
 - کیفیت: بالا
-- محتوا: لوگوی اسب بان
+- محتوا: لوگوی استیدلی
 
 #### اسکرین‌شات‌ها
 - حداقل 3 تصویر
@@ -57,7 +57,7 @@ android/app/build/outputs/bundle/release/app-release.aab
 اگر هنوز keystore ندارید:
 
 ```bash
-keytool -genkey -v -keystore asb-ban-key.jks -keyalg RSA -keysize 2048 -validity 10000 -alias asb-ban
+keytool -genkey -v -keystore steedly-key.jks -keyalg RSA -keysize 2048 -validity 10000 -alias steedly
 ```
 
 **⚠️ مهم**: فایل keystore را در جای امن نگهداری کنید. بدون آن نمی‌توانید اپلیکیشن را به‌روزرسانی کنید.

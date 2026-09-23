@@ -1,6 +1,6 @@
 // Service Worker for PWA
 const CACHE_VERSION = 'v1';
-const CACHE_NAME = `asb-ban-${CACHE_VERSION}`;
+const CACHE_NAME = `steedly-${CACHE_VERSION}`;
 const urlsToCache = [
   '/',
   '/blog',

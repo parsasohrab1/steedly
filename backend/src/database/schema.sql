@@ -1,4 +1,4 @@
--- Database Schema for ASB-BAN Platform
+-- Database Schema for Steedly Platform
 
 -- Users Table
 CREATE TABLE IF NOT EXISTS users (

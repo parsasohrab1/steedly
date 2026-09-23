@@ -112,7 +112,7 @@ def main():
     db_config = {
         'host': 'localhost',
         'port': 5432,
-        'database': 'asb_ban',
+        'database': 'steedly',
         'user': 'postgres',
         'password': 'your_password'  # تغییر دهید
     }

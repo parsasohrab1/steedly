@@ -560,12 +560,35 @@ export const createReview = async (
   next: NextFunction
 ) => {
   try {
-    const { booking_id, service_provider_id, service_type, rating, comment } = req.body;
+    const { booking_id, comment } = req.body;
+    const rating = Number(req.body.rating);
     const userId = req.user!.id;
 
-    if (rating < 1 || rating > 5) {
+    if (!Number.isInteger(rating) || rating < 1 || rating > 5) {
       return next(createError('Rating must be between 1 and 5', 400));
     }
+
+    // Only customers with a completed booking may rate that provider, once per booking
+    if (!booking_id) {
+      return next(createError('booking_id is required', 400));
+    }
+    const bookingResult = await query(
+      'SELECT * FROM service_bookings WHERE id = $1 AND user_id = $2',
+      [booking_id, userId]
+    );
+    if (bookingResult.rows.length === 0) {
+      return next(createError('Booking not found', 404));
+    }
+    const booking = bookingResult.rows[0];
+    if (booking.status !== 'completed') {
+      return next(createError('Only completed bookings can be reviewed', 400));
+    }
+    const existing = await query('SELECT id FROM service_reviews WHERE booking_id = $1', [booking_id]);
+    if (existing.rows.length > 0) {
+      return next(createError('This booking has already been reviewed', 400));
+    }
+    const service_type = booking.service_type;
+    const service_provider_id = booking.service_provider_id;
 
     const result = await query(
       `INSERT INTO service_reviews 

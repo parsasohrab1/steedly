@@ -1,4 +1,4 @@
-# راهنمای راه‌اندازی پروژه اسب بان
+# راهنمای راه‌اندازی پروژه استیدلی
 
 ## پیش‌نیازها
 
@@ -35,12 +35,12 @@ npm install
 1. PostgreSQL را راه‌اندازی کنید
 2. یک دیتابیس جدید ایجاد کنید:
 ```sql
-CREATE DATABASE asb_ban;
+CREATE DATABASE steedly;
 ```
 
 3. فایل schema را اجرا کنید:
 ```bash
-psql -U postgres -d asb_ban -f backend/src/database/schema.sql
+psql -U postgres -d steedly -f backend/src/database/schema.sql
 ```
 
 ### 3. پیکربندی متغیرهای محیطی
@@ -55,7 +55,7 @@ cp .env.example .env
 
 سپس مقادیر را تنظیم کنید:
 - `DB_HOST`: آدرس دیتابیس (پیش‌فرض: localhost)
-- `DB_NAME`: نام دیتابیس (پیش‌فرض: asb_ban)
+- `DB_NAME`: نام دیتابیس (پیش‌فرض: steedly)
 - `DB_USER`: نام کاربری PostgreSQL
 - `DB_PASSWORD`: رمز عبور PostgreSQL
 - `JWT_SECRET`: یک رشته تصادفی برای JWT
@@ -127,7 +127,7 @@ npm start
 ## ساختار پروژه
 
 ```
-asb-ban/
+steedly/
 ├── backend/              # بک‌اند Node.js + Express + TypeScript
 │   ├── src/
 │   │   ├── controllers/  # کنترلرهای API
@@ -144,7 +144,7 @@ asb-ban/
 ├── android/             # اپلیکیشن اندروید (Kotlin + Jetpack Compose)
 │   ├── app/
 │   │   ├── src/main/
-│   │   │   ├── java/ir/asbban/app/
+│   │   │   ├── java/ir/steedly/app/
 │   │   │   │   ├── data/      # مدل‌ها و API
 │   │   │   │   ├── ui/        # صفحات و کامپوننت‌ها
 │   │   │   │   └── MainActivity.kt

@@ -49,13 +49,13 @@ docker-compose down -v
 ### ساخت Backend Image
 
 ```bash
-docker build -t asb-ban-backend:latest --target backend-prod .
+docker build -t steedly-backend:latest --target backend-prod .
 ```
 
 ### ساخت Frontend Image
 
 ```bash
-docker build -t asb-ban-frontend:latest --target frontend-prod .
+docker build -t steedly-frontend:latest --target frontend-prod .
 ```
 
 ## متغیرهای محیطی
@@ -64,9 +64,9 @@ docker build -t asb-ban-frontend:latest --target frontend-prod .
 
 ```env
 # Database
-POSTGRES_USER=asb_ban
+POSTGRES_USER=steedly
 POSTGRES_PASSWORD=your_secure_password
-POSTGRES_DB=asb_ban
+POSTGRES_DB=steedly
 
 # JWT
 JWT_SECRET=your-secret-key-change-in-production
@@ -80,7 +80,7 @@ FRONTEND_URL=http://localhost:3001
 
 ```bash
 # اتصال به PostgreSQL
-docker-compose exec postgres psql -U asb_ban -d asb_ban
+docker-compose exec postgres psql -U steedly -d steedly
 
 # اتصال به Redis CLI
 docker-compose exec redis redis-cli

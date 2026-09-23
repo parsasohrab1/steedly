@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.AsbBan" parent="android:Theme.Material.Light.NoActionBar">
+    <style name="Theme.Steedly" parent="android:Theme.Material.Light.NoActionBar">
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar">true</item>
     </style>
-</resources>
 
+    <!-- Launch theme: replaced by Theme.Steedly once installSplashScreen() runs -->
+    <style name="Theme.Steedly.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/brand_primary</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
+        <item name="postSplashScreenTheme">@style/Theme.Steedly</item>
+    </style>
+</resources>

@@ -6,12 +6,12 @@ const options: swaggerJsdoc.Options = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: 'اسب بان API',
+      title: 'استیدلی API',
       version: '1.0.0',
-      description: 'API documentation for ASB-BAN platform - Comprehensive horse information platform',
+      description: 'API documentation for Steedly platform - Comprehensive horse information platform',
       contact: {
         name: 'API Support',
-        email: 'support@asb-ban.ir',
+        email: 'support@steedly.ir',
       },
     },
     servers: [
@@ -20,7 +20,7 @@ const options: swaggerJsdoc.Options = {
         description: 'Development server',
       },
       {
-        url: 'https://api.asb-ban.ir/api',
+        url: 'https://api.steedly.ir/api',
         description: 'Production server',
       },
     ],
@@ -47,7 +47,7 @@ const swaggerSpec = swaggerJsdoc(options);
 export const setupSwagger = (app: Express) => {
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
     customCss: '.swagger-ui .topbar { display: none }',
-    customSiteTitle: 'اسب بان API Documentation',
+    customSiteTitle: 'استیدلی API Documentation',
   }));
 
   // JSON endpoint

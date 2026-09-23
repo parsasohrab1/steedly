@@ -218,7 +218,7 @@ scraper.save_to_sql("my_data.sql")
 
 ```bash
 # Import به PostgreSQL
-psql -U postgres -d asb_ban -f scraped_content/data/scraped_content.sql
+psql -U postgres -d steedly -f scraped_content/data/scraped_content.sql
 ```
 
 یا از API استفاده کنید:

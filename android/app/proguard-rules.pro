@@ -30,5 +30,5 @@
 -keep class * implements com.google.gson.JsonDeserializer
 
 # Keep data models
--keep class ir.asbban.app.data.model.** { *; }
+-keep class ir.steedly.app.data.model.** { *; }
 

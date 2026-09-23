@@ -28,7 +28,7 @@ FRONTEND_URL=http://localhost:3001
 # Database Configuration (PostgreSQL)
 DB_HOST=localhost
 DB_PORT=5432
-DB_NAME=asb_ban
+DB_NAME=steedly
 DB_USER=postgres
 DB_PASSWORD=your_password_here
 
@@ -53,7 +53,7 @@ SMTP_PASS=your-app-password
 PUSH_NOTIFICATIONS_ENABLED=false
 VAPID_PUBLIC_KEY=your-vapid-public-key
 VAPID_PRIVATE_KEY=your-vapid-private-key
-VAPID_SUBJECT=mailto:support@asb-ban.ir
+VAPID_SUBJECT=mailto:support@steedly.ir
 ```
 
 ### 2. ایجاد Database
@@ -61,20 +61,20 @@ VAPID_SUBJECT=mailto:support@asb-ban.ir
 در PostgreSQL:
 
 ```sql
-CREATE DATABASE asb_ban;
+CREATE DATABASE steedly;
 ```
 
 یا از psql:
 
 ```bash
-psql -U postgres -c "CREATE DATABASE asb_ban;"
+psql -U postgres -c "CREATE DATABASE steedly;"
 ```
 
 ### 3. اجرای Schema
 
 ```bash
 cd backend
-psql -U postgres -d asb_ban -f src/database/schema.sql
+psql -U postgres -d steedly -f src/database/schema.sql
 ```
 
 یا از Node.js:

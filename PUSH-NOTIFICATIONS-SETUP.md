@@ -37,7 +37,7 @@ PUSH_NOTIFICATIONS_ENABLED=true
 # VAPID Keys (برای Web Push)
 VAPID_PUBLIC_KEY=your-public-key-here
 VAPID_PRIVATE_KEY=your-private-key-here
-VAPID_SUBJECT=mailto:support@asb-ban.ir
+VAPID_SUBJECT=mailto:support@steedly.ir
 
 # برای Android (Firebase)
 FCM_SERVER_KEY=your-fcm-server-key
@@ -46,7 +46,7 @@ FCM_PROJECT_ID=your-fcm-project-id
 # برای iOS (APNs)
 APNS_KEY_ID=your-apns-key-id
 APNS_TEAM_ID=your-apns-team-id
-APNS_BUNDLE_ID=ir.asbban.app
+APNS_BUNDLE_ID=ir.steedly.app
 APNS_KEY_PATH=./path/to/AuthKey.p8
 ```
 

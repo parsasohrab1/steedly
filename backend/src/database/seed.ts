@@ -13,7 +13,7 @@ async function seed() {
        VALUES ($1, $2, $3, $4)
        ON CONFLICT (email) DO NOTHING
        RETURNING id`,
-      ['admin@asb-ban.ir', adminPassword, 'مدیر سیستم', 'admin']
+      ['admin@steedly.ir', adminPassword, 'مدیر سیستم', 'admin']
     );
 
     console.log('✅ Admin user created');

@@ -6,7 +6,7 @@
 
 ```bash
 cd android
-keytool -list -v -keystore asb-ban-key.jks -alias asb-ban
+keytool -list -v -keystore steedly-key.jks -alias steedly
 ```
 
 ### اگر از debug keystore استفاده می‌کنید:
@@ -18,13 +18,13 @@ keytool -list -v -keystore ~/.android/debug.keystore -alias androiddebugkey -sto
 ## خروجی نمونه
 
 ```
-Alias name: asb-ban
+Alias name: steedly
 Creation date: ...
 Entry type: PrivateKeyEntry
 Certificate chain length: 1
 Certificate[1]:
-Owner: CN=Asb Ban, OU=Development, O=Asb Ban, L=Tehran, ST=Tehran, C=IR
-Issuer: CN=Asb Ban, OU=Development, O=Asb Ban, L=Tehran, ST=Tehran, C=IR
+Owner: CN=Steedly, OU=Development, O=Steedly, L=Tehran, ST=Tehran, C=IR
+Issuer: CN=Steedly, OU=Development, O=Steedly, L=Tehran, ST=Tehran, C=IR
 Serial number: ...
 Valid from: ... until: ...
 Certificate fingerprints:
@@ -35,13 +35,13 @@ Certificate fingerprints:
 ## فقط SHA-1
 
 ```bash
-keytool -list -v -keystore asb-ban-key.jks -alias asb-ban | grep SHA1
+keytool -list -v -keystore steedly-key.jks -alias steedly | grep SHA1
 ```
 
 ## فقط SHA-256
 
 ```bash
-keytool -list -v -keystore asb-ban-key.jks -alias asb-ban | grep SHA256
+keytool -list -v -keystore steedly-key.jks -alias steedly | grep SHA256
 ```
 
 ## اطلاعات مورد نیاز کافه‌بازار
