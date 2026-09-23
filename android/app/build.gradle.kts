@@ -1,8 +1,22 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.kapt")
 }
+
+// Release signing: read from android/keystore.properties (local, git-ignored) or from
+// environment variables (CI). Without either, release builds are left unsigned.
+val keystoreProperties = Properties().apply {
+    val file = rootProject.file("keystore.properties")
+    if (file.exists()) file.inputStream().use { load(it) }
+}
+
+fun signingValue(property: String, envVar: String): String? =
+    keystoreProperties.getProperty(property) ?: System.getenv(envVar)
+
+val releaseStoreFile = signingValue("storeFile", "STEEDLY_KEYSTORE_FILE")
 
 android {
     namespace = "ir.steedly.app"
@@ -24,6 +38,17 @@ android {
         manifestPlaceholders["paymentScheme"] = "steedly"
     }
 
+    signingConfigs {
+        if (releaseStoreFile != null) {
+            create("release") {
+                storeFile = rootProject.file(releaseStoreFile)
+                storePassword = signingValue("storePassword", "STEEDLY_KEYSTORE_PASSWORD")
+                keyAlias = signingValue("keyAlias", "STEEDLY_KEY_ALIAS")
+                keyPassword = signingValue("keyPassword", "STEEDLY_KEY_PASSWORD")
+            }
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = true
@@ -31,8 +56,8 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            // Replace with a real release signing config before publishing
-            signingConfig = signingConfigs.getByName("debug")
+            // Never fall back to the debug key: an unsigned APK is safer than a wrongly signed one
+            signingConfig = signingConfigs.findByName("release")
             buildConfigField(
                 "String",
                 "API_BASE_URL",

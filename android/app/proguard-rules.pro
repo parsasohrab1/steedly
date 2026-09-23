@@ -32,3 +32,21 @@
 # Keep data models
 -keep class ir.steedly.app.data.model.** { *; }
 
+
+# Local cart items are stored as JSON with Gson; keep field names stable across releases
+-keep class ir.steedly.app.data.local.CartItem { *; }
+
+# Retrofit + coroutines with R8 full mode (AGP 8)
+-keep,allowobfuscation,allowshrinking interface retrofit2.Call
+-keep,allowobfuscation,allowshrinking class retrofit2.Response
+-keep,allowobfuscation,allowshrinking class kotlin.coroutines.Continuation
+
+# Gson generic types (TypeToken)
+-keep,allowobfuscation,allowshrinking class com.google.gson.reflect.TypeToken
+-keep,allowobfuscation,allowshrinking class * extends com.google.gson.reflect.TypeToken
+
+# Neshan map SDK (Carto engine is called through JNI)
+-keep class org.neshan.** { *; }
+-keep class com.carto.** { *; }
+-dontwarn org.neshan.**
+-dontwarn com.carto.**

@@ -56,8 +56,10 @@ android/app/build/outputs/bundle/release/app-release.aab
 
 اگر هنوز keystore ندارید:
 
+> کلید نسخه نهایی ساخته شده است؛ راهنمای کامل و اثرانگشت‌ها: [`android/RELEASE-SIGNING.md`](android/RELEASE-SIGNING.md)
+
 ```bash
-keytool -genkey -v -keystore steedly-key.jks -keyalg RSA -keysize 2048 -validity 10000 -alias steedly
+keytool -genkey -v -keystore steedly-release.jks -keyalg RSA -keysize 2048 -validity 10000 -alias steedly
 ```
 
 **⚠️ مهم**: فایل keystore را در جای امن نگهداری کنید. بدون آن نمی‌توانید اپلیکیشن را به‌روزرسانی کنید.

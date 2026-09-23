@@ -1,12 +1,14 @@
 # دریافت Fingerprint برای کافه‌بازار
 
+> اثرانگشت کلید نسخه نهایی استیدلی در [`RELEASE-SIGNING.md`](RELEASE-SIGNING.md) آمده است.
+
 ## دستور دریافت SHA-1 و SHA-256
 
 ### اگر keystore دارید:
 
 ```bash
 cd android
-keytool -list -v -keystore steedly-key.jks -alias steedly
+keytool -list -v -keystore steedly-release.jks -alias steedly
 ```
 
 ### اگر از debug keystore استفاده می‌کنید:
@@ -35,13 +37,13 @@ Certificate fingerprints:
 ## فقط SHA-1
 
 ```bash
-keytool -list -v -keystore steedly-key.jks -alias steedly | grep SHA1
+keytool -list -v -keystore steedly-release.jks -alias steedly | grep SHA1
 ```
 
 ## فقط SHA-256
 
 ```bash
-keytool -list -v -keystore steedly-key.jks -alias steedly | grep SHA256
+keytool -list -v -keystore steedly-release.jks -alias steedly | grep SHA256
 ```
 
 ## اطلاعات مورد نیاز کافه‌بازار

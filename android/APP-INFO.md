@@ -22,13 +22,15 @@ Steedly
 
 اگر هنوز keystore ندارید، از دستور زیر استفاده کنید:
 
+> کلید نسخه نهایی ساخته شده است؛ راهنمای کامل و اثرانگشت‌ها: [`RELEASE-SIGNING.md`](RELEASE-SIGNING.md)
+
 ```bash
-keytool -genkey -v -keystore steedly-key.jks -keyalg RSA -keysize 2048 -validity 10000 -alias steedly
+keytool -genkey -v -keystore steedly-release.jks -keyalg RSA -keysize 2048 -validity 10000 -alias steedly
 ```
 
 ### اطلاعات Key (بعد از ساخت)
 
-1. **Keystore File**: `steedly-key.jks` (یا مسیر کامل)
+1. **Keystore File**: `steedly-release.jks` (یا مسیر کامل)
 2. **Key Alias**: `steedly`
 3. **Key Algorithm**: RSA
 4. **Key Size**: 2048 bit
@@ -42,7 +44,7 @@ keytool -genkey -v -keystore steedly-key.jks -keyalg RSA -keysize 2048 -validity
 storePassword=YOUR_STORE_PASSWORD
 keyPassword=YOUR_KEY_PASSWORD
 keyAlias=steedly
-storeFile=../steedly-key.jks
+storeFile=steedly-release.jks
 ```
 
 ⚠️ **مهم**: این فایل را در `.gitignore` قرار دهید و هرگز commit نکنید!
@@ -96,7 +98,7 @@ Package: ir.steedly.app
 
 ```bash
 cd android
-keytool -genkey -v -keystore steedly-key.jks -keyalg RSA -keysize 2048 -validity 10000 -alias steedly
+keytool -genkey -v -keystore steedly-release.jks -keyalg RSA -keysize 2048 -validity 10000 -alias steedly
 ```
 
 سوالات:
@@ -115,7 +117,7 @@ cat > keystore.properties << EOF
 storePassword=YOUR_STORE_PASSWORD
 keyPassword=YOUR_KEY_PASSWORD
 keyAlias=steedly
-storeFile=../steedly-key.jks
+storeFile=steedly-release.jks
 EOF
 ```
 
@@ -231,13 +233,13 @@ android/app/build/outputs/apk/release/app-release.apk
 ### دریافت Fingerprint
 
 ```bash
-keytool -list -v -keystore steedly-key.jks -alias steedly
+keytool -list -v -keystore steedly-release.jks -alias steedly
 ```
 
 یا:
 
 ```bash
-keytool -list -v -keystore steedly-key.jks -alias steedly | grep -E "(SHA1|SHA256)"
+keytool -list -v -keystore steedly-release.jks -alias steedly | grep -E "(SHA1|SHA256)"
 ```
 
 ## به‌روزرسانی نسخه
