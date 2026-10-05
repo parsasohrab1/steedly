@@ -108,12 +108,12 @@ fun ShopScreen(navController: NavController) {
 
     Scaffold(
         topBar = {
-            AppTopBar("فروشگاه استیدلی", actions = {
+            AppTopBar("Steedly Shop", actions = {
                 IconButton(onClick = { navController.navigate(Routes.CART) }) {
                     BadgedBox(badge = {
                         if (cartItems.isNotEmpty()) Badge { Text(cartItems.sumOf { it.quantity }.toString()) }
                     }) {
-                        Icon(Icons.Default.ShoppingCart, contentDescription = "سبد خرید")
+                        Icon(Icons.Default.ShoppingCart, contentDescription = "Cart")
                     }
                 }
             })
@@ -127,7 +127,7 @@ fun ShopScreen(navController: NavController) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp, vertical = 8.dp),
-                placeholder = { Text("جستجوی محصول...") },
+                placeholder = { Text("Search products...") },
                 leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
                 trailingIcon = {
                     if (searchInput.isNotEmpty()) {
@@ -137,7 +137,7 @@ fun ShopScreen(navController: NavController) {
                                 activeSearch = null
                                 restart()
                             }
-                        }) { Icon(Icons.Default.Close, contentDescription = "پاک کردن") }
+                        }) { Icon(Icons.Default.Close, contentDescription = "Clear") }
                     }
                 },
                 singleLine = true,
@@ -159,7 +159,7 @@ fun ShopScreen(navController: NavController) {
                         FilterChip(
                             selected = selectedCategory == null,
                             onClick = { if (selectedCategory != null) { selectedCategory = null; restart() } },
-                            label = { Text("همه") }
+                            label = { Text("All") }
                         )
                     }
                     items(categories, key = { it.id }) { category ->
@@ -175,7 +175,7 @@ fun ShopScreen(navController: NavController) {
             when {
                 loading && products.isEmpty() -> LoadingView()
                 error != null && products.isEmpty() -> ErrorView(error!!, onRetry = { restart(); reloadKey++ })
-                products.isEmpty() -> EmptyView("محصولی یافت نشد", icon = Icons.Default.Storefront)
+                products.isEmpty() -> EmptyView("No products found", icon = Icons.Default.Storefront)
                 else -> LazyVerticalGrid(
                     columns = GridCells.Fixed(2),
                     state = gridState,
@@ -219,7 +219,7 @@ fun ProductCard(product: Product, onClick: () -> Unit) {
                     modifier = Modifier.align(Alignment.TopStart)
                 ) {
                     Text(
-                        "٪$discount",
+                        "$discount%",
                         color = MaterialTheme.colorScheme.onError,
                         modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp),
                         style = MaterialTheme.typography.labelMedium
@@ -251,7 +251,7 @@ fun ProductCard(product: Product, onClick: () -> Unit) {
                 fontWeight = FontWeight.Bold
             )
             if (product.stock_quantity <= 0) {
-                Text("ناموجود", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.error)
+                Text("Out of stock", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.error)
             }
         }
     }

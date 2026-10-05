@@ -8,15 +8,15 @@ import ServiceWorkerRegistration from '@/components/ServiceWorkerRegistration';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'استیدلی | Steedly — سلامت و مراقبت اسب',
-  description: 'مرجع جامع اطلاعات، خدمات و فروشگاه آنلاین اسب',
+  title: 'Steedly — Horse health and care',
+  description: 'A comprehensive reference for horse information, services and online shop',
   manifest: '/manifest.json',
   themeColor: '#0f766e',
   viewport: 'width=device-width, initial-scale=1, maximum-scale=1',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
-    title: 'استیدلی'
+    title: 'Steedly'
   },
   other: {
     'mobile-web-app-capable': 'yes'

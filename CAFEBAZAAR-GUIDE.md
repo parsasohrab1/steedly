@@ -1,155 +1,155 @@
-# راهنمای انتشار در کافه‌بازار
+# Cafe Bazaar Publishing Guide
 
-## الزامات کافه‌بازار
+## Cafe Bazaar requirements
 
-### 1. اطلاعات پایه اپلیکیشن
+### 1. Basic app information
 
-- **نام اپلیکیشن**: استیدلی
+- **App name**: Steedly
 - **Package Name**: ir.steedly.app
-- **نسخه**: 1.0.0
+- **Version**: 1.0.0
 - **Min SDK**: 24 (Android 7.0)
 - **Target SDK**: 34 (Android 14)
-- **دسته‌بندی**: سبک زندگی / ورزش
+- **Category**: Lifestyle / Sports
 
-### 2. فایل‌های مورد نیاز
+### 2. Required files
 
-#### آیکون اپلیکیشن
-- اندازه: 512x512 پیکسل
-- فرمت: PNG با پس‌زمینه شفاف
-- کیفیت: بالا
-- محتوا: لوگوی استیدلی
+#### App icon
+- Size: 512x512 pixels
+- Format: PNG with transparent background
+- Quality: High
+- Content: Steedly logo
 
-#### اسکرین‌شات‌ها
-- حداقل 3 تصویر
-- اندازه: 1080x1920 یا 1440x2560 پیکسل
-- فرمت: PNG یا JPG
-- محتوا: نمایش صفحات اصلی اپلیکیشن
+#### Screenshots
+- At least 3 images
+- Size: 1080x1920 or 1440x2560 pixels
+- Format: PNG or JPG
+- Content: Display of the app's main pages
 
-#### توضیحات اپلیکیشن
+#### App description
 ```
-پلتفرم جامع اطلاعات، خدمات و فروشگاه آنلاین اسب
+A comprehensive platform for horse information, services and online shop
 
-ویژگی‌ها:
-✅ مقالات تخصصی درباره نژادها، بیماری‌ها و تجهیزات اسب
-✅ رزرو آنلاین دامپزشک و اسب‌کش
-✅ فروشگاه آنلاین تجهیزات، داروها و مکمل‌ها
-✅ اطلاع از مسابقات داخلی و بین‌المللی
-✅ رابط کاربری زیبا و ساده
-✅ پشتیبانی کامل از زبان فارسی
+Features:
+✅ Specialized articles about horse breeds, diseases and equipment
+✅ Online booking of veterinarians and horse transporters
+✅ Online shop for equipment, medicines and supplements
+✅ Information about domestic and international competitions
+✅ Beautiful and simple user interface
+✅ Full Persian language support
 ```
 
-### 3. مراحل انتشار
+### 3. Publishing steps
 
-#### مرحله 1: ساخت فایل نهایی (AAB)
+#### Step 1: Build the final file (AAB)
 
 ```bash
 cd android
 ./gradlew bundleRelease
 ```
 
-فایل در مسیر زیر قرار می‌گیرد:
+The file is placed at the following path:
 ```
 android/app/build/outputs/bundle/release/app-release.aab
 ```
 
-#### مرحله 2: امضای اپلیکیشن
+#### Step 2: Sign the app
 
-اگر هنوز keystore ندارید:
+If you do not have a keystore yet:
 
-> کلید نسخه نهایی ساخته شده است؛ راهنمای کامل و اثرانگشت‌ها: [`android/RELEASE-SIGNING.md`](android/RELEASE-SIGNING.md)
+> The release key has been created; full guide and fingerprints: [`android/RELEASE-SIGNING.md`](android/RELEASE-SIGNING.md)
 
 ```bash
 keytool -genkey -v -keystore steedly-release.jks -keyalg RSA -keysize 2048 -validity 10000 -alias steedly
 ```
 
-**⚠️ مهم**: فایل keystore را در جای امن نگهداری کنید. بدون آن نمی‌توانید اپلیکیشن را به‌روزرسانی کنید.
+**⚠️ Important**: Keep the keystore file in a safe place. Without it you cannot update the app.
 
-#### مرحله 3: ثبت در کافه‌بازار
+#### Step 3: Register on Cafe Bazaar
 
-1. به [پنل توسعه‌دهندگان کافه‌بازار](https://developers.cafebazaar.ir/) بروید
-2. وارد حساب کاربری شوید یا ثبت‌نام کنید
-3. روی "افزودن اپلیکیشن جدید" کلیک کنید
-4. اطلاعات را تکمیل کنید:
-   - نام اپلیکیشن
-   - دسته‌بندی
-   - توضیحات
-   - آیکون
-   - اسکرین‌شات‌ها
-   - فایل AAB
+1. Go to the [Cafe Bazaar developer panel](https://developers.cafebazaar.ir/)
+2. Log in or register
+3. Click "Add new app"
+4. Complete the information:
+   - App name
+   - Category
+   - Description
+   - Icon
+   - Screenshots
+   - AAB file
 
-#### مرحله 4: بررسی و تایید
+#### Step 4: Review and approval
 
-- کافه‌بازار اپلیکیشن را بررسی می‌کند
-- معمولاً 1-3 روز کاری طول می‌کشد
-- در صورت نیاز به تغییرات، اطلاع‌رسانی می‌شود
+- Cafe Bazaar reviews the app
+- It usually takes 1-3 business days
+- If changes are needed, you will be notified
 
-### 4. نکات مهم
+### 4. Important notes
 
-#### امنیت
-- ✅ از HTTPS برای API استفاده کنید
-- ✅ اطلاعات حساس را در SharedPreferences ذخیره نکنید
-- ✅ از ProGuard برای obfuscation استفاده کنید
+#### Security
+- ✅ Use HTTPS for the API
+- ✅ Do not store sensitive information in SharedPreferences
+- ✅ Use ProGuard for obfuscation
 
-#### عملکرد
-- ✅ حجم APK/AAB را کم نگه دارید (کمتر از 100 مگابایت)
-- ✅ از Lazy Loading استفاده کنید
-- ✅ تصاویر را بهینه کنید
+#### Performance
+- ✅ Keep the APK/AAB size small (under 100 MB)
+- ✅ Use Lazy Loading
+- ✅ Optimize images
 
-#### محتوا
-- ✅ محتوای فارسی و مناسب
-- ✅ عدم استفاده از محتوای غیرمجاز
-- ✅ رعایت قوانین کافه‌بازار
+#### Content
+- ✅ Appropriate Persian content
+- ✅ Do not use unauthorized content
+- ✅ Comply with Cafe Bazaar rules
 
-### 5. به‌روزرسانی اپلیکیشن
+### 5. Updating the app
 
-برای به‌روزرسانی:
+To update:
 
-1. `versionCode` را در `build.gradle.kts` افزایش دهید:
+1. Increase `versionCode` in `build.gradle.kts`:
 ```kotlin
-versionCode = 2  // از 1 به 2
+versionCode = 2  // from 1 to 2
 versionName = "1.0.1"
 ```
 
-2. فایل جدید را بسازید:
+2. Build the new file:
 ```bash
 ./gradlew bundleRelease
 ```
 
-3. در پنل کافه‌بازار، نسخه جدید را آپلود کنید
+3. Upload the new version in the Cafe Bazaar panel
 
-### 6. آمار و تحلیل
+### 6. Statistics and analytics
 
-کافه‌بازار آمار زیر را ارائه می‌دهد:
-- تعداد نصب
-- تعداد بازدید
-- امتیاز کاربران
-- نظرات کاربران
+Cafe Bazaar provides the following statistics:
+- Number of installs
+- Number of views
+- User rating
+- User reviews
 
-### 7. پشتیبانی
+### 7. Support
 
-برای مشکلات و سوالات:
-- [مستندات کافه‌بازار](https://developers.cafebazaar.ir/fa/docs/)
-- [پشتیبانی کافه‌بازار](https://developers.cafebazaar.ir/fa/support/)
+For problems and questions:
+- [Cafe Bazaar documentation](https://developers.cafebazaar.ir/fa/docs/)
+- [Cafe Bazaar support](https://developers.cafebazaar.ir/fa/support/)
 
-## چک‌لیست قبل از انتشار
+## Pre-publication checklist
 
-- [ ] اپلیکیشن روی دستگاه‌های مختلف تست شده
-- [ ] تمام صفحات کار می‌کنند
-- [ ] API به درستی متصل است
-- [ ] آیکون و اسکرین‌شات‌ها آماده است
-- [ ] توضیحات کامل و بدون اشکال است
-- [ ] اپلیکیشن امضا شده است
-- [ ] ProGuard فعال است
-- [ ] حجم فایل مناسب است
-- [ ] RTL به درستی کار می‌کند
-- [ ] خطاها مدیریت شده‌اند
+- [ ] The app has been tested on various devices
+- [ ] All pages work
+- [ ] The API is connected properly
+- [ ] The icon and screenshots are ready
+- [ ] The description is complete and error-free
+- [ ] The app is signed
+- [ ] ProGuard is enabled
+- [ ] The file size is appropriate
+- [ ] RTL works correctly
+- [ ] Errors are handled
 
-## نکات نهایی
+## Final notes
 
-1. **اولین نسخه**: بهتر است با نسخه MVP شروع کنید و به مرور ویژگی‌ها را اضافه کنید
-2. **بازخورد کاربران**: نظرات کاربران را بخوانید و مشکلات را برطرف کنید
-3. **به‌روزرسانی منظم**: اپلیکیشن را به‌طور منظم به‌روزرسانی کنید
-4. **ارتباط با کاربران**: به نظرات و سوالات کاربران پاسخ دهید
+1. **First version**: It is better to start with an MVP version and add features gradually
+2. **User feedback**: Read user reviews and fix problems
+3. **Regular updates**: Update the app regularly
+4. **Communication with users**: Respond to user comments and questions
 
-موفق باشید! 🚀
+Good luck! 🚀
 

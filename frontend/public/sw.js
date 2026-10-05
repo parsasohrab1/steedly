@@ -90,8 +90,8 @@ self.addEventListener('push', (event) => {
       data = event.data.json();
     } catch (e) {
       data = {
-        title: 'اعلان جدید',
-        body: event.data.text() || 'شما یک اعلان جدید دارید',
+        title: 'New notification',
+        body: event.data.text() || 'You have a new notification',
         icon: '/icon-192x192.png',
         badge: '/icon-192x192.png',
         tag: 'notification',
@@ -102,8 +102,8 @@ self.addEventListener('push', (event) => {
   }
 
   const options = {
-    title: data.title || 'اعلان جدید',
-    body: data.message || data.body || 'شما یک اعلان جدید دارید',
+    title: data.title || 'New notification',
+    body: data.message || data.body || 'You have a new notification',
     icon: data.icon || '/icon-192x192.png',
     badge: '/icon-192x192.png',
     tag: data.tag || data.type || 'notification',

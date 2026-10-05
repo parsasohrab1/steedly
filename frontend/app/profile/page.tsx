@@ -58,7 +58,7 @@ export default function ProfilePage() {
       if (error.response?.status === 401) {
         router.push('/auth/login');
       } else {
-        setError('خطا در بارگذاری پروفایل');
+        setError('Error loading profile');
       }
     } finally {
       setLoading(false);
@@ -75,11 +75,11 @@ export default function ProfilePage() {
       if (response.data.success) {
         setProfile(response.data.data);
         setEditing(false);
-        setSuccess('پروفایل با موفقیت به‌روزرسانی شد');
+        setSuccess('Profile updated successfully');
         setTimeout(() => setSuccess(''), 3000);
       }
     } catch (error: any) {
-      setError(error.response?.data?.message || 'خطا در به‌روزرسانی پروفایل');
+      setError(error.response?.data?.message || 'Error updating profile');
     } finally {
       setSaving(false);
     }
@@ -108,7 +108,7 @@ export default function ProfilePage() {
         <div className="flex justify-center items-center min-h-screen">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto"></div>
-            <p className="mt-4 text-gray-600">در حال بارگذاری...</p>
+            <p className="mt-4 text-gray-600">Loading...</p>
           </div>
         </div>
       </div>
@@ -119,12 +119,12 @@ export default function ProfilePage() {
     return (
       <div className="container mx-auto px-4 py-8">
         <div className="text-center py-16">
-          <p className="text-gray-600">خطا در بارگذاری پروفایل</p>
+          <p className="text-gray-600">Error loading profile</p>
           <button
             onClick={() => router.push('/auth/login')}
             className="mt-4 text-primary-600 hover:text-primary-700"
           >
-            ورود به حساب کاربری
+            Log in to your account
           </button>
         </div>
       </div>
@@ -133,7 +133,7 @@ export default function ProfilePage() {
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-2xl">
-      <h1 className="text-3xl font-bold mb-8 text-center">پروفایل کاربری</h1>
+      <h1 className="text-3xl font-bold mb-8 text-center">User profile</h1>
 
       {/* Success Message */}
       {success && (
@@ -184,7 +184,7 @@ export default function ProfilePage() {
               <ImageUpload
                 onUploadComplete={(url) => setFormData({ ...formData, avatar_url: url })}
                 currentImageUrl={formData.avatar_url}
-                label="آواتار"
+                label="Avatar"
               />
             </div>
           )}
@@ -196,7 +196,7 @@ export default function ProfilePage() {
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
               <FaEnvelope className="inline ml-2" />
-              ایمیل
+              Email
             </label>
             <input
               type="email"
@@ -204,14 +204,14 @@ export default function ProfilePage() {
               disabled
               className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-100 text-gray-600"
             />
-            <p className="text-xs text-gray-500 mt-1">ایمیل قابل تغییر نیست</p>
+            <p className="text-xs text-gray-500 mt-1">Email cannot be changed</p>
           </div>
 
           {/* Full Name */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
               <FaUser className="inline ml-2" />
-              نام کامل
+              Full name
             </label>
             {editing ? (
               <input
@@ -219,11 +219,11 @@ export default function ProfilePage() {
                 value={formData.full_name}
                 onChange={(e) => setFormData({ ...formData, full_name: e.target.value })}
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                placeholder="نام و نام خانوادگی"
+                placeholder="Full name"
               />
             ) : (
               <div className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50">
-                {profile.full_name || 'تعریف نشده'}
+                {profile.full_name || 'Not set'}
               </div>
             )}
           </div>
@@ -232,7 +232,7 @@ export default function ProfilePage() {
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
               <FaPhone className="inline ml-2" />
-              شماره تماس
+              Phone number
             </label>
             {editing ? (
               <input
@@ -244,22 +244,22 @@ export default function ProfilePage() {
               />
             ) : (
               <div className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50">
-                {profile.phone || 'تعریف نشده'}
+                {profile.phone || 'Not set'}
               </div>
             )}
           </div>
 
           {/* Role */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">نقش</label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Role</label>
             <div className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50">
-              {profile.role === 'admin' ? 'مدیر' : profile.role === 'author' ? 'نویسنده' : 'کاربر'}
+              {profile.role === 'admin' ? 'Admin' : profile.role === 'author' ? 'Author' : 'User'}
             </div>
           </div>
 
           {/* Member Since */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">عضو از</label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Member since</label>
             <div className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50">
               {new Date(profile.created_at).toLocaleDateString('fa-IR')}
             </div>
@@ -268,7 +268,7 @@ export default function ProfilePage() {
           {/* Push Notifications */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              اعلان‌های Push
+              Push notifications
             </label>
             <div className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50">
               <PushNotificationManager />
@@ -286,7 +286,7 @@ export default function ProfilePage() {
                 className="flex-1 bg-primary-600 text-white px-6 py-3 rounded-lg hover:bg-primary-700 transition flex items-center justify-center gap-2 disabled:opacity-50"
               >
                 <FaSave />
-                {saving ? 'در حال ذخیره...' : 'ذخیره تغییرات'}
+                {saving ? 'Saving...' : 'Save changes'}
               </button>
               <button
                 onClick={handleCancel}
@@ -294,7 +294,7 @@ export default function ProfilePage() {
                 className="flex-1 bg-gray-200 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-300 transition flex items-center justify-center gap-2"
               >
                 <FaTimes />
-                انصراف
+                Cancel
               </button>
             </>
           ) : (
@@ -304,13 +304,13 @@ export default function ProfilePage() {
                 className="flex-1 bg-primary-600 text-white px-6 py-3 rounded-lg hover:bg-primary-700 transition flex items-center justify-center gap-2"
               >
                 <FaEdit />
-                ویرایش پروفایل
+                Edit profile
               </button>
               <button
                 onClick={handleLogout}
                 className="flex-1 bg-red-600 text-white px-6 py-3 rounded-lg hover:bg-red-700 transition"
               >
-                خروج
+                Log out
               </button>
             </>
           )}
@@ -321,25 +321,25 @@ export default function ProfilePage() {
       <div className="mt-6 grid md:grid-cols-2 gap-6">
         {/* My Orders */}
         <div className="bg-white rounded-lg shadow-md p-6">
-          <h2 className="text-xl font-bold mb-4">سفارشات من</h2>
-          <p className="text-gray-600 mb-4">مشاهده و پیگیری سفارشات</p>
+          <h2 className="text-xl font-bold mb-4">My orders</h2>
+          <p className="text-gray-600 mb-4">View and track orders</p>
           <button
             onClick={() => router.push('/profile/orders')}
             className="text-primary-600 hover:text-primary-700 font-semibold"
           >
-            مشاهده سفارشات →
+            View orders →
           </button>
         </div>
 
         {/* My Bookings */}
         <div className="bg-white rounded-lg shadow-md p-6">
-          <h2 className="text-xl font-bold mb-4">رزروهای من</h2>
-          <p className="text-gray-600 mb-4">مشاهده و مدیریت رزروها</p>
+          <h2 className="text-xl font-bold mb-4">My bookings</h2>
+          <p className="text-gray-600 mb-4">View and manage bookings</p>
           <button
             onClick={() => router.push('/profile/bookings')}
             className="text-primary-600 hover:text-primary-700 font-semibold"
           >
-            مشاهده رزروها →
+            View bookings →
           </button>
         </div>
       </div>

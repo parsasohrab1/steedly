@@ -83,26 +83,26 @@ fun HomeScreen(navController: NavController) {
                 ),
                 actions = {
                     IconButton(onClick = { navController.navigate(Routes.SEARCH) }) {
-                        Icon(Icons.Default.Search, contentDescription = "جستجو")
+                        Icon(Icons.Default.Search, contentDescription = "Search")
                     }
                     IconButton(onClick = { navController.navigate(Routes.CART) }) {
                         BadgedBox(badge = {
                             if (cartItems.isNotEmpty()) Badge { Text(cartItems.sumOf { it.quantity }.toString()) }
                         }) {
-                            Icon(Icons.Default.ShoppingCart, contentDescription = "سبد خرید")
+                            Icon(Icons.Default.ShoppingCart, contentDescription = "Cart")
                         }
                     }
                     if (token != null) {
                         IconButton(onClick = { navController.navigate(Routes.NOTIFICATIONS) }) {
                             BadgedBox(badge = { if (unread > 0) Badge { Text(unread.toString()) } }) {
-                                Icon(Icons.Default.Notifications, contentDescription = "اعلان‌ها")
+                                Icon(Icons.Default.Notifications, contentDescription = "Notifications")
                             }
                         }
                     }
                     IconButton(onClick = {
                         navController.navigate(if (token != null) Routes.PROFILE else Routes.LOGIN)
                     }) {
-                        Icon(Icons.Default.AccountCircle, contentDescription = "حساب کاربری")
+                        Icon(Icons.Default.AccountCircle, contentDescription = "Account")
                     }
                 }
             )
@@ -124,14 +124,14 @@ fun HomeScreen(navController: NavController) {
                 ) {
                     Column(Modifier.padding(20.dp)) {
                         Text(
-                            "سلامت و مراقبت اسب، در یک جا",
+                            "Horse health and care, all in one place",
                             style = MaterialTheme.typography.headlineSmall,
                             fontWeight = FontWeight.Bold,
                             color = MaterialTheme.colorScheme.onPrimaryContainer
                         )
                         Spacer(Modifier.height(8.dp))
                         Text(
-                            "دامپزشک و اسب‌کش نزدیک شما، مقالات تخصصی سلامت اسب، فروشگاه و تقویم مسابقات",
+                            "Veterinarians and horse transporters near you, specialized horse health articles, shop and competition calendar",
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.onPrimaryContainer
                         )
@@ -146,16 +146,16 @@ fun HomeScreen(navController: NavController) {
                         .padding(horizontal = 16.dp),
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    QuickAction("دامپزشک", Icons.Default.MedicalServices, Modifier.weight(1f)) {
+                    QuickAction("Veterinarian", Icons.Default.MedicalServices, Modifier.weight(1f)) {
                         openTab(Routes.SERVICES)
                     }
-                    QuickAction("نقشه", Icons.Default.Map, Modifier.weight(1f)) {
+                    QuickAction("Map", Icons.Default.Map, Modifier.weight(1f)) {
                         navController.navigate(Routes.map("veterinarian"))
                     }
-                    QuickAction("فروشگاه", Icons.Default.Storefront, Modifier.weight(1f)) {
+                    QuickAction("Shop", Icons.Default.Storefront, Modifier.weight(1f)) {
                         openTab(Routes.SHOP)
                     }
-                    QuickAction("مسابقات", Icons.Default.EmojiEvents, Modifier.weight(1f)) {
+                    QuickAction("Competitions", Icons.Default.EmojiEvents, Modifier.weight(1f)) {
                         openTab(Routes.COMPETITIONS)
                     }
                 }
@@ -163,8 +163,8 @@ fun HomeScreen(navController: NavController) {
 
             if (posts.isNotEmpty()) {
                 item {
-                    SectionTitle("آخرین مقالات", Modifier.padding(horizontal = 16.dp)) {
-                        TextButton(onClick = { openTab(Routes.BLOG) }) { Text("همه") }
+                    SectionTitle("Latest articles", Modifier.padding(horizontal = 16.dp)) {
+                        TextButton(onClick = { openTab(Routes.BLOG) }) { Text("All") }
                     }
                 }
                 item {
@@ -194,8 +194,8 @@ fun HomeScreen(navController: NavController) {
 
             if (products.isNotEmpty()) {
                 item {
-                    SectionTitle("محصولات جدید", Modifier.padding(horizontal = 16.dp)) {
-                        TextButton(onClick = { openTab(Routes.SHOP) }) { Text("همه") }
+                    SectionTitle("New products", Modifier.padding(horizontal = 16.dp)) {
+                        TextButton(onClick = { openTab(Routes.SHOP) }) { Text("All") }
                     }
                 }
                 item {
@@ -226,8 +226,8 @@ fun HomeScreen(navController: NavController) {
 
             if (competitions.isNotEmpty()) {
                 item {
-                    SectionTitle("مسابقات پیش رو", Modifier.padding(horizontal = 16.dp)) {
-                        TextButton(onClick = { openTab(Routes.COMPETITIONS) }) { Text("همه") }
+                    SectionTitle("Upcoming competitions", Modifier.padding(horizontal = 16.dp)) {
+                        TextButton(onClick = { openTab(Routes.COMPETITIONS) }) { Text("All") }
                     }
                 }
                 items(competitions, key = { it.id }) { comp ->
@@ -280,7 +280,7 @@ private fun BrandTitle() {
         }
         Spacer(Modifier.width(10.dp))
         Column {
-            Text("استیدلی", fontWeight = FontWeight.Bold, style = MaterialTheme.typography.titleLarge)
+            Text("Steedly", fontWeight = FontWeight.Bold, style = MaterialTheme.typography.titleLarge)
             Text("Steedly", style = MaterialTheme.typography.labelSmall, color = Gold400)
         }
     }

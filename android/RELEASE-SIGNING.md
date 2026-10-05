@@ -1,39 +1,39 @@
-# امضای نسخه نهایی اندروید (Release Signing)
+# Android Release Signing
 
-کلید امضای نسخه نهایی استیدلی **هرگز در مخزن قرار نمی‌گیرد**. فایل‌های `*.jks` و `keystore.properties`
-در `android/.gitignore` مستثنا شده‌اند.
+Steedly's release signing key is **never placed in the repository**. The `*.jks` and `keystore.properties` files
+are excluded in `android/.gitignore`.
 
-> ⚠️ **این کلید را گم نکنید.** اگر کلید از دست برود، دیگر نمی‌توانید برای همین اپ در کافه‌بازار و مایکت
-> به‌روزرسانی منتشر کنید و باید اپ جدیدی با نام بسته دیگری ثبت کنید. فایل کلید و رمز را دست‌کم در
-> **دو جای امن جدا** نگه دارید (مثلاً مدیر رمز عبور + فلش/هارد رمزگذاری‌شده).
+> ⚠️ **Do not lose this key.** If the key is lost, you can no longer publish updates for this app on Cafe Bazaar and Myket,
+> and you will have to register a new app with a different package name. Keep the key file and password in at least
+> **two separate safe places** (e.g. a password manager + an encrypted flash drive/hard drive).
 
-## مشخصات کلید
+## Key specifications
 
-| مورد | مقدار |
+| Item | Value |
 |------|--------|
-| فایل | `steedly-release.jks` (PKCS12) |
+| File | `steedly-release.jks` (PKCS12) |
 | Alias | `steedly` |
-| الگوریتم | RSA 4096 بیت، SHA384withRSA |
-| اعتبار | تا سپتامبر ۲۰۵۶ |
+| Algorithm | RSA 4096 bit, SHA384withRSA |
+| Validity | Until September 2056 |
 | SHA-1 | `FE:6E:2F:F0:32:7D:AE:0C:A9:70:2D:C4:1B:92:17:E6:C4:08:A3:1D` |
 | SHA-256 | `5E:55:3F:EA:0D:1D:33:84:91:4C:4A:07:07:6E:1B:50:2A:49:1A:9E:CD:96:3E:82:73:29:28:25:4F:27:A0:8B` |
 
-اثرانگشت SHA-1 را همراه نام بسته `ir.steedly.app` در **پنل نشان** (برای نمایش نقشه) و در صورت نیاز
-در **کافه‌بازار** ثبت کنید. اثرانگشت‌ها عمومی هستند؛ رمز و فایل کلید محرمانه‌اند.
+Register the SHA-1 fingerprint along with the package name `ir.steedly.app` in the **Neshan panel** (to display the map) and, if needed,
+in **Cafe Bazaar**. Fingerprints are public; the password and key file are confidential.
 
-## ساخت نسخه امضاشده روی کامپیوتر
+## Building a signed version on a computer
 
-1. فایل‌های `steedly-release.jks` و `keystore.properties` را در پوشه `android/` بگذارید.
-2. اجرا کنید:
+1. Put the `steedly-release.jks` and `keystore.properties` files in the `android/` folder.
+2. Run:
 
 ```bash
 cd android
 ./gradlew assembleRelease
 ```
 
-خروجی: `android/app/build/outputs/apk/release/app-release.apk`
+Output: `android/app/build/outputs/apk/release/app-release.apk`
 
-محتوای `keystore.properties`:
+Contents of `keystore.properties`:
 
 ```properties
 storeFile=steedly-release.jks
@@ -42,29 +42,29 @@ keyAlias=steedly
 keyPassword=...
 ```
 
-## ساخت خودکار در GitHub Actions
+## Automatic build in GitHub Actions
 
-در GitHub به **Settings ← Secrets and variables ← Actions ← New repository secret** بروید و این چهار
-مقدار را اضافه کنید:
+On GitHub go to **Settings ← Secrets and variables ← Actions ← New repository secret** and add these four
+values:
 
-| نام Secret | مقدار |
+| Secret name | Value |
 |-------------|--------|
-| `ANDROID_KEYSTORE_BASE64` | محتوای فایل `keystore.base64.txt` (نسخه base64 فایل کلید) |
+| `ANDROID_KEYSTORE_BASE64` | Contents of the `keystore.base64.txt` file (base64 version of the key file) |
 | `ANDROID_KEYSTORE_PASSWORD` | `storePassword` |
 | `ANDROID_KEY_ALIAS` | `steedly` |
 | `ANDROID_KEY_PASSWORD` | `keyPassword` |
 
-ساخت base64 از فایل کلید (اگر فایل آماده را ندارید):
+Creating base64 from the key file (if you do not have the ready file):
 
 ```bash
-base64 -w0 steedly-release.jks > keystore.base64.txt      # لینوکس
-base64 -i steedly-release.jks -o keystore.base64.txt       # مک
+base64 -w0 steedly-release.jks > keystore.base64.txt      # Linux
+base64 -i steedly-release.jks -o keystore.base64.txt       # Mac
 ```
 
-بعد از تنظیم secretها، هر اجرای CI فایل `steedly-release-apk` (APK امضاشده) را در بخش Artifacts می‌سازد.
-بدون secretها، CI یک APK **امضانشده** می‌سازد که فقط برای بررسی درستی تنظیمات release است و قابل نصب نیست.
+After setting the secrets, every CI run builds the `steedly-release-apk` file (signed APK) in the Artifacts section.
+Without the secrets, CI builds an **unsigned** APK that is only for verifying the release settings and is not installable.
 
-## ساخت کلید جدید (فقط اگر هنوز اپ منتشر نشده)
+## Creating a new key (only if the app has not been published yet)
 
 ```bash
 keytool -genkeypair -v -storetype PKCS12 -keystore steedly-release.jks -alias steedly \

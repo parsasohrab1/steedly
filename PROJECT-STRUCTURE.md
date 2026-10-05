@@ -1,58 +1,58 @@
-# ساختار پروژه استیدلی
+# Steedly Project Structure
 
-## نمای کلی
+## Overview
 
-این پروژه یک پلتفرم جامع برای اطلاعات، خدمات و فروشگاه آنلاین اسب است که شامل:
+This project is a comprehensive platform for horse information, services and an online shop, including:
 
-1. **بک‌اند**: Node.js + Express + TypeScript + PostgreSQL + Redis
-2. **فرانت‌اند**: Next.js 14 + TypeScript + Tailwind CSS (PWA)
+1. **Backend**: Node.js + Express + TypeScript + PostgreSQL + Redis
+2. **Frontend**: Next.js 14 + TypeScript + Tailwind CSS (PWA)
 
-## ساختار فولدرها
+## Folder structure
 
 ```
 steedly/
-├── backend/                    # بک‌اند API
+├── backend/                    # Backend API
 │   ├── src/
-│   │   ├── controllers/        # کنترلرهای API
+│   │   ├── controllers/        # API controllers
 │   │   │   ├── authController.ts
 │   │   │   ├── blogController.ts
 │   │   │   ├── serviceController.ts
 │   │   │   ├── shopController.ts
 │   │   │   └── competitionController.ts
-│   │   ├── routes/             # روت‌های API
+│   │   ├── routes/             # API routes
 │   │   │   ├── auth.ts
 │   │   │   ├── blog.ts
 │   │   │   ├── services.ts
 │   │   │   ├── shop.ts
 │   │   │   └── competitions.ts
-│   │   ├── middleware/         # میدلورها
-│   │   │   ├── auth.ts         # احراز هویت JWT
-│   │   │   ├── errorHandler.ts # مدیریت خطا
-│   │   │   └── validation.ts   # اعتبارسنجی
-│   │   ├── database/           # دیتابیس
-│   │   │   ├── connection.ts   # اتصال PostgreSQL
-│   │   │   ├── redis.ts        # اتصال Redis
-│   │   │   ├── schema.sql      # ساختار دیتابیس
-│   │   │   └── seed.ts         # داده‌های اولیه
-│   │   └── index.ts            # نقطه ورود
+│   │   ├── middleware/         # Middlewares
+│   │   │   ├── auth.ts         # JWT authentication
+│   │   │   ├── errorHandler.ts # Error handling
+│   │   │   └── validation.ts   # Validation
+│   │   ├── database/           # Database
+│   │   │   ├── connection.ts   # PostgreSQL connection
+│   │   │   ├── redis.ts        # Redis connection
+│   │   │   ├── schema.sql      # Database schema
+│   │   │   └── seed.ts         # Seed data
+│   │   └── index.ts            # Entry point
 │   ├── package.json
 │   ├── tsconfig.json
 │   └── .env.example
 │
-├── frontend/                   # فرانت‌اند PWA
+├── frontend/                   # PWA frontend
 │   ├── app/                    # Next.js App Router
-│   │   ├── layout.tsx          # Layout اصلی
-│   │   ├── page.tsx            # صفحه اصلی
-│   │   ├── blog/               # صفحات بلاگ
-│   │   ├── shop/               # صفحات فروشگاه
-│   │   ├── services/           # صفحات خدمات
-│   │   └── competitions/       # صفحات مسابقات
-│   ├── components/             # کامپوننت‌های React
+│   │   ├── layout.tsx          # Main layout
+│   │   ├── page.tsx            # Home page
+│   │   ├── blog/               # Blog pages
+│   │   ├── shop/               # Shop pages
+│   │   ├── services/           # Service pages
+│   │   └── competitions/       # Competition pages
+│   ├── components/             # React components
 │   │   ├── Header.tsx
 │   │   └── Footer.tsx
-│   ├── lib/                    # توابع کمکی
-│   │   └── api.ts              # توابع API
-│   ├── public/                 # فایل‌های استاتیک
+│   ├── lib/                    # Helper functions
+│   │   └── api.ts              # API functions
+│   ├── public/                 # Static files
 │   │   ├── manifest.json       # PWA Manifest
 │   │   └── sw.js               # Service Worker
 │   ├── package.json
@@ -61,44 +61,44 @@ steedly/
 │   └── next.config.js
 │
 ├── package.json                # Root package.json
-├── README.md                   # مستندات اصلی
-├── README-SETUP.md            # راهنمای راه‌اندازی
+├── README.md                   # Main documentation
+├── README-SETUP.md            # Setup guide
 └── .gitignore
 ```
 
-## ماژول‌های اصلی
+## Main modules
 
-### 1. ماژول احراز هویت
-- ثبت‌نام کاربر
-- ورود و خروج
-- مدیریت پروفایل
+### 1. Authentication module
+- User registration
+- Login and logout
+- Profile management
 - JWT Authentication
 
-### 2. ماژول بلاگ
-- نمایش مقالات
-- جستجوی مقالات
-- دسته‌بندی مقالات
-- مدیریت مقالات (برای ادمین/نویسنده)
+### 2. Blog module
+- Display articles
+- Search articles
+- Article categories
+- Article management (for admin/author)
 
-### 3. ماژول خدمات
-- ثبت دامپزشک
-- ثبت اسب‌کش
-- رزرو خدمات
-- سیستم امتیازدهی و نظرات
+### 3. Services module
+- Veterinarian registration
+- Horse transporter registration
+- Service booking
+- Rating and review system
 
-### 4. ماژول فروشگاه
-- نمایش محصولات
-- دسته‌بندی محصولات
-- سبد خرید
-- مدیریت سفارشات
+### 4. Shop module
+- Display products
+- Product categories
+- Shopping cart
+- Order management
 
-### 5. ماژول مسابقات
-- نمایش مسابقات
-- فیلتر بر اساس نوع
-- نتایج مسابقات
-- تقویم مسابقات
+### 5. Competitions module
+- Display competitions
+- Filter by type
+- Competition results
+- Competition calendar
 
-## تکنولوژی‌های استفاده شده
+## Technologies used
 
 ### Backend
 - **Node.js**: Runtime environment
@@ -117,36 +117,36 @@ steedly/
 - **Axios**: HTTP client
 - **PWA**: Progressive Web App support
 
-## ویژگی‌های PWA
+## PWA features
 
-- Service Worker برای آفلاین
+- Service Worker for offline
 - Web App Manifest
-- قابلیت نصب روی دستگاه
-- Push Notifications (آماده برای پیاده‌سازی)
+- Installable on the device
+- Push Notifications (ready for implementation)
 
-## امنیت
+## Security
 
-- JWT برای احراز هویت
-- Hash کردن رمز عبور با bcrypt
-- Helmet برای امنیت HTTP headers
+- JWT for authentication
+- Password hashing with bcrypt
+- Helmet for HTTP header security
 - CORS configuration
 - Input validation
 
-## عملکرد
+## Performance
 
-- Redis caching برای بهبود سرعت
+- Redis caching to improve speed
 - Database indexing
 - Image optimization
-- Code splitting در Next.js
+- Code splitting in Next.js
 - Lazy loading
 
-## توسعه آینده
+## Future development
 
-- [ ] تست‌های واحد و یکپارچگی
-- [ ] اپلیکیشن اندروید (Kotlin + Jetpack Compose)
+- [ ] Unit and integration tests
+- [ ] Android application (Kotlin + Jetpack Compose)
 - [ ] Push Notifications
-- [ ] سیستم پرداخت آنلاین
-- [ ] پنل مدیریت
-- [ ] سیستم اعلان‌ها
-- [ ] چت و پشتیبانی آنلاین
+- [ ] Online payment system
+- [ ] Admin panel
+- [ ] Notification system
+- [ ] Online chat and support
 

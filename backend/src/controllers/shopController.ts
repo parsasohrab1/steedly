@@ -262,8 +262,8 @@ export const createOrder = async (
       await createNotification(
         userId,
         'order',
-        'سفارش جدید',
-        `سفارش شما با شماره ${orderNumber} ثبت شد. مبلغ کل: ${totalAmount.toLocaleString('fa-IR')} تومان`,
+        'New order',
+        `Your order number ${orderNumber} was placed. Total amount: ${totalAmount.toLocaleString('en-US')} Toman`,
         `/profile/orders/${orderId}`
       );
     } catch (notifError) {

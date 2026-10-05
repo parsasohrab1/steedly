@@ -1,136 +1,136 @@
-# وضعیت پیاده‌سازی محتوای اسب
+# Horse Content Implementation Status
 
-## ✅ کارهای انجام شده
+## ✅ Work Done
 
-### 1. ساختار دیتابیس
-- ✅ جدول `blog_categories` با 8 دسته‌بندی اصلی
-- ✅ جدول `blog_posts` با تمام فیلدهای لازم
-- ✅ جدول `blog_tags` برای تگ‌گذاری
-- ✅ جدول `product_categories` با 6 دسته‌بندی محصولات
-- ✅ پشتیبانی از تصاویر و محتوای چندرسانه‌ای
+### 1. Database structure
+- ✅ `blog_categories` table with 8 main categories
+- ✅ `blog_posts` table with all required fields
+- ✅ `blog_tags` table for tagging
+- ✅ `product_categories` table with 6 product categories
+- ✅ Support for images and multimedia content
 
-### 2. API و Backend
-- ✅ CRUD کامل برای مقالات
-- ✅ جستجوی مقالات
-- ✅ فیلتر بر اساس دسته‌بندی
+### 2. API and Backend
+- ✅ Full CRUD for articles
+- ✅ Article search
+- ✅ Filter by category
 - ✅ Pagination
-- ✅ Caching با Redis
-- ✅ Seed script برای دسته‌بندی‌ها
+- ✅ Caching with Redis
+- ✅ Seed script for categories
 
-### 3. دسته‌بندی‌های تعریف شده
+### 3. Defined categories
 
-#### بلاگ (8 دسته):
-1. ✅ نژادهای اسب
-2. ✅ بیماری‌ها و سلامت
-3. ✅ تجهیزات و لوازم
-4. ✅ ورزش‌های سوارکاری
-5. ✅ تاریخ و فرهنگ
-6. ✅ تغذیه و مراقبت
-7. ✅ آموزش و تربیت
-8. ✅ سوارکاری
+#### Blog (8 categories):
+1. ✅ Horse breeds
+2. ✅ Diseases and health
+3. ✅ Equipment and supplies
+4. ✅ Equestrian sports
+5. ✅ History and culture
+6. ✅ Nutrition and care
+7. ✅ Training and education
+8. ✅ Riding
 
-#### محصولات (6 دسته):
-1. ✅ تجهیزات سوارکاری
-2. ✅ داروهای دامپزشکی
-3. ✅ مکمل‌های غذایی
-4. ✅ وسایل مراقبت
-5. ✅ خوراک و علوفه
-6. ✅ ابزار و تجهیزات
+#### Products (6 categories):
+1. ✅ Riding equipment
+2. ✅ Veterinary medicines
+3. ✅ Nutritional supplements
+4. ✅ Care supplies
+5. ✅ Feed and forage
+6. ✅ Tools and equipment
 
-### 4. مستندات
-- ✅ `CONTENT-STRUCTURE.md`: ساختار کامل محتوا
-- ✅ `sample-articles.md`: مقالات نمونه
-- ✅ `content-seed.sql`: SQL برای محتوای نمونه
+### 4. Documentation
+- ✅ `CONTENT-STRUCTURE.md`: Complete content structure
+- ✅ `sample-articles.md`: Sample articles
+- ✅ `content-seed.sql`: SQL for sample content
 
-## ⚠️ کارهای باقی‌مانده
+## ⚠️ Remaining work
 
-### 1. محتوای واقعی
-- ❌ مقالات واقعی هنوز اضافه نشده
-- ❌ تصاویر مقالات
-- ❌ ویدیوهای آموزشی (اختیاری)
-- ❌ اینفوگرافیک
+### 1. Real content
+- ❌ Real articles have not yet been added
+- ❌ Article images
+- ❌ Educational videos (optional)
+- ❌ Infographics
 
-### 2. سیستم مدیریت محتوا
-- ⚠️ پنل ادمین برای مدیریت مقالات
-- ⚠️ ویرایشگر محتوا (Rich Text Editor)
-- ⚠️ آپلود تصویر
-- ⚠️ پیش‌نمایش مقاله
+### 2. Content management system
+- ⚠️ Admin panel for managing articles
+- ⚠️ Content editor (Rich Text Editor)
+- ⚠️ Image upload
+- ⚠️ Article preview
 
-### 3. بهینه‌سازی محتوا
+### 3. Content optimization
 - ⚠️ SEO optimization
 - ⚠️ Meta tags
 - ⚠️ Schema markup
 - ⚠️ Sitemap
 
-### 4. ویژگی‌های پیشرفته
-- ⚠️ ذخیره مقالات برای آفلاین (PWA)
-- ⚠️ اشتراک‌گذاری مقالات
-- ⚠️ نظرات کاربران
-- ⚠️ امتیازدهی به مقالات
-- ⚠️ مقالات مرتبط
+### 4. Advanced features
+- ⚠️ Saving articles for offline (PWA)
+- ⚠️ Sharing articles
+- ⚠️ User comments
+- ⚠️ Article rating
+- ⚠️ Related articles
 
-## 📊 آمار هدف (طبق SRS)
+## 📊 Target statistics (per SRS)
 
-- **200 مقاله تخصصی** در 6 ماه اول
-- **حداقل 20 مقاله** در هر دسته‌بندی
-- **به‌روزرسانی هفتگی** محتوا
+- **200 specialized articles** in the first 6 months
+- **At least 20 articles** in each category
+- **Weekly content update**
 
-## 🎯 اولویت‌های تکمیل محتوا
+## 🎯 Content completion priorities
 
-### فاز 1: محتوای پایه (اولویت بالا)
-1. ⚠️ 10 مقاله درباره نژادهای اصلی اسب
-2. ⚠️ 10 مقاله درباره بیماری‌های رایج
-3. ⚠️ 5 مقاله راهنمای خرید تجهیزات
-4. ⚠️ 5 مقاله درباره ورزش‌های سوارکاری
+### Phase 1: Base content (high priority)
+1. ⚠️ 10 articles on the main horse breeds
+2. ⚠️ 10 articles on common diseases
+3. ⚠️ 5 equipment buying guide articles
+4. ⚠️ 5 articles on equestrian sports
 
-### فاز 2: محتوای تخصصی
-1. ⚠️ مقالات عمیق‌تر
-2. ⚠️ ویدیوهای آموزشی
-3. ⚠️ اینفوگرافیک
-4. ⚠️ مصاحبه با متخصصان
+### Phase 2: Specialized content
+1. ⚠️ In-depth articles
+2. ⚠️ Educational videos
+3. ⚠️ Infographics
+4. ⚠️ Interviews with specialists
 
-## 📝 نمونه مقالات آماده
+## 📝 Ready sample articles
 
-در فایل `sample-articles.md` 6 مقاله نمونه آماده شده:
-1. اسب عربی - شاهکار طبیعت
-2. کولیک در اسب - علائم و درمان
-3. راهنمای خرید زین مناسب
-4. درساژ - هنر سوارکاری
-5. تغذیه صحیح اسب
-6. تاریخ اسب در ایران
+In the file `sample-articles.md` 6 sample articles are prepared:
+1. Arabian horse - a masterpiece of nature
+2. Colic in horses - symptoms and treatment
+3. Guide to buying a suitable saddle
+4. Dressage - the art of riding
+5. Proper horse nutrition
+6. History of the horse in Iran
 
-## 🔧 نحوه اضافه کردن محتوا
+## 🔧 How to add content
 
-### روش 1: از طریق API
+### Method 1: Through the API
 ```bash
 POST /api/blog/posts
 {
-  "title": "عنوان مقاله",
-  "excerpt": "خلاصه مقاله",
-  "content": "محتوای کامل...",
+  "title": "Article title",
+  "excerpt": "Article summary",
+  "content": "Full content...",
   "category_id": 1,
   "featured_image": "/images/article.jpg"
 }
 ```
 
-### روش 2: از طریق دیتابیس
-استفاده از فایل `content-seed.sql` یا دستورات SQL مستقیم
+### Method 2: Through the database
+Use the `content-seed.sql` file or direct SQL commands
 
-### روش 3: پنل مدیریت (باید ساخته شود)
-رابط کاربری برای ادمین برای اضافه کردن و ویرایش مقالات
+### Method 3: Admin panel (to be built)
+A user interface for the admin to add and edit articles
 
-## ✅ نتیجه‌گیری
+## ✅ Conclusion
 
-**وضعیت محتوا**: 
-- ✅ **ساختار کامل**: 100%
-- ✅ **API آماده**: 100%
-- ⚠️ **محتوای واقعی**: 0%
-- ⚠️ **سیستم مدیریت**: 0%
+**Content status**:
+- ✅ **Complete structure**: 100%
+- ✅ **API ready**: 100%
+- ⚠️ **Real content**: 0%
+- ⚠️ **Management system**: 0%
 
-**برای شروع**: ساختار و API آماده است، فقط نیاز به اضافه کردن محتوای واقعی دارد.
+**To start**: The structure and API are ready; only real content needs to be added.
 
-**توصیه**: 
-1. ابتدا 10-20 مقاله نمونه اضافه کنید
-2. پنل مدیریت محتوا بسازید
-3. سپس به تدریج محتوا را افزایش دهید
+**Recommendation**:
+1. First add 10-20 sample articles
+2. Build a content management panel
+3. Then gradually increase the content
 

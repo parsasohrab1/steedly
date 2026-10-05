@@ -66,7 +66,7 @@ export default function OrderDetailPage() {
       setOrder(orderRes.data.data);
       setPayments(paymentsRes?.data.data || []);
     } catch (err: any) {
-      setError(err.response?.data?.message || 'سفارش یافت نشد');
+      setError(err.response?.data?.message || 'Order not found');
     } finally {
       setLoading(false);
     }
@@ -87,34 +87,34 @@ export default function OrderDetailPage() {
       const res = await paymentsAPI.requestPayment(orderId);
       window.location.href = res.data.data.payment_url;
     } catch (err: any) {
-      setError(err.response?.data?.message || 'اتصال به درگاه پرداخت ممکن نشد');
+      setError(err.response?.data?.message || 'Could not connect to the payment gateway');
       setBusy(false);
     }
   };
 
   const handleCancel = async () => {
-    if (!confirm('آیا از لغو این سفارش مطمئن هستید؟')) return;
+    if (!confirm('Are you sure you want to cancel this order?')) return;
     setBusy(true);
     setError('');
     try {
       await shopAPI.cancelOrder(orderId);
-      setMessage('سفارش لغو شد');
+      setMessage('Order cancelled');
       await load();
     } catch (err: any) {
-      setError(err.response?.data?.message || 'لغو سفارش ممکن نشد');
+      setError(err.response?.data?.message || 'Could not cancel the order');
     } finally {
       setBusy(false);
     }
   };
 
   if (loading) {
-    return <LoadingSpinner fullScreen text="در حال بارگذاری سفارش..." />;
+    return <LoadingSpinner fullScreen text="Loading order..." />;
   }
 
   if (!order) {
     return (
       <div className="container mx-auto px-4 py-8 max-w-3xl">
-        <ErrorMessage message={error || 'سفارش یافت نشد'} />
+        <ErrorMessage message={error || 'Order not found'} />
       </div>
     );
   }
@@ -126,7 +126,7 @@ export default function OrderDetailPage() {
         className="text-primary-600 hover:text-primary-700 inline-flex items-center gap-2 mb-6"
       >
         <FaArrowRight />
-        بازگشت به سفارشات
+        Back to orders
       </Link>
 
       {error && (
@@ -143,7 +143,7 @@ export default function OrderDetailPage() {
       <div className="bg-white rounded-lg shadow-md p-6 mb-6">
         <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
           <div>
-            <h1 className="text-2xl font-bold">سفارش #{order.order_number}</h1>
+            <h1 className="text-2xl font-bold">Order #{order.order_number}</h1>
             <p className="text-sm text-gray-500 mt-1">
               {new Date(order.created_at).toLocaleString('fa-IR')}
             </p>
@@ -159,24 +159,24 @@ export default function OrderDetailPage() {
 
         <dl className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
           <div>
-            <dt className="text-gray-500">وضعیت پرداخت</dt>
+            <dt className="text-gray-500">Payment status</dt>
             <dd className={order.payment_status === 'paid' ? 'text-green-600 font-semibold' : 'text-yellow-700 font-semibold'}>
               {paymentStatusLabels[order.payment_status] || order.payment_status}
             </dd>
           </div>
           <div>
-            <dt className="text-gray-500">روش پرداخت</dt>
-            <dd>{order.payment_method === 'cash' ? 'پرداخت در محل' : 'پرداخت آنلاین'}</dd>
+            <dt className="text-gray-500">Payment method</dt>
+            <dd>{order.payment_method === 'cash' ? 'Cash on delivery' : 'Online payment'}</dd>
           </div>
           <div className="sm:col-span-2">
-            <dt className="text-gray-500">آدرس ارسال</dt>
+            <dt className="text-gray-500">Shipping address</dt>
             <dd className="whitespace-pre-line">{order.shipping_address}</dd>
           </div>
         </dl>
       </div>
 
       <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-        <h2 className="text-lg font-bold mb-4">اقلام سفارش</h2>
+        <h2 className="text-lg font-bold mb-4">Order items</h2>
         <ul className="divide-y">
           {order.items.map((item) => (
             <li key={item.id} className="py-3 flex items-center justify-between gap-4">
@@ -197,21 +197,21 @@ export default function OrderDetailPage() {
           ))}
         </ul>
         <div className="border-t pt-4 mt-2 flex justify-between text-lg font-bold">
-          <span>مبلغ کل</span>
+          <span>Total amount</span>
           <span className="text-primary-600">{formatToman(order.total_amount)}</span>
         </div>
       </div>
 
       {payments.length > 0 && (
         <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-          <h2 className="text-lg font-bold mb-4">تراکنش‌ها</h2>
+          <h2 className="text-lg font-bold mb-4">Transactions</h2>
           <ul className="space-y-2 text-sm">
             {payments.map((p) => (
               <li key={p.id} className="flex justify-between">
                 <span>{new Date(p.created_at).toLocaleString('fa-IR')}</span>
                 <span className={p.status === 'paid' ? 'text-green-600' : p.status === 'failed' ? 'text-red-600' : 'text-gray-600'}>
                   {paymentStatusLabels[p.status] || p.status}
-                  {p.ref_id ? ` — کد پیگیری ${p.ref_id}` : ''}
+                  {p.ref_id ? ` — tracking code ${p.ref_id}` : ''}
                 </span>
               </li>
             ))}
@@ -227,7 +227,7 @@ export default function OrderDetailPage() {
             className="flex-1 bg-primary-600 text-white py-3 rounded-lg hover:bg-primary-700 transition font-semibold flex items-center justify-center gap-2 disabled:opacity-50"
           >
             <FaCreditCard />
-            پرداخت آنلاین
+            Online payment
           </button>
         )}
         {canCancelOrder(order) && (
@@ -237,7 +237,7 @@ export default function OrderDetailPage() {
             className="flex-1 border border-red-300 text-red-600 py-3 rounded-lg hover:bg-red-50 transition font-semibold flex items-center justify-center gap-2 disabled:opacity-50"
           >
             <FaTimes />
-            لغو سفارش
+            Cancel order
           </button>
         )}
       </div>

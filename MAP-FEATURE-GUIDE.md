@@ -1,40 +1,40 @@
-# راهنمای قابلیت نقشه (مشابه اسنپ)
+# Map Feature Guide (Snapp-like)
 
-## خلاصه
+## Summary
 
-قابلیت نقشه برای انتخاب دامپزشک و اسب‌کش با نمایش موقعیت جغرافیایی اضافه شده است. کاربران می‌توانند:
+A map feature has been added for choosing a veterinarian and horse transporter by showing their geographic location. Users can:
 
-1. موقعیت خود را روی نقشه ببینند
-2. دامپزشکان و اسب‌کش‌های نزدیک را روی نقشه مشاهده کنند
-3. بر اساس فاصله فیلتر کنند (10، 25، 50، 100 کیلومتر)
-4. با کلیک روی marker، اطلاعات ارائه‌دهنده را ببینند
-5. مستقیماً از روی نقشه رزرو کنند
+1. See their own location on the map
+2. See nearby veterinarians and horse transporters on the map
+3. Filter by distance (10, 25, 50, 100 km)
+4. See provider information by clicking a marker
+5. Book directly from the map
 
-## تغییرات در Backend
+## Backend changes
 
-### 1. Schema دیتابیس
+### 1. Database schema
 
-فیلدهای زیر به جداول اضافه شده:
-- `latitude` (DECIMAL): عرض جغرافیایی
-- `longitude` (DECIMAL): طول جغرافیایی  
-- `address` (TEXT): آدرس کامل
+The following fields were added to the tables:
+- `latitude` (DECIMAL): Latitude
+- `longitude` (DECIMAL): Longitude
+- `address` (TEXT): Full address
 
 ### 2. API Updates
 
 #### GET /api/services/veterinarians
-پارامترهای جدید:
-- `latitude`: عرض جغرافیایی کاربر
-- `longitude`: طول جغرافیایی کاربر
-- `radius`: شعاع جستجو (کیلومتر)
+New parameters:
+- `latitude`: User latitude
+- `longitude`: User longitude
+- `radius`: Search radius (km)
 
-پاسخ شامل فیلد `distance` (فاصله به کیلومتر) است.
+The response includes a `distance` field (distance in km).
 
 #### GET /api/services/transporters
-همان پارامترهای بالا
+Same parameters as above
 
-### 3. محاسبه فاصله
+### 3. Distance calculation
 
-از فرمول Haversine برای محاسبه فاصله استفاده می‌شود:
+The Haversine formula is used to calculate distance:
 ```sql
 6371 * acos(
   cos(radians(lat1)) *
@@ -45,45 +45,45 @@
 )
 ```
 
-## تغییرات در Frontend (PWA)
+## Frontend (PWA) changes
 
-### 1. صفحه نقشه
+### 1. Map page
 
-مسیر: `/services/map`
+Path: `/services/map`
 
-ویژگی‌ها:
-- دریافت موقعیت کاربر با Geolocation API
-- نمایش نقشه با Google Maps
-- نمایش markers برای دامپزشکان (سبز) و اسب‌کش‌ها (نارنجی)
-- فیلتر بر اساس نوع سرویس و فاصله
-- لیست ارائه‌دهندگان در پایین صفحه
-- امکان رزرو مستقیم
+Features:
+- Getting the user's location with the Geolocation API
+- Displaying the map with Google Maps
+- Displaying markers for veterinarians (green) and horse transporters (orange)
+- Filter by service type and distance
+- List of providers at the bottom of the page
+- Direct booking option
 
-### 2. کامپوننت MapComponent
+### 2. MapComponent component
 
-استفاده از `@googlemaps/js-api-loader` برای نمایش نقشه
+Uses `@googlemaps/js-api-loader` to display the map
 
-### 3. تنظیمات
+### 3. Settings
 
-در `.env.local` اضافه کنید:
+Add to `.env.local`:
 ```
 NEXT_PUBLIC_NESHAN_API_KEY=your_neshan_api_key
 ```
 
-**نکته**: این پروژه از نقشه نشان (Neshan Maps) استفاده می‌کند که یک سرویس نقشه ایرانی است.
+**Note**: This project uses Neshan Maps, an Iranian map service.
 
-## تغییرات در Android
+## Android changes
 
 ### 1. Dependencies
 
-اضافه شده:
+Added:
 - `play-services-maps`: Google Maps SDK
 - `play-services-location`: Location Services
 - `maps-compose`: Compose integration
 
 ### 2. Permissions
 
-در `AndroidManifest.xml`:
+In `AndroidManifest.xml`:
 ```xml
 <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -91,7 +91,7 @@ NEXT_PUBLIC_NESHAN_API_KEY=your_neshan_api_key
 
 ### 3. Google Maps API Key
 
-در `AndroidManifest.xml`:
+In `AndroidManifest.xml`:
 ```xml
 <meta-data
     android:name="com.google.android.geo.API_KEY"
@@ -100,75 +100,75 @@ NEXT_PUBLIC_NESHAN_API_KEY=your_neshan_api_key
 
 ### 4. MapScreen
 
-- دریافت موقعیت کاربر
-- نمایش نقشه با Google Maps Compose
-- نمایش markers
-- فیلتر و جستجو
-- لیست ارائه‌دهندگان
+- Getting the user's location
+- Displaying the map with Google Maps Compose
+- Displaying markers
+- Filter and search
+- List of providers
 
-## نحوه استفاده
+## How to Use
 
-### برای کاربران
+### For users
 
-1. به صفحه "خدمات" بروید
-2. روی "مشاهده روی نقشه" کلیک کنید
-3. اجازه دسترسی به موقعیت را بدهید
-4. دامپزشکان یا اسب‌کش‌ها را انتخاب کنید
-5. فاصله را تنظیم کنید (10، 25، 50، 100 کیلومتر)
-6. روی marker کلیک کنید یا از لیست انتخاب کنید
-7. "رزرو" را بزنید
+1. Go to the "Services" page
+2. Click "View on map"
+3. Grant location access
+4. Choose veterinarians or horse transporters
+5. Set the distance (10, 25, 50, 100 km)
+6. Click a marker or choose from the list
+7. Press "Book"
 
-### برای توسعه‌دهندگان
+### For developers
 
-#### ثبت موقعیت ارائه‌دهنده
+#### Registering the provider location
 
-هنگام ثبت دامپزشک یا اسب‌کش:
+When registering a veterinarian or horse transporter:
 ```json
 {
-  "full_name": "دکتر احمدی",
+  "full_name": "Dr. Ahmadi",
   "latitude": 35.6892,
   "longitude": 51.3890,
-  "address": "تهران، خیابان ولیعصر"
+  "address": "Tehran, Valiasr Street"
 }
 ```
 
-#### دریافت Neshan Maps API Key
+#### Getting a Neshan Maps API key
 
-1. به [پنل توسعه‌دهندگان نشان](https://developer.neshan.org/) بروید
-2. ثبت‌نام یا ورود کنید
-3. پروژه جدید ایجاد کنید
-4. API Key دریافت کنید
-5. در فایل‌های `.env` و `AndroidManifest.xml` قرار دهید
+1. Go to the [Neshan developer panel](https://developer.neshan.org/)
+2. Sign up or log in
+3. Create a new project
+4. Get an API key
+5. Put it in the `.env` files and `AndroidManifest.xml`
 
-برای جزئیات بیشتر، به [NESHAN-MAPS-SETUP.md](NESHAN-MAPS-SETUP.md) مراجعه کنید.
+For more details, see [NESHAN-MAPS-SETUP.md](NESHAN-MAPS-SETUP.md).
 
-## نکات مهم
+## Important Notes
 
-1. **امنیت**: API Key را در repository commit نکنید
-2. **بهینه‌سازی**: برای کاهش هزینه‌ها، از caching استفاده کنید
-3. **دقت**: مطمئن شوید که موقعیت‌ها دقیق هستند
-4. **تجربه کاربری**: در صورت عدم دسترسی به موقعیت، از موقعیت پیش‌فرض (تهران) استفاده می‌شود
+1. **Security**: Do not commit the API key to the repository
+2. **Optimization**: Use caching to reduce costs
+3. **Accuracy**: Make sure locations are accurate
+4. **User experience**: If location access is unavailable, the default location (Tehran) is used
 
-## مشکلات رایج
+## Common Problems
 
-### نقشه نمایش داده نمی‌شود
-- بررسی کنید API Key درست باشد
-- بررسی کنید API در Google Cloud Console فعال باشد
-- در مرورگر، Console را بررسی کنید
+### Map is not displayed
+- Check that the API key is correct
+- Check that the API is enabled in Google Cloud Console
+- Check the Console in the browser
 
-### موقعیت کاربر دریافت نمی‌شود
-- بررسی کنید permission داده شده باشد
-- در HTTPS یا localhost تست کنید (Geolocation در HTTP کار نمی‌کند)
+### User location is not obtained
+- Check that permission has been granted
+- Test on HTTPS or localhost (Geolocation does not work on HTTP)
 
-### فاصله درست محاسبه نمی‌شود
-- بررسی کنید latitude و longitude درست باشند
-- فرمت باید decimal باشد (مثلاً 35.6892 نه 35°41'21")
+### Distance is not calculated correctly
+- Check that latitude and longitude are correct
+- The format must be decimal (e.g. 35.6892 not 35°41'21")
 
-## توسعه آینده
+## Future development
 
-- [ ] مسیریابی (Navigation)
-- [ ] نمایش مسیر روی نقشه
-- [ ] تخمین زمان رسیدن
-- [ ] Push notification هنگام نزدیک شدن
-- [ ] تاریخچه مکان‌های بازدید شده
+- [ ] Navigation
+- [ ] Showing the route on the map
+- [ ] Estimated arrival time
+- [ ] Push notification when approaching
+- [ ] History of visited places
 

@@ -13,10 +13,10 @@ describe('Header Component', () => {
   it('renders logo and navigation links', () => {
     render(<Header />);
 
-    expect(screen.getByText('استیدلی')).toBeInTheDocument();
-    expect(screen.getByText('مقالات')).toBeInTheDocument();
-    expect(screen.getByText('خدمات')).toBeInTheDocument();
-    expect(screen.getByText('فروشگاه')).toBeInTheDocument();
+    expect(screen.getByText('Steedly')).toBeInTheDocument();
+    expect(screen.getByText('Articles')).toBeInTheDocument();
+    expect(screen.getByText('Services')).toBeInTheDocument();
+    expect(screen.getByText('Shop')).toBeInTheDocument();
   });
 
   it('shows login button when user is not logged in', () => {
@@ -25,7 +25,7 @@ describe('Header Component', () => {
 
     render(<Header />);
 
-    expect(screen.getByText('ورود / ثبت‌نام')).toBeInTheDocument();
+    expect(screen.getByText('Log in / Sign up')).toBeInTheDocument();
   });
 });
 

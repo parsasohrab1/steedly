@@ -1,59 +1,59 @@
-# راهنمای رفع مشکلات
+# Troubleshooting Guide
 
-## مشکل: فایل‌های Next.js از پورت 3000 درخواست می‌شوند
+## Problem: Next.js files are requested from port 3000
 
-### علت
-- مرورگر cache کرده است که فایل‌های static از پورت 3000 باید درخواست شوند
-- یا Service Worker قدیمی cache کرده است
+### Cause
+- The browser has cached that static files should be requested from port 3000
+- Or an old Service Worker has cached it
 
-### راه حل
+### Solution
 
-#### 1. Hard Refresh مرورگر
-- **Windows/Linux**: `Ctrl + Shift + R` یا `Ctrl + F5`
+#### 1. Hard Refresh the browser
+- **Windows/Linux**: `Ctrl + Shift + R` or `Ctrl + F5`
 - **Mac**: `Cmd + Shift + R`
 
-#### 2. پاک کردن Cache
-1. Developer Tools را باز کنید (F12)
-2. به تب **Application** بروید
-3. در سمت چپ، **Clear storage** را انتخاب کنید
-4. روی **Clear site data** کلیک کنید
+#### 2. Clear the Cache
+1. Open Developer Tools (F12)
+2. Go to the **Application** tab
+3. On the left, select **Clear storage**
+4. Click **Clear site data**
 
 #### 3. Unregister Service Worker
 1. Developer Tools > Application > Service Workers
-2. روی **Unregister** کلیک کنید
-3. صفحه را refresh کنید
+2. Click **Unregister**
+3. Refresh the page
 
-#### 4. Restart اپلیکیشن
+#### 4. Restart the application
 ```bash
-# توقف اپلیکیشن (Ctrl+C)
-# سپس دوباره اجرا کنید
+# Stop the application (Ctrl+C)
+# Then run again
 npm run dev
 ```
 
-## مشکل: آیکون‌های PWA موجود نیستند
+## Problem: PWA icons are missing
 
-### راه حل
-1. آیکون‌های واقعی را ایجاد کنید (مطابق `ICON-SETUP.md`)
-2. یا از placeholder استفاده کنید (برای تست)
+### Solution
+1. Create real icons (according to `ICON-SETUP.md`)
+2. Or use a placeholder (for testing)
 
-## مشکل: MIME Type Error
+## Problem: MIME Type Error
 
-### علت
-- Headers برای فایل‌های JavaScript به درستی تنظیم نشده
+### Cause
+- Headers for JavaScript files are not set correctly
 
-### راه حل
-- `next.config.js` اصلاح شده است
-- اپلیکیشن را restart کنید
+### Solution
+- `next.config.js` has been fixed
+- Restart the application
 
-## بررسی وضعیت
+## Checking status
 
-### مطمئن شوید که:
-- ✅ Backend روی پورت **3000** اجرا می‌شود
-- ✅ Frontend روی پورت **3001** اجرا می‌شود
-- ✅ فایل‌های static از پورت **3001** درخواست می‌شوند
+### Make sure that:
+- ✅ Backend runs on port **3000**
+- ✅ Frontend runs on port **3001**
+- ✅ Static files are requested from port **3001**
 
-### بررسی در مرورگر:
+### Checking in the browser:
 1. Developer Tools > Network tab
-2. صفحه را refresh کنید
-3. بررسی کنید که فایل‌های `_next/static` از کدام پورت درخواست می‌شوند
+2. Refresh the page
+3. Check which port the `_next/static` files are requested from
 

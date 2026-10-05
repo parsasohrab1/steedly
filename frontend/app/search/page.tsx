@@ -132,11 +132,11 @@ export default function SearchPage() {
   const getTypeLabel = (type: string) => {
     switch (type) {
       case 'blog':
-        return 'مقاله';
+        return 'Article';
       case 'product':
-        return 'محصول';
+        return 'Product';
       case 'competition':
-        return 'مسابقه';
+        return 'Competition';
       default:
         return type;
     }
@@ -158,12 +158,12 @@ export default function SearchPage() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-6">
-        <h1 className="text-3xl font-bold mb-2">نتایج جستجو</h1>
+        <h1 className="text-3xl font-bold mb-2">Search results</h1>
         {query && (
           <p className="text-gray-600">
-            نتایج جستجو برای: <span className="font-semibold">"{query}"</span>
+            Search results for: <span className="font-semibold">"{query}"</span>
             {results.length > 0 && (
-              <span className="mr-2">({results.length} نتیجه)</span>
+              <span className="mr-2">({results.length} results)</span>
             )}
           </p>
         )}
@@ -174,7 +174,7 @@ export default function SearchPage() {
         <div className="flex flex-wrap items-center gap-4">
           <div className="flex items-center gap-2">
             <FaFilter className="text-gray-400" />
-            <span className="text-sm font-medium">فیلتر:</span>
+            <span className="text-sm font-medium">Filter:</span>
           </div>
           
           <select
@@ -182,10 +182,10 @@ export default function SearchPage() {
             onChange={(e) => setFilters({ ...filters, type: e.target.value })}
             className="px-4 py-2 border rounded-lg text-sm"
           >
-            <option value="all">همه</option>
-            <option value="blog">مقالات</option>
-            <option value="product">محصولات</option>
-            <option value="competition">مسابقات</option>
+            <option value="all">All</option>
+            <option value="blog">Articles</option>
+            <option value="product">Products</option>
+            <option value="competition">Competitions</option>
           </select>
 
           <select
@@ -193,10 +193,10 @@ export default function SearchPage() {
             onChange={(e) => setFilters({ ...filters, sort: e.target.value })}
             className="px-4 py-2 border rounded-lg text-sm"
           >
-            <option value="relevance">مرتبط‌ترین</option>
-            <option value="date">جدیدترین</option>
+            <option value="relevance">Most relevant</option>
+            <option value="date">Newest</option>
             {filters.type === 'product' && (
-              <option value="price">قیمت (کم به زیاد)</option>
+              <option value="price">Price (low to high)</option>
             )}
           </select>
         </div>
@@ -206,14 +206,14 @@ export default function SearchPage() {
       {loading ? (
         <div className="text-center py-12">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">در حال جستجو...</p>
+          <p className="mt-4 text-gray-600">Searching...</p>
         </div>
       ) : results.length === 0 ? (
         <div className="text-center py-16 bg-white rounded-lg shadow-md">
           <FaSearch className="text-6xl text-gray-300 mx-auto mb-4" />
-          <h2 className="text-xl font-bold mb-2">نتیجه‌ای یافت نشد</h2>
+          <h2 className="text-xl font-bold mb-2">No results found</h2>
           <p className="text-gray-600 mb-6">
-            {query ? 'لطفاً کلمات کلیدی دیگری را امتحان کنید' : 'لطفاً عبارت جستجو را وارد کنید'}
+            {query ? 'Please try other keywords' : 'Please enter a search term'}
           </p>
         </div>
       ) : (
@@ -248,7 +248,7 @@ export default function SearchPage() {
                 )}
                 {result.price && (
                   <p className="text-lg font-bold text-primary-600">
-                    {Number(result.price).toLocaleString('fa-IR')} تومان
+                    {Number(result.price).toLocaleString('en-US')} Toman
                   </p>
                 )}
                 {result.date && (

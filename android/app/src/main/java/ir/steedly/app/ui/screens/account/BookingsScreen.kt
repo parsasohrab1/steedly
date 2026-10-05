@@ -45,7 +45,7 @@ fun BookingsScreen(navController: NavController) {
 
     Scaffold(
         snackbarHost = { SnackbarHost(snackbar) },
-        topBar = { AppTopBar("رزروهای من", onBack = { navController.popBackStack() }) }
+        topBar = { AppTopBar("My bookings", onBack = { navController.popBackStack() }) }
     ) { padding ->
         RequireLogin(navController, Modifier.padding(padding)) {
             LaunchedEffect(reloadKey) {
@@ -60,10 +60,10 @@ fun BookingsScreen(navController: NavController) {
                 loading -> LoadingView(Modifier.padding(padding))
                 error != null && bookings.isEmpty() -> ErrorView(error!!, Modifier.padding(padding), onRetry = { reloadKey++ })
                 bookings.isEmpty() -> EmptyView(
-                    title = "رزروی ثبت نکرده‌اید",
+                    title = "You have no bookings",
                     icon = Icons.Default.CalendarToday,
                     modifier = Modifier.padding(padding),
-                    actionLabel = "رزرو دامپزشک یا اسب‌کش",
+                    actionLabel = "Book a veterinarian or horse transporter",
                     onAction = { navController.navigate(Routes.SERVICES) { launchSingleTop = true } }
                 )
                 else -> LazyColumn(
@@ -106,20 +106,20 @@ fun BookingsScreen(navController: NavController) {
                                         TextButton(onClick = { context.startActivity(Intent(Intent.ACTION_DIAL, Uri.parse("tel:$phone"))) }) {
                                             Icon(Icons.Default.Call, contentDescription = null)
                                             Spacer(Modifier.width(4.dp))
-                                            Text("تماس")
+                                            Text("Call")
                                         }
                                     }
                                     if (booking.status == "pending" || booking.status == "confirmed") {
                                         TextButton(
                                             onClick = { cancelTarget = booking },
                                             colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.error)
-                                        ) { Text("لغو رزرو") }
+                                        ) { Text("Cancel booking") }
                                     }
                                     if (booking.status == "completed" && booking.has_review != true) {
                                         TextButton(onClick = { reviewTarget = booking }) {
                                             Icon(Icons.Default.RateReview, contentDescription = null)
                                             Spacer(Modifier.width(4.dp))
-                                            Text("ثبت نظر")
+                                            Text("Submit review")
                                         }
                                     }
                                 }
@@ -134,19 +134,19 @@ fun BookingsScreen(navController: NavController) {
     cancelTarget?.let { booking ->
         AlertDialog(
             onDismissRequest = { cancelTarget = null },
-            title = { Text("لغو رزرو") },
-            text = { Text("آیا از لغو این رزرو مطمئن هستید؟") },
+            title = { Text("Cancel booking") },
+            text = { Text("Are you sure you want to cancel this booking?") },
             confirmButton = {
                 TextButton(onClick = {
                     cancelTarget = null
                     scope.launch {
                         apiCall { RetrofitClient.apiService.updateBookingStatus(booking.id, BookingStatusRequest("cancelled")) }
-                            .onSuccess { snackbar.showSnackbar("رزرو لغو شد"); reloadKey++ }
+                            .onSuccess { snackbar.showSnackbar("Booking cancelled"); reloadKey++ }
                             .onFailure { snackbar.showSnackbar(it.message ?: "") }
                     }
-                }) { Text("لغو رزرو") }
+                }) { Text("Cancel booking") }
             },
-            dismissButton = { TextButton(onClick = { cancelTarget = null }) { Text("انصراف") } }
+            dismissButton = { TextButton(onClick = { cancelTarget = null }) { Text("Cancel") } }
         )
     }
 
@@ -166,7 +166,7 @@ fun BookingsScreen(navController: NavController) {
                                 comment = comment.ifBlank { null }
                             )
                         )
-                    }.onSuccess { snackbar.showSnackbar("نظر شما ثبت شد"); reloadKey++ }
+                    }.onSuccess { snackbar.showSnackbar("Your review was submitted"); reloadKey++ }
                         .onFailure { snackbar.showSnackbar(it.message ?: "") }
                 }
             }
@@ -180,7 +180,7 @@ private fun ReviewDialog(onDismiss: () -> Unit, onSubmit: (Int, String) -> Unit)
     var comment by remember { mutableStateOf("") }
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("امتیاز شما") },
+        title = { Text("Your rating") },
         text = {
             Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 Row {
@@ -188,7 +188,7 @@ private fun ReviewDialog(onDismiss: () -> Unit, onSubmit: (Int, String) -> Unit)
                         IconButton(onClick = { rating = star }) {
                             Icon(
                                 if (star <= rating) Icons.Default.Star else Icons.Default.StarBorder,
-                                contentDescription = "$star ستاره",
+                                contentDescription = "$star stars",
                                 tint = Color(0xFFF59E0B)
                             )
                         }
@@ -197,13 +197,13 @@ private fun ReviewDialog(onDismiss: () -> Unit, onSubmit: (Int, String) -> Unit)
                 OutlinedTextField(
                     value = comment,
                     onValueChange = { comment = it },
-                    label = { Text("نظر شما (اختیاری)") },
+                    label = { Text("Your review (optional)") },
                     minLines = 3,
                     modifier = Modifier.fillMaxWidth()
                 )
             }
         },
-        confirmButton = { TextButton(onClick = { onSubmit(rating, comment.trim()) }) { Text("ثبت") } },
-        dismissButton = { TextButton(onClick = onDismiss) { Text("انصراف") } }
+        confirmButton = { TextButton(onClick = { onSubmit(rating, comment.trim()) }) { Text("Submit") } },
+        dismissButton = { TextButton(onClick = onDismiss) { Text("Cancel") } }
     )
 }

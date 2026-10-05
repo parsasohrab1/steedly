@@ -65,7 +65,7 @@ export default function CheckoutPage() {
         router.push(`/orders/${orderId}/success`);
       }
     } catch (err: any) {
-      setError(err.response?.data?.message || 'خطا در ثبت سفارش. لطفاً دوباره تلاش کنید.');
+      setError(err.response?.data?.message || 'Error placing the order. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -78,13 +78,13 @@ export default function CheckoutPage() {
   }
 
   if (loading && items.length > 0) {
-    return <LoadingSpinner fullScreen text="در حال ثبت سفارش..." />;
+    return <LoadingSpinner fullScreen text="Placing order..." />;
   }
 
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-3xl font-bold mb-8">تکمیل خرید</h1>
+        <h1 className="text-3xl font-bold mb-8">Checkout</h1>
 
         {error && (
           <div className="mb-6">
@@ -96,12 +96,12 @@ export default function CheckoutPage() {
           {/* Order Form */}
           <div className="lg:col-span-2">
             <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-              <h2 className="text-xl font-semibold mb-4">اطلاعات ارسال</h2>
+              <h2 className="text-xl font-semibold mb-4">Shipping information</h2>
 
               <div className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    آدرس ارسال *
+                    Shipping address *
                   </label>
                   <textarea
                     required
@@ -111,13 +111,13 @@ export default function CheckoutPage() {
                     }
                     rows={4}
                     className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
-                    placeholder="آدرس کامل خود را وارد کنید"
+                    placeholder="Enter your full address"
                   />
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    شماره تماس *
+                    Phone number *
                   </label>
                   <input
                     type="tel"
@@ -134,7 +134,7 @@ export default function CheckoutPage() {
             </div>
 
             <div className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-xl font-semibold mb-4">روش پرداخت</h2>
+              <h2 className="text-xl font-semibold mb-4">Payment method</h2>
 
               <div className="space-y-3">
                 <label className="flex items-center p-4 border rounded-lg cursor-pointer hover:bg-gray-50 transition">
@@ -149,9 +149,9 @@ export default function CheckoutPage() {
                     className="ml-3"
                   />
                   <div>
-                    <p className="font-semibold">پرداخت آنلاین</p>
+                    <p className="font-semibold">Online payment</p>
                     <p className="text-sm text-gray-600">
-                      پرداخت از طریق درگاه بانکی
+                      Payment through the bank gateway
                     </p>
                   </div>
                 </label>
@@ -168,8 +168,8 @@ export default function CheckoutPage() {
                     className="ml-3"
                   />
                   <div>
-                    <p className="font-semibold">پرداخت در محل</p>
-                    <p className="text-sm text-gray-600">پرداخت هنگام تحویل</p>
+                    <p className="font-semibold">Cash on delivery</p>
+                    <p className="text-sm text-gray-600">Pay on delivery</p>
                   </div>
                 </label>
               </div>
@@ -179,7 +179,7 @@ export default function CheckoutPage() {
           {/* Order Summary */}
           <div className="lg:col-span-1">
             <div className="bg-white rounded-lg shadow-md p-6 sticky top-4">
-              <h2 className="text-xl font-semibold mb-4">خلاصه سفارش</h2>
+              <h2 className="text-xl font-semibold mb-4">Order summary</h2>
 
               <div className="space-y-2 mb-4">
                 {items.map((item) => (
@@ -187,22 +187,22 @@ export default function CheckoutPage() {
                     <span>
                       {item.name} × {item.quantity}
                     </span>
-                    <span>{(item.price * item.quantity).toLocaleString('fa-IR')} تومان</span>
+                    <span>{(item.price * item.quantity).toLocaleString('en-US')} Toman</span>
                   </div>
                 ))}
               </div>
 
               <div className="border-t pt-4 space-y-2">
                 <div className="flex justify-between">
-                  <span>جمع کل:</span>
+                  <span>Total:</span>
                   <span className="font-semibold">
-                    {totalPrice.toLocaleString('fa-IR')} تومان
+                    {totalPrice.toLocaleString('en-US')} Toman
                   </span>
                 </div>
                 <div className="flex justify-between text-lg font-bold">
-                  <span>مبلغ قابل پرداخت:</span>
+                  <span>Amount payable:</span>
                   <span className="text-primary-600">
-                    {totalPrice.toLocaleString('fa-IR')} تومان
+                    {totalPrice.toLocaleString('en-US')} Toman
                   </span>
                 </div>
               </div>
@@ -215,18 +215,18 @@ export default function CheckoutPage() {
                 {loading ? (
                   <>
                     <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                    در حال پردازش...
+                    Processing...
                   </>
                 ) : (
                   <>
                     <FaLock />
-                    تکمیل خرید
+                    Complete checkout
                   </>
                 )}
               </button>
 
               <p className="text-xs text-gray-500 text-center mt-4">
-                با کلیک روی دکمه بالا، شما شرایط و قوانین را می‌پذیرید
+                By clicking the button above, you accept the terms and conditions
               </p>
             </div>
           </div>

@@ -12,24 +12,24 @@ class ApiException(message: String, val code: Int? = null) : Exception(message)
 
 // Backend error messages are English; show Persian equivalents to users
 private val knownMessages = mapOf(
-    "Invalid credentials" to "ایمیل یا رمز عبور اشتباه است",
-    "User already exists" to "کاربری با این ایمیل قبلاً ثبت‌نام کرده است",
-    "Account is deactivated" to "حساب کاربری شما غیرفعال شده است",
-    "Authentication required" to "لطفاً وارد حساب کاربری شوید",
-    "Invalid token" to "نشست شما منقضی شده است، دوباره وارد شوید",
-    "Insufficient permissions" to "دسترسی لازم را ندارید",
-    "Please provide a valid email" to "ایمیل معتبر وارد کنید",
-    "Password must be at least 6 characters" to "رمز عبور باید حداقل ۶ کاراکتر باشد",
-    "Full name is required" to "نام کامل الزامی است",
-    "Order is already paid" to "این سفارش قبلاً پرداخت شده است",
-    "Order is cancelled" to "این سفارش لغو شده است",
-    "Only unpaid pending orders can be cancelled" to "فقط سفارش‌های پرداخت‌نشده در انتظار قابل لغو هستند",
-    "Order not found" to "سفارش یافت نشد",
-    "Booking not found" to "رزرو یافت نشد",
-    "Post not found" to "مقاله یافت نشد",
-    "Competition not found" to "مسابقه یافت نشد",
-    "Only completed bookings can be reviewed" to "فقط برای رزروهای انجام‌شده می‌توانید نظر ثبت کنید",
-    "This booking has already been reviewed" to "برای این رزرو قبلاً نظر ثبت کرده‌اید"
+    "Invalid credentials" to "Incorrect email or password",
+    "User already exists" to "A user with this email has already registered",
+    "Account is deactivated" to "Your account has been deactivated",
+    "Authentication required" to "Please log in to your account",
+    "Invalid token" to "Your session has expired, please log in again",
+    "Insufficient permissions" to "You do not have the required access",
+    "Please provide a valid email" to "Enter a valid email",
+    "Password must be at least 6 characters" to "Password must be at least 6 characters",
+    "Full name is required" to "Full name is required",
+    "Order is already paid" to "This order has already been paid",
+    "Order is cancelled" to "This order has been cancelled",
+    "Only unpaid pending orders can be cancelled" to "Only unpaid pending orders can be cancelled",
+    "Order not found" to "Order not found",
+    "Booking not found" to "Booking not found",
+    "Post not found" to "Article not found",
+    "Competition not found" to "Competition not found",
+    "Only completed bookings can be reviewed" to "You can only submit a review for completed bookings",
+    "This booking has already been reviewed" to "You have already submitted a review for this booking"
 )
 
 private fun translate(message: String?): String? {
@@ -37,9 +37,9 @@ private fun translate(message: String?): String? {
     knownMessages[message]?.let { return it }
     return when {
         message.startsWith("Insufficient stock for") ->
-            "موجودی کافی نیست: " + message.removePrefix("Insufficient stock for").trim()
-        message.startsWith("Payment gateway error") -> "خطا در اتصال به درگاه پرداخت"
-        message.startsWith("Booking is already") -> "وضعیت این رزرو قابل تغییر نیست"
+            "Insufficient stock: " + message.removePrefix("Insufficient stock for").trim()
+        message.startsWith("Payment gateway error") -> "Error connecting to the payment gateway"
+        message.startsWith("Booking is already") -> "The status of this booking cannot be changed"
         else -> message
     }
 }
@@ -56,19 +56,19 @@ private fun errorMessage(response: Response<*>): ApiException {
         null
     }
     val fallback = when (response.code()) {
-        401 -> "لطفاً وارد حساب کاربری شوید"
-        403 -> "دسترسی لازم را ندارید"
-        404 -> "مورد درخواستی یافت نشد"
-        in 500..599 -> "خطای سرور، لطفاً بعداً تلاش کنید"
-        else -> "خطای نامشخص (${response.code()})"
+        401 -> "Please log in to your account"
+        403 -> "You do not have the required access"
+        404 -> "Requested item not found"
+        in 500..599 -> "Server error, please try again later"
+        else -> "Unknown error (${response.code()})"
     }
     return ApiException(translate(serverMessage) ?: fallback, response.code())
 }
 
 private fun networkError(e: Exception): ApiException = when (e) {
     is ApiException -> e
-    is IOException -> ApiException("اتصال به اینترنت برقرار نیست")
-    else -> ApiException("خطا: ${e.message ?: e.javaClass.simpleName}")
+    is IOException -> ApiException("No internet connection")
+    else -> ApiException("Error: ${e.message ?: e.javaClass.simpleName}")
 }
 
 /** Runs a call that returns the standard `{ success, data }` envelope. */
@@ -78,7 +78,7 @@ suspend fun <T> apiCall(block: suspend () -> Response<ApiResponse<T>>): Result<T
         val body = response.body()
         when {
             !response.isSuccessful -> Result.failure(errorMessage(response))
-            body?.data == null -> Result.failure(ApiException(translate(body?.message) ?: "پاسخ نامعتبر از سرور"))
+            body?.data == null -> Result.failure(ApiException(translate(body?.message) ?: "Invalid response from server"))
             else -> Result.success(body.data)
         }
     } catch (e: CancellationException) {

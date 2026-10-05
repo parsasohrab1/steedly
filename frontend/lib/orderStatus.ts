@@ -1,9 +1,9 @@
 export const orderStatusLabels: Record<string, string> = {
-  pending: 'در انتظار',
-  processing: 'در حال پردازش',
-  shipped: 'ارسال شده',
-  delivered: 'تحویل داده شده',
-  cancelled: 'لغو شده',
+  pending: 'Pending',
+  processing: 'Processing',
+  shipped: 'Shipped',
+  delivered: 'Delivered',
+  cancelled: 'Cancelled',
 };
 
 export const orderStatusColors: Record<string, string> = {
@@ -15,14 +15,14 @@ export const orderStatusColors: Record<string, string> = {
 };
 
 export const paymentStatusLabels: Record<string, string> = {
-  pending: 'در انتظار پرداخت',
-  paid: 'پرداخت شده',
-  failed: 'پرداخت ناموفق',
-  refunded: 'بازگشت وجه',
+  pending: 'Awaiting payment',
+  paid: 'Paid',
+  failed: 'Payment failed',
+  refunded: 'Refunded',
 };
 
 export const formatToman = (value: number | string) =>
-  `${Number(value || 0).toLocaleString('fa-IR')} تومان`;
+  `${Number(value || 0).toLocaleString('en-US')} Toman`;
 
 // An order can still be paid online while it is open and unpaid
 export const canPayOrder = (order: { status: string; payment_status: string }) =>

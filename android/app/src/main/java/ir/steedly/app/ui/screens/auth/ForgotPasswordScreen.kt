@@ -30,25 +30,25 @@ fun ForgotPasswordScreen(navController: NavController) {
     var sent by remember { mutableStateOf(false) }
     var error by remember { mutableStateOf<String?>(null) }
 
-    Scaffold(topBar = { AppTopBar("بازیابی رمز عبور", onBack = { navController.popBackStack() }) }) { padding ->
+    Scaffold(topBar = { AppTopBar("Password recovery", onBack = { navController.popBackStack() }) }) { padding ->
         if (sent) {
             EmptyView(
-                title = "ایمیل بازیابی ارسال شد",
-                subtitle = "اگر این ایمیل در سیستم ثبت شده باشد، لینک تغییر رمز عبور برای شما ارسال شده است.",
+                title = "Recovery email sent",
+                subtitle = "If this email is registered in the system, a password reset link has been sent to you.",
                 icon = Icons.Default.MarkEmailRead,
                 modifier = Modifier.padding(padding),
-                actionLabel = "بازگشت به ورود",
+                actionLabel = "Back to login",
                 onAction = { navController.popBackStack() }
             )
         } else Column(
             Modifier.padding(padding).fillMaxSize().padding(24.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            Text("ایمیل حساب کاربری خود را وارد کنید تا لینک تغییر رمز عبور برایتان ارسال شود.")
+            Text("Enter your account email and a password reset link will be sent to you.")
             OutlinedTextField(
                 value = email,
                 onValueChange = { email = it },
-                label = { Text("ایمیل") },
+                label = { Text("Email") },
                 leadingIcon = { Icon(Icons.Default.Email, contentDescription = null) },
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = true,
@@ -58,7 +58,7 @@ fun ForgotPasswordScreen(navController: NavController) {
             Button(
                 onClick = {
                     if (!Patterns.EMAIL_ADDRESS.matcher(email.trim()).matches()) {
-                        error = "ایمیل معتبر وارد کنید"
+                        error = "Enter a valid email"
                         return@Button
                     }
                     scope.launch {
@@ -74,7 +74,7 @@ fun ForgotPasswordScreen(navController: NavController) {
                 modifier = Modifier.fillMaxWidth().height(52.dp)
             ) {
                 if (loading) CircularProgressIndicator(Modifier.size(20.dp), color = MaterialTheme.colorScheme.onPrimary)
-                else Text("ارسال لینک بازیابی")
+                else Text("Send recovery link")
             }
         }
     }

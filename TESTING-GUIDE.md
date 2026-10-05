@@ -1,6 +1,6 @@
-# راهنمای تست‌ها
+# Testing Guide
 
-## نصب وابستگی‌ها
+## Installing Dependencies
 
 ### Backend
 ```bash
@@ -14,7 +14,7 @@ cd frontend
 npm install --save-dev jest @testing-library/react @testing-library/jest-dom jest-environment-jsdom
 ```
 
-## اجرای تست‌ها
+## Running tests
 
 ### Backend Tests
 ```bash
@@ -28,7 +28,7 @@ cd frontend
 npm test
 ```
 
-### تست با Coverage
+### Testing with Coverage
 ```bash
 # Backend
 cd backend
@@ -39,7 +39,7 @@ cd frontend
 npm test -- --coverage
 ```
 
-## ساختار تست‌ها
+## Test structure
 
 ### Backend
 ```
@@ -65,9 +65,9 @@ frontend/
         api.test.ts
 ```
 
-## نوشتن تست جدید
+## Writing a new test
 
-### مثال تست Backend
+### Backend test example
 
 ```typescript
 import { Request, Response } from 'express';
@@ -106,7 +106,7 @@ describe('My Controller', () => {
 });
 ```
 
-### مثال تست Frontend
+### Frontend test example
 
 ```typescript
 import { render, screen } from '@testing-library/react';
@@ -122,10 +122,10 @@ describe('MyComponent', () => {
 
 ## Coverage Goals
 
-- **Backend**: حداقل 70% coverage
-- **Frontend**: حداقل 60% coverage
+- **Backend**: At least 70% coverage
+- **Frontend**: At least 60% coverage
 
 ## CI/CD Integration
 
-تست‌ها به صورت خودکار در GitHub Actions اجرا می‌شوند. برای جزئیات بیشتر به `.github/workflows/ci.yml` مراجعه کنید.
+Tests run automatically in GitHub Actions. For more details see `.github/workflows/ci.yml`.
 

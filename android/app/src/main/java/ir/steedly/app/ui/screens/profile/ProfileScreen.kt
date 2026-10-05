@@ -62,9 +62,9 @@ fun ProfileScreen(
     Scaffold(
         snackbarHost = { SnackbarHost(snackbar) },
         topBar = {
-            AppTopBar("پروفایل کاربری", onBack = { navController.popBackStack() }, actions = {
+            AppTopBar("User profile", onBack = { navController.popBackStack() }, actions = {
                 IconButton(onClick = { navController.navigate(Routes.SETTINGS) }) {
-                    Icon(Icons.Default.Settings, contentDescription = "تنظیمات")
+                    Icon(Icons.Default.Settings, contentDescription = "Settings")
                 }
             })
         }
@@ -91,7 +91,7 @@ fun ProfileScreen(
                                 avatarPicker.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
                             }
                         if (user.avatar_url != null) {
-                            RemoteImage(user.avatar_url, "تصویر پروفایل", avatarModifier)
+                            RemoteImage(user.avatar_url, "Profile picture", avatarModifier)
                         } else {
                             Surface(modifier = avatarModifier, color = MaterialTheme.colorScheme.primaryContainer) {
                                 Box(contentAlignment = Alignment.Center) {
@@ -102,13 +102,13 @@ fun ProfileScreen(
                         Surface(shape = CircleShape, color = MaterialTheme.colorScheme.primary, modifier = Modifier.size(32.dp)) {
                             Box(contentAlignment = Alignment.Center) {
                                 if (busy) CircularProgressIndicator(Modifier.size(16.dp), color = MaterialTheme.colorScheme.onPrimary, strokeWidth = 2.dp)
-                                else Icon(Icons.Default.PhotoCamera, contentDescription = "تغییر تصویر", tint = MaterialTheme.colorScheme.onPrimary, modifier = Modifier.size(18.dp))
+                                else Icon(Icons.Default.PhotoCamera, contentDescription = "Change picture", tint = MaterialTheme.colorScheme.onPrimary, modifier = Modifier.size(18.dp))
                             }
                         }
                     }
                     Text(user.full_name ?: user.email, style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
                     user.created_at?.let {
-                        Text("عضو از ${formatJalaliLong(it)}", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        Text("Member since ${formatJalaliLong(it)}", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
 
                     Card(Modifier.fillMaxWidth()) {
@@ -117,14 +117,14 @@ fun ProfileScreen(
                                 OutlinedTextField(
                                     value = fullName,
                                     onValueChange = { fullName = it },
-                                    label = { Text("نام کامل") },
+                                    label = { Text("Full name") },
                                     modifier = Modifier.fillMaxWidth(),
                                     singleLine = true
                                 )
                                 OutlinedTextField(
                                     value = phone,
                                     onValueChange = { phone = it },
-                                    label = { Text("شماره موبایل") },
+                                    label = { Text("Mobile number") },
                                     modifier = Modifier.fillMaxWidth(),
                                     singleLine = true,
                                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone)
@@ -134,13 +134,13 @@ fun ProfileScreen(
                                         onClick = { viewModel.saveProfile(fullName, phone) { editing = false } },
                                         enabled = !busy && fullName.isNotBlank(),
                                         modifier = Modifier.weight(1f)
-                                    ) { Text("ذخیره") }
-                                    OutlinedButton(onClick = { editing = false }, modifier = Modifier.weight(1f)) { Text("انصراف") }
+                                    ) { Text("Save") }
+                                    OutlinedButton(onClick = { editing = false }, modifier = Modifier.weight(1f)) { Text("Cancel") }
                                 }
                             } else {
-                                ProfileRow(Icons.Default.Email, "ایمیل", user.email)
-                                ProfileRow(Icons.Default.Person, "نام کامل", user.full_name ?: "تعریف نشده")
-                                ProfileRow(Icons.Default.Phone, "شماره تماس", user.phone ?: "تعریف نشده")
+                                ProfileRow(Icons.Default.Email, "Email", user.email)
+                                ProfileRow(Icons.Default.Person, "Full name", user.full_name ?: "Not set")
+                                ProfileRow(Icons.Default.Phone, "Phone number", user.phone ?: "Not set")
                                 TextButton(onClick = {
                                     fullName = user.full_name.orEmpty()
                                     phone = user.phone.orEmpty()
@@ -148,7 +148,7 @@ fun ProfileScreen(
                                 }) {
                                     Icon(Icons.Default.Edit, contentDescription = null)
                                     Spacer(Modifier.width(6.dp))
-                                    Text("ویرایش اطلاعات")
+                                    Text("Edit information")
                                 }
                             }
                         }
@@ -156,13 +156,13 @@ fun ProfileScreen(
 
                     Card(Modifier.fillMaxWidth()) {
                         Column {
-                            NavRow(Icons.Default.ShoppingBag, "سفارش‌های من") { navController.navigate(Routes.ORDERS) }
+                            NavRow(Icons.Default.ShoppingBag, "My orders") { navController.navigate(Routes.ORDERS) }
                             Divider()
-                            NavRow(Icons.Default.CalendarToday, "رزروهای من") { navController.navigate(Routes.BOOKINGS) }
+                            NavRow(Icons.Default.CalendarToday, "My bookings") { navController.navigate(Routes.BOOKINGS) }
                             Divider()
-                            NavRow(Icons.Default.Notifications, "اعلان‌ها") { navController.navigate(Routes.NOTIFICATIONS) }
+                            NavRow(Icons.Default.Notifications, "Notifications") { navController.navigate(Routes.NOTIFICATIONS) }
                             Divider()
-                            NavRow(Icons.Default.Settings, "تنظیمات") { navController.navigate(Routes.SETTINGS) }
+                            NavRow(Icons.Default.Settings, "Settings") { navController.navigate(Routes.SETTINGS) }
                         }
                     }
 
@@ -173,7 +173,7 @@ fun ProfileScreen(
                     ) {
                         Icon(Icons.Default.Logout, contentDescription = null)
                         Spacer(Modifier.width(6.dp))
-                        Text("خروج از حساب")
+                        Text("Log out")
                     }
                 }
             }
@@ -183,17 +183,17 @@ fun ProfileScreen(
     if (showLogoutDialog) {
         AlertDialog(
             onDismissRequest = { showLogoutDialog = false },
-            title = { Text("خروج از حساب کاربری") },
-            text = { Text("آیا مطمئن هستید که می‌خواهید خارج شوید؟") },
+            title = { Text("Log out of account") },
+            text = { Text("Are you sure you want to log out?") },
             confirmButton = {
                 TextButton(onClick = {
                     showLogoutDialog = false
                     viewModel.logout {
                         navController.navigate(Routes.HOME) { popUpTo(0) }
                     }
-                }) { Text("خروج") }
+                }) { Text("Log out") }
             },
-            dismissButton = { TextButton(onClick = { showLogoutDialog = false }) { Text("انصراف") } }
+            dismissButton = { TextButton(onClick = { showLogoutDialog = false }) { Text("Cancel") } }
         )
     }
 }

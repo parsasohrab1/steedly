@@ -34,29 +34,29 @@ export default function AdminProductsPage() {
   };
 
   const handleDelete = async (id: number) => {
-    if (!confirm('آیا مطمئن هستید که می‌خواهید این محصول را حذف کنید؟')) {
+    if (!confirm('Are you sure you want to delete this product?')) {
       return;
     }
     try {
       // TODO: Implement delete product API when available
-      alert('حذف محصول به زودی فعال می‌شود');
+      alert('Deleting products will be enabled soon');
       // await shopAPI.deleteProduct(id);
       // loadProducts();
     } catch (error) {
-      alert('خطا در حذف محصول');
+      alert('Error deleting the product');
     }
   };
 
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-3xl font-bold">مدیریت محصولات</h1>
+        <h1 className="text-3xl font-bold">Product management</h1>
         <Link
           href="/admin/products/new"
           className="bg-primary-600 text-white px-6 py-3 rounded-lg hover:bg-primary-700 transition flex items-center gap-2"
         >
           <FaPlus />
-          محصول جدید
+          New product
         </Link>
       </div>
 
@@ -66,7 +66,7 @@ export default function AdminProductsPage() {
           <FaSearch className="absolute right-3 top-3 text-gray-400" />
           <input
             type="text"
-            placeholder="جستجوی محصولات..."
+            placeholder="Search products..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="w-full px-4 py-3 pr-10 border rounded-lg focus:ring-2 focus:ring-primary-500"
@@ -84,18 +84,18 @@ export default function AdminProductsPage() {
           <table className="w-full">
             <thead className="bg-gray-50">
               <tr>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">نام</th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">دسته‌بندی</th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">قیمت</th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">موجودی</th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">عملیات</th>
+                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Name</th>
+                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Category</th>
+                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Price</th>
+                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Stock</th>
+                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
               {products.length === 0 ? (
                 <tr>
                   <td colSpan={5} className="px-6 py-12 text-center text-gray-500">
-                    محصولی یافت نشد
+                    No products found
                   </td>
                 </tr>
               ) : (
@@ -111,7 +111,7 @@ export default function AdminProductsPage() {
                     </td>
                     <td className="px-6 py-4 text-sm">{product.category_name || '-'}</td>
                     <td className="px-6 py-4 text-sm font-semibold">
-                      {Number(product.price).toLocaleString('fa-IR')} تومان
+                      {Number(product.price).toLocaleString('en-US')} Toman
                     </td>
                     <td className="px-6 py-4 text-sm">
                       <span className={product.stock_quantity > 0 ? 'text-green-600' : 'text-red-600'}>
@@ -124,21 +124,21 @@ export default function AdminProductsPage() {
                           href={`/shop/${product.slug}`}
                           target="_blank"
                           className="p-2 text-green-600 hover:bg-green-50 rounded"
-                          title="مشاهده"
+                          title="View"
                         >
                           <FaEye />
                         </Link>
                         <Link
                           href={`/admin/products/${product.id}/edit`}
                           className="p-2 text-blue-600 hover:bg-blue-50 rounded"
-                          title="ویرایش"
+                          title="Edit"
                         >
                           <FaEdit />
                         </Link>
                         <button
                           onClick={() => handleDelete(product.id)}
                           className="p-2 text-red-600 hover:bg-red-50 rounded"
-                          title="حذف"
+                          title="Delete"
                         >
                           <FaTrash />
                         </button>

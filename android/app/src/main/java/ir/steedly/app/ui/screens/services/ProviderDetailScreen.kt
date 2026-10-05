@@ -76,7 +76,7 @@ fun ProviderDetailScreen(navController: NavController, serviceType: String, prov
                         ) {
                             Icon(Icons.Default.Call, contentDescription = null)
                             Spacer(Modifier.width(6.dp))
-                            Text("تماس")
+                            Text("Call")
                         }
                         Button(
                             onClick = {
@@ -86,7 +86,7 @@ fun ProviderDetailScreen(navController: NavController, serviceType: String, prov
                         ) {
                             Icon(Icons.Default.EventAvailable, contentDescription = null)
                             Spacer(Modifier.width(6.dp))
-                            Text("رزرو نوبت")
+                            Text("Book appointment")
                         }
                     }
                 }
@@ -123,7 +123,7 @@ fun ProviderDetailScreen(navController: NavController, serviceType: String, prov
                             Text(current.title, style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
                             if (current.isVerified) {
                                 Spacer(Modifier.width(6.dp))
-                                Icon(Icons.Default.Verified, contentDescription = "تأیید شده", tint = MaterialTheme.colorScheme.primary)
+                                Icon(Icons.Default.Verified, contentDescription = "Verified", tint = MaterialTheme.colorScheme.primary)
                             }
                         }
                         current.subtitle?.let { Text(it, color = MaterialTheme.colorScheme.onSurfaceVariant) }
@@ -135,9 +135,9 @@ fun ProviderDetailScreen(navController: NavController, serviceType: String, prov
                 item {
                     Card(Modifier.fillMaxWidth()) {
                         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                            InfoLine(Icons.Default.Phone, "تلفن", current.phone)
-                            current.region?.let { InfoLine(Icons.Default.Place, "منطقه", it) }
-                            current.address?.let { InfoLine(Icons.Default.Home, "آدرس", it) }
+                            InfoLine(Icons.Default.Phone, "Phone", current.phone)
+                            current.region?.let { InfoLine(Icons.Default.Place, "Region", it) }
+                            current.address?.let { InfoLine(Icons.Default.Home, "Address", it) }
                             current.details.forEach { (label, value) -> InfoLine(Icons.Default.Info, label, value) }
                         }
                     }
@@ -159,24 +159,24 @@ fun ProviderDetailScreen(navController: NavController, serviceType: String, prov
                         ) {
                             Icon(Icons.Default.Directions, contentDescription = null)
                             Spacer(Modifier.width(6.dp))
-                            Text("مسیریابی")
+                            Text("Navigate")
                         }
                     }
                 }
 
                 item {
-                    SectionTitle("نظرات کاربران")
+                    SectionTitle("User reviews")
                 }
                 if (reviews.isEmpty()) {
                     item {
-                        Text("هنوز نظری ثبت نشده است", color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        Text("No reviews have been submitted yet", color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                 } else {
                     items(reviews, key = { it.id }) { review ->
                         Card(Modifier.fillMaxWidth()) {
                             Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
                                 Row(verticalAlignment = Alignment.CenterVertically) {
-                                    Text(review.reviewer_name ?: "کاربر", fontWeight = FontWeight.Medium, modifier = Modifier.weight(1f))
+                                    Text(review.reviewer_name ?: "User", fontWeight = FontWeight.Medium, modifier = Modifier.weight(1f))
                                     Text(formatJalaliDate(review.created_at), style = MaterialTheme.typography.labelSmall)
                                 }
                                 RatingRow(review.rating.toDouble())

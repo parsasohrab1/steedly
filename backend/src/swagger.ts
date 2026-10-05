@@ -6,7 +6,7 @@ const options: swaggerJsdoc.Options = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: 'استیدلی API',
+      title: 'Steedly API',
       version: '1.0.0',
       description: 'API documentation for Steedly platform - Comprehensive horse information platform',
       contact: {
@@ -47,7 +47,7 @@ const swaggerSpec = swaggerJsdoc(options);
 export const setupSwagger = (app: Express) => {
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
     customCss: '.swagger-ui .topbar { display: none }',
-    customSiteTitle: 'استیدلی API Documentation',
+    customSiteTitle: 'Steedly API Documentation',
   }));
 
   // JSON endpoint

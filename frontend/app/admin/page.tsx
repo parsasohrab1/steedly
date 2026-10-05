@@ -95,12 +95,12 @@ export default function AdminDashboard() {
       <header className="bg-white shadow-sm border-b">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <h1 className="text-2xl font-bold text-gray-900">پنل مدیریت</h1>
+            <h1 className="text-2xl font-bold text-gray-900">Admin panel</h1>
             <Link
               href="/"
               className="text-primary-600 hover:text-primary-700"
             >
-              بازگشت به سایت
+              Back to site
             </Link>
           </div>
         </div>
@@ -111,21 +111,21 @@ export default function AdminDashboard() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
           <StatCard
             icon={FaNewspaper}
-            title="مقالات"
+            title="Articles"
             value={stats?.totalPosts || 0}
             color="blue"
             href="/admin/blog"
           />
           <StatCard
             icon={FaShoppingBag}
-            title="محصولات"
+            title="Products"
             value={stats?.totalProducts || 0}
             color="green"
             href="/admin/products"
           />
           <StatCard
             icon={FaTrophy}
-            title="مسابقات"
+            title="Competitions"
             value={stats?.totalCompetitions || 0}
             color="yellow"
             href="/admin/competitions"
@@ -134,21 +134,21 @@ export default function AdminDashboard() {
             <>
               <StatCard
                 icon={FaUsers}
-                title="کاربران"
+                title="Users"
                 value={stats?.totalUsers || 0}
                 color="purple"
                 href="/admin/users"
               />
               <StatCard
                 icon={FaUserMd}
-                title="دامپزشکان"
+                title="Veterinarians"
                 value={stats?.totalVeterinarians || 0}
                 color="red"
                 href="/admin/veterinarians"
               />
               <StatCard
                 icon={FaTruck}
-                title="اسب‌کش‌ها"
+                title="Horse transporters"
                 value={stats?.totalTransporters || 0}
                 color="indigo"
                 href="/admin/transporters"
@@ -159,28 +159,28 @@ export default function AdminDashboard() {
 
         {/* Quick Actions */}
         <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-          <h2 className="text-xl font-bold mb-4">عملیات سریع</h2>
+          <h2 className="text-xl font-bold mb-4">Quick actions</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <Link
               href="/admin/blog/new"
               className="flex items-center gap-3 p-4 border-2 border-dashed border-gray-300 rounded-lg hover:border-primary-600 hover:bg-primary-50 transition"
             >
               <FaPlus className="text-primary-600" />
-              <span>مقاله جدید</span>
+              <span>New article</span>
             </Link>
             <Link
               href="/admin/products/new"
               className="flex items-center gap-3 p-4 border-2 border-dashed border-gray-300 rounded-lg hover:border-primary-600 hover:bg-primary-50 transition"
             >
               <FaPlus className="text-primary-600" />
-              <span>محصول جدید</span>
+              <span>New product</span>
             </Link>
             <Link
               href="/admin/competitions/new"
               className="flex items-center gap-3 p-4 border-2 border-dashed border-gray-300 rounded-lg hover:border-primary-600 hover:bg-primary-50 transition"
             >
               <FaPlus className="text-primary-600" />
-              <span>مسابقه جدید</span>
+              <span>New competition</span>
             </Link>
             {userRole === 'admin' && (
               <Link
@@ -188,7 +188,7 @@ export default function AdminDashboard() {
                 className="flex items-center gap-3 p-4 border-2 border-dashed border-gray-300 rounded-lg hover:border-primary-600 hover:bg-primary-50 transition"
               >
                 <FaUsers className="text-primary-600" />
-                <span>مدیریت کاربران</span>
+                <span>Manage users</span>
               </Link>
             )}
           </div>
@@ -197,11 +197,11 @@ export default function AdminDashboard() {
         {/* Recent Activity */}
         <div className="grid md:grid-cols-2 gap-6">
           <div className="bg-white rounded-lg shadow-md p-6">
-            <h2 className="text-xl font-bold mb-4">آخرین مقالات</h2>
+            <h2 className="text-xl font-bold mb-4">Latest articles</h2>
             <RecentPosts />
           </div>
           <div className="bg-white rounded-lg shadow-md p-6">
-            <h2 className="text-xl font-bold mb-4">آخرین محصولات</h2>
+            <h2 className="text-xl font-bold mb-4">Latest products</h2>
             <RecentProducts />
           </div>
         </div>
@@ -262,7 +262,7 @@ function RecentPosts() {
   return (
     <div className="space-y-3">
       {posts.length === 0 ? (
-        <p className="text-gray-500 text-sm">مقاله‌ای وجود ندارد</p>
+        <p className="text-gray-500 text-sm">No articles</p>
       ) : (
         posts.map((post) => (
           <div key={post.id} className="flex items-center justify-between p-3 hover:bg-gray-50 rounded">
@@ -306,14 +306,14 @@ function RecentProducts() {
   return (
     <div className="space-y-3">
       {products.length === 0 ? (
-        <p className="text-gray-500 text-sm">محصولی وجود ندارد</p>
+        <p className="text-gray-500 text-sm">No products</p>
       ) : (
         products.map((product) => (
           <div key={product.id} className="flex items-center justify-between p-3 hover:bg-gray-50 rounded">
             <div className="flex-1">
               <p className="font-semibold text-sm">{product.name}</p>
               <p className="text-xs text-gray-500">
-                {Number(product.price).toLocaleString('fa-IR')} تومان
+                {Number(product.price).toLocaleString('en-US')} Toman
               </p>
             </div>
             <div className="flex gap-2">

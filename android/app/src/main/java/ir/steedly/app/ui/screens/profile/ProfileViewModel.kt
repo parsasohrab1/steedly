@@ -55,7 +55,7 @@ class ProfileViewModel : ViewModel() {
                 )
             }.onSuccess {
                 _profile.value = _profile.value?.copy(full_name = it.full_name, phone = it.phone) ?: it
-                _message.value = "اطلاعات ذخیره شد"
+                _message.value = "Information saved"
                 onDone()
             }.onFailure { _message.value = it.message }
             _busy.value = false
@@ -80,12 +80,12 @@ class ProfileViewModel : ViewModel() {
                 }
             }
             if (part == null) {
-                _message.value = "خواندن تصویر ممکن نشد"
+                _message.value = "Could not read the image"
                 _busy.value = false
                 return@launch
             }
             if (part.body.contentLength() > 5 * 1024 * 1024) {
-                _message.value = "حجم تصویر باید کمتر از ۵ مگابایت باشد"
+                _message.value = "Image size must be less than 5 MB"
                 _busy.value = false
                 return@launch
             }
@@ -94,7 +94,7 @@ class ProfileViewModel : ViewModel() {
                     apiCall { RetrofitClient.apiService.updateProfile(UpdateProfileRequest(avatar_url = upload.url)) }
                         .onSuccess {
                             _profile.value = _profile.value?.copy(avatar_url = upload.url)
-                            _message.value = "تصویر پروفایل به‌روز شد"
+                            _message.value = "Profile picture updated"
                         }
                         .onFailure { _message.value = it.message }
                 }

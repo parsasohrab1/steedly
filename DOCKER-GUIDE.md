@@ -1,80 +1,80 @@
-# راهنمای Docker
+# Docker Guide
 
-## پیش‌نیازها
+## Prerequisites
 
-- Docker Desktop یا Docker Engine
+- Docker Desktop or Docker Engine
 - Docker Compose
 
-## اجرای سریع (سه دستور)
+## Quick start (three commands)
 
 ```bash
-cp .env.example .env              # یک بار؛ در صورت نیاز مقادیر را تغییر دهید
-docker compose up -d --build      # ساخت و اجرای همه سرویس‌ها
-docker compose run --rm seed      # یک بار: کاربر مدیر و محتوای نمونه
+cp .env.example .env              # once; change values if needed
+docker compose up -d --build      # build and run all services
+docker compose run --rm seed      # once: admin user and sample content
 ```
 
-سپس:
+Then:
 
-| سرویس | آدرس |
+| Service | Address |
 |--------|------|
-| وب‌سایت | http://localhost:3001 |
+| Website | http://localhost:3001 |
 | API | http://localhost:3000/api |
-| سلامت API | http://localhost:3000/health |
+| API health | http://localhost:3000/health |
 
-ورود مدیر (بعد از seed): `admin@steedly.ir` / `admin123` — **حتماً رمز را عوض کنید.**
+Admin login (after seed): `admin@steedly.ir` / `admin123` — **be sure to change the password.**
 
-این دستورها PostgreSQL (پورت 5432) و Redis (پورت 6379) را هم اجرا می‌کنند و جدول‌ها در اولین اجرا
-به‌طور خودکار از `backend/src/database/schema.sql` ساخته می‌شوند. اجرای دوباره `seed` تکراری ایجاد نمی‌کند.
+These commands also run PostgreSQL (port 5432) and Redis (port 6379), and the tables are created automatically
+from `backend/src/database/schema.sql` on first run. Running `seed` again does not create duplicates.
 
-### اتصال اپ اندروید (نسخه آزمایشی)
+### Connecting the Android app (test version)
 
-1. IP کامپیوتر را پیدا کنید (ویندوز: `ipconfig`، مک: `ipconfig getifaddr en0`).
-2. در اپ: صفحه ورود ← ⚙️ ← «آدرس سرور» ← مثلاً `192.168.1.10:3000` ← «تست اتصال» ← «ذخیره».
-3. برای پرداخت آزمایشی از گوشی، در `.env` مقدار `API_URL` را روی همان IP بگذارید
-   (`http://192.168.1.10:3000/api`) و `docker compose up -d` را دوباره اجرا کنید.
+1. Find your computer's IP (Windows: `ipconfig`, Mac: `ipconfig getifaddr en0`).
+2. In the app: login screen ← ⚙️ ← "Server address" ← e.g. `192.168.1.10:3000` ← "Test connection" ← "Save".
+3. For test payments from the phone, set `API_URL` in `.env` to the same IP
+   (`http://192.168.1.10:3000/api`) and run `docker compose up -d` again.
 
-### 2. مشاهده لاگ‌ها
+### 2. Viewing logs
 
 ```bash
-# همه سرویس‌ها
+# All services
 docker compose logs -f
 
-# فقط backend
+# Backend only
 docker compose logs -f backend
 
-# فقط frontend
+# Frontend only
 docker compose logs -f frontend
 ```
 
-### 3. توقف Containerها
+### 3. Stopping containers
 
 ```bash
 docker compose down
 ```
 
-### 4. توقف و حذف Volumeها
+### 4. Stopping and removing volumes
 
 ```bash
 docker compose down -v
 ```
 
-## ساخت Imageها
+## Building images
 
-### ساخت Backend Image
+### Building the Backend image
 
 ```bash
 docker build -t steedly-backend:latest --target backend-prod .
 ```
 
-### ساخت Frontend Image
+### Building the Frontend image
 
 ```bash
 docker build -t steedly-frontend:latest --target frontend-prod .
 ```
 
-## متغیرهای محیطی
+## Environment variables
 
-فایل `.env` را در root پروژه ایجاد کنید:
+Create the `.env` file in the project root:
 
 ```env
 # Database
@@ -90,65 +90,65 @@ API_URL=http://localhost:3000/api
 FRONTEND_URL=http://localhost:3001
 ```
 
-## دسترسی به Database
+## Database access
 
 ```bash
-# اتصال به PostgreSQL
+# Connect to PostgreSQL
 docker compose exec postgres psql -U steedly -d steedly
 
-# اتصال به Redis CLI
+# Connect to Redis CLI
 docker compose exec redis redis-cli
 ```
 
-## اجرای Migrationها
+## Running migrations
 
 ```bash
-# اجرای schema
+# Run schema
 docker compose exec backend npm run migrate
 
-# اجرای seed
+# Run seed
 docker compose exec backend npm run seed
 ```
 
 ## Troubleshooting
 
-### مشکل در اتصال به Database
+### Database connection problem
 
 ```bash
-# بررسی وضعیت containerها
+# Check containers status
 docker compose ps
 
-# بررسی لاگ‌های PostgreSQL
+# Check PostgreSQL logs
 docker compose logs postgres
 ```
 
-### مشکل در Build
+### Build problem
 
 ```bash
-# پاک کردن cache و rebuild
+# Clear cache and rebuild
 docker compose build --no-cache
 ```
 
-### مشکل در Port
+### Port problem
 
-اگر پورت‌ها در حال استفاده هستند، می‌توانید در `docker-compose.yml` تغییر دهید:
+If the ports are in use, you can change them in `docker-compose.yml`:
 
 ```yaml
 ports:
-  - "3002:3000"  # به جای 3000:3000
+  - "3002:3000"  # instead of 3000:3000
 ```
 
 ## Production Deployment
 
-برای production:
+For production:
 
-1. متغیرهای محیطی را تنظیم کنید
-2. `ENABLE_SWAGGER=false` را تنظیم کنید
-3. از reverse proxy (nginx) استفاده کنید
-4. SSL/TLS را فعال کنید
+1. Set the environment variables
+2. Set `ENABLE_SWAGGER=false`
+3. Use a reverse proxy (nginx)
+4. Enable SSL/TLS
 
 ```bash
-# Build برای production
+# Build for production
 docker compose -f docker-compose.prod.yml up -d
 ```
 

@@ -37,9 +37,9 @@ fun CartScreen(navController: NavController) {
 
     Scaffold(
         topBar = {
-            AppTopBar("سبد خرید", onBack = { navController.popBackStack() }, actions = {
+            AppTopBar("Cart", onBack = { navController.popBackStack() }, actions = {
                 if (cartItems.isNotEmpty()) {
-                    TextButton(onClick = { confirmClear = true }) { Text("خالی کردن") }
+                    TextButton(onClick = { confirmClear = true }) { Text("Clear") }
                 }
             })
         },
@@ -52,7 +52,7 @@ fun CartScreen(navController: NavController) {
                             horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Text("جمع کل:", style = MaterialTheme.typography.titleMedium)
+                            Text("Total:", style = MaterialTheme.typography.titleMedium)
                             Text(
                                 formatToman(totalPrice),
                                 style = MaterialTheme.typography.titleLarge,
@@ -64,7 +64,7 @@ fun CartScreen(navController: NavController) {
                             onClick = { navController.navigate(if (token != null) Routes.CHECKOUT else Routes.LOGIN) },
                             modifier = Modifier.fillMaxWidth()
                         ) {
-                            Text(if (token != null) "ادامه و ثبت سفارش" else "ورود برای ثبت سفارش")
+                            Text(if (token != null) "Continue and place order" else "Log in to place order")
                         }
                     }
                 }
@@ -73,11 +73,11 @@ fun CartScreen(navController: NavController) {
     ) { padding ->
         if (cartItems.isEmpty()) {
             EmptyView(
-                title = "سبد خرید شما خالی است",
-                subtitle = "محصولات مورد نظر خود را به سبد خرید اضافه کنید",
+                title = "Your cart is empty",
+                subtitle = "Add the products you want to the cart",
                 icon = Icons.Default.ShoppingCart,
                 modifier = Modifier.padding(padding),
-                actionLabel = "مشاهده محصولات",
+                actionLabel = "View products",
                 onAction = { navController.navigate(Routes.SHOP) { launchSingleTop = true } }
             )
         } else {
@@ -101,12 +101,12 @@ fun CartScreen(navController: NavController) {
     if (confirmClear) {
         AlertDialog(
             onDismissRequest = { confirmClear = false },
-            title = { Text("خالی کردن سبد") },
-            text = { Text("همه محصولات از سبد خرید حذف شوند؟") },
+            title = { Text("Clear cart") },
+            text = { Text("Remove all products from the cart?") },
             confirmButton = {
-                TextButton(onClick = { CartManager.clear(); confirmClear = false }) { Text("حذف همه") }
+                TextButton(onClick = { CartManager.clear(); confirmClear = false }) { Text("Remove all") }
             },
-            dismissButton = { TextButton(onClick = { confirmClear = false }) { Text("انصراف") } }
+            dismissButton = { TextButton(onClick = { confirmClear = false }) { Text("Cancel") } }
         )
     }
 }
@@ -138,7 +138,7 @@ private fun CartItemCard(
                 QuantityStepper(quantity = item.quantity, onChange = onQuantityChange, max = item.stock)
             }
             IconButton(onClick = onRemove) {
-                Icon(Icons.Default.Delete, contentDescription = "حذف", tint = MaterialTheme.colorScheme.error)
+                Icon(Icons.Default.Delete, contentDescription = "Delete", tint = MaterialTheme.colorScheme.error)
             }
         }
     }

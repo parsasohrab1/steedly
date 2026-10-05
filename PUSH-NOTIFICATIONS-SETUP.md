@@ -1,61 +1,61 @@
-# راهنمای تنظیمات Push Notifications
+# Push Notifications Setup Guide
 
-## 📱 پشتیبانی از Push Notifications
+## 📱 Push Notifications support
 
-سیستم Push Notifications برای پلتفرم‌های زیر پیاده‌سازی شده است:
-- ✅ **Web Push Notifications** (PWA) - برای مرورگرهای مدرن
-- ⚠️ **Android** - نیاز به Firebase Cloud Messaging (FCM)
-- ⚠️ **iOS** - نیاز به Apple Push Notification Service (APNs)
+The Push Notifications system is implemented for the following platforms:
+- ✅ **Web Push Notifications** (PWA) - for modern browsers
+- ⚠️ **Android** - requires Firebase Cloud Messaging (FCM)
+- ⚠️ **iOS** - requires Apple Push Notification Service (APNs)
 
-## 🔧 تنظیمات Backend
+## 🔧 Backend settings
 
-### 1. نصب وابستگی‌ها
+### 1. Install Dependencies
 
-وابستگی `web-push` قبلاً نصب شده است. برای Android و iOS نیاز به تنظیمات اضافی است.
+The `web-push` dependency is already installed. Android and iOS need additional settings.
 
-### 2. تولید VAPID Keys
+### 2. Generating VAPID Keys
 
-برای Web Push Notifications، نیاز به VAPID (Voluntary Application Server Identification) keys دارید:
+For Web Push Notifications you need VAPID (Voluntary Application Server Identification) keys:
 
 ```bash
 cd backend
 npx web-push generate-vapid-keys
 ```
 
-این دستور دو کلید تولید می‌کند:
-- **Public Key**: برای استفاده در Frontend
-- **Private Key**: برای استفاده در Backend (محرمانه!)
+This command generates two keys:
+- **Public Key**: For use in the Frontend
+- **Private Key**: For use in the Backend (confidential!)
 
-### 3. تنظیمات Environment Variables
+### 3. Environment Variables settings
 
-در فایل `.env` در پوشه `backend`:
+In the `.env` file in the `backend` folder:
 
 ```env
 # Push Notifications
 PUSH_NOTIFICATIONS_ENABLED=true
 
-# VAPID Keys (برای Web Push)
+# VAPID Keys (for Web Push)
 VAPID_PUBLIC_KEY=your-public-key-here
 VAPID_PRIVATE_KEY=your-private-key-here
 VAPID_SUBJECT=mailto:support@steedly.ir
 
-# برای Android (Firebase)
+# For Android (Firebase)
 FCM_SERVER_KEY=your-fcm-server-key
 FCM_PROJECT_ID=your-fcm-project-id
 
-# برای iOS (APNs)
+# For iOS (APNs)
 APNS_KEY_ID=your-apns-key-id
 APNS_TEAM_ID=your-apns-team-id
 APNS_BUNDLE_ID=ir.steedly.app
 APNS_KEY_PATH=./path/to/AuthKey.p8
 ```
 
-### 4. ایجاد جدول در دیتابیس
+### 4. Creating the database table
 
-جدول `push_subscriptions` باید در دیتابیس ایجاد شود:
+The `push_subscriptions` table must be created in the database:
 
 ```sql
--- این جدول در schema.sql اضافه شده است
+-- This table has been added to schema.sql
 CREATE TABLE IF NOT EXISTS push_subscriptions (
     id SERIAL PRIMARY KEY,
     user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
@@ -68,38 +68,38 @@ CREATE TABLE IF NOT EXISTS push_subscriptions (
 );
 ```
 
-## 🌐 تنظیمات Frontend (Web)
+## 🌐 Frontend (Web) settings
 
 ### 1. Service Worker
 
-Service Worker (`frontend/public/sw.js`) برای handle کردن push events به‌روزرسانی شده است.
+The Service Worker (`frontend/public/sw.js`) has been updated to handle push events.
 
-### 2. کامپوننت PushNotificationManager
+### 2. PushNotificationManager component
 
-کامپوننت `PushNotificationManager` در صفحه پروفایل اضافه شده است که:
-- بررسی می‌کند آیا Push Notifications پشتیبانی می‌شود
-- VAPID public key را از سرور دریافت می‌کند
-- از کاربر مجوز می‌گیرد
-- Subscription را ثبت می‌کند
+The `PushNotificationManager` component has been added to the profile page, which:
+- Checks whether Push Notifications are supported
+- Gets the VAPID public key from the server
+- Requests permission from the user
+- Registers the Subscription
 
-### 3. استفاده
+### 3. Usage
 
-کامپوننت به صورت خودکار در صفحه پروفایل نمایش داده می‌شود. کاربر می‌تواند با کلیک روی دکمه، Push Notifications را فعال یا غیرفعال کند.
+The component is displayed automatically on the profile page. The user can enable or disable Push Notifications by clicking the button.
 
-## 📱 تنظیمات Android (Firebase Cloud Messaging)
+## 📱 Android settings (Firebase Cloud Messaging)
 
-### 1. ایجاد پروژه Firebase
+### 1. Creating a Firebase project
 
-1. به [Firebase Console](https://console.firebase.google.com/) بروید
-2. پروژه جدید ایجاد کنید
-3. Android app را اضافه کنید
-4. `google-services.json` را دانلود کنید
+1. Go to the [Firebase Console](https://console.firebase.google.com/)
+2. Create a new project
+3. Add the Android app
+4. Download `google-services.json`
 
-### 2. تنظیمات در Android App
+### 2. Settings in the Android App
 
-فایل `google-services.json` را در `android/app/` قرار دهید.
+Put the `google-services.json` file in `android/app/`.
 
-در `android/app/build.gradle.kts`:
+In `android/app/build.gradle.kts`:
 
 ```kotlin
 plugins {
@@ -111,14 +111,14 @@ dependencies {
 }
 ```
 
-### 3. پیاده‌سازی FCM Service
+### 3. Implementing the FCM Service
 
-یک `FirebaseMessagingService` در Android app ایجاد کنید:
+Create a `FirebaseMessagingService` in the Android app:
 
 ```kotlin
 class MyFirebaseMessagingService : FirebaseMessagingService() {
     override fun onNewToken(token: String) {
-        // ارسال token به سرور
+        // Send the token to the server
         sendTokenToServer(token)
     }
 
@@ -129,22 +129,22 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 }
 ```
 
-## 🍎 تنظیمات iOS (Apple Push Notification Service)
+## 🍎 iOS settings (Apple Push Notification Service)
 
-### 1. تنظیمات در Apple Developer
+### 1. Settings in Apple Developer
 
-1. به [Apple Developer Portal](https://developer.apple.com/) بروید
-2. App ID را ایجاد کنید و Push Notifications را فعال کنید
-3. APNs Key را ایجاد و دانلود کنید (`.p8` file)
-4. Certificate را در Xcode تنظیم کنید
+1. Go to the [Apple Developer Portal](https://developer.apple.com/)
+2. Create an App ID and enable Push Notifications
+3. Create and download an APNs Key (`.p8` file)
+4. Set up the Certificate in Xcode
 
-### 2. تنظیمات در iOS App
+### 2. Settings in the iOS App
 
-در Xcode:
-1. Capabilities → Push Notifications را فعال کنید
-2. Background Modes → Remote notifications را فعال کنید
+In Xcode:
+1. Enable Capabilities → Push Notifications
+2. Enable Background Modes → Remote notifications
 
-### 3. پیاده‌سازی در iOS
+### 3. Implementation in iOS
 
 ```swift
 import UserNotifications
@@ -161,12 +161,12 @@ func application(_ application: UIApplication,
 
 ## 🔌 API Endpoints
 
-### دریافت VAPID Public Key
+### Getting the VAPID Public Key
 ```
 GET /api/push/vapid-key
 ```
 
-### ثبت Subscription
+### Registering a Subscription
 ```
 POST /api/push/subscribe
 Authorization: Bearer <token>
@@ -181,7 +181,7 @@ Body: {
 }
 ```
 
-### حذف Subscription
+### Deleting a Subscription
 ```
 POST /api/push/unsubscribe
 Authorization: Bearer <token>
@@ -190,49 +190,49 @@ Body: {
 }
 ```
 
-### دریافت Subscriptions کاربر
+### Getting the user's Subscriptions
 ```
 GET /api/push/subscriptions
 Authorization: Bearer <token>
 ```
 
-### تست Push Notification
+### Testing Push Notification
 ```
 POST /api/push/test
 Authorization: Bearer <token>
 Body: {
-  "title": "عنوان",
-  "message": "پیام",
+  "title": "Title",
+  "message": "Message",
   "link": "/optional-link",
   "type": "system"
 }
 ```
 
-## 🧪 تست
+## 🧪 Testing
 
-### تست Web Push
+### Testing Web Push
 
-1. Backend را راه‌اندازی کنید
-2. Frontend را اجرا کنید
-3. وارد حساب کاربری شوید
-4. به صفحه پروفایل بروید
-5. روی دکمه "فعال‌سازی اعلان‌ها" کلیک کنید
-6. مجوز را تایید کنید
-7. از API endpoint `/api/push/test` برای ارسال تست استفاده کنید
+1. Start the Backend
+2. Run the Frontend
+3. Log in to a user account
+4. Go to the profile page
+5. Click the "Enable notifications" button
+6. Confirm the permission
+7. Use the API endpoint `/api/push/test` to send a test
 
-### تست در Development
+### Testing in Development
 
-برای تست در localhost، باید از HTTPS استفاده کنید یا از `localhost` استفاده کنید (که مرورگرها آن را به عنوان secure می‌شناسند).
+To test on localhost, you must use HTTPS or use `localhost` (which browsers recognize as secure).
 
-## ⚠️ نکات مهم
+## ⚠️ Important Notes
 
-1. **HTTPS**: Push Notifications فقط روی HTTPS یا localhost کار می‌کند
-2. **VAPID Keys**: هرگز private key را در frontend قرار ندهید
-3. **Permissions**: کاربر باید مجوز را بدهد
-4. **Service Worker**: باید Service Worker ثبت شده باشد
-5. **Browser Support**: همه مرورگرها Push Notifications را پشتیبانی نمی‌کنند
+1. **HTTPS**: Push Notifications only work on HTTPS or localhost
+2. **VAPID Keys**: Never put the private key in the frontend
+3. **Permissions**: The user must grant permission
+4. **Service Worker**: A Service Worker must be registered
+5. **Browser Support**: Not all browsers support Push Notifications
 
-## 📚 منابع بیشتر
+## 📚 More resources
 
 - [Web Push Protocol](https://web.dev/push-notifications-overview/)
 - [Firebase Cloud Messaging](https://firebase.google.com/docs/cloud-messaging)
@@ -241,5 +241,5 @@ Body: {
 
 ---
 
-**تاریخ به‌روزرسانی**: ۱۴۰۳/۱۲/۱۵
+**Update date**: 2025/03/06
 

@@ -30,7 +30,7 @@ import ir.steedly.app.utils.parseApiDate
 import java.util.Date
 
 private enum class CompetitionFilter(val label: String) {
-    UPCOMING("پیش رو"), PAST("برگزار شده"), INTERNATIONAL("بین‌المللی"), ALL("همه")
+    UPCOMING("Upcoming"), PAST("Past"), INTERNATIONAL("International"), ALL("All")
 }
 
 @Composable
@@ -83,7 +83,7 @@ fun CompetitionsScreen(navController: NavController) {
             .let { list -> if (filter == CompetitionFilter.PAST) list.sortedByDescending { it.start_date } else list }
     }
 
-    Scaffold(topBar = { AppTopBar("مسابقات اسب") }) { padding ->
+    Scaffold(topBar = { AppTopBar("Horse competitions") }) { padding ->
         Column(Modifier.padding(padding).fillMaxSize()) {
             if (showingCache) OfflineBanner()
             LazyRow(
@@ -100,7 +100,7 @@ fun CompetitionsScreen(navController: NavController) {
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     item {
-                        FilterChip(selected = typeFilter == null, onClick = { typeFilter = null }, label = { Text("همه رشته‌ها") })
+                        FilterChip(selected = typeFilter == null, onClick = { typeFilter = null }, label = { Text("All disciplines") })
                     }
                     items(types) { type ->
                         FilterChip(
@@ -115,7 +115,7 @@ fun CompetitionsScreen(navController: NavController) {
             when {
                 loading -> LoadingView()
                 error != null -> ErrorView(error!!, onRetry = { reloadKey++ })
-                visible.isEmpty() -> EmptyView("مسابقه‌ای یافت نشد", icon = Icons.Default.EmojiEvents)
+                visible.isEmpty() -> EmptyView("No competitions found", icon = Icons.Default.EmojiEvents)
                 else -> LazyColumn(
                     contentPadding = PaddingValues(16.dp),
                     verticalArrangement = Arrangement.spacedBy(12.dp)
@@ -141,7 +141,7 @@ private fun CompetitionCard(comp: Competition, onClick: () -> Unit) {
                     StatusChip(StatusLabels.competitionType(comp.competition_type), MaterialTheme.colorScheme.primary)
                 }
                 if (comp.is_international == true) {
-                    StatusChip("بین‌المللی", MaterialTheme.colorScheme.tertiary)
+                    StatusChip("International", MaterialTheme.colorScheme.tertiary)
                 }
             }
             Text(comp.title, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold, maxLines = 2, overflow = TextOverflow.Ellipsis)
@@ -154,7 +154,7 @@ private fun CompetitionCard(comp: Competition, onClick: () -> Unit) {
                 Icon(Icons.Default.CalendarToday, contentDescription = null, modifier = Modifier.size(16.dp), tint = MaterialTheme.colorScheme.onSurfaceVariant)
                 Spacer(Modifier.width(4.dp))
                 Text(
-                    formatJalaliLong(comp.start_date) + (comp.end_date?.let { " تا ${formatJalaliLong(it)}" } ?: ""),
+                    formatJalaliLong(comp.start_date) + (comp.end_date?.let { " to ${formatJalaliLong(it)}" } ?: ""),
                     style = MaterialTheme.typography.bodySmall
                 )
             }

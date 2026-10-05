@@ -1,34 +1,34 @@
-# مستندات API استیدلی
+# Steedly API Documentation
 
-## دسترسی به مستندات
+## Accessing the documentation
 
-مستندات API در محیط development در آدرس زیر در دسترس است:
+In the development environment the API documentation is available at the following address:
 - **Swagger UI**: `http://localhost:3000/api-docs`
 - **JSON**: `http://localhost:3000/api-docs.json`
 
-## احراز هویت
+## Authentication
 
-اکثر endpointها نیاز به احراز هویت دارند. برای احراز هویت:
+Most endpoints require authentication. For authentication:
 
-1. ابتدا با استفاده از `/auth/login` یا `/auth/register` یک token دریافت کنید
-2. در header درخواست‌های بعدی، token را به صورت زیر ارسال کنید:
+1. First get a token using `/auth/login` or `/auth/register`
+2. In the header of subsequent requests, send the token as follows:
    ```
    Authorization: Bearer <your-token>
    ```
 
-## Endpoints اصلی
+## Main endpoints
 
 ### Authentication (`/api/auth`)
 
 #### POST `/auth/register`
-ثبت‌نام کاربر جدید
+Register a new user
 
 **Request Body:**
 ```json
 {
   "email": "user@example.com",
   "password": "password123",
-  "full_name": "نام کاربر",
+  "full_name": "User name",
   "phone": "09123456789"
 }
 ```
@@ -41,13 +41,13 @@
   "data": {
     "id": 1,
     "email": "user@example.com",
-    "full_name": "نام کاربر"
+    "full_name": "User name"
   }
 }
 ```
 
 #### POST `/auth/login`
-ورود کاربر
+User login
 
 **Request Body:**
 ```json
@@ -66,14 +66,14 @@
     "user": {
       "id": 1,
       "email": "user@example.com",
-      "full_name": "نام کاربر"
+      "full_name": "User name"
     }
   }
 }
 ```
 
 #### GET `/auth/profile`
-دریافت پروفایل کاربر (نیاز به احراز هویت)
+Get the user profile (requires authentication)
 
 **Response:**
 ```json
@@ -82,7 +82,7 @@
   "data": {
     "id": 1,
     "email": "user@example.com",
-    "full_name": "نام کاربر",
+    "full_name": "User name",
     "phone": "09123456789",
     "role": "user"
   }
@@ -90,12 +90,12 @@
 ```
 
 #### PUT `/auth/profile`
-به‌روزرسانی پروفایل کاربر (نیاز به احراز هویت)
+Update the user profile (requires authentication)
 
 **Request Body:**
 ```json
 {
-  "full_name": "نام جدید",
+  "full_name": "New name",
   "phone": "09123456789",
   "avatar_url": "https://example.com/avatar.jpg"
 }
@@ -104,45 +104,45 @@
 ### Blog (`/api/blog`)
 
 #### GET `/blog/posts`
-دریافت لیست مقالات
+Get the list of articles
 
 **Query Parameters:**
-- `page` (optional): شماره صفحه (default: 1)
-- `limit` (optional): تعداد در هر صفحه (default: 10)
-- `category_id` (optional): فیلتر بر اساس دسته‌بندی
+- `page` (optional): page number (default: 1)
+- `limit` (optional): items per page (default: 10)
+- `category_id` (optional): filter by category
 
 #### GET `/blog/posts/:slug`
-دریافت یک مقاله با slug
+Get an article by slug
 
 #### GET `/blog/posts/search?q=query`
-جستجو در مقالات
+Search in articles
 
 #### GET `/blog/categories`
-دریافت لیست دسته‌بندی‌ها
+Get the list of categories
 
 ### Services (`/api/services`)
 
 #### GET `/services/veterinarians`
-دریافت لیست دامپزشکان
+Get the list of veterinarians
 
 **Query Parameters:**
-- `region` (optional): فیلتر بر اساس منطقه
-- `specialization` (optional): فیلتر بر اساس تخصص
-- `latitude` (optional): عرض جغرافیایی
-- `longitude` (optional): طول جغرافیایی
-- `radius` (optional): شعاع جستجو به کیلومتر (default: 50)
+- `region` (optional): filter by region
+- `specialization` (optional): filter by specialization
+- `latitude` (optional): latitude
+- `longitude` (optional): longitude
+- `radius` (optional): search radius in kilometers (default: 50)
 
 #### GET `/services/transporters`
-دریافت لیست اسب‌کش‌ها
+Get the list of horse transporters
 
 **Query Parameters:**
-- `region` (optional): فیلتر بر اساس منطقه
-- `latitude` (optional): عرض جغرافیایی
-- `longitude` (optional): طول جغرافیایی
-- `radius` (optional): شعاع جستجو به کیلومتر (default: 50)
+- `region` (optional): filter by region
+- `latitude` (optional): latitude
+- `longitude` (optional): longitude
+- `radius` (optional): search radius in kilometers (default: 50)
 
 #### POST `/services/bookings`
-ایجاد رزرو (نیاز به احراز هویت)
+Create a booking (requires authentication)
 
 **Request Body:**
 ```json
@@ -150,26 +150,26 @@
   "service_type": "veterinarian",
   "service_provider_id": 1,
   "booking_date": "2024-01-15T10:00:00Z",
-  "description": "معاینه اسب"
+  "description": "Horse examination"
 }
 ```
 
 ### Shop (`/api/shop`)
 
 #### GET `/shop/products`
-دریافت لیست محصولات
+Get the list of products
 
 **Query Parameters:**
-- `page` (optional): شماره صفحه
-- `limit` (optional): تعداد در هر صفحه
-- `category_id` (optional): فیلتر بر اساس دسته‌بندی
-- `search` (optional): جستجو در نام و توضیحات
+- `page` (optional): page number
+- `limit` (optional): items per page
+- `category_id` (optional): filter by category
+- `search` (optional): search in name and description
 
 #### GET `/shop/products/:slug`
-دریافت یک محصول با slug
+Get a product by slug
 
 #### POST `/shop/orders`
-ایجاد سفارش (نیاز به احراز هویت)
+Create an order (requires authentication)
 
 **Request Body:**
 ```json
@@ -180,7 +180,7 @@
       "quantity": 2
     }
   ],
-  "shipping_address": "آدرس ارسال",
+  "shipping_address": "Shipping address",
   "payment_method": "online"
 }
 ```
@@ -188,63 +188,63 @@
 ### Competitions (`/api/competitions`)
 
 #### GET `/competitions`
-دریافت لیست مسابقات
+Get the list of competitions
 
 **Query Parameters:**
-- `type` (optional): نوع مسابقه
-- `is_international` (optional): مسابقات بین‌المللی
-- `start_date` (optional): تاریخ شروع
-- `end_date` (optional): تاریخ پایان
+- `type` (optional): competition type
+- `is_international` (optional): international competitions
+- `start_date` (optional): start date
+- `end_date` (optional): end date
 
 #### GET `/competitions/:slug`
-دریافت یک مسابقه با slug
+Get a competition by slug
 
 ### Notifications (`/api/notifications`)
 
 #### GET `/notifications`
-دریافت اعلان‌های کاربر (نیاز به احراز هویت)
+Get the user's notifications (requires authentication)
 
 **Query Parameters:**
-- `limit` (optional): تعداد اعلان‌ها (default: 20)
+- `limit` (optional): number of notifications (default: 20)
 
 #### GET `/notifications/unread-count`
-دریافت تعداد اعلان‌های خوانده نشده (نیاز به احراز هویت)
+Get the number of unread notifications (requires authentication)
 
 #### PUT `/notifications/:id/read`
-علامت‌گذاری اعلان به عنوان خوانده شده (نیاز به احراز هویت)
+Mark a notification as read (requires authentication)
 
 #### PUT `/notifications/read-all`
-علامت‌گذاری همه اعلان‌ها به عنوان خوانده شده (نیاز به احراز هویت)
+Mark all notifications as read (requires authentication)
 
 #### DELETE `/notifications/:id`
-حذف اعلان (نیاز به احراز هویت)
+Delete a notification (requires authentication)
 
 ### Search (`/api/search`)
 
 #### GET `/search`
-جستجوی سراسری در مقالات، محصولات و مسابقات
+Global search across articles, products and competitions
 
 **Query Parameters:**
-- `q` (required): عبارت جستجو
-- `type` (optional): فیلتر بر اساس نوع ('blog', 'product', 'competition', 'all')
-- `category` (optional): فیلتر بر اساس دسته‌بندی
-- `sort` (optional): مرتب‌سازی ('relevance', 'date', 'price')
-- `page` (optional): شماره صفحه
-- `limit` (optional): تعداد در هر صفحه
+- `q` (required): search term
+- `type` (optional): filter by type ('blog', 'product', 'competition', 'all')
+- `category` (optional): filter by category
+- `sort` (optional): sorting ('relevance', 'date', 'price')
+- `page` (optional): page number
+- `limit` (optional): items per page
 
-## کدهای خطا
+## Error codes
 
-- `200`: موفق
-- `201`: ایجاد شده
-- `400`: خطای اعتبارسنجی
-- `401`: نیاز به احراز هویت
-- `403`: دسترسی غیرمجاز
-- `404`: یافت نشد
-- `500`: خطای سرور
+- `200`: Success
+- `201`: Created
+- `400`: Validation error
+- `401`: Authentication required
+- `403`: Forbidden
+- `404`: Not found
+- `500`: Server error
 
-## مثال استفاده
+## Usage example
 
-### با curl
+### With curl
 
 ```bash
 # Login
@@ -257,7 +257,7 @@ curl -X GET http://localhost:3000/api/auth/profile \
   -H "Authorization: Bearer YOUR_TOKEN_HERE"
 ```
 
-### با JavaScript/TypeScript
+### With JavaScript/TypeScript
 
 ```typescript
 import api from '@/lib/api';
@@ -277,9 +277,9 @@ const profile = await api.get('/auth/profile');
 
 ## Rate Limiting
 
-در حال حاضر rate limiting پیاده‌سازی نشده است. برای production توصیه می‌شود از middleware مانند `express-rate-limit` استفاده شود.
+Rate limiting is not currently implemented. For production it is recommended to use middleware such as `express-rate-limit`.
 
-## نسخه‌بندی API
+## API versioning
 
-API فعلاً در نسخه 1.0.0 است. برای تغییرات breaking در آینده، نسخه‌بندی API پیاده‌سازی خواهد شد.
+The API is currently at version 1.0.0. For future breaking changes, API versioning will be implemented.
 

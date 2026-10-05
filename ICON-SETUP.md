@@ -1,21 +1,21 @@
-# آیکون‌ها و لوگو (Icons & Logo)
+# Icons and Logo
 
-منبع همه آیکون‌ها و لوگوها پوشه [`brand/`](brand/) است. راهنمای هویت بصری و رنگ‌های سازمانی در
-[`brand/BRAND.md`](brand/BRAND.md) آمده است.
+The source of all icons and logos is the [`brand/`](brand/) folder. The visual identity guide and corporate colors are in
+[`brand/BRAND.md`](brand/BRAND.md).
 
-| فایل | کاربرد |
+| File | Usage |
 |------|--------|
-| `frontend/public/logo-mark.svg` | نشان اصلی (favicon برداری، PWA) |
-| `frontend/public/logo-horizontal.svg` | لوگوی افقی با نام فارسی و لاتین |
-| `frontend/public/icon-192x192.png`, `icon-512x512.png` | آیکون‌های PWA |
-| `frontend/public/apple-touch-icon.png` | آیکون iOS |
-| `frontend/public/favicon.ico` | favicon مرورگر |
-| `android/app/src/main/res/drawable/ic_launcher_*.xml` | آیکون تطبیقی اندروید (برداری) |
+| `frontend/public/logo-mark.svg` | Main mark (vector favicon, PWA) |
+| `frontend/public/logo-horizontal.svg` | Horizontal logo with Persian and Latin name |
+| `frontend/public/icon-192x192.png`, `icon-512x512.png` | PWA icons |
+| `frontend/public/apple-touch-icon.png` | iOS icon |
+| `frontend/public/favicon.ico` | Browser favicon |
+| `android/app/src/main/res/drawable/ic_launcher_*.xml` | Android adaptive icon (vector) |
 
-## بازتولید آیکون‌های PNG
+## Regenerating the PNG icons
 
 ```bash
 bash brand/export-icons.sh
 ```
 
-این اسکریپت با Chromium نسخه PNG را از `brand/logo-mark.svg` می‌سازد و با Pillow اندازه‌های لازم را تولید می‌کند.
+This script builds the PNG version from `brand/logo-mark.svg` with Chromium and produces the required sizes with Pillow.

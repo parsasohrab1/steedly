@@ -1,163 +1,163 @@
-# وضعیت پروژه استیدلی
+# Steedly Project Status
 
-## ✅ بخش‌های کامل شده
+## ✅ Completed parts
 
 ### Backend API
-- ✅ احراز هویت (ثبت‌نام، ورود، پروفایل)
-- ✅ ماژول بلاگ (CRUD مقالات، جستجو، دسته‌بندی)
-- ✅ ماژول خدمات (دامپزشک، اسب‌کش، رزرو، نظرات)
-- ✅ ماژول فروشگاه (محصولات، سفارشات)
-- ✅ ماژول مسابقات (نمایش، نتایج)
-- ✅ سیستم اعلان‌ها (ایجاد، خواندن، حذف)
-- ✅ جستجوی پیشرفته (سراسری در مقالات، محصولات، مسابقات)
-- ✅ محاسبه فاصله جغرافیایی
-- ✅ اتصال به PostgreSQL و Redis
+- ✅ Authentication (registration, login, profile)
+- ✅ Blog module (article CRUD, search, categories)
+- ✅ Services module (veterinarian, horse transporter, booking, reviews)
+- ✅ Shop module (products, orders)
+- ✅ Competitions module (display, results)
+- ✅ Notification system (create, read, delete)
+- ✅ Advanced search (global across articles, products, competitions)
+- ✅ Geographic distance calculation
+- ✅ PostgreSQL and Redis connection
 - ✅ JWT Authentication
 - ✅ Error Handling
 - ✅ Input Validation
-- ✅ Performance Optimization (Caching، Compression، Indexing)
+- ✅ Performance Optimization (Caching, Compression, Indexing)
 
 ### Frontend (PWA)
-- ✅ صفحه اصلی
-- ✅ صفحه بلاگ
-- ✅ صفحه فروشگاه
-- ✅ صفحه خدمات
-- ✅ صفحه مسابقات
-- ✅ صفحه نقشه (با Neshan Maps)
-- ✅ صفحات جزئیات (مقاله، محصول، مسابقه)
-- ✅ صفحه پروفایل کاربر
-- ✅ پنل مدیریت
-- ✅ سیستم جستجوی پیشرفته (SearchBar، صفحه نتایج)
-- ✅ سیستم اعلان‌ها (NotificationBell، صفحه اعلان‌ها)
-- ✅ Header و Footer
+- ✅ Home page
+- ✅ Blog page
+- ✅ Shop page
+- ✅ Services page
+- ✅ Competitions page
+- ✅ Map page (with Neshan Maps)
+- ✅ Detail pages (article, product, competition)
+- ✅ User profile page
+- ✅ Admin panel
+- ✅ Advanced search system (SearchBar, results page)
+- ✅ Notification system (NotificationBell, notifications page)
+- ✅ Header and Footer
 - ✅ Navigation
 - ✅ API Integration
 - ✅ PWA Configuration (Manifest, Service Worker)
 
 ### Android App
-- ✅ ساختار پروژه با Kotlin + Jetpack Compose
-- ✅ صفحه اصلی با Bottom Navigation
-- ✅ صفحات اصلی (Blog, Shop, Services, Competitions)
-- ✅ صفحه نقشه (با Neshan Maps)
-- ✅ صفحه ورود/ثبت‌نام
+- ✅ Project structure with Kotlin + Jetpack Compose
+- ✅ Home screen with Bottom Navigation
+- ✅ Main screens (Blog, Shop, Services, Competitions)
+- ✅ Map screen (with Neshan Maps)
+- ✅ Login/registration screen
 - ✅ Navigation
 - ✅ API Integration
-- ✅ Theme و Styling
+- ✅ Theme and Styling
 - ✅ MVVM Architecture
-- ✅ مقالات (فهرست، دسته‌بندی، صفحه مقاله، حالت آفلاین)
-- ✅ فروشگاه (جستجو، دسته‌بندی، گالری محصول، سبد خرید ماندگار، تکمیل خرید)
-- ✅ پرداخت آنلاین زرین‌پال با بازگشت به اپ (`steedly://payment`)
-- ✅ خدمات (دامپزشک/اسب‌کش، جزئیات، نظرات، رزرو، نقشه نشان)
-- ✅ مسابقات (فیلتر، جزئیات، نتایج)
-- ✅ حساب کاربری (پروفایل و تصویر، سفارش‌ها، رزروها، اعلان‌ها، بازیابی رمز)
-- ✅ جستجوی سراسری، اعلان سیستمی سفارش/رزرو (WorkManager)، تاریخ شمسی
+- ✅ Articles (list, categories, article page, offline mode)
+- ✅ Shop (search, categories, product gallery, persistent cart, checkout)
+- ✅ ZarinPal online payment with return to the app (`steedly://payment`)
+- ✅ Services (veterinarian/horse transporter, details, reviews, booking, Neshan map)
+- ✅ Competitions (filter, details, results)
+- ✅ User account (profile and photo, orders, bookings, notifications, password recovery)
+- ✅ Global search, system notification for orders/bookings (WorkManager), Solar Hijri date
 
-## ⚠️ بخش‌های ناقص یا نیاز به تکمیل
+## ⚠️ Incomplete parts or parts needing completion
 
 ### Backend
-- ✅ **Upload فایل**: سیستم آپلود تصاویر با multer پیاده‌سازی شده
-- ✅ **Payment Gateway**: درگاه زرین‌پال (sandbox/mock/production)
-- ⚠️ **Email Service**: ارسال ایمیل (تایید، بازیابی رمز) نیست
-- ✅ **Admin Panel**: پنل مدیریت برای ادمین آماده است
-- ✅ **Notifications**: سیستم اعلان‌ها پیاده‌سازی شده
-- ✅ **Search Advanced**: جستجوی پیشرفته با فیلتر و مرتب‌سازی
-- ✅ **Caching Strategy**: استراتژی کش با Redis پیاده‌سازی شده
-- ✅ **Performance Optimization**: بهینه‌سازی‌های مختلف اعمال شده
+- ✅ **File upload**: Image upload system implemented with multer
+- ✅ **Payment Gateway**: ZarinPal gateway (sandbox/mock/production)
+- ⚠️ **Email Service**: Email sending (confirmation, password recovery) is missing
+- ✅ **Admin Panel**: Admin panel is ready for the admin
+- ✅ **Notifications**: Notification system implemented
+- ✅ **Search Advanced**: Advanced search with filter and sorting
+- ✅ **Caching Strategy**: Redis caching strategy implemented
+- ✅ **Performance Optimization**: Various optimizations applied
 
 ### Frontend (PWA)
-- ✅ **صفحه جزئیات مقاله**: صفحه نمایش کامل مقاله با محتوا و تصاویر
-- ✅ **صفحه جزئیات محصول**: صفحه نمایش کامل محصول با گالری تصاویر
-- ✅ **صفحه سبد خرید**: سبد خرید کامل با مدیریت localStorage و UI بهبود یافته
-- ✅ **صفحه پرداخت**: صفحه پرداخت با فرم اطلاعات ارسال و مدیریت خطا
-- ✅ **صفحه پروفایل کاربر**: پروفایل کاربر با ویرایش اطلاعات و آپلود تصویر
-- ✅ **صفحه رزرو خدمات**: فرم رزرو کامل با انتخاب تاریخ و زمان
-- ✅ **صفحه جزئیات مسابقه**: جزئیات مسابقه با نمایش نتایج
-- ✅ **Authentication Pages**: صفحات ورود/ثبت‌نام کامل
-- ✅ **Loading States**: کامپوننت LoadingSpinner برای حالت‌های loading
-- ✅ **Error Handling UI**: کامپوننت‌های ErrorMessage و SuccessMessage برای مدیریت خطا
-- ✅ **Image Upload**: کامپوننت آپلود تصویر با پیش‌نمایش و اعتبارسنجی
+- ✅ **Article details page**: Full article display page with content and images
+- ✅ **Product details page**: Full product display page with image gallery
+- ✅ **Cart page**: Full cart with localStorage management and improved UI
+- ✅ **Payment page**: Payment page with shipping information form and error handling
+- ✅ **User profile page**: User profile with information editing and image upload
+- ✅ **Service booking page**: Full booking form with date and time selection
+- ✅ **Competition details page**: Competition details with results display
+- ✅ **Authentication Pages**: Full login/registration pages
+- ✅ **Loading States**: LoadingSpinner component for loading states
+- ✅ **Error Handling UI**: ErrorMessage and SuccessMessage components for error handling
+- ✅ **Image Upload**: Image upload component with preview and validation
 
 ### Android App
 
 ### Database
-- ⚠️ **Migrations**: سیستم migration نیست
-- ⚠️ **Seed Data**: داده‌های اولیه کامل نیست
-- ⚠️ **Indexes**: ایندکس‌های بهینه نیست
+- ⚠️ **Migrations**: No migration system
+- ⚠️ **Seed Data**: Initial data is incomplete
+- ⚠️ **Indexes**: Optimal indexes are missing
 
 ### Testing
-- ✅ **Unit Tests**: تست‌های واحد برای Backend و Frontend
-- ✅ **Test Setup**: Jest configuration و test utilities
-- ⚠️ **Integration Tests**: تست‌های یکپارچگی نیاز به تکمیل دارد
-- ⚠️ **E2E Tests**: تست‌های end-to-end نیاز به تکمیل دارد
+- ✅ **Unit Tests**: Unit tests for Backend and Frontend
+- ✅ **Test Setup**: Jest configuration and test utilities
+- ⚠️ **Integration Tests**: Integration tests need to be completed
+- ⚠️ **E2E Tests**: End-to-end tests need to be completed
 
 ### Documentation
-- ✅ README و راهنماها موجود است
-- ✅ **API Documentation**: Swagger/OpenAPI مستندات کامل است
-- ✅ **Testing Guide**: راهنمای تست‌ها موجود است
-- ✅ **Docker Guide**: راهنمای Docker موجود است
-- ⚠️ **Code Comments**: کامنت‌های کد نیاز به بهبود دارد
+- ✅ README and guides are available
+- ✅ **API Documentation**: Swagger/OpenAPI documentation is complete
+- ✅ **Testing Guide**: Testing guide is available
+- ✅ **Docker Guide**: Docker guide is available
+- ⚠️ **Code Comments**: Code comments need improvement
 
 ### DevOps
-- ✅ **CI/CD**: GitHub Actions workflow برای تست و build
-- ✅ **Docker**: Dockerfile و docker-compose.yml آماده است
+- ✅ **CI/CD**: GitHub Actions workflow for test and build
+- ✅ **Docker**: Dockerfile and docker-compose.yml are ready
 - ✅ **Containerization**: Multi-stage Docker builds
-- ⚠️ **Deployment Scripts**: اسکریپت‌های استقرار نیاز به تکمیل دارد
+- ⚠️ **Deployment Scripts**: Deployment scripts need to be completed
 
-## 📊 درصد پیشرفت
+## 📊 Progress percentage
 
-| بخش | درصد | وضعیت |
+| Section | Percent | Status |
 |-----|------|-------|
-| Backend API | 90% | ✅ تقریباً کامل |
-| Frontend PWA | 90% | ✅ تقریباً کامل |
-| Android App | 90% | ✅ تقریباً کامل (نیاز به build و تست روی دستگاه) |
-| Database | 85% | ✅ تقریباً کامل |
-| Testing | 40% | ⚠️ در حال توسعه |
-| Documentation | 85% | ✅ خوب |
-| DevOps | 70% | ✅ خوب |
-| **کل پروژه** | **~85%** | ✅ **در حال پیشرفت** |
+| Backend API | 90% | ✅ Almost complete |
+| Frontend PWA | 90% | ✅ Almost complete |
+| Android App | 90% | ✅ Almost complete (needs build and testing on device) |
+| Database | 85% | ✅ Almost complete |
+| Testing | 40% | ⚠️ In development |
+| Documentation | 85% | ✅ Good |
+| DevOps | 70% | ✅ Good |
+| **Entire project** | **~85%** | ✅ **In progress** |
 
-## 🎯 اولویت‌های تکمیل
+## 🎯 Completion priorities
 
-### اولویت بالا (برای MVP)
-1. ✅ صفحات جزئیات (مقاله، محصول، مسابقه)
-2. ✅ سبد خرید و پرداخت
-3. ✅ فرم رزرو خدمات
-4. ✅ صفحات احراز هویت کامل
-5. ✅ پروفایل کاربر
-6. ✅ سیستم آپلود تصویر
+### High priority (for MVP)
+1. ✅ Detail pages (article, product, competition)
+2. ✅ Cart and payment
+3. ✅ Service booking form
+4. ✅ Full authentication pages
+5. ✅ User profile
+6. ✅ Image upload system
 
-### اولویت متوسط
-1. ✅ پنل مدیریت
-2. ✅ سیستم اعلان‌ها
-3. ✅ جستجوی پیشرفته
-4. ✅ بهینه‌سازی عملکرد
+### Medium priority
+1. ✅ Admin panel
+2. ✅ Notification system
+3. ✅ Advanced search
+4. ✅ Performance optimization
 
-### اولویت پایین
-1. ✅ تست‌ها
+### Low priority
+1. ✅ Tests
 2. ✅ CI/CD
 3. ✅ Docker
-4. ✅ مستندات API
+4. ✅ API documentation
 
-## ✅ آماده برای استفاده
+## ✅ Ready for use
 
-### برای توسعه و تست
-- ✅ Backend API قابل استفاده است
-- ✅ Frontend PWA قابل اجرا است
-- ✅ Android App قابل build است
-- ✅ نقشه کار می‌کند
+### For development and testing
+- ✅ Backend API is usable
+- ✅ Frontend PWA can run
+- ✅ Android App can be built
+- ✅ Map works
 
-### برای Production
-- ⚠️ نیاز به تکمیل صفحات اصلی
-- ⚠️ نیاز به تست کامل
-- ⚠️ نیاز به بهینه‌سازی
-- ⚠️ نیاز به امنیت بیشتر
+### For Production
+- ⚠️ Main pages need to be completed
+- ⚠️ Full testing is needed
+- ⚠️ Optimization is needed
+- ⚠️ More security is needed
 
-## 📝 نتیجه‌گیری
+## 📝 Conclusion
 
-**وضعیت فعلی**: پروژه در مرحله **MVP (Minimum Viable Product)** است و حدود **85%** کامل شده است.
+**Current status**: The project is at the **MVP (Minimum Viable Product)** stage and about **85%** complete.
 
-**برای استفاده اولیه**: ✅ بله، قابل استفاده است
-**برای انتشار عمومی**: ⚠️ نیاز به تکمیل صفحات و تست دارد
+**For initial use**: ✅ Yes, it is usable
+**For public release**: ⚠️ Pages and testing need to be completed
 
-**توصیه**: قبل از انتشار، صفحات اصلی (جزئیات، سبد خرید، پرداخت) را تکمیل کنید.
+**Recommendation**: Before release, complete the main pages (details, cart, payment).
 

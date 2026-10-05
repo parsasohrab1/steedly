@@ -1,63 +1,63 @@
-# هویت بصری استیدلی — Steedly Brand Guide
+# Steedly Visual Identity — Steedly Brand Guide
 
-## نام
+## Name
 
 | | |
 |---|---|
-| نام فارسی | **استیدلی** |
-| نام لاتین | **Steedly** (از *steed* به معنای اسب اصیل) |
-| شعار | سلامت و مراقبت اسب |
-| شناسه اپ اندروید | `ir.steedly.app` |
-| طرح لینک اپ (deep link) | `steedly://` |
+| Persian name | **Steedly** (transliteration of the Latin name) |
+| Latin name | **Steedly** (from *steed*, meaning a noble horse) |
+| Slogan | Horse health and care |
+| Android app ID | `ir.steedly.app` |
+| App link scheme (deep link) | `steedly://` |
 
-در متن فارسی همیشه «استیدلی» و در متن لاتین «Steedly» (با S بزرگ) نوشته شود. ترکیب دوزبانه: «استیدلی | Steedly».
+In all languages, always write the name as “Steedly” (with a capital S).
 
-## لوگو
+## Logo
 
-نشان استیدلی از **سر اسب در نیم‌رخ** و **خط ضربان قلب (نوار قلب)** زیر آن تشکیل شده است:
-اسب نماد موضوع اصلی پلتفرم، و خط ضربان نماد **سلامت، دامپزشکی و مراقبت** است. خط بال یال،
-چشم و سوراخ بینی در همان رنگ زمینه بریده شده‌اند تا نشان در اندازه‌های کوچک هم خوانا بماند.
+The Steedly mark consists of a **horse head in profile** and a **heartbeat line (ECG)** beneath it:
+The horse represents the platform's main subject, and the pulse line represents **health, veterinary care and caretaking**. The line of the mane,
+the eye and the nostril are cut out in the background color so that the mark stays legible even at small sizes.
 
-| فایل | کاربرد |
+| File | Usage |
 |------|--------|
-| [`logo-mark.svg`](logo-mark.svg) | نشان اصلی روی زمینه سبزآبی (آیکون اپ، favicon، شبکه‌های اجتماعی) |
-| [`logo-mark-mono.svg`](logo-mark-mono.svg) | نسخه تک‌رنگ بدون زمینه (مهر، چاپ تک‌رنگ، روی عکس) |
-| [`logo-horizontal.svg`](logo-horizontal.svg) | لوگوی افقی با نام فارسی، لاتین و شعار (سربرگ سایت، فاکتور، ایمیل) |
+| [`logo-mark.svg`](logo-mark.svg) | Main mark on a teal background (app icon, favicon, social media) |
+| [`logo-mark-mono.svg`](logo-mark-mono.svg) | Monochrome version without a background (stamp, single-color print, over photos) |
+| [`logo-horizontal.svg`](logo-horizontal.svg) | Horizontal logo with the name and slogan (site header, invoice, email) |
 
-**قواعد استفاده**
-- حداقل فاصله خالی اطراف نشان: یک‌چهارم عرض نشان.
-- حداقل اندازه نشان: ۲۴ پیکسل (دیجیتال) / ۸ میلی‌متر (چاپ).
-- نشان را نچرخانید، کشیده نکنید، سایه یا گرادیان اضافه نکنید و رنگ‌ها را جابه‌جا نکنید.
-- روی زمینه‌های شلوغ یا تیره از `logo-mark.svg` (با کادر سبزآبی) استفاده کنید.
+**Usage rules**
+- Minimum clear space around the mark: one quarter of the mark's width.
+- Minimum mark size: 24 pixels (digital) / 8 mm (print).
+- Do not rotate or stretch the mark, add shadows or gradients, or swap the colors.
+- On busy or dark backgrounds use `logo-mark.svg` (with the teal frame).
 
-## رنگ‌های سازمانی
+## Brand colors
 
-| نقش | نام | HEX | کاربرد |
+| Role | Name | HEX | Usage |
 |------|------|------|--------|
-| اصلی | Steedly Teal | `#0F766E` | دکمه‌ها، لینک‌ها، نوار بالا، زمینه نشان |
-| اصلی تیره | Teal 900 | `#0A3F3C` | فوتر، حالت فشرده دکمه |
-| اصلی روشن | Teal 100 | `#D5F1EC` | زمینه کارت‌های برجسته، برچسب‌ها |
-| تأکیدی | Pulse Gold | `#F2B544` | خط ضربان، نشان‌ها و هایلایت‌ها |
-| تأکیدی متن | Gold 700 | `#9A6A00` | متن طلایی روی زمینه سفید |
-| متن | Ink | `#0B2E2C` | متن اصلی و نام لاتین در لوگو |
-| زمینه | Paper | `#FAFDFC` | پس‌زمینه صفحات |
+| Primary | Steedly Teal | `#0F766E` | Buttons, links, top bar, mark background |
+| Primary dark | Teal 900 | `#0A3F3C` | Footer, button pressed state |
+| Primary light | Teal 100 | `#D5F1EC` | Highlighted card backgrounds, labels |
+| Accent | Pulse Gold | `#F2B544` | Pulse line, badges and highlights |
+| Accent text | Gold 700 | `#9A6A00` | Gold text on a white background |
+| Text | Ink | `#0B2E2C` | Main text and the Latin name in the logo |
+| Background | Paper | `#FAFDFC` | Page background |
 
-**دسترس‌پذیری (WCAG):** متن سفید روی `#0F766E` نسبت کنتراست ۵٫۵:۱ دارد (AA). رنگ طلایی `#F2B544`
-برای متن روی زمینه سفید کنتراست کافی ندارد؛ برای متن از `#9A6A00` یا متن تیره روی زمینه طلایی استفاده کنید.
+**Accessibility (WCAG):** White text on `#0F766E` has a contrast ratio of 5.5:1 (AA). The gold color `#F2B544`
+does not have enough contrast for text on a white background; for text use `#9A6A00` or dark text on a gold background.
 
-رنگ‌های وضعیت (سبز = موفق، قرمز = خطا، کهربایی = در انتظار) مستقل از رنگ سازمانی هستند و فقط برای وضعیت‌ها به کار می‌روند.
+Status colors (green = success, red = error, amber = pending) are independent of the brand colors and are used only for statuses.
 
-### محل تعریف رنگ‌ها در کد
+### Where colors are defined in code
 
-| بخش | فایل |
+| Section | File |
 |------|------|
-| وب (Tailwind) | `frontend/tailwind.config.js` — `primary`, `accent`, `ink` |
-| وب (PWA) | `frontend/public/manifest.json`, `frontend/app/layout.tsx` — `theme_color` |
-| اندروید (Compose) | `android/app/src/main/java/ir/steedly/app/ui/theme/Color.kt`, `Theme.kt` |
-| اندروید (منابع) | `android/app/src/main/res/values/colors.xml` |
-| ایمیل‌ها | `backend/src/services/emailService.ts` |
+| Web (Tailwind) | `frontend/tailwind.config.js` — `primary`, `accent`, `ink` |
+| Web (PWA) | `frontend/public/manifest.json`, `frontend/app/layout.tsx` — `theme_color` |
+| Android (Compose) | `android/app/src/main/java/ir/steedly/app/ui/theme/Color.kt`, `Theme.kt` |
+| Android (resources) | `android/app/src/main/res/values/colors.xml` |
+| Emails | `backend/src/services/emailService.ts` |
 
-## تایپوگرافی
+## Typography
 
-- فارسی: **وزیرمتن (Vazirmatn)** — ضخامت ۸۰۰ برای عناوین، ۴۰۰ برای متن.
-- لاتین: Vazirmatn / Inter.
+- Persian: **Vazirmatn** — weight 800 for headings, 400 for body text.
+- Latin: Vazirmatn / Inter.

@@ -67,7 +67,7 @@ export const startOrderPayment = async (
     const amount = parseFloat(order.total_amount);
     const { authority, paymentUrl } = await requestPayment({
       amount,
-      description: `پرداخت سفارش ${order.order_number}`,
+      description: `Payment for order ${order.order_number}`,
       callbackUrl: `${apiBaseUrl()}/payments/callback`,
       mobile: order.phone || undefined,
       email: order.email || undefined,
@@ -183,8 +183,8 @@ export const paymentCallback = async (
       await createNotification(
         order.user_id,
         'order',
-        'پرداخت موفق',
-        `پرداخت سفارش ${order.order_number} با موفقیت انجام شد. کد پیگیری: ${verification.refId || '-'}`,
+        'Payment successful',
+        `Payment for order ${order.order_number} was completed successfully. Tracking code: ${verification.refId || '-'}`,
         `/profile/orders/${payment.order_id}`
       );
     } catch (notifError) {

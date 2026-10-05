@@ -1,108 +1,108 @@
-# راهنمای تصاویر و Alt Text برای محتوا
+# Guide to Images and Alt Text for Content
 
-## تصاویر استفاده شده
+## Images used
 
-### مقالات (Blog Posts)
+### Articles (Blog Posts)
 
-#### 1. اسب عربی
+#### 1. Arabian horse
 - **URL**: `https://images.unsplash.com/photo-1516726817505-f5ed825624d8?w=800&h=600&fit=crop`
-- **Alt Text**: "اسب عربی زیبا با پیشانی برجسته و چشم‌های درشت"
-- **Keywords**: اسب عربی، نژاد اسب، اسب زیبا
+- **Alt Text**: "A beautiful Arabian horse with a prominent forehead and large eyes"
+- **Keywords**: Arabian horse, horse breed, beautiful horse
 
-#### 2. کولیک در اسب
+#### 2. Colic in horses
 - **URL**: `https://images.unsplash.com/photo-1553284965-83fd3e82fa5f?w=800&h=600&fit=crop`
-- **Alt Text**: "اسب در حال معاینه دامپزشکی برای تشخیص کولیک"
-- **Keywords**: کولیک اسب، بیماری اسب، دامپزشکی
+- **Alt Text**: "A horse under veterinary examination to diagnose colic"
+- **Keywords**: horse colic, horse disease, veterinary
 
-#### 3. راهنمای خرید زین
+#### 3. Saddle buying guide
 - **URL**: `https://images.unsplash.com/photo-1516726817505-f5ed825624d8?w=800&h=600&fit=crop`
-- **Alt Text**: "زین انگلیسی روی اسب برای سوارکاری"
-- **Keywords**: زین اسب، تجهیزات سوارکاری
+- **Alt Text**: "An English saddle on a horse for riding"
+- **Keywords**: horse saddle, riding equipment
 
-#### 4. درساژ
+#### 4. Dressage
 - **URL**: `https://images.unsplash.com/photo-1516726817505-f5ed825624d8?w=800&h=600&fit=crop`
-- **Alt Text**: "سوارکار و اسب در حال اجرای حرکات درساژ"
-- **Keywords**: درساژ، مسابقات سوارکاری
+- **Alt Text**: "A rider and horse performing dressage movements"
+- **Keywords**: dressage, equestrian competitions
 
-#### 5. تغذیه اسب
+#### 5. Horse nutrition
 - **URL**: `https://images.unsplash.com/photo-1553284965-83fd3e82fa5f?w=800&h=600&fit=crop`
-- **Alt Text**: "اسب در حال خوردن علوفه و تغذیه سالم"
-- **Keywords**: تغذیه اسب، علوفه اسب
+- **Alt Text**: "A horse eating forage and healthy feed"
+- **Keywords**: horse nutrition, horse forage
 
-#### 6. تاریخ اسب در ایران
+#### 6. History of the horse in Iran
 - **URL**: `https://images.unsplash.com/photo-1516726817505-f5ed825624d8?w=800&h=600&fit=crop`
-- **Alt Text**: "اسب ترکمن ایرانی در حال دویدن"
-- **Keywords**: اسب ایرانی، اسب ترکمن
+- **Alt Text**: "An Iranian Turkmen horse running"
+- **Keywords**: Iranian horse, Turkmen horse
 
-### محصولات (Products)
+### Products
 
-#### 1. زین انگلیسی
+#### 1. English saddle
 - **URL**: `https://images.unsplash.com/photo-1516726817505-f5ed825624d8?w=600&h=600&fit=crop`
-- **Alt Text**: "زین انگلیسی استاندارد با چرم طبیعی"
-- **Keywords**: زین اسب، تجهیزات سوارکاری
+- **Alt Text**: "Standard English saddle with natural leather"
+- **Keywords**: horse saddle, riding equipment
 
-#### 2. ویتامین E
+#### 2. Vitamin E
 - **URL**: `https://images.unsplash.com/photo-1553284965-83fd3e82fa5f?w=600&h=600&fit=crop`
-- **Alt Text**: "مکمل ویتامین E برای سلامت اسب"
-- **Keywords**: مکمل اسب، ویتامین اسب
+- **Alt Text**: "Vitamin E supplement for horse health"
+- **Keywords**: horse supplement, horse vitamin
 
-#### 3. برس تمیز کردن
+#### 3. Cleaning brush
 - **URL**: `https://images.unsplash.com/photo-1516726817505-f5ed825624d8?w=600&h=600&fit=crop`
-- **Alt Text**: "برس حرفه‌ای برای نظافت و تمیز کردن اسب"
-- **Keywords**: برس اسب، نظافت اسب
+- **Alt Text**: "Professional brush for grooming and cleaning the horse"
+- **Keywords**: horse brush, horse grooming
 
-### مسابقات (Competitions)
+### Competitions
 
-#### 1. مسابقات درساژ
+#### 1. Dressage competition
 - **URL**: `https://images.unsplash.com/photo-1516726817505-f5ed825624d8?w=800&h=600&fit=crop`
-- **Alt Text**: "مسابقات درساژ قهرمانی ایران با حضور سوارکاران"
-- **Keywords**: مسابقات اسب، درساژ ایران
+- **Alt Text**: "Iran dressage championship competition with riders participating"
+- **Keywords**: horse competitions, Iran dressage
 
-## نکات مهم برای Alt Text
+## Important notes for Alt Text
 
-1. **توصیفی باشد**: Alt text باید محتوای تصویر را به درستی توصیف کند
-2. **کلمات کلیدی**: شامل کلمات کلیدی مرتبط با محتوا باشد
-3. **مختصر**: حداکثر 125 کاراکتر
-4. **مفید**: برای کاربران نابینا و موتورهای جستجو مفید باشد
+1. **Be descriptive**: Alt text must accurately describe the image content
+2. **Keywords**: Include keywords related to the content
+3. **Concise**: At most 125 characters
+4. **Useful**: Useful for blind users and search engines
 
-## منابع تصاویر
+## Image sources
 
-تصاویر از **Unsplash** استفاده شده است که:
-- رایگان و بدون نیاز به مجوز هستند
-- کیفیت بالا دارند
-- برای استفاده تجاری مناسب هستند
+Images from **Unsplash** are used, which:
+- Are free and need no license
+- Are high quality
+- Are suitable for commercial use
 
-## جایگزینی تصاویر
+## Replacing images
 
-برای جایگزینی تصاویر با تصاویر واقعی:
+To replace images with real ones:
 
-1. تصاویر را در پوشه `public/images/` قرار دهید
-2. URL را در دیتابیس به مسیر محلی تغییر دهید
-3. Alt text را به‌روزرسانی کنید
+1. Put the images in the `public/images/` folder
+2. Change the URL in the database to the local path
+3. Update the Alt text
 
-## SEO و بهینه‌سازی
+## SEO and optimization
 
-- همه تصاویر دارای Alt text مناسب هستند
-- تصاویر با ابعاد مناسب (800x600 برای مقالات، 600x600 برای محصولات)
-- استفاده از `fit=crop` برای بهینه‌سازی
+- All images have appropriate Alt text
+- Images with suitable dimensions (800x600 for articles, 600x600 for products)
+- Use of `fit=crop` for optimization
 
-## دستورالعمل استفاده
+## Usage instructions
 
-برای اضافه کردن محتوا با تصاویر:
+To add content with images:
 
 ```typescript
 {
-  title: 'عنوان',
-  featured_image: 'URL تصویر',
-  // Alt text در کد HTML استفاده می‌شود
+  title: 'Title',
+  featured_image: 'Image URL',
+  // Alt text is used in the HTML code
 }
 ```
 
-در کامپوننت‌های React:
+In React components:
 ```tsx
 <Image
   src={post.featured_image}
-  alt="توضیحات تصویر با کلمات کلیدی"
+  alt="Image description with keywords"
   fill
   className="object-cover"
 />

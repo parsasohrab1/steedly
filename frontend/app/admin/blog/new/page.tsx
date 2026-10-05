@@ -46,7 +46,7 @@ export default function NewBlogPostPage() {
       });
       router.push('/admin/blog');
     } catch (error: any) {
-      alert(error.response?.data?.message || 'خطا در ایجاد مقاله');
+      alert(error.response?.data?.message || 'Error creating the article');
     } finally {
       setLoading(false);
     }
@@ -55,7 +55,7 @@ export default function NewBlogPostPage() {
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-3xl font-bold">مقاله جدید</h1>
+        <h1 className="text-3xl font-bold">New article</h1>
         <button
           onClick={() => router.back()}
           className="text-gray-600 hover:text-gray-800"
@@ -68,7 +68,7 @@ export default function NewBlogPostPage() {
         {/* Title */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            عنوان مقاله *
+            Article title *
           </label>
           <input
             type="text"
@@ -76,14 +76,14 @@ export default function NewBlogPostPage() {
             value={formData.title}
             onChange={(e) => setFormData({ ...formData, title: e.target.value })}
             className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500"
-            placeholder="عنوان مقاله"
+            placeholder="Article title"
           />
         </div>
 
         {/* Category */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            دسته‌بندی *
+            Category *
           </label>
           <select
             required
@@ -91,7 +91,7 @@ export default function NewBlogPostPage() {
             onChange={(e) => setFormData({ ...formData, category_id: e.target.value })}
             className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500"
           >
-            <option value="">انتخاب دسته‌بندی</option>
+            <option value="">Select category</option>
             {categories.map((cat) => (
               <option key={cat.id} value={cat.id}>
                 {cat.name}
@@ -103,21 +103,21 @@ export default function NewBlogPostPage() {
         {/* Excerpt */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            خلاصه مقاله
+            Article summary
           </label>
           <textarea
             value={formData.excerpt}
             onChange={(e) => setFormData({ ...formData, excerpt: e.target.value })}
             rows={3}
             className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500"
-            placeholder="خلاصه کوتاه مقاله"
+            placeholder="Short article summary"
           />
         </div>
 
         {/* Featured Image */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            URL تصویر شاخص
+            Featured image URL
           </label>
           <input
             type="url"
@@ -131,7 +131,7 @@ export default function NewBlogPostPage() {
         {/* Content */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            محتوای مقاله *
+            Article content *
           </label>
           <textarea
             required
@@ -139,10 +139,10 @@ export default function NewBlogPostPage() {
             onChange={(e) => setFormData({ ...formData, content: e.target.value })}
             rows={15}
             className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500 font-mono text-sm"
-            placeholder="محتوای مقاله (HTML مجاز است)"
+            placeholder="Article content (HTML allowed)"
           />
           <p className="text-xs text-gray-500 mt-1">
-            می‌توانید از HTML برای فرمت‌دهی استفاده کنید
+            You can use HTML for formatting
           </p>
         </div>
 
@@ -154,14 +154,14 @@ export default function NewBlogPostPage() {
             className="flex-1 bg-primary-600 text-white px-6 py-3 rounded-lg hover:bg-primary-700 transition flex items-center justify-center gap-2 disabled:opacity-50"
           >
             <FaSave />
-            {loading ? 'در حال ذخیره...' : 'ذخیره مقاله'}
+            {loading ? 'Saving...' : 'Save article'}
           </button>
           <button
             type="button"
             onClick={() => router.back()}
             className="px-6 py-3 border rounded-lg hover:bg-gray-50 transition"
           >
-            انصراف
+            Cancel
           </button>
         </div>
       </form>

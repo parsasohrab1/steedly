@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-اسکریپت import محتوای جمع‌آوری شده به دیتابیس PostgreSQL
+Script for importing collected content into the PostgreSQL database
 """
 
 import json
@@ -11,9 +11,9 @@ from pathlib import Path
 import sys
 
 def import_to_database(json_file: str, db_config: dict):
-    """Import محتوا از JSON به PostgreSQL"""
+    """Import content from JSON into PostgreSQL"""
     
-    # اتصال به دیتابیس
+    # Connect to the database
     try:
         conn = psycopg2.connect(
             host=db_config['host'],
@@ -23,34 +23,34 @@ def import_to_database(json_file: str, db_config: dict):
             password=db_config['password']
         )
         cur = conn.cursor()
-        print("✓ اتصال به دیتابیس برقرار شد")
+        print("✓ Database connection established")
     except Exception as e:
-        print(f"❌ خطا در اتصال به دیتابیس: {e}")
+        print(f"❌ Error connecting to the database: {e}")
         return
     
-    # خواندن فایل JSON
+    # Read the JSON file
     try:
         with open(json_file, 'r', encoding='utf-8') as f:
             content_data = json.load(f)
-        print(f"✓ فایل JSON خوانده شد: {len(content_data)} محتوا")
+        print(f"✓ JSON file read: {len(content_data)} items")
     except Exception as e:
-        print(f"❌ خطا در خواندن فایل JSON: {e}")
+        print(f"❌ Error reading the JSON file: {e}")
         return
     
-    # Import هر محتوا
+    # Import each item
     imported = 0
     skipped = 0
     
     for item in content_data:
         try:
-            # بررسی وجود slug
+            # Check whether the slug exists
             cur.execute("SELECT id FROM blog_posts WHERE slug = %s", (item['slug'],))
             if cur.fetchone():
-                print(f"⏭️  محتوا با slug '{item['slug']}' قبلاً وجود دارد")
+                print(f"⏭️  Content with slug '{item['slug']}' already exists")
                 skipped += 1
                 continue
             
-            # Insert محتوا
+            # Insert content
             cur.execute("""
                 INSERT INTO blog_posts (
                     title, slug, excerpt, content, featured_image,
@@ -66,14 +66,14 @@ def import_to_database(json_file: str, db_config: dict):
                 item['images'][0]['path'] if item['images'] else None,
                 item['meta_description'],
                 item['meta_keywords'],
-                1,  # author_id - باید تغییر دهید
-                1,  # category_id - باید تغییر دهید
+                1,  # author_id - you must change this
+                1,  # category_id - you must change this
                 True
             ))
             
             post_id = cur.fetchone()[0]
             
-            # Insert تصاویر
+            # Insert images
             if item['images']:
                 image_data = [
                     (post_id, img['path'], img['alt'], img['title'])
@@ -89,39 +89,39 @@ def import_to_database(json_file: str, db_config: dict):
                 )
             
             imported += 1
-            print(f"✓ محتوا import شد: {item['title'][:50]}...")
+            print(f"✓ Content imported: {item['title'][:50]}...")
             
         except Exception as e:
-            print(f"❌ خطا در import محتوا '{item['title']}': {e}")
+            print(f"❌ Error importing content '{item['title']}': {e}")
             skipped += 1
     
-    # Commit تغییرات
+    # Commit the changes
     conn.commit()
     cur.close()
     conn.close()
     
     print(f"\n{'='*60}")
-    print(f"✅ Import با موفقیت انجام شد!")
-    print(f"📊 تعداد import شده: {imported}")
-    print(f"⏭️  تعداد رد شده: {skipped}")
+    print(f"✅ Import completed successfully!")
+    print(f"📊 Number imported: {imported}")
+    print(f"⏭️  Number skipped: {skipped}")
     print(f"{'='*60}\n")
 
 
 def main():
-    # تنظیمات دیتابیس
+    # Database settings
     db_config = {
         'host': 'localhost',
         'port': 5432,
         'database': 'steedly',
         'user': 'postgres',
-        'password': 'your_password'  # تغییر دهید
+        'password': 'your_password'  # change this
     }
     
-    # مسیر فایل JSON
+    # JSON file path
     json_file = 'scraped_content/data/scraped_content.json'
     
     if not Path(json_file).exists():
-        print(f"❌ فایل {json_file} یافت نشد!")
+        print(f"❌ File {json_file} not found!")
         sys.exit(1)
     
     import_to_database(json_file, db_config)

@@ -1,154 +1,154 @@
-# راهنمای راه‌اندازی پروژه استیدلی
+# Steedly Project Setup Guide
 
-## پیش‌نیازها
+## Prerequisites
 
-### برای Backend و Frontend (PWA)
-- Node.js (نسخه 18 یا بالاتر)
-- PostgreSQL (نسخه 12 یا بالاتر)
-- Redis (نسخه 6 یا بالاتر)
-- npm یا yarn
+### For Backend and Frontend (PWA)
+- Node.js (version 18 or higher)
+- PostgreSQL (version 12 or higher)
+- Redis (version 6 or higher)
+- npm or yarn
 
-### برای Android App
-- Android Studio Hedgehog (2023.1.1) یا بالاتر
-- JDK 17 یا بالاتر
-- Android SDK (API Level 24 به بالا)
+### For the Android App
+- Android Studio Hedgehog (2023.1.1) or higher
+- JDK 17 or higher
+- Android SDK (API Level 24 and above)
 
-## نصب و راه‌اندازی
+## Installation and Setup
 
-### 1. نصب وابستگی‌ها
+### 1. Install Dependencies
 
 ```bash
-# نصب وابستگی‌های ریشه پروژه
+# Install the project root dependencies
 npm install
 
-# نصب وابستگی‌های بک‌اند
+# Install the backend dependencies
 cd backend
 npm install
 
-# نصب وابستگی‌های فرانت‌اند
+# Install the frontend dependencies
 cd ../frontend
 npm install
 ```
 
-### 2. راه‌اندازی دیتابیس
+### 2. Setting up the database
 
-1. PostgreSQL را راه‌اندازی کنید
-2. یک دیتابیس جدید ایجاد کنید:
+1. Start PostgreSQL
+2. Create a new database:
 ```sql
 CREATE DATABASE steedly;
 ```
 
-3. فایل schema را اجرا کنید:
+3. Run the schema file:
 ```bash
 psql -U postgres -d steedly -f backend/src/database/schema.sql
 ```
 
-### 3. پیکربندی متغیرهای محیطی
+### 3. Configuring environment variables
 
-#### بک‌اند
-فایل `.env.example` را در پوشه `backend` کپی کرده و به `.env` تغییر نام دهید:
+#### Backend
+Copy the `.env.example` file in the `backend` folder and rename it to `.env`:
 
 ```bash
 cd backend
 cp .env.example .env
 ```
 
-سپس مقادیر را تنظیم کنید:
-- `DB_HOST`: آدرس دیتابیس (پیش‌فرض: localhost)
-- `DB_NAME`: نام دیتابیس (پیش‌فرض: steedly)
-- `DB_USER`: نام کاربری PostgreSQL
-- `DB_PASSWORD`: رمز عبور PostgreSQL
-- `JWT_SECRET`: یک رشته تصادفی برای JWT
-- `REDIS_HOST`: آدرس Redis (پیش‌فرض: localhost)
+Then set the values:
+- `DB_HOST`: Database address (default: localhost)
+- `DB_NAME`: Database name (default: steedly)
+- `DB_USER`: PostgreSQL username
+- `DB_PASSWORD`: PostgreSQL password
+- `JWT_SECRET`: A random string for JWT
+- `REDIS_HOST`: Redis address (default: localhost)
 
-#### فرانت‌اند
-فایل `.env.example` را در پوشه `frontend` کپی کرده و به `.env.local` تغییر نام دهید:
+#### Frontend
+Copy the `.env.example` file in the `frontend` folder and rename it to `.env.local`:
 
 ```bash
 cd frontend
 cp .env.example .env.local
 ```
 
-مقدار `NEXT_PUBLIC_API_URL` را تنظیم کنید (پیش‌فرض: http://localhost:3000/api)
+Set the value of `NEXT_PUBLIC_API_URL` (default: http://localhost:3000/api)
 
-### 4. راه‌اندازی Redis
+### 4. Setting up Redis
 
 ```bash
-# در سیستم‌عامل لینوکس/Mac
+# On Linux/Mac
 redis-server
 
-# یا در Windows با استفاده از WSL
+# Or on Windows using WSL
 ```
 
-### 5. اجرای پروژه
+### 5. Running the project
 
-#### حالت توسعه (Development)
+#### Development mode
 
-از ریشه پروژه:
+From the project root:
 ```bash
 npm run dev
 ```
 
-این دستور هم بک‌اند و هم فرانت‌اند را به صورت همزمان اجرا می‌کند.
+This command runs both the backend and frontend simultaneously.
 
-یا به صورت جداگانه:
+Or separately:
 
 ```bash
-# ترمینال 1 - بک‌اند
+# Terminal 1 - backend
 cd backend
 npm run dev
 
-# ترمینال 2 - فرانت‌اند
+# Terminal 2 - frontend
 cd frontend
 npm run dev
 ```
 
-#### حالت تولید (Production)
+#### Production mode
 
 ```bash
-# Build پروژه
+# Build the project
 npm run build
 
-# اجرای بک‌اند
+# Run the backend
 cd backend
 npm start
 
-# اجرای فرانت‌اند
+# Run the frontend
 cd frontend
 npm start
 ```
 
-## دسترسی به برنامه
+## Accessing the application
 
-- **فرانت‌اند**: http://localhost:3001
-- **بک‌اند API**: http://localhost:3000
+- **Frontend**: http://localhost:3001
+- **Backend API**: http://localhost:3000
 - **Health Check**: http://localhost:3000/health
 
-## ساختار پروژه
+## Project Structure
 
 ```
 steedly/
-├── backend/              # بک‌اند Node.js + Express + TypeScript
+├── backend/              # Node.js + Express + TypeScript backend
 │   ├── src/
-│   │   ├── controllers/  # کنترلرهای API
-│   │   ├── routes/       # روت‌های API
-│   │   ├── middleware/   # میدلورها
-│   │   ├── database/     # اتصال دیتابیس و Redis
-│   │   └── index.ts      # نقطه ورود
+│   │   ├── controllers/  # API controllers
+│   │   ├── routes/       # API routes
+│   │   ├── middleware/   # Middlewares
+│   │   ├── database/     # Database and Redis connection
+│   │   └── index.ts      # Entry point
 │   └── package.json
-├── frontend/            # فرانت‌اند Next.js + TypeScript (PWA)
-│   ├── app/             # صفحات و layout
-│   ├── components/      # کامپوننت‌های React
-│   ├── lib/             # توابع کمکی و API
+├── frontend/            # Next.js + TypeScript (PWA) frontend
+│   ├── app/             # Pages and layout
+│   ├── components/      # React components
+│   ├── lib/             # Helper functions and API
 │   └── package.json
-├── android/             # اپلیکیشن اندروید (Kotlin + Jetpack Compose)
+├── android/             # Android application (Kotlin + Jetpack Compose)
 │   ├── app/
 │   │   ├── src/main/
 │   │   │   ├── java/ir/steedly/app/
-│   │   │   │   ├── data/      # مدل‌ها و API
-│   │   │   │   ├── ui/        # صفحات و کامپوننت‌ها
+│   │   │   │   ├── data/      # Models and API
+│   │   │   │   ├── ui/        # Screens and components
 │   │   │   │   └── MainActivity.kt
-│   │   │   └── res/           # منابع
+│   │   │   └── res/           # Resources
 │   │   └── build.gradle.kts
 │   └── build.gradle.kts
 └── README.md
@@ -156,80 +156,80 @@ steedly/
 
 ## API Endpoints
 
-### احراز هویت
-- `POST /api/auth/register` - ثبت‌نام
-- `POST /api/auth/login` - ورود
-- `GET /api/auth/profile` - دریافت پروفایل
-- `PUT /api/auth/profile` - به‌روزرسانی پروفایل
+### Authentication
+- `POST /api/auth/register` - Registration
+- `POST /api/auth/login` - Login
+- `GET /api/auth/profile` - Get profile
+- `PUT /api/auth/profile` - Update profile
 
-### بلاگ
-- `GET /api/blog/posts` - لیست مقالات
-- `GET /api/blog/posts/:slug` - دریافت مقاله
-- `GET /api/blog/posts/search?q=...` - جستجوی مقالات
-- `GET /api/blog/categories` - دسته‌بندی‌ها
+### Blog
+- `GET /api/blog/posts` - List articles
+- `GET /api/blog/posts/:slug` - Get article
+- `GET /api/blog/posts/search?q=...` - Search articles
+- `GET /api/blog/categories` - Categories
 
-### خدمات
-- `GET /api/services/veterinarians` - لیست دامپزشکان
-- `GET /api/services/transporters` - لیست اسب‌کش‌ها
-- `POST /api/services/bookings` - ایجاد رزرو
-- `GET /api/services/bookings` - لیست رزروها
+### Services
+- `GET /api/services/veterinarians` - List veterinarians
+- `GET /api/services/transporters` - List horse transporters
+- `POST /api/services/bookings` - Create booking
+- `GET /api/services/bookings` - List bookings
 
-### فروشگاه
-- `GET /api/shop/products` - لیست محصولات
-- `GET /api/shop/products/:slug` - دریافت محصول
-- `POST /api/shop/orders` - ایجاد سفارش
-- `GET /api/shop/orders` - لیست سفارشات
+### Shop
+- `GET /api/shop/products` - List products
+- `GET /api/shop/products/:slug` - Get product
+- `POST /api/shop/orders` - Create order
+- `GET /api/shop/orders` - List orders
 
-### مسابقات
-- `GET /api/competitions` - لیست مسابقات
-- `GET /api/competitions/:slug` - دریافت مسابقه
-- `GET /api/competitions/:id/results` - نتایج مسابقه
+### Competitions
+- `GET /api/competitions` - List competitions
+- `GET /api/competitions/:slug` - Get competition
+- `GET /api/competitions/:id/results` - Competition results
 
-## نکات مهم
+## Important Notes
 
-1. **امنیت**: در محیط production حتماً `JWT_SECRET` را به یک مقدار قوی و تصادفی تغییر دهید.
+1. **Security**: In the production environment, be sure to change `JWT_SECRET` to a strong random value.
 
-2. **فایل‌ها**: پوشه `uploads` برای آپلود فایل‌ها استفاده می‌شود. مطمئن شوید که این پوشه وجود دارد.
+2. **Files**: The `uploads` folder is used for file uploads. Make sure this folder exists.
 
-3. **PWA**: برای فعال‌سازی کامل PWA، باید آیکون‌های مناسب را در پوشه `frontend/public` قرار دهید.
+3. **PWA**: To fully enable the PWA, put the appropriate icons in the `frontend/public` folder.
 
-4. **دیتابیس**: برای محیط production، از migration tools استفاده کنید و backup منظم داشته باشید.
+4. **Database**: For the production environment, use migration tools and keep regular backups.
 
-## راه‌اندازی اپلیکیشن اندروید
+## Setting up the Android application
 
-برای جزئیات کامل، به [README-ANDROID.md](android/README-ANDROID.md) مراجعه کنید.
+For full details, see [README-ANDROID.md](android/README-ANDROID.md).
 
-### مراحل سریع:
+### Quick steps:
 
-1. Android Studio را باز کنید
-2. پروژه را از پوشه `android` باز کنید
-3. در `RetrofitClient.kt` آدرس API را تنظیم کنید
-4. اپلیکیشن را اجرا کنید
+1. Open Android Studio
+2. Open the project from the `android` folder
+3. Set the API address in `RetrofitClient.kt`
+4. Run the application
 
-### ساخت فایل برای کافه‌بازار:
+### Building the file for Cafe Bazaar:
 
 ```bash
 cd android
 ./gradlew bundleRelease
 ```
 
-برای راهنمای کامل انتشار در کافه‌بازار، به [CAFEBAZAAR-GUIDE.md](CAFEBAZAAR-GUIDE.md) مراجعه کنید.
+For the complete Cafe Bazaar publishing guide, see [CAFEBAZAAR-GUIDE.md](CAFEBAZAAR-GUIDE.md).
 
-## توسعه بیشتر
+## Further development
 
-- برای افزودن ماژول جدید، الگوی موجود را دنبال کنید
-- از TypeScript برای type safety استفاده کنید
-- تست‌های واحد و یکپارچگی را اضافه کنید
-- از ESLint و Prettier برای فرمت کد استفاده کنید
+- To add a new module, follow the existing pattern
+- Use TypeScript for type safety
+- Add unit and integration tests
+- Use ESLint and Prettier for code formatting
 
-## مستندات بیشتر
+## More documentation
 
-- [README-SETUP.md](README-SETUP.md) - راهنمای راه‌اندازی
-- [README-ANDROID.md](android/README-ANDROID.md) - راهنمای اندروید
-- [CAFEBAZAAR-GUIDE.md](CAFEBAZAAR-GUIDE.md) - راهنمای انتشار در کافه‌بازار
-- [PROJECT-STRUCTURE.md](PROJECT-STRUCTURE.md) - ساختار پروژه
+- [README-SETUP.md](README-SETUP.md) - Setup guide
+- [README-ANDROID.md](android/README-ANDROID.md) - Android guide
+- [CAFEBAZAAR-GUIDE.md](CAFEBAZAAR-GUIDE.md) - Cafe Bazaar publishing guide
+- [PROJECT-STRUCTURE.md](PROJECT-STRUCTURE.md) - Project structure
 
-## پشتیبانی
+## Support
 
-در صورت بروز مشکل، لطفاً issue در repository ایجاد کنید.
+If you run into a problem, please create an issue in the repository.
 

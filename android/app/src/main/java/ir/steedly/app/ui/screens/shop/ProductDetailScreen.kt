@@ -67,12 +67,12 @@ fun ProductDetailScreen(navController: NavController, productSlug: String) {
     Scaffold(
         snackbarHost = { SnackbarHost(snackbar) },
         topBar = {
-            AppTopBar("جزئیات محصول", onBack = { navController.popBackStack() }, actions = {
+            AppTopBar("Product details", onBack = { navController.popBackStack() }, actions = {
                 IconButton(onClick = { navController.navigate(Routes.CART) }) {
                     BadgedBox(badge = {
                         if (cartItems.isNotEmpty()) Badge { Text(cartItems.sumOf { it.quantity }.toString()) }
                     }) {
-                        Icon(Icons.Default.ShoppingCart, contentDescription = "سبد خرید")
+                        Icon(Icons.Default.ShoppingCart, contentDescription = "Cart")
                     }
                 }
             })
@@ -99,8 +99,8 @@ fun ProductDetailScreen(navController: NavController, productSlug: String) {
                                 quantity = 1
                                 scope.launch {
                                     val result = snackbar.showSnackbar(
-                                        message = "به سبد خرید اضافه شد",
-                                        actionLabel = "مشاهده سبد",
+                                        message = "Added to cart",
+                                        actionLabel = "View cart",
                                         duration = SnackbarDuration.Short
                                     )
                                     if (result == SnackbarResult.ActionPerformed) navController.navigate(Routes.CART)
@@ -113,9 +113,9 @@ fun ProductDetailScreen(navController: NavController, productSlug: String) {
                             Spacer(Modifier.width(8.dp))
                             Text(
                                 when {
-                                    current.stock_quantity <= 0 -> "ناموجود"
-                                    maxAddable <= 0 -> "حداکثر موجودی در سبد"
-                                    else -> "افزودن به سبد"
+                                    current.stock_quantity <= 0 -> "Out of stock"
+                                    maxAddable <= 0 -> "Maximum stock in cart"
+                                    else -> "Add to cart"
                                 }
                             )
                         }
@@ -166,11 +166,11 @@ fun ProductDetailScreen(navController: NavController, productSlug: String) {
                             tint = if (available) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.error
                         )
                         Text(
-                            if (available) "موجود (${formatNumber(current.stock_quantity)} عدد)" else "ناموجود",
+                            if (available) "In stock (${formatNumber(current.stock_quantity)} units)" else "Out of stock",
                             color = if (available) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.error
                         )
                         if (inCart > 0) {
-                            Text("• ${formatNumber(inCart)} عدد در سبد شما", style = MaterialTheme.typography.bodySmall)
+                            Text("• ${formatNumber(inCart)} units in your cart", style = MaterialTheme.typography.bodySmall)
                         }
                     }
 
@@ -180,13 +180,13 @@ fun ProductDetailScreen(navController: NavController, productSlug: String) {
 
                     if (!current.description.isNullOrBlank()) {
                         Divider()
-                        Text("توضیحات", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+                        Text("Description", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
                         Text(current.description, style = MaterialTheme.typography.bodyMedium)
                     }
 
                     if (!current.sku.isNullOrBlank()) {
                         Text(
-                            "کد محصول: ${current.sku}",
+                            "Product code: ${current.sku}",
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -234,11 +234,11 @@ private fun ImageGallery(product: Product) {
 fun QuantityStepper(quantity: Int, onChange: (Int) -> Unit, max: Int, min: Int = 1) {
     Row(verticalAlignment = Alignment.CenterVertically) {
         IconButton(onClick = { onChange(quantity - 1) }, enabled = quantity > min) {
-            Icon(Icons.Default.Remove, contentDescription = "کاهش")
+            Icon(Icons.Default.Remove, contentDescription = "Decrease")
         }
         Text(formatNumber(quantity), style = MaterialTheme.typography.titleMedium, modifier = Modifier.padding(horizontal = 4.dp))
         IconButton(onClick = { onChange(quantity + 1) }, enabled = quantity < max) {
-            Icon(Icons.Default.Add, contentDescription = "افزایش")
+            Icon(Icons.Default.Add, contentDescription = "Increase")
         }
     }
 }

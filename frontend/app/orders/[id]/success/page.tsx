@@ -38,7 +38,7 @@ export default function OrderSuccessPage() {
       const res = await paymentsAPI.requestPayment(orderId);
       window.location.href = res.data.data.payment_url;
     } catch (err: any) {
-      setError(err.response?.data?.message || 'اتصال به درگاه پرداخت ممکن نشد');
+      setError(err.response?.data?.message || 'Could not connect to the payment gateway');
       setPaying(false);
     }
   };
@@ -55,10 +55,10 @@ export default function OrderSuccessPage() {
 
   const failed = paymentResult === 'failed';
   const title = failed
-    ? 'پرداخت ناموفق بود'
+    ? 'Payment failed'
     : paymentResult === 'success'
-      ? 'پرداخت با موفقیت انجام شد!'
-      : 'سفارش شما با موفقیت ثبت شد!';
+      ? 'Payment was successful!'
+      : 'Your order was placed successfully!';
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -80,29 +80,29 @@ export default function OrderSuccessPage() {
 
           {failed && (
             <p className="text-gray-600">
-              سفارش شما ثبت شده است اما پرداخت انجام نشد. می‌توانید دوباره پرداخت کنید.
+              Your order has been placed but payment was not completed. You can pay again.
             </p>
           )}
 
           {order && (
             <div className="mt-6 space-y-2">
               <p className="text-lg">
-                <span className="font-semibold">شماره سفارش:</span> {order.order_number}
+                <span className="font-semibold">Order number:</span> {order.order_number}
               </p>
               <p className="text-lg">
-                <span className="font-semibold">مبلغ کل:</span> {formatToman(order.total_amount)}
+                <span className="font-semibold">Total amount:</span> {formatToman(order.total_amount)}
               </p>
               <p className="text-lg">
-                <span className="font-semibold">وضعیت:</span>{' '}
+                <span className="font-semibold">Status:</span>{' '}
                 {orderStatusLabels[order.status] || order.status}
               </p>
               <p className="text-lg">
-                <span className="font-semibold">وضعیت پرداخت:</span>{' '}
+                <span className="font-semibold">Payment status:</span>{' '}
                 {paymentStatusLabels[order.payment_status] || order.payment_status}
               </p>
               {refId && (
                 <p className="text-lg">
-                  <span className="font-semibold">کد پیگیری:</span> {refId}
+                  <span className="font-semibold">Tracking code:</span> {refId}
                 </p>
               )}
             </div>
@@ -118,7 +118,7 @@ export default function OrderSuccessPage() {
                 className="bg-primary-600 text-white px-6 py-3 rounded-lg hover:bg-primary-700 transition flex items-center justify-center gap-2 disabled:opacity-50"
               >
                 <FaCreditCard />
-                {failed ? 'تلاش مجدد پرداخت' : 'پرداخت آنلاین'}
+                {failed ? 'Retry payment' : 'Online payment'}
               </button>
             )}
             <Link
@@ -126,14 +126,14 @@ export default function OrderSuccessPage() {
               className="bg-primary-600 text-white px-6 py-3 rounded-lg hover:bg-primary-700 transition flex items-center justify-center gap-2"
             >
               <FaShoppingBag />
-              جزئیات سفارش
+              Order details
             </Link>
             <Link
               href="/"
               className="bg-gray-200 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-300 transition flex items-center justify-center gap-2"
             >
               <FaHome />
-              بازگشت به صفحه اصلی
+              Back to home page
             </Link>
           </div>
         </div>

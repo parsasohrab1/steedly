@@ -1,8 +1,8 @@
 import { query } from './connection';
 import bcrypt from 'bcryptjs';
 
-// این فایل شامل محتوای کامل با تصاویر و Alt text است
-// تصاویر از Unsplash و منابع رایگان استفاده شده است
+// This file contains the full content with images and Alt text
+// Images are from Unsplash and other free sources
 
 interface BlogPost {
   title: string;
@@ -41,209 +41,209 @@ interface Competition {
 
 const blogPosts: BlogPost[] = [
   {
-    title: 'اسب عربی - شاهکار طبیعت',
+    title: 'Arabian Horse - A Masterpiece of Nature',
     slug: 'arabian-horse',
-    excerpt: 'اسب عربی یکی از قدیمی‌ترین و زیباترین نژادهای اسب در جهان است که تاریخچه‌ای چند هزار ساله دارد.',
+    excerpt: 'The Arabian horse is one of the oldest and most beautiful horse breeds in the world, with a history spanning several thousand years.',
     content: `
-      <h2>مقدمه</h2>
-      <p>اسب عربی (Arabian Horse) یکی از قدیمی‌ترین و معروف‌ترین نژادهای اسب در جهان است که ریشه در شبه جزیره عربستان دارد. این نژاد بیش از 4500 سال پیش توسط اعراب بادیه‌نشین پرورش داده شد و امروزه در سراسر جهان یافت می‌شود.</p>
+      <h2>Introduction</h2>
+      <p>The Arabian horse is one of the oldest and best-known horse breeds in the world, with its roots in the Arabian Peninsula. This breed was bred by the Bedouin Arabs more than 4500 years ago and is found all over the world today.</p>
       
-      <h2>ویژگی‌های فیزیکی</h2>
+      <h2>Physical characteristics</h2>
       <ul>
-        <li><strong>قد:</strong> 145 تا 155 سانتی‌متر</li>
-        <li><strong>وزن:</strong> 400 تا 500 کیلوگرم</li>
-        <li><strong>سر:</strong> کوچک و زیبا با پیشانی برجسته</li>
-        <li><strong>چشم‌ها:</strong> بزرگ و براق</li>
-        <li><strong>گردن:</strong> قوسی شکل و زیبا</li>
-        <li><strong>دم:</strong> بالا و زیبا</li>
+        <li><strong>Height:</strong> 145 to 155 centimeters</li>
+        <li><strong>Weight:</strong> 400 to 500 kilograms</li>
+        <li><strong>Head:</strong> Small and elegant with a prominent forehead</li>
+        <li><strong>Eyes:</strong> Large and shiny</li>
+        <li><strong>Neck:</strong> Arched and graceful</li>
+        <li><strong>Tail:</strong> Carried high and elegant</li>
       </ul>
       
-      <h2>خلق و خو</h2>
-      <p>اسب عربی به هوش بالا، حساسیت و وفاداری معروف است. این اسب‌ها بسیار باهوش و یادگیرنده هستند و با انسان ارتباط عمیقی برقرار می‌کنند.</p>
+      <h2>Temperament</h2>
+      <p>The Arabian horse is known for its high intelligence, sensitivity and loyalty. These horses are very intelligent and quick learners and form a deep bond with humans.</p>
       
-      <h2>کاربردها</h2>
-      <p>اسب عربی در مسابقات درساژ، پرش و استقامت استفاده می‌شود. همچنین به عنوان اسب نمایشی و تفریحی نیز محبوب است.</p>
+      <h2>Uses</h2>
+      <p>The Arabian horse is used in dressage, jumping and endurance competitions. It is also popular as a show and leisure horse.</p>
     `,
     featured_image: 'https://images.unsplash.com/photo-1516726817505-f5ed825624d8?w=800&h=600&fit=crop',
     category_slug: 'horse-breeds'
   },
   {
-    title: 'کولیک در اسب - علائم و درمان',
+    title: 'Colic in Horses - Symptoms and Treatment',
     slug: 'colic-in-horses',
-    excerpt: 'کولیک یکی از شایع‌ترین و خطرناک‌ترین بیماری‌های اسب است که می‌تواند در صورت عدم درمان به موقع، منجر به مرگ شود.',
+    excerpt: 'Colic is one of the most common and dangerous horse diseases and, if not treated in time, can lead to death.',
     content: `
-      <h2>کولیک چیست؟</h2>
-      <p>کولیک (Colic) به درد شکم در اسب گفته می‌شود که می‌تواند دلایل مختلفی داشته باشد. این بیماری یکی از مهم‌ترین دلایل مرگ اسب‌ها در جهان است.</p>
+      <h2>What is colic?</h2>
+      <p>Colic refers to abdominal pain in a horse, which can have various causes. This disease is one of the most important causes of death in horses worldwide.</p>
       
-      <h2>علائم کولیک</h2>
+      <h2>Symptoms of colic</h2>
       <ul>
-        <li>بی‌قراری و ناآرامی</li>
-        <li>نگاه کردن به شکم</li>
-        <li>لگد زدن به شکم</li>
-        <li>غلت زدن</li>
-        <li>تعریق</li>
-        <li>کاهش یا توقف خوردن</li>
-        <li>افزایش ضربان قلب</li>
+        <li>Restlessness and agitation</li>
+        <li>Looking at the abdomen</li>
+        <li>Kicking at the abdomen</li>
+        <li>Rolling</li>
+        <li>Sweating</li>
+        <li>Reduced or stopped eating</li>
+        <li>Increased heart rate</li>
       </ul>
       
-      <h2>علل شایع</h2>
+      <h2>Common causes</h2>
       <ul>
-        <li>تغذیه نامناسب</li>
-        <li>تغییر ناگهانی رژیم غذایی</li>
-        <li>کمبود آب</li>
-        <li>انگل‌های روده</li>
-        <li>استرس</li>
-        <li>مشکلات دندانی</li>
+        <li>Improper nutrition</li>
+        <li>Sudden change in diet</li>
+        <li>Water shortage</li>
+        <li>Intestinal parasites</li>
+        <li>Stress</li>
+        <li>Dental problems</li>
       </ul>
       
-      <h2>درمان</h2>
-      <p>در صورت مشاهده علائم، باید فوراً با دامپزشک تماس گرفت. درمان شامل مسکن، مایعات وریدی و در موارد شدید جراحی است.</p>
+      <h2>Treatment</h2>
+      <p>If symptoms are observed, a veterinarian must be contacted immediately. Treatment includes painkillers, intravenous fluids and, in severe cases, surgery.</p>
       
-      <h2>پیشگیری</h2>
+      <h2>Prevention</h2>
       <ul>
-        <li>تغذیه منظم و با کیفیت</li>
-        <li>دسترسی دائمی به آب تمیز</li>
-        <li>برنامه منظم ضد انگل</li>
-        <li>معاینه منظم دندانی</li>
+        <li>Regular, high-quality feeding</li>
+        <li>Constant access to clean water</li>
+        <li>Regular antiparasitic program</li>
+        <li>Regular dental examination</li>
       </ul>
     `,
     featured_image: 'https://images.unsplash.com/photo-1553284965-83fd3e82fa5f?w=800&h=600&fit=crop',
     category_slug: 'health-diseases'
   },
   {
-    title: 'راهنمای خرید زین مناسب',
+    title: 'Guide to Buying a Suitable Saddle',
     slug: 'saddle-buying-guide',
-    excerpt: 'انتخاب زین مناسب یکی از مهم‌ترین تصمیمات برای سوارکار است. زین مناسب نه تنها راحتی را فراهم می‌کند بلکه سلامت اسب را نیز تضمین می‌کند.',
+    excerpt: 'Choosing the right saddle is one of the most important decisions for a rider. A suitable saddle not only provides comfort but also ensures the horse\'s health.',
     content: `
-      <h2>اهمیت انتخاب زین مناسب</h2>
-      <p>زین (Saddle) یکی از مهم‌ترین تجهیزات سوارکاری است که باید با دقت انتخاب شود. زین مناسب باید هم برای سوارکار و هم برای اسب راحت باشد.</p>
+      <h2>The importance of choosing the right saddle</h2>
+      <p>The saddle is one of the most important pieces of riding equipment and must be chosen carefully. A suitable saddle must be comfortable for both the rider and the horse.</p>
       
-      <h2>انواع زین</h2>
-      <h3>1. زین انگلیسی</h3>
-      <p>برای سوارکاری کلاسیک و مسابقات استفاده می‌شود. سبک و مناسب برای پرش و درساژ است.</p>
+      <h2>Types of saddles</h2>
+      <h3>1. English saddle</h3>
+      <p>Used for classical riding and competitions. Light and suitable for jumping and dressage.</p>
       
-      <h3>2. زین غربی</h3>
-      <p>برای سوارکاری وسترن و کار با گله استفاده می‌شود. سنگین‌تر و راحت‌تر است.</p>
+      <h3>2. Western saddle</h3>
+      <p>Used for Western riding and cattle work. Heavier and more comfortable.</p>
       
-      <h3>3. زین درساژ</h3>
-      <p>مخصوص مسابقات درساژ طراحی شده است. به سوارکار اجازه می‌دهد در وضعیت عمودی بنشیند.</p>
+      <h3>3. Dressage saddle</h3>
+      <p>Designed specifically for dressage competitions. It allows the rider to sit in an upright position.</p>
       
-      <h3>4. زین پرش</h3>
-      <p>مخصوص پرش با اسب است. طراحی شده تا به اسب اجازه دهد آزادانه بپرد.</p>
+      <h3>4. Jumping saddle</h3>
+      <p>Designed specifically for show jumping. Designed to allow the horse to jump freely.</p>
       
-      <h2>نکات خرید</h2>
+      <h2>Buying tips</h2>
       <ul>
-        <li><strong>اندازه برای اسب:</strong> زین باید روی پشت اسب به درستی قرار گیرد</li>
-        <li><strong>اندازه برای سوارکار:</strong> باید راحت باشد و به درستی قرار گیرد</li>
-        <li><strong>کیفیت چرم:</strong> چرم با کیفیت ماندگاری بیشتری دارد</li>
-        <li><strong>قیمت:</strong> بودجه خود را در نظر بگیرید</li>
-        <li><strong>برند:</strong> برندهای معتبر کیفیت بهتری دارند</li>
+        <li><strong>Size for the horse:</strong> The saddle must sit properly on the horse's back</li>
+        <li><strong>Size for the rider:</strong> It must be comfortable and sit properly</li>
+        <li><strong>Leather quality:</strong> Quality leather lasts longer</li>
+        <li><strong>Price:</strong> Consider your budget</li>
+        <li><strong>Brand:</strong> Reputable brands have better quality</li>
       </ul>
     `,
     featured_image: 'https://images.unsplash.com/photo-1516726817505-f5ed825624d8?w=800&h=600&fit=crop',
     category_slug: 'equipment'
   },
   {
-    title: 'درساژ - هنر سوارکاری',
+    title: 'Dressage - The Art of Riding',
     slug: 'dressage-equestrian-sport',
-    excerpt: 'درساژ یکی از زیباترین و تکنیکی‌ترین ورزش‌های سوارکاری است که به "باله اسب" معروف است.',
+    excerpt: 'Dressage is one of the most beautiful and technical equestrian sports and is known as "horse ballet".',
     content: `
-      <h2>درساژ چیست؟</h2>
-      <p>درساژ (Dressage) یک رشته سوارکاری است که در آن سوارکار و اسب باید حرکات و الگوهای از پیش تعریف شده را با دقت و ظرافت اجرا کنند. این ورزش به "باله اسب" معروف است.</p>
+      <h2>What is dressage?</h2>
+      <p>Dressage is an equestrian discipline in which the rider and horse must perform predefined movements and patterns with precision and finesse. This sport is known as "horse ballet".</p>
       
-      <h2>سطح‌های مسابقه</h2>
+      <h2>Competition levels</h2>
       <ul>
-        <li><strong>مبتدی (Beginner):</strong> برای شروع کار</li>
-        <li><strong>متوسط (Intermediate):</strong> برای سوارکاران با تجربه</li>
-        <li><strong>پیشرفته (Advanced):</strong> برای حرفه‌ای‌ها</li>
-        <li><strong>المپیک (Olympic):</strong> بالاترین سطح</li>
+        <li><strong>Beginner:</strong> For getting started</li>
+        <li><strong>Intermediate:</strong> For experienced riders</li>
+        <li><strong>Advanced:</strong> For professionals</li>
+        <li><strong>Olympic:</strong> The highest level</li>
       </ul>
       
-      <h2>حرکات اصلی</h2>
+      <h2>Main movements</h2>
       <ul>
-        <li><strong>پیاده‌روی (Walk):</strong> حرکت پایه</li>
-        <li><strong>یورتمه (Trot):</strong> حرکت دو ضربه‌ای</li>
-        <li><strong>چهارنعل (Canter):</strong> حرکت سه ضربه‌ای</li>
-        <li><strong>Piaffe:</strong> یورتمه در جای خود</li>
-        <li><strong>Passage:</strong> یورتمه آهسته و بلند</li>
+        <li><strong>Walk:</strong> The basic gait</li>
+        <li><strong>Trot:</strong> A two-beat gait</li>
+        <li><strong>Canter:</strong> A three-beat gait</li>
+        <li><strong>Piaffe:</strong> Trot in place</li>
+        <li><strong>Passage:</strong> Slow, elevated trot</li>
       </ul>
       
-      <h2>فواید درساژ</h2>
-      <p>درساژ به بهبود ارتباط بین سوارکار و اسب، افزایش انعطاف‌پذیری اسب و بهبود تکنیک سوارکاری کمک می‌کند.</p>
+      <h2>Benefits of dressage</h2>
+      <p>Dressage helps improve the connection between rider and horse, increases the horse's flexibility and improves riding technique.</p>
     `,
     featured_image: 'https://images.unsplash.com/photo-1516726817505-f5ed825624d8?w=800&h=600&fit=crop',
     category_slug: 'equestrian-sports'
   },
   {
-    title: 'تغذیه صحیح اسب',
+    title: 'Proper Horse Nutrition',
     slug: 'proper-horse-nutrition',
-    excerpt: 'تغذیه صحیح پایه سلامت اسب است. یک رژیم غذایی متعادل شامل علوفه، غلات و مکمل‌ها می‌تواند سلامت و عملکرد اسب را تضمین کند.',
+    excerpt: 'Proper nutrition is the foundation of a horse\'s health. A balanced diet of forage, grains and supplements can ensure the horse\'s health and performance.',
     content: `
-      <h2>اهمیت تغذیه صحیح</h2>
-      <p>تغذیه اسب باید بر اساس سن، وزن، سطح فعالیت و شرایط سلامت تنظیم شود. یک اسب بالغ به طور متوسط روزانه به 1.5 تا 2.5 درصد وزن بدن خود علوفه نیاز دارد.</p>
+      <h2>The importance of proper nutrition</h2>
+      <p>A horse's diet must be adjusted based on age, weight, activity level and health condition. An adult horse needs on average 1.5 to 2.5 percent of its body weight in forage per day.</p>
       
-      <h2>اجزای رژیم غذایی</h2>
-      <h3>1. علوفه (60-80% رژیم)</h3>
+      <h2>Components of the diet</h2>
+      <h3>1. Forage (60-80% of the diet)</h3>
       <ul>
-        <li>یونجه</li>
-        <li>کاه</li>
-        <li>علف تازه</li>
+        <li>Alfalfa</li>
+        <li>Straw</li>
+        <li>Fresh grass</li>
       </ul>
       
-      <h3>2. غلات (20-30% رژیم)</h3>
+      <h3>2. Grains (20-30% of the diet)</h3>
       <ul>
-        <li>جو</li>
-        <li>ذرت</li>
-        <li>گندم</li>
+        <li>Barley</li>
+        <li>Corn</li>
+        <li>Wheat</li>
       </ul>
       
-      <h3>3. مکمل‌ها</h3>
+      <h3>3. Supplements</h3>
       <ul>
-        <li>ویتامین‌ها</li>
-        <li>مواد معدنی</li>
-        <li>پروبیوتیک</li>
+        <li>Vitamins</li>
+        <li>Minerals</li>
+        <li>Probiotics</li>
       </ul>
       
-      <h3>4. آب</h3>
-      <p>دسترسی دائمی به آب تمیز و تازه ضروری است.</p>
+      <h3>4. Water</h3>
+      <p>Constant access to clean, fresh water is essential.</p>
       
-      <h2>نکات مهم</h2>
+      <h2>Important tips</h2>
       <ul>
-        <li>تغذیه در وعده‌های کوچک و مکرر</li>
-        <li>اجتناب از تغییر ناگهانی رژیم</li>
-        <li>توجه به کیفیت علوفه</li>
-        <li>مشورت با دامپزشک</li>
+        <li>Feed in small, frequent meals</li>
+        <li>Avoid sudden diet changes</li>
+        <li>Pay attention to forage quality</li>
+        <li>Consult a veterinarian</li>
       </ul>
     `,
     featured_image: 'https://images.unsplash.com/photo-1553284965-83fd3e82fa5f?w=800&h=600&fit=crop',
     category_slug: 'nutrition-care'
   },
   {
-    title: 'تاریخ اسب در ایران',
+    title: 'The History of the Horse in Iran',
     slug: 'horse-history-iran',
-    excerpt: 'ایران یکی از قدیمی‌ترین مراکز پرورش اسب در جهان است. اسب در تاریخ و فرهنگ ایران جایگاه ویژه‌ای دارد.',
+    excerpt: 'Iran is one of the oldest horse-breeding centers in the world. The horse has a special place in Iranian history and culture.',
     content: `
-      <h2>تاریخچه اسب در ایران</h2>
-      <p>ایران از دیرباز به عنوان یکی از مهم‌ترین مراکز پرورش اسب در جهان شناخته شده است. اسب در فرهنگ و تاریخ ایران نقش مهمی ایفا کرده است.</p>
+      <h2>History of the horse in Iran</h2>
+      <p>Iran has long been known as one of the most important horse-breeding centers in the world. The horse has played an important role in Iranian culture and history.</p>
       
-      <h2>نژادهای ایرانی</h2>
-      <h3>اسب ترکمن</h3>
-      <p>یکی از قدیمی‌ترین نژادهای اسب در ایران که به سرعت و استقامت معروف است.</p>
+      <h2>Iranian breeds</h2>
+      <h3>Turkmen horse</h3>
+      <p>One of the oldest horse breeds in Iran, known for its speed and endurance.</p>
       
-      <h3>اسب کردی</h3>
-      <p>نژادی مقاوم و مناسب برای مناطق کوهستانی.</p>
+      <h3>Kurdish horse</h3>
+      <p>A hardy breed suitable for mountainous regions.</p>
       
-      <h3>اسب قره‌باغ</h3>
-      <p>نژادی زیبا و مناسب برای سوارکاری.</p>
+      <h3>Karabakh horse</h3>
+      <p>A beautiful breed suitable for riding.</p>
       
-      <h3>اسب دره‌شوری</h3>
-      <p>نژادی بومی ایران که در مناطق خاصی یافت می‌شود.</p>
+      <h3>Darehshuri horse</h3>
+      <p>A native Iranian breed found in certain regions.</p>
       
-      <h2>جایگاه در فرهنگ</h2>
-      <p>اسب در ادبیات فارسی، هنر و فرهنگ ایرانی جایگاه ویژه‌ای دارد. از شاهنامه فردوسی تا نقاشی‌های مینیاتوری، اسب همواره حضور داشته است.</p>
+      <h2>Place in culture</h2>
+      <p>The horse has a special place in Persian literature, art and Iranian culture. From Ferdowsi's Shahnameh to miniature paintings, the horse has always been present.</p>
       
-      <h2>مسابقات سنتی</h2>
-      <p>ایران دارای سنت طولانی در برگزاری مسابقات اسب‌دوانی است که از دوران باستان تا امروز ادامه دارد.</p>
+      <h2>Traditional competitions</h2>
+      <p>Iran has a long tradition of holding horse racing competitions that continues from ancient times to today.</p>
     `,
     featured_image: 'https://images.unsplash.com/photo-1516726817505-f5ed825624d8?w=800&h=600&fit=crop',
     category_slug: 'history-culture'
@@ -252,60 +252,60 @@ const blogPosts: BlogPost[] = [
 
 const products: Product[] = [
   {
-    name: 'زین انگلیسی استاندارد',
+    name: 'Standard English Saddle',
     slug: 'english-saddle-standard',
     description: `
-      <h2>زین انگلیسی استاندارد با کیفیت بالا</h2>
-      <p>این زین با چرم طبیعی و با کیفیت بالا ساخته شده است. مناسب برای سوارکاری روزمره و مسابقات است.</p>
-      <h3>ویژگی‌ها:</h3>
+      <h2>High-quality standard English saddle</h2>
+      <p>This saddle is made of high-quality natural leather. Suitable for everyday riding and competitions.</p>
+      <h3>Features:</h3>
       <ul>
-        <li>چرم طبیعی با کیفیت بالا</li>
-        <li>طراحی ارگونومیک برای راحتی سوارکار</li>
-        <li>مناسب برای اسب‌های متوسط تا بزرگ</li>
-        <li>ضمانت 2 ساله</li>
+        <li>High-quality natural leather</li>
+        <li>Ergonomic design for rider comfort</li>
+        <li>Suitable for medium to large horses</li>
+        <li>2-year warranty</li>
       </ul>
     `,
-    short_description: 'زین انگلیسی استاندارد با چرم طبیعی و کیفیت بالا',
+    short_description: 'Standard English saddle with high-quality natural leather',
     price: 15000000,
     stock_quantity: 10,
     image_url: 'https://images.unsplash.com/photo-1516726817505-f5ed825624d8?w=600&h=600&fit=crop',
     category_slug: 'riding-equipment'
   },
   {
-    name: 'ویتامین E برای اسب',
+    name: 'Vitamin E for Horses',
     slug: 'vitamin-e-horse',
     description: `
-      <h2>ویتامین E مکمل غذایی اسب</h2>
-      <p>مکمل ویتامین E برای سلامت عمومی اسب و بهبود عملکرد عضلات.</p>
-      <h3>فواید:</h3>
+      <h2>Vitamin E horse supplement</h2>
+      <p>Vitamin E supplement for the general health of the horse and improved muscle function.</p>
+      <h3>Benefits:</h3>
       <ul>
-        <li>بهبود سلامت عمومی</li>
-        <li>تقویت سیستم ایمنی</li>
-        <li>بهبود عملکرد عضلات</li>
-        <li>آنتی‌اکسیدان قوی</li>
+        <li>Improved general health</li>
+        <li>Strengthened immune system</li>
+        <li>Improved muscle function</li>
+        <li>Strong antioxidant</li>
       </ul>
     `,
-    short_description: 'مکمل ویتامین E برای سلامت و عملکرد بهتر اسب',
+    short_description: 'Vitamin E supplement for better horse health and performance',
     price: 500000,
     stock_quantity: 50,
     image_url: 'https://images.unsplash.com/photo-1553284965-83fd3e82fa5f?w=600&h=600&fit=crop',
     category_slug: 'nutritional-supplements'
   },
   {
-    name: 'برس تمیز کردن اسب',
+    name: 'Horse Cleaning Brush',
     slug: 'horse-grooming-brush',
     description: `
-      <h2>برس حرفه‌ای تمیز کردن اسب</h2>
-      <p>برس با کیفیت برای نظافت روزانه اسب. مناسب برای مو و پوست اسب.</p>
-      <h3>ویژگی‌ها:</h3>
+      <h2>Professional horse cleaning brush</h2>
+      <p>High-quality brush for daily horse cleaning. Suitable for the horse's coat and skin.</p>
+      <h3>Features:</h3>
       <ul>
-        <li>موهای طبیعی</li>
-        <li>دسته راحت</li>
-        <li>قابل شستشو</li>
-        <li>مقاوم و بادوام</li>
+        <li>Natural bristles</li>
+        <li>Comfortable handle</li>
+        <li>Washable</li>
+        <li>Durable and long-lasting</li>
       </ul>
     `,
-    short_description: 'برس حرفه‌ای برای نظافت روزانه اسب',
+    short_description: 'Professional brush for daily horse cleaning',
     price: 250000,
     stock_quantity: 30,
     image_url: 'https://images.unsplash.com/photo-1516726817505-f5ed825624d8?w=600&h=600&fit=crop',
@@ -315,32 +315,32 @@ const products: Product[] = [
 
 const competitions: Competition[] = [
   {
-    title: 'مسابقات درساژ قهرمانی ایران',
+    title: 'Iran Dressage Championship',
     slug: 'iran-dressage-championship',
     description: `
-      <h2>مسابقات درساژ قهرمانی ایران</h2>
-      <p>مسابقات درساژ قهرمانی ایران با حضور بهترین سوارکاران کشور برگزار می‌شود.</p>
-      <p>این مسابقات در سطح‌های مختلف از مبتدی تا پیشرفته برگزار می‌شود.</p>
+      <h2>Iran Dressage Championship</h2>
+      <p>The Iran Dressage Championship is held with the participation of the country's best riders.</p>
+      <p>These competitions are held at different levels from beginner to advanced.</p>
     `,
     competition_type: 'dressage',
-    location: 'تهران، باشگاه سوارکاری',
+    location: 'Tehran, Equestrian Club',
     start_date: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
     end_date: new Date(Date.now() + 32 * 24 * 60 * 60 * 1000).toISOString(),
     registration_deadline: new Date(Date.now() + 20 * 24 * 60 * 60 * 1000).toISOString(),
     prize_info: `
-      <h3>جوایز:</h3>
+      <h3>Prizes:</h3>
       <ul>
-        <li>رتبه اول: 50,000,000 تومان</li>
-        <li>رتبه دوم: 30,000,000 تومان</li>
-        <li>رتبه سوم: 20,000,000 تومان</li>
+        <li>First place: 50,000,000 Toman</li>
+        <li>Second place: 30,000,000 Toman</li>
+        <li>Third place: 20,000,000 Toman</li>
       </ul>
     `,
     conditions: `
-      <h3>شرایط شرکت:</h3>
+      <h3>Entry conditions:</h3>
       <ul>
-        <li>حداقل سن 16 سال</li>
-        <li>دارا بودن گواهینامه سوارکاری</li>
-        <li>اسب باید سالم و واکسینه باشد</li>
+        <li>Minimum age 16</li>
+        <li>Holding a riding certificate</li>
+        <li>The horse must be healthy and vaccinated</li>
       </ul>
     `,
     image_url: 'https://images.unsplash.com/photo-1516726817505-f5ed825624d8?w=800&h=600&fit=crop',

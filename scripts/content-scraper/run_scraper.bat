@@ -1,34 +1,34 @@
 @echo off
-REM اسکریپت اجرای جمع‌آوری محتوا برای Windows
+REM Content collection run script for Windows
 
-echo 🚀 شروع جمع‌آوری محتوا...
+echo 🚀 Starting content collection...
 echo.
 
-REM بررسی Python
+REM Check Python
 python --version >nul 2>&1
 if errorlevel 1 (
-    echo ❌ Python یافت نشد!
+    echo ❌ Python not found!
     pause
     exit /b 1
 )
 
-REM بررسی وابستگی‌ها
-echo 📦 بررسی وابستگی‌ها...
+REM Check dependencies
+echo 📦 Checking dependencies...
 pip install -r requirements.txt --quiet
 
-REM اجرای اسکرپر
+REM Run the scraper
 echo.
-echo 🔍 شروع اسکرپ...
+echo 🔍 Starting scrape...
 python content_scraper.py
 
-REM اعتبارسنجی محتوا
+REM Validate the content
 if exist "scraped_content\data\scraped_content.json" (
     echo.
-    echo ✅ اعتبارسنجی محتوا...
+    echo ✅ Validating content...
     python validate_content.py
 )
 
 echo.
-echo ✅ تمام!
+echo ✅ Done!
 pause
 

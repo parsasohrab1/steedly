@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-اسکریپت جمع‌آوری محتوای مرتبط با اسب از سایت‌های فارسی
-این اسکریپت محتوا، تصاویر و متن‌های SEO شده را از سایت‌های فارسی جمع‌آوری می‌کند
+Script for collecting horse-related content from Persian websites
+This script collects SEO-optimized content, images and text from Persian websites
 """
 
 import os
@@ -25,11 +25,11 @@ class ContentScraper:
         self.images_dir = self.output_dir / "images"
         self.data_dir = self.output_dir / "data"
         
-        # ایجاد پوشه‌ها
+        # Create folders
         self.images_dir.mkdir(parents=True, exist_ok=True)
         self.data_dir.mkdir(parents=True, exist_ok=True)
         
-        # User-Agent برای جلوگیری از بلاک شدن
+        # User-Agent to avoid being blocked
         self.headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
             'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
@@ -41,53 +41,53 @@ class ContentScraper:
         self.session = requests.Session()
         self.session.headers.update(self.headers)
         
-        # لیست سایت‌های فارسی مرتبط با اسب
+        # List of Persian horse-related websites
         self.target_sites = [
             {
-                'name': 'اسب ایران',
+                'name': 'Iran Horse',
                 'base_url': 'https://www.asbiran.com',
                 'search_paths': ['/articles', '/blog', '/news'],
                 'keywords': ['اسب', 'سوارکاری', 'مسابقات اسب']
             },
             {
-                'name': 'فدراسیون سوارکاری',
+                'name': 'Equestrian Federation',
                 'base_url': 'https://www.iranequestrian.com',
                 'search_paths': ['/news', '/articles'],
                 'keywords': ['اسب', 'سوارکاری', 'مسابقات']
             },
-            # می‌توانید سایت‌های بیشتری اضافه کنید
+            # You can add more sites
         ]
         
         self.scraped_urls = set()
         self.scraped_content = []
         
     def check_robots_txt(self, base_url: str) -> bool:
-        """بررسی robots.txt برای رعایت قوانین"""
+        """Check robots.txt to comply with the rules"""
         try:
             robots_url = urljoin(base_url, '/robots.txt')
             response = self.session.get(robots_url, timeout=10)
             if response.status_code == 200:
-                # بررسی ساده - در production باید کامل‌تر باشد
+                # Simple check - should be more complete in production
                 return True
         except:
             pass
-        return True  # در صورت عدم دسترسی، ادامه می‌دهیم
+        return True  # If inaccessible, we continue
     
     def clean_text(self, text: str) -> str:
-        """پاکسازی و نرمال‌سازی متن فارسی"""
+        """Clean and normalize Persian text"""
         if not text:
             return ""
         
-        # حذف فاصله‌های اضافی
+        # Remove extra whitespace
         text = re.sub(r'\s+', ' ', text)
-        # حذف کاراکترهای خاص
+        # Remove special characters
         text = re.sub(r'[^\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFFa-zA-Z0-9\s.,!?;:()\-]', '', text)
-        # نرمال‌سازی فاصله‌ها
+        # Normalize whitespace
         text = text.strip()
         return text
     
     def extract_meta_tags(self, soup: BeautifulSoup) -> Dict:
-        """استخراج Meta Tags برای SEO"""
+        """Extract Meta Tags for SEO"""
         meta_data = {
             'title': '',
             'description': '',
@@ -128,7 +128,7 @@ class ContentScraper:
         return meta_data
     
     def extract_content(self, soup: BeautifulSoup) -> Dict:
-        """استخراج محتوای اصلی صفحه"""
+        """Extract the main content of the page"""
         content = {
             'headings': [],
             'paragraphs': [],
@@ -136,7 +136,7 @@ class ContentScraper:
             'links': [],
         }
         
-        # استخراج headings (H1-H6)
+        # Extract headings (H1-H6)
         for i in range(1, 7):
             headings = soup.find_all(f'h{i}')
             for heading in headings:
@@ -147,14 +147,14 @@ class ContentScraper:
                         'text': text
                     })
         
-        # استخراج paragraphs
+        # Extract paragraphs
         paragraphs = soup.find_all('p')
         for p in paragraphs:
             text = self.clean_text(p.get_text())
-            if text and len(text) > 20:  # فقط پاراگراف‌های با محتوا
+            if text and len(text) > 20:  # Only paragraphs with content
                 content['paragraphs'].append(text)
         
-        # استخراج تصاویر
+        # Extract images
         images = soup.find_all('img')
         for img in images:
             src = img.get('src') or img.get('data-src') or img.get('data-lazy-src')
@@ -166,7 +166,7 @@ class ContentScraper:
                     'title': self.clean_text(img.get('title', ''))
                 })
         
-        # استخراج لینک‌ها
+        # Extract links
         links = soup.find_all('a', href=True)
         for link in links:
             href = link.get('href')
@@ -180,13 +180,13 @@ class ContentScraper:
         return content
     
     def download_image(self, image_url: str, base_url: str) -> Optional[str]:
-        """دانلود و ذخیره تصویر"""
+        """Download and save an image"""
         try:
-            # تبدیل URL نسبی به مطلق
+            # Convert relative URL to absolute
             if not image_url.startswith('http'):
                 image_url = urljoin(base_url, image_url)
             
-            # بررسی اینکه قبلاً دانلود نشده باشد
+            # Check that it has not already been downloaded
             url_hash = hashlib.md5(image_url.encode()).hexdigest()
             image_ext = Path(urlparse(image_url).path).suffix or '.jpg'
             image_filename = f"{url_hash}{image_ext}"
@@ -195,23 +195,23 @@ class ContentScraper:
             if image_path.exists():
                 return str(image_path.relative_to(self.output_dir))
             
-            # دانلود تصویر
+            # Download the image
             response = self.session.get(image_url, timeout=30, stream=True)
             if response.status_code == 200:
-                # بررسی نوع فایل
+                # Check the file type
                 content_type = response.headers.get('content-type', '')
                 if 'image' not in content_type:
                     return None
                 
-                # ذخیره تصویر
+                # Save the image
                 image_data = response.content
                 with open(image_path, 'wb') as f:
                     f.write(image_data)
                 
-                # بررسی و بهینه‌سازی تصویر
+                # Check and optimize the image
                 try:
                     img = Image.open(io.BytesIO(image_data))
-                    # اگر تصویر خیلی بزرگ است، resize کنیم
+                    # If the image is very large, resize it
                     if img.width > 1920 or img.height > 1920:
                         img.thumbnail((1920, 1920), Image.Resampling.LANCZOS)
                         img.save(image_path, optimize=True, quality=85)
@@ -220,36 +220,36 @@ class ContentScraper:
                 
                 return str(image_path.relative_to(self.output_dir))
         except Exception as e:
-            print(f"خطا در دانلود تصویر {image_url}: {e}")
+            print(f"Error downloading image {image_url}: {e}")
         
         return None
     
     def scrape_page(self, url: str) -> Optional[Dict]:
-        """اسکرپ یک صفحه"""
+        """Scrape a single page"""
         if url in self.scraped_urls:
             return None
         
         try:
-            print(f"در حال اسکرپ: {url}")
+            print(f"Scraping: {url}")
             response = self.session.get(url, timeout=30)
             
             if response.status_code != 200:
                 return None
             
-            # بررسی encoding
+            # Check the encoding
             response.encoding = response.apparent_encoding or 'utf-8'
             
             soup = BeautifulSoup(response.text, 'html.parser')
             
-            # استخراج Meta Tags
+            # Extract Meta Tags
             meta_data = self.extract_meta_tags(soup)
             
-            # استخراج محتوا
+            # Extract content
             content = self.extract_content(soup)
             
-            # دانلود تصاویر
+            # Download images
             downloaded_images = []
-            for img_info in content['images'][:10]:  # حداکثر 10 تصویر
+            for img_info in content['images'][:10]:  # Maximum 10 images
                 img_path = self.download_image(img_info['url'], url)
                 if img_path:
                     downloaded_images.append({
@@ -258,11 +258,11 @@ class ContentScraper:
                         'title': img_info['title']
                     })
             
-            # ایجاد slug از title
-            title = meta_data['title'] or content['headings'][0]['text'] if content['headings'] else 'بدون عنوان'
+            # Create a slug from the title
+            title = meta_data['title'] or content['headings'][0]['text'] if content['headings'] else 'Untitled'
             slug = self.create_slug(title)
             
-            # ترکیب محتوا
+            # Combine content
             full_text = ' '.join([p for p in content['paragraphs']])
             
             scraped_data = {
@@ -284,12 +284,12 @@ class ContentScraper:
             return scraped_data
             
         except Exception as e:
-            print(f"خطا در اسکرپ {url}: {e}")
+            print(f"Error scraping {url}: {e}")
             return None
     
     def create_slug(self, text: str) -> str:
-        """ایجاد slug از متن فارسی"""
-        # تبدیل به لاتین برای slug
+        """Create a slug from Persian text"""
+        # Convert to Latin for the slug
         persian_to_latin = {
             'ا': 'a', 'ب': 'b', 'پ': 'p', 'ت': 't', 'ث': 's',
             'ج': 'j', 'چ': 'ch', 'ح': 'h', 'خ': 'kh', 'د': 'd',
@@ -304,15 +304,15 @@ class ContentScraper:
         for persian, latin in persian_to_latin.items():
             slug = slug.replace(persian, latin)
         
-        # حذف کاراکترهای غیرمجاز
+        # Remove disallowed characters
         slug = re.sub(r'[^a-z0-9\-]', '', slug)
         slug = re.sub(r'-+', '-', slug)
         slug = slug.strip('-')
         
-        return slug[:100]  # محدود کردن طول
+        return slug[:100]  # Limit the length
     
     def find_article_urls(self, base_url: str, search_paths: List[str], keywords: List[str]) -> List[str]:
-        """پیدا کردن URL های مقالات"""
+        """Find article URLs"""
         article_urls = []
         
         for path in search_paths:
@@ -323,81 +323,81 @@ class ContentScraper:
                 if response.status_code == 200:
                     soup = BeautifulSoup(response.text, 'html.parser')
                     
-                    # پیدا کردن لینک‌های مقالات
+                    # Find article links
                     links = soup.find_all('a', href=True)
                     for link in links:
                         href = link.get('href')
                         text = link.get_text().lower()
                         
-                        # بررسی اینکه آیا لینک مرتبط با اسب است
+                        # Check whether the link is horse-related
                         if any(keyword in text for keyword in keywords):
                             full_url = urljoin(base_url, href)
                             if full_url not in article_urls:
                                 article_urls.append(full_url)
                 
-                time.sleep(self.delay)  # تاخیر برای رعایت اخلاقی
+                time.sleep(self.delay)  # Delay for ethical compliance
                 
             except Exception as e:
-                print(f"خطا در پیدا کردن مقالات از {path}: {e}")
+                print(f"Error finding articles from {path}: {e}")
         
-        return article_urls[:20]  # حداکثر 20 مقاله از هر سایت
+        return article_urls[:20]  # Maximum 20 articles from each site
     
     def scrape_site(self, site_config: Dict):
-        """اسکرپ یک سایت کامل"""
+        """Scrape an entire site"""
         print(f"\n{'='*60}")
-        print(f"شروع اسکرپ سایت: {site_config['name']}")
+        print(f"Starting to scrape site: {site_config['name']}")
         print(f"URL: {site_config['base_url']}")
         print(f"{'='*60}\n")
         
-        # بررسی robots.txt
+        # Check robots.txt
         if not self.check_robots_txt(site_config['base_url']):
-            print(f"⚠️  robots.txt اجازه اسکرپ نمی‌دهد: {site_config['base_url']}")
+            print(f"⚠️  robots.txt does not allow scraping: {site_config['base_url']}")
             return
         
-        # پیدا کردن URL های مقالات
+        # Find article URLs
         article_urls = self.find_article_urls(
             site_config['base_url'],
             site_config['search_paths'],
             site_config['keywords']
         )
         
-        print(f"تعداد مقالات پیدا شده: {len(article_urls)}")
+        print(f"Number of articles found: {len(article_urls)}")
         
-        # اسکرپ هر مقاله
+        # Scrape each article
         for url in article_urls:
             data = self.scrape_page(url)
             if data:
                 self.scraped_content.append(data)
-                print(f"✓ محتوا ذخیره شد: {data['title'][:50]}...")
+                print(f"✓ Content saved: {data['title'][:50]}...")
             
-            time.sleep(self.delay)  # تاخیر بین درخواست‌ها
+            time.sleep(self.delay)  # Delay between requests
     
     def save_to_json(self, filename: str = 'scraped_content.json'):
-        """ذخیره داده‌ها در فایل JSON"""
+        """Save data to a JSON file"""
         output_file = self.data_dir / filename
         
         with open(output_file, 'w', encoding='utf-8') as f:
             json.dump(self.scraped_content, f, ensure_ascii=False, indent=2)
         
-        print(f"\n✓ داده‌ها در {output_file} ذخیره شدند")
-        print(f"تعداد کل محتواهای جمع‌آوری شده: {len(self.scraped_content)}")
+        print(f"\n✓ Data saved to {output_file}")
+        print(f"Total number of collected items: {len(self.scraped_content)}")
     
     def save_to_sql(self, filename: str = 'scraped_content.sql'):
-        """ذخیره داده‌ها در فایل SQL برای import به دیتابیس"""
+        """Save data to a SQL file for import into the database"""
         output_file = self.data_dir / filename
         
         with open(output_file, 'w', encoding='utf-8') as f:
-            f.write("-- محتوای جمع‌آوری شده از سایت‌های فارسی\n")
-            f.write("-- تاریخ تولید: " + datetime.now().strftime("%Y-%m-%d %H:%M:%S") + "\n\n")
+            f.write("-- Content collected from Persian websites\n")
+            f.write("-- Generated on: " + datetime.now().strftime("%Y-%m-%d %H:%M:%S") + "\n\n")
             
             for item in self.scraped_content:
-                # Escape برای SQL
+                # Escape for SQL
                 title = item['title'].replace("'", "''")
                 content = item['content'].replace("'", "''")
                 excerpt = item['excerpt'].replace("'", "''")
                 meta_desc = item['meta_description'].replace("'", "''")
                 
-                # تصویر اصلی
+                # Main image
                 main_image = item['images'][0]['path'] if item['images'] else None
                 
                 f.write(f"""
@@ -413,40 +413,40 @@ INSERT INTO blog_posts (
     {f"'{main_image}'" if main_image else 'NULL'},
     '{meta_desc}',
     '{item['meta_keywords']}',
-    1, -- author_id (باید تغییر دهید)
-    1, -- category_id (باید تغییر دهید)
+    1, -- author_id (you must change this)
+    1, -- category_id (you must change this)
     true,
     NOW(),
     NOW()
 );
 """)
         
-        print(f"\n✓ فایل SQL در {output_file} ایجاد شد")
+        print(f"\n✓ SQL file created at {output_file}")
     
     def run(self):
-        """اجرای اسکرپر"""
-        print("🚀 شروع جمع‌آوری محتوا...")
-        print(f"📁 پوشه خروجی: {self.output_dir}\n")
+        """Run the scraper"""
+        print("🚀 Starting content collection...")
+        print(f"📁 Output folder: {self.output_dir}\n")
         
         for site in self.target_sites:
             try:
                 self.scrape_site(site)
             except Exception as e:
-                print(f"❌ خطا در اسکرپ سایت {site['name']}: {e}")
+                print(f"❌ Error scraping site {site['name']}: {e}")
         
-        # ذخیره نتایج
+        # Save the results
         if self.scraped_content:
             self.save_to_json()
             self.save_to_sql()
             
-            # خلاصه
+            # Summary
             print(f"\n{'='*60}")
-            print("✅ جمع‌آوری محتوا با موفقیت انجام شد!")
-            print(f"📊 تعداد کل محتواها: {len(self.scraped_content)}")
-            print(f"🖼️  تعداد تصاویر دانلود شده: {len(list(self.images_dir.glob('*')))}")
+            print("✅ Content collection completed successfully!")
+            print(f"📊 Total number of items: {len(self.scraped_content)}")
+            print(f"🖼️  Number of images downloaded: {len(list(self.images_dir.glob('*')))}")
             print(f"{'='*60}\n")
         else:
-            print("⚠️  هیچ محتوایی جمع‌آوری نشد!")
+            print("⚠️  No content was collected!")
 
 
 def main():

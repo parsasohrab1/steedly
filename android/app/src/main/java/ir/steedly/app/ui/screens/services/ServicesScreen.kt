@@ -71,9 +71,9 @@ fun ServicesScreen(navController: NavController) {
 
     Scaffold(
         topBar = {
-            AppTopBar("خدمات اعزام", actions = {
+            AppTopBar("Dispatch services", actions = {
                 IconButton(onClick = { navController.navigate(Routes.map(selectedType)) }) {
-                    Icon(Icons.Default.Map, contentDescription = "نقشه")
+                    Icon(Icons.Default.Map, contentDescription = "Map")
                 }
             })
         }
@@ -83,13 +83,13 @@ fun ServicesScreen(navController: NavController) {
                 Tab(
                     selected = selectedType == ServiceType.VETERINARIAN,
                     onClick = { selectedType = ServiceType.VETERINARIAN },
-                    text = { Text("دامپزشکان") },
+                    text = { Text("Veterinarians") },
                     icon = { Icon(Icons.Default.MedicalServices, contentDescription = null) }
                 )
                 Tab(
                     selected = selectedType == ServiceType.TRANSPORTER,
                     onClick = { selectedType = ServiceType.TRANSPORTER },
-                    text = { Text("اسب‌کش‌ها") },
+                    text = { Text("Horse transporters") },
                     icon = { Icon(Icons.Default.LocalShipping, contentDescription = null) }
                 )
             }
@@ -103,12 +103,12 @@ fun ServicesScreen(navController: NavController) {
                     value = regionInput,
                     onValueChange = { regionInput = it },
                     modifier = Modifier.weight(1f),
-                    placeholder = { Text("جستجو بر اساس شهر یا منطقه") },
+                    placeholder = { Text("Search by city or region") },
                     leadingIcon = { Icon(Icons.Default.LocationOn, contentDescription = null) },
                     trailingIcon = {
                         if (regionInput.isNotEmpty()) {
                             IconButton(onClick = { regionInput = ""; activeRegion = null }) {
-                                Icon(Icons.Default.Close, contentDescription = "پاک کردن")
+                                Icon(Icons.Default.Close, contentDescription = "Clear")
                             }
                         }
                     },
@@ -123,7 +123,7 @@ fun ServicesScreen(navController: NavController) {
                 FilledTonalButton(onClick = { navController.navigate(Routes.map(selectedType)) }) {
                     Icon(Icons.Default.NearMe, contentDescription = null)
                     Spacer(Modifier.width(4.dp))
-                    Text("نزدیک من")
+                    Text("Near me")
                 }
             }
 
@@ -131,8 +131,8 @@ fun ServicesScreen(navController: NavController) {
                 loading -> LoadingView()
                 error != null -> ErrorView(error!!, onRetry = { reloadKey++ })
                 providers.isEmpty() -> EmptyView(
-                    title = "موردی یافت نشد",
-                    subtitle = if (activeRegion != null) "منطقه دیگری را جستجو کنید" else null,
+                    title = "Nothing found",
+                    subtitle = if (activeRegion != null) "Search another region" else null,
                     icon = Icons.Default.SearchOff
                 )
                 else -> LazyColumn(
@@ -182,7 +182,7 @@ fun ProviderCard(provider: ServiceProvider, onClick: () -> Unit) {
                     )
                     if (provider.isVerified) {
                         Spacer(Modifier.width(4.dp))
-                        Icon(Icons.Default.Verified, contentDescription = "تأیید شده", tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(16.dp))
+                        Icon(Icons.Default.Verified, contentDescription = "Verified", tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(16.dp))
                     }
                 }
                 provider.subtitle?.let {
@@ -194,7 +194,7 @@ fun ProviderCard(provider: ServiceProvider, onClick: () -> Unit) {
                         Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                     provider.distance?.let {
-                        Text("${formatNumber(Math.round(it * 10) / 10.0)} کیلومتر", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.primary)
+                        Text("${formatNumber(Math.round(it * 10) / 10.0)} km", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.primary)
                     }
                 }
             }

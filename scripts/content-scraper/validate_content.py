@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-اسکریپت اعتبارسنجی و پاکسازی محتوای جمع‌آوری شده
+Script for validating and cleaning collected content
 """
 
 import json
@@ -17,11 +17,11 @@ class ContentValidator:
         self.required_keywords = ['اسب', 'سوارکاری', 'مسابقات', 'نژاد', 'بیماری', 'تغذیه']
     
     def validate_title(self, title: str) -> bool:
-        """اعتبارسنجی عنوان"""
+        """Validate the title"""
         if not title or len(title) < self.min_title_length:
             return False
         
-        # بررسی وجود کلمات کلیدی مرتبط
+        # Check for related keywords
         title_lower = title.lower()
         if not any(keyword in title_lower for keyword in self.required_keywords):
             return False
@@ -29,7 +29,7 @@ class ContentValidator:
         return True
     
     def validate_content(self, content: str) -> bool:
-        """اعتبارسنجی محتوا"""
+        """Validate the content"""
         if not content:
             return False
         
@@ -39,59 +39,59 @@ class ContentValidator:
         if len(content) > self.max_content_length:
             return False
         
-        # بررسی وجود کلمات کلیدی
+        # Check for keywords
         content_lower = content.lower()
         keyword_count = sum(1 for keyword in self.required_keywords if keyword in content_lower)
         
-        if keyword_count < 2:  # حداقل 2 کلمه کلیدی
+        if keyword_count < 2:  # At least 2 keywords
             return False
         
         return True
     
     def clean_content(self, content: Dict) -> Dict:
-        """پاکسازی و اعتبارسنجی محتوا"""
-        # حذف HTML tags باقی‌مانده
+        """Clean and validate the content"""
+        # Remove leftover HTML tags
         content['content'] = re.sub(r'<[^>]+>', '', content.get('content', ''))
         content['excerpt'] = re.sub(r'<[^>]+>', '', content.get('excerpt', ''))
         
-        # حذف فاصله‌های اضافی
+        # Remove extra whitespace
         content['content'] = re.sub(r'\s+', ' ', content['content']).strip()
         content['excerpt'] = re.sub(r'\s+', ' ', content['excerpt']).strip()
         
-        # محدود کردن طول excerpt
+        # Limit the excerpt length
         if len(content['excerpt']) > 300:
             content['excerpt'] = content['excerpt'][:297] + '...'
         
         return content
     
     def validate(self, content: Dict) -> Tuple[bool, List[str]]:
-        """اعتبارسنجی کامل محتوا"""
+        """Full content validation"""
         errors = []
         
         if not self.validate_title(content.get('title', '')):
-            errors.append('عنوان نامعتبر یا کوتاه است')
+            errors.append('Title is invalid or too short')
         
         if not self.validate_content(content.get('content', '')):
-            errors.append('محتوا نامعتبر یا کوتاه است')
+            errors.append('Content is invalid or too short')
         
         if not content.get('slug'):
-            errors.append('Slug وجود ندارد')
+            errors.append('Slug is missing')
         
         if not content.get('url'):
-            errors.append('URL وجود ندارد')
+            errors.append('URL is missing')
         
         return len(errors) == 0, errors
     
     def validate_batch(self, contents: List[Dict]) -> Tuple[List[Dict], List[Dict]]:
-        """اعتبارسنجی دسته‌ای محتواها"""
+        """Batch validation of items"""
         valid_contents = []
         invalid_contents = []
         
         for content in contents:
-            # پاکسازی
+            # Clean
             content = self.clean_content(content)
             
-            # اعتبارسنجی
+            # Validation
             is_valid, errors = self.validate(content)
             
             if is_valid:
@@ -107,35 +107,35 @@ def main():
     json_file = Path('scraped_content/data/scraped_content.json')
     
     if not json_file.exists():
-        print(f"❌ فایل {json_file} یافت نشد!")
+        print(f"❌ File {json_file} not found!")
         return
     
-    # خواندن محتوا
+    # Read the content
     with open(json_file, 'r', encoding='utf-8') as f:
         contents = json.load(f)
     
-    print(f"📊 تعداد کل محتواها: {len(contents)}")
+    print(f"📊 Total number of items: {len(contents)}")
     
-    # اعتبارسنجی
+    # Validation
     validator = ContentValidator()
     valid_contents, invalid_contents = validator.validate_batch(contents)
     
-    print(f"\n✅ محتواهای معتبر: {len(valid_contents)}")
-    print(f"❌ محتواهای نامعتبر: {len(invalid_contents)}")
+    print(f"\n✅ Valid items: {len(valid_contents)}")
+    print(f"❌ Invalid items: {len(invalid_contents)}")
     
-    # ذخیره محتواهای معتبر
+    # Save the valid items
     if valid_contents:
         output_file = json_file.parent / 'scraped_content_validated.json'
         with open(output_file, 'w', encoding='utf-8') as f:
             json.dump(valid_contents, f, ensure_ascii=False, indent=2)
-        print(f"\n✓ محتواهای معتبر در {output_file} ذخیره شدند")
+        print(f"\n✓ Valid items saved to {output_file}")
     
-    # نمایش خطاها
+    # Show the errors
     if invalid_contents:
-        print("\n⚠️  محتواهای نامعتبر:")
-        for content in invalid_contents[:5]:  # نمایش 5 مورد اول
-            print(f"  - {content.get('title', 'بدون عنوان')[:50]}")
-            print(f"    خطاها: {', '.join(content.get('validation_errors', []))}")
+        print("\n⚠️  Invalid items:")
+        for content in invalid_contents[:5]:  # Show the first 5
+            print(f"  - {content.get('title', 'Untitled')[:50]}")
+            print(f"    Errors: {', '.join(content.get('validation_errors', []))}")
 
 
 if __name__ == "__main__":

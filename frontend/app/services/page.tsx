@@ -4,7 +4,7 @@ import { FaUserMd, FaTruck, FaMapMarkerAlt } from 'react-icons/fa';
 export default function ServicesPage() {
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold mb-8 text-center">خدمات اعزام</h1>
+      <h1 className="text-4xl font-bold mb-8 text-center">Dispatch services</h1>
 
       {/* Map View Button */}
       <div className="mb-8 text-center">
@@ -13,7 +13,7 @@ export default function ServicesPage() {
           className="inline-flex items-center gap-2 bg-primary-600 text-white px-6 py-3 rounded-lg hover:bg-primary-700 transition shadow-lg"
         >
           <FaMapMarkerAlt />
-          <span>مشاهده روی نقشه</span>
+          <span>View on map</span>
         </Link>
       </div>
 
@@ -24,11 +24,11 @@ export default function ServicesPage() {
           className="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition text-center"
         >
           <FaUserMd className="text-6xl text-primary-600 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold mb-4">دامپزشکان</h2>
+          <h2 className="text-2xl font-bold mb-4">Veterinarians</h2>
           <p className="text-gray-600 mb-4">
-            جستجو و رزرو آنلاین دامپزشک متخصص در سراسر کشور
+            Search and book a specialist veterinarian online across the country
           </p>
-          <span className="text-primary-600 font-semibold">مشاهده دامپزشکان →</span>
+          <span className="text-primary-600 font-semibold">View veterinarians →</span>
         </Link>
 
         {/* Transporters */}
@@ -37,25 +37,25 @@ export default function ServicesPage() {
           className="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition text-center"
         >
           <FaTruck className="text-6xl text-primary-600 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold mb-4">اسب‌کش‌ها</h2>
+          <h2 className="text-2xl font-bold mb-4">Horse transporters</h2>
           <p className="text-gray-600 mb-4">
-            پیدا کردن و رزرو خدمات حمل و نقل اسب با تجهیزات مناسب
+            Find and book horse transport services with suitable equipment
           </p>
-          <span className="text-primary-600 font-semibold">مشاهده اسب‌کش‌ها →</span>
+          <span className="text-primary-600 font-semibold">View horse transporters →</span>
         </Link>
       </div>
 
       <div className="bg-primary-50 p-6 rounded-lg">
-        <h3 className="text-xl font-bold mb-4">رزرو خدمات</h3>
+        <h3 className="text-xl font-bold mb-4">Book a service</h3>
         <p className="text-gray-700 mb-4">
-          برای رزرو خدمات، ابتدا وارد حساب کاربری خود شوید و سپس از طریق لیست ارائه‌دهندگان
-          خدمات، مورد مناسب خود را انتخاب و رزرو کنید.
+          To book a service, first log in to your account and then choose the one that suits you
+          from the list of service providers and book it.
         </p>
         <Link
           href="/auth/login"
           className="inline-block bg-primary-600 text-white px-6 py-2 rounded-lg hover:bg-primary-700 transition"
         >
-          ورود / ثبت‌نام
+          Log in / Sign up
         </Link>
       </div>
     </div>

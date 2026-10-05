@@ -95,9 +95,9 @@ fun BlogScreen(navController: NavController) {
 
     Scaffold(
         topBar = {
-            AppTopBar("مقالات تخصصی اسب", actions = {
+            AppTopBar("Specialized horse articles", actions = {
                 IconButton(onClick = { navController.navigate(Routes.SEARCH) }) {
-                    Icon(Icons.Default.Search, contentDescription = "جستجو")
+                    Icon(Icons.Default.Search, contentDescription = "Search")
                 }
             })
         }
@@ -113,7 +113,7 @@ fun BlogScreen(navController: NavController) {
                         FilterChip(
                             selected = selectedCategory == null,
                             onClick = { selectCategory(null) },
-                            label = { Text("همه") }
+                            label = { Text("All") }
                         )
                     }
                     items(categories, key = { it.id }) { category ->
@@ -129,7 +129,7 @@ fun BlogScreen(navController: NavController) {
             when {
                 loading && posts.isEmpty() -> LoadingView()
                 error != null && posts.isEmpty() -> ErrorView(error!!, onRetry = { page = 1; reloadKey++ })
-                posts.isEmpty() -> EmptyView("مقاله‌ای یافت نشد")
+                posts.isEmpty() -> EmptyView("No articles found")
                 else -> LazyColumn(
                     state = listState,
                     contentPadding = PaddingValues(16.dp),

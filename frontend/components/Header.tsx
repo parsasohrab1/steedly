@@ -35,7 +35,7 @@ export default function Header() {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/" aria-label="استیدلی - صفحه اصلی">
+          <Link href="/" aria-label="Steedly - Home">
             <Logo />
           </Link>
 
@@ -45,16 +45,16 @@ export default function Header() {
               <SearchBar />
             </div>
             <Link href="/blog" className="hover:text-primary-600 transition">
-              مقالات
+              Articles
             </Link>
             <Link href="/services" className="hover:text-primary-600 transition">
-              خدمات
+              Services
             </Link>
             <Link href="/shop" className="hover:text-primary-600 transition">
-              فروشگاه
+              Shop
             </Link>
             <Link href="/competitions" className="hover:text-primary-600 transition">
-              مسابقات
+              Competitions
             </Link>
             <Link href="/cart" className="relative p-2 text-gray-700 hover:text-primary-600 transition">
               <FaShoppingCart size={24} />
@@ -72,13 +72,13 @@ export default function Header() {
                   className="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition flex items-center gap-2"
                 >
                   <FaUser />
-                  پروفایل
+                  Profile
                 </Link>
                 <Link
                   href="/admin"
                   className="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition"
                 >
-                  پنل مدیریت
+                  Admin panel
                 </Link>
               </div>
             ) : (
@@ -86,7 +86,7 @@ export default function Header() {
                 href="/auth/login"
                 className="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition"
               >
-                ورود / ثبت‌نام
+                Log in / Sign up
               </Link>
             )}
           </nav>
@@ -112,28 +112,28 @@ export default function Header() {
                 className="hover:text-primary-600 transition"
                 onClick={() => setIsMenuOpen(false)}
               >
-                مقالات
+                Articles
               </Link>
               <Link
                 href="/services"
                 className="hover:text-primary-600 transition"
                 onClick={() => setIsMenuOpen(false)}
               >
-                خدمات
+                Services
               </Link>
               <Link
                 href="/shop"
                 className="hover:text-primary-600 transition"
                 onClick={() => setIsMenuOpen(false)}
               >
-                فروشگاه
+                Shop
               </Link>
               <Link
                 href="/competitions"
                 className="hover:text-primary-600 transition"
                 onClick={() => setIsMenuOpen(false)}
               >
-                مسابقات
+                Competitions
               </Link>
               <Link
                 href="/cart"
@@ -141,7 +141,7 @@ export default function Header() {
                 onClick={() => setIsMenuOpen(false)}
               >
                 <FaShoppingCart />
-                سبد خرید
+                Cart
                 {cartItemsCount > 0 && (
                   <span className="bg-red-600 text-white px-2 py-1 rounded-full text-xs">
                     {cartItemsCount}
@@ -159,14 +159,14 @@ export default function Header() {
                     onClick={() => setIsMenuOpen(false)}
                   >
                     <FaUser />
-                    پروفایل
+                    Profile
                   </Link>
                   <Link
                     href="/admin"
                     className="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition text-center"
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    پنل مدیریت
+                    Admin panel
                   </Link>
                 </>
               ) : (
@@ -175,7 +175,7 @@ export default function Header() {
                   className="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition text-center"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  ورود / ثبت‌نام
+                  Log in / Sign up
                 </Link>
               )}
             </div>

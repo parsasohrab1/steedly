@@ -134,11 +134,11 @@ export default function SearchBar() {
   const getTypeLabel = (type: string) => {
     switch (type) {
       case 'blog':
-        return 'مقاله';
+        return 'Article';
       case 'product':
-        return 'محصول';
+        return 'Product';
       case 'competition':
-        return 'مسابقه';
+        return 'Competition';
       default:
         return type;
     }
@@ -153,7 +153,7 @@ export default function SearchBar() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onFocus={() => query.length >= 2 && setShowResults(true)}
-          placeholder="جستجو در مقالات، محصولات و مسابقات..."
+          placeholder="Search articles, products and competitions..."
           className="w-full px-4 py-3 pr-10 pl-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
         />
         {query && (
@@ -203,7 +203,7 @@ export default function SearchBar() {
             </div>
           ) : (
             <div className="p-4 text-center text-gray-500">
-              نتیجه‌ای یافت نشد
+              No results found
             </div>
           )}
         </div>

@@ -126,7 +126,7 @@ object ServiceType {
     const val VETERINARIAN = "veterinarian"
     const val TRANSPORTER = "transporter"
 
-    fun label(type: String) = if (type == VETERINARIAN) "دامپزشک" else "اسب‌کش"
+    fun label(type: String) = if (type == VETERINARIAN) "Veterinarian" else "Horse transporter"
 }
 
 /** Veterinarians and transporters shown through one UI model. */
@@ -164,9 +164,9 @@ fun Veterinarian.toProvider() = ServiceProvider(
     isVerified = is_verified == true,
     distance = distance,
     details = listOfNotNull(
-        specialization?.let { "تخصص" to it },
-        resume?.let { "سوابق" to it },
-        email?.let { "ایمیل" to it }
+        specialization?.let { "Specialization" to it },
+        resume?.let { "Background" to it },
+        email?.let { "Email" to it }
     )
 )
 
@@ -186,9 +186,9 @@ fun Transporter.toProvider() = ServiceProvider(
     isVerified = is_verified == true,
     distance = distance,
     details = listOfNotNull(
-        equipment?.let { "تجهیزات" to it },
-        transport_info?.let { "اطلاعات حمل" to it },
-        email?.let { "ایمیل" to it }
+        equipment?.let { "Equipment" to it },
+        transport_info?.let { "Transport info" to it },
+        email?.let { "Email" to it }
     )
 )
 

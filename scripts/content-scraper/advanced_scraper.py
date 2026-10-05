@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-اسکریپت پیشرفته جمع‌آوری محتوا با Selenium برای سایت‌های JavaScript-heavy
+Advanced content collection script with Selenium for JavaScript-heavy sites
 """
 
 from selenium import webdriver
@@ -18,7 +18,7 @@ from content_scraper import ContentScraper
 
 
 class AdvancedScraper(ContentScraper):
-    """اسکرپر پیشرفته با Selenium برای سایت‌های JavaScript-heavy"""
+    """Advanced scraper with Selenium for JavaScript-heavy sites"""
     
     def __init__(self, output_dir: str = "scraped_content", headless: bool = True):
         super().__init__(output_dir)
@@ -27,7 +27,7 @@ class AdvancedScraper(ContentScraper):
         self.setup_driver()
     
     def setup_driver(self):
-        """تنظیم ChromeDriver"""
+        """Set up ChromeDriver"""
         chrome_options = Options()
         if self.headless:
             chrome_options.add_argument('--headless')
@@ -41,37 +41,37 @@ class AdvancedScraper(ContentScraper):
             self.driver = webdriver.Chrome(options=chrome_options)
             self.driver.set_page_load_timeout(30)
         except Exception as e:
-            print(f"⚠️  خطا در راه‌اندازی ChromeDriver: {e}")
-            print("💡 لطفاً ChromeDriver را نصب کنید یا از content_scraper.py استفاده کنید")
+            print(f"⚠️  Error starting ChromeDriver: {e}")
+            print("💡 Please install ChromeDriver or use content_scraper.py")
             self.driver = None
     
     def scrape_page_selenium(self, url: str) -> Optional[Dict]:
-        """اسکرپ صفحه با Selenium"""
+        """Scrape a page with Selenium"""
         if not self.driver:
             return None
         
         try:
-            print(f"در حال اسکرپ (Selenium): {url}")
+            print(f"Scraping (Selenium): {url}")
             self.driver.get(url)
             
-            # منتظر بارگذاری صفحه
+            # Wait for the page to load
             WebDriverWait(self.driver, 10).until(
                 EC.presence_of_element_located((By.TAG_NAME, "body"))
             )
             
-            # اسکرول برای بارگذاری محتوای lazy-loaded
+            # Scroll to load lazy-loaded content
             self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
             time.sleep(2)
             
-            # دریافت HTML
+            # Get the HTML
             html = self.driver.page_source
             soup = BeautifulSoup(html, 'html.parser')
             
-            # استفاده از متدهای والد برای استخراج
+            # Use the parent methods for extraction
             meta_data = self.extract_meta_tags(soup)
             content = self.extract_content(soup)
             
-            # دانلود تصاویر
+            # Download images
             downloaded_images = []
             for img_info in content['images'][:10]:
                 img_path = self.download_image(img_info['url'], url)
@@ -82,7 +82,7 @@ class AdvancedScraper(ContentScraper):
                         'title': img_info['title']
                     })
             
-            title = meta_data['title'] or (content['headings'][0]['text'] if content['headings'] else 'بدون عنوان')
+            title = meta_data['title'] or (content['headings'][0]['text'] if content['headings'] else 'Untitled')
             slug = self.create_slug(title)
             full_text = ' '.join([p for p in content['paragraphs']])
             
@@ -104,17 +104,17 @@ class AdvancedScraper(ContentScraper):
             return scraped_data
             
         except Exception as e:
-            print(f"خطا در اسکرپ {url}: {e}")
+            print(f"Error scraping {url}: {e}")
             return None
     
     def __del__(self):
-        """بستن driver هنگام خروج"""
+        """Close the driver on exit"""
         if self.driver:
             self.driver.quit()
 
 
 if __name__ == "__main__":
-    # استفاده از Selenium برای سایت‌های خاص
+    # Using Selenium for specific sites
     scraper = AdvancedScraper(headless=True)
     scraper.run()
 

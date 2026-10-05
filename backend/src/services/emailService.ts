@@ -20,32 +20,32 @@ const LOGO_URL = `${process.env.FRONTEND_URL || 'http://localhost:3001'}/icon-19
 const emailTemplates = {
   // Registration confirmation
   registration: (data: { name: string; email: string }) => ({
-    subject: 'خوش آمدید به استیدلی - تایید ثبت‌نام',
+    subject: 'Welcome to Steedly - Registration confirmation',
     html: `
       <div dir="rtl" style="font-family: Tahoma, Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #F3F8F7;">
         <div style="background-color: #ffffff; padding: 30px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-          <div style="text-align: center; margin-bottom: 12px;"><img src="${LOGO_URL}" width="64" height="64" alt="استیدلی" style="border-radius: 14px;" /></div>
-          <h1 style="color: #0F766E; text-align: center; margin-bottom: 30px;">خوش آمدید به استیدلی</h1>
+          <div style="text-align: center; margin-bottom: 12px;"><img src="${LOGO_URL}" width="64" height="64" alt="Steedly" style="border-radius: 14px;" /></div>
+          <h1 style="color: #0F766E; text-align: center; margin-bottom: 30px;">Welcome to Steedly</h1>
           
           <p style="color: #333; font-size: 16px; line-height: 1.6; margin-bottom: 20px;">
-            سلام <strong>${data.name}</strong>،
+            Hello <strong>${data.name}</strong>,
           </p>
           
           <p style="color: #333; font-size: 16px; line-height: 1.6; margin-bottom: 20px;">
-            ثبت‌نام شما با موفقیت انجام شد. اکنون می‌توانید از تمامی خدمات پلتفرم استیدلی استفاده کنید.
+            Your registration was completed successfully. You can now use all the services of the Steedly platform.
           </p>
           
           <div style="background-color: #f8f9fa; padding: 20px; border-radius: 5px; margin: 20px 0;">
-            <p style="color: #666; font-size: 14px; margin: 5px 0;"><strong>ایمیل شما:</strong> ${data.email}</p>
+            <p style="color: #666; font-size: 14px; margin: 5px 0;"><strong>Your email:</strong> ${data.email}</p>
           </div>
           
           <p style="color: #333; font-size: 16px; line-height: 1.6; margin-top: 30px;">
-            در صورت وجود هرگونه سوال، با ما در تماس باشید.
+            If you have any questions, get in touch with us.
           </p>
           
           <p style="color: #666; font-size: 14px; margin-top: 30px; text-align: center; border-top: 1px solid #eee; padding-top: 20px;">
-            با تشکر،<br>
-            <strong>تیم استیدلی</strong>
+            Best regards,<br>
+            <strong>The Steedly team</strong>
           </p>
         </div>
       </div>
@@ -54,34 +54,34 @@ const emailTemplates = {
 
   // Password reset
   passwordReset: (data: { name: string; resetLink: string }) => ({
-    subject: 'بازیابی رمز عبور - استیدلی',
+    subject: 'Password recovery - Steedly',
     html: `
       <div dir="rtl" style="font-family: Tahoma, Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #F3F8F7;">
         <div style="background-color: #ffffff; padding: 30px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-          <div style="text-align: center; margin-bottom: 12px;"><img src="${LOGO_URL}" width="64" height="64" alt="استیدلی" style="border-radius: 14px;" /></div>
-          <h1 style="color: #0F766E; text-align: center; margin-bottom: 30px;">بازیابی رمز عبور</h1>
+          <div style="text-align: center; margin-bottom: 12px;"><img src="${LOGO_URL}" width="64" height="64" alt="Steedly" style="border-radius: 14px;" /></div>
+          <h1 style="color: #0F766E; text-align: center; margin-bottom: 30px;">Password recovery</h1>
           
           <p style="color: #333; font-size: 16px; line-height: 1.6; margin-bottom: 20px;">
-            سلام <strong>${data.name}</strong>،
+            Hello <strong>${data.name}</strong>,
           </p>
           
           <p style="color: #333; font-size: 16px; line-height: 1.6; margin-bottom: 20px;">
-            درخواست بازیابی رمز عبور برای حساب کاربری شما ثبت شده است. برای تنظیم رمز عبور جدید، روی لینک زیر کلیک کنید:
+            A password recovery request has been made for your account. To set a new password, click the link below:
           </p>
           
           <div style="text-align: center; margin: 30px 0;">
             <a href="${data.resetLink}" style="display: inline-block; background-color: #0F766E; color: #ffffff; padding: 12px 30px; text-decoration: none; border-radius: 5px; font-size: 16px; font-weight: bold;">
-              بازیابی رمز عبور
+              Password recovery
             </a>
           </div>
           
           <p style="color: #666; font-size: 14px; line-height: 1.6; margin-top: 20px;">
-            <strong>توجه:</strong> این لینک فقط برای 1 ساعت معتبر است. در صورت عدم درخواست شما، این ایمیل را نادیده بگیرید.
+            <strong>Note:</strong> This link is valid for only 1 hour. If you did not make this request, please ignore this email.
           </p>
           
           <p style="color: #666; font-size: 14px; margin-top: 30px; text-align: center; border-top: 1px solid #eee; padding-top: 20px;">
-            با تشکر،<br>
-            <strong>تیم استیدلی</strong>
+            Best regards,<br>
+            <strong>The Steedly team</strong>
           </p>
         </div>
       </div>
@@ -96,34 +96,34 @@ const emailTemplates = {
     items: Array<{ name: string; quantity: number; price: number }>;
     shippingAddress: string;
   }) => ({
-    subject: `تایید سفارش ${data.orderNumber} - استیدلی`,
+    subject: `Order ${data.orderNumber} confirmation - Steedly`,
     html: `
       <div dir="rtl" style="font-family: Tahoma, Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #F3F8F7;">
         <div style="background-color: #ffffff; padding: 30px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-          <div style="text-align: center; margin-bottom: 12px;"><img src="${LOGO_URL}" width="64" height="64" alt="استیدلی" style="border-radius: 14px;" /></div>
-          <h1 style="color: #0F766E; text-align: center; margin-bottom: 30px;">سفارش شما ثبت شد</h1>
+          <div style="text-align: center; margin-bottom: 12px;"><img src="${LOGO_URL}" width="64" height="64" alt="Steedly" style="border-radius: 14px;" /></div>
+          <h1 style="color: #0F766E; text-align: center; margin-bottom: 30px;">Your order has been placed</h1>
           
           <p style="color: #333; font-size: 16px; line-height: 1.6; margin-bottom: 20px;">
-            سلام <strong>${data.name}</strong>،
+            Hello <strong>${data.name}</strong>,
           </p>
           
           <p style="color: #333; font-size: 16px; line-height: 1.6; margin-bottom: 20px;">
-            سفارش شما با موفقیت ثبت شد. جزئیات سفارش در زیر آمده است:
+            Your order was placed successfully. The order details are below:
           </p>
           
           <div style="background-color: #f8f9fa; padding: 20px; border-radius: 5px; margin: 20px 0;">
-            <p style="color: #666; font-size: 14px; margin: 5px 0;"><strong>شماره سفارش:</strong> ${data.orderNumber}</p>
-            <p style="color: #666; font-size: 14px; margin: 5px 0;"><strong>مبلغ کل:</strong> ${data.totalAmount.toLocaleString('fa-IR')} تومان</p>
-            <p style="color: #666; font-size: 14px; margin: 5px 0;"><strong>آدرس ارسال:</strong> ${data.shippingAddress}</p>
+            <p style="color: #666; font-size: 14px; margin: 5px 0;"><strong>Order number:</strong> ${data.orderNumber}</p>
+            <p style="color: #666; font-size: 14px; margin: 5px 0;"><strong>Total amount:</strong> ${data.totalAmount.toLocaleString('en-US')} Toman</p>
+            <p style="color: #666; font-size: 14px; margin: 5px 0;"><strong>Shipping address:</strong> ${data.shippingAddress}</p>
           </div>
           
-          <h2 style="color: #0F766E; font-size: 18px; margin-top: 30px; margin-bottom: 15px;">محصولات سفارش:</h2>
+          <h2 style="color: #0F766E; font-size: 18px; margin-top: 30px; margin-bottom: 15px;">Order items:</h2>
           <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
             <thead>
               <tr style="background-color: #f8f9fa;">
-                <th style="padding: 10px; text-align: right; border: 1px solid #ddd;">محصول</th>
-                <th style="padding: 10px; text-align: center; border: 1px solid #ddd;">تعداد</th>
-                <th style="padding: 10px; text-align: left; border: 1px solid #ddd;">قیمت</th>
+                <th style="padding: 10px; text-align: right; border: 1px solid #ddd;">Product</th>
+                <th style="padding: 10px; text-align: center; border: 1px solid #ddd;">Quantity</th>
+                <th style="padding: 10px; text-align: left; border: 1px solid #ddd;">Price</th>
               </tr>
             </thead>
             <tbody>
@@ -131,19 +131,19 @@ const emailTemplates = {
                 <tr>
                   <td style="padding: 10px; border: 1px solid #ddd;">${item.name}</td>
                   <td style="padding: 10px; text-align: center; border: 1px solid #ddd;">${item.quantity}</td>
-                  <td style="padding: 10px; text-align: left; border: 1px solid #ddd;">${item.price.toLocaleString('fa-IR')} تومان</td>
+                  <td style="padding: 10px; text-align: left; border: 1px solid #ddd;">${item.price.toLocaleString('en-US')} Toman</td>
                 </tr>
               `).join('')}
             </tbody>
           </table>
           
           <p style="color: #333; font-size: 16px; line-height: 1.6; margin-top: 30px;">
-            شما می‌توانید وضعیت سفارش خود را از پنل کاربری پیگیری کنید.
+            You can track your order status from your user panel.
           </p>
           
           <p style="color: #666; font-size: 14px; margin-top: 30px; text-align: center; border-top: 1px solid #eee; padding-top: 20px;">
-            با تشکر،<br>
-            <strong>تیم استیدلی</strong>
+            Best regards,<br>
+            <strong>The Steedly team</strong>
           </p>
         </div>
       </div>
@@ -157,19 +157,19 @@ const emailTemplates = {
     status: string;
     statusText: string;
   }) => ({
-    subject: `به‌روزرسانی وضعیت سفارش ${data.orderNumber} - استیدلی`,
+    subject: `Order ${data.orderNumber} status update - Steedly`,
     html: `
       <div dir="rtl" style="font-family: Tahoma, Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #F3F8F7;">
         <div style="background-color: #ffffff; padding: 30px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-          <div style="text-align: center; margin-bottom: 12px;"><img src="${LOGO_URL}" width="64" height="64" alt="استیدلی" style="border-radius: 14px;" /></div>
-          <h1 style="color: #0F766E; text-align: center; margin-bottom: 30px;">به‌روزرسانی سفارش</h1>
+          <div style="text-align: center; margin-bottom: 12px;"><img src="${LOGO_URL}" width="64" height="64" alt="Steedly" style="border-radius: 14px;" /></div>
+          <h1 style="color: #0F766E; text-align: center; margin-bottom: 30px;">Order update</h1>
           
           <p style="color: #333; font-size: 16px; line-height: 1.6; margin-bottom: 20px;">
-            سلام <strong>${data.name}</strong>،
+            Hello <strong>${data.name}</strong>,
           </p>
           
           <p style="color: #333; font-size: 16px; line-height: 1.6; margin-bottom: 20px;">
-            وضعیت سفارش شما با شماره <strong>${data.orderNumber}</strong> تغییر کرده است.
+            The status of your order number <strong>${data.orderNumber}</strong> has changed.
           </p>
           
           <div style="background-color: #f8f9fa; padding: 20px; border-radius: 5px; margin: 20px 0; text-align: center;">
@@ -179,12 +179,12 @@ const emailTemplates = {
           </div>
           
           <p style="color: #333; font-size: 16px; line-height: 1.6; margin-top: 30px;">
-            شما می‌توانید جزئیات بیشتر را از پنل کاربری مشاهده کنید.
+            You can view more details in your user panel.
           </p>
           
           <p style="color: #666; font-size: 14px; margin-top: 30px; text-align: center; border-top: 1px solid #eee; padding-top: 20px;">
-            با تشکر،<br>
-            <strong>تیم استیدلی</strong>
+            Best regards,<br>
+            <strong>The Steedly team</strong>
           </p>
         </div>
       </div>
@@ -199,34 +199,34 @@ const emailTemplates = {
     bookingDate: string;
     bookingTime: string;
   }) => ({
-    subject: `یادآوری رزرو ${data.serviceName} - استیدلی`,
+    subject: `Booking reminder for ${data.serviceName} - Steedly`,
     html: `
       <div dir="rtl" style="font-family: Tahoma, Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #F3F8F7;">
         <div style="background-color: #ffffff; padding: 30px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-          <div style="text-align: center; margin-bottom: 12px;"><img src="${LOGO_URL}" width="64" height="64" alt="استیدلی" style="border-radius: 14px;" /></div>
-          <h1 style="color: #0F766E; text-align: center; margin-bottom: 30px;">یادآوری رزرو</h1>
+          <div style="text-align: center; margin-bottom: 12px;"><img src="${LOGO_URL}" width="64" height="64" alt="Steedly" style="border-radius: 14px;" /></div>
+          <h1 style="color: #0F766E; text-align: center; margin-bottom: 30px;">Booking reminder</h1>
           
           <p style="color: #333; font-size: 16px; line-height: 1.6; margin-bottom: 20px;">
-            سلام <strong>${data.name}</strong>،
+            Hello <strong>${data.name}</strong>,
           </p>
           
           <p style="color: #333; font-size: 16px; line-height: 1.6; margin-bottom: 20px;">
-            این ایمیل به عنوان یادآوری رزرو شما برای ${data.serviceName} ارسال شده است.
+            This email is a reminder of your booking for ${data.serviceName}.
           </p>
           
           <div style="background-color: #f8f9fa; padding: 20px; border-radius: 5px; margin: 20px 0;">
-            <p style="color: #666; font-size: 14px; margin: 5px 0;"><strong>نوع خدمات:</strong> ${data.serviceName}</p>
-            <p style="color: #666; font-size: 14px; margin: 5px 0;"><strong>تاریخ:</strong> ${data.bookingDate}</p>
-            <p style="color: #666; font-size: 14px; margin: 5px 0;"><strong>ساعت:</strong> ${data.bookingTime}</p>
+            <p style="color: #666; font-size: 14px; margin: 5px 0;"><strong>Service type:</strong> ${data.serviceName}</p>
+            <p style="color: #666; font-size: 14px; margin: 5px 0;"><strong>Date:</strong> ${data.bookingDate}</p>
+            <p style="color: #666; font-size: 14px; margin: 5px 0;"><strong>Time:</strong> ${data.bookingTime}</p>
           </div>
           
           <p style="color: #333; font-size: 16px; line-height: 1.6; margin-top: 30px;">
-            لطفاً در زمان مقرر حاضر باشید.
+            Please be present at the scheduled time.
           </p>
           
           <p style="color: #666; font-size: 14px; margin-top: 30px; text-align: center; border-top: 1px solid #eee; padding-top: 20px;">
-            با تشکر،<br>
-            <strong>تیم استیدلی</strong>
+            Best regards,<br>
+            <strong>The Steedly team</strong>
           </p>
         </div>
       </div>
@@ -257,7 +257,7 @@ export const sendEmail = async (
     const templateData = emailTemplates[template](data);
 
     const mailOptions = {
-      from: `"استیدلی" <${process.env.SMTP_USER}>`,
+      from: `"Steedly" <${process.env.SMTP_USER}>`,
       to,
       subject: templateData.subject,
       html: templateData.html,
@@ -309,11 +309,11 @@ export const sendOrderStatusUpdateEmail = async (
   status: string
 ) => {
   const statusTexts: Record<string, string> = {
-    pending: 'در انتظار پرداخت',
-    processing: 'در حال پردازش',
-    shipped: 'ارسال شده',
-    delivered: 'تحویل داده شده',
-    cancelled: 'لغو شده',
+    pending: 'Awaiting payment',
+    processing: 'Processing',
+    shipped: 'Shipped',
+    delivered: 'Delivered',
+    cancelled: 'Cancelled',
   };
 
   return sendEmail(email, 'orderStatusUpdate', {

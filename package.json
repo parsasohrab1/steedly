@@ -1,7 +1,7 @@
 {
   "name": "steedly",
   "version": "1.0.0",
-  "description": "پلتفرم جامع اطلاعات اسب - شامل بلاگ، خدمات، فروشگاه و مسابقات",
+  "description": "Comprehensive horse information platform - including blog, services, shop and competitions",
   "private": true,
   "workspaces": [
     "backend",

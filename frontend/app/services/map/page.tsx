@@ -7,7 +7,7 @@ import dynamic from 'next/dynamic';
 // Dynamic import for map to avoid SSR issues
 const MapComponent = dynamic(() => import('@/components/MapComponent'), {
   ssr: false,
-  loading: () => <div className="h-screen flex items-center justify-center">در حال بارگذاری نقشه...</div>
+  loading: () => <div className="h-screen flex items-center justify-center">Loading map...</div>
 });
 
 interface ServiceProvider {
@@ -89,7 +89,7 @@ export default function ServicesMapPage() {
       {/* Header */}
       <div className="bg-white shadow-md p-4 z-10">
         <div className="flex items-center justify-between mb-4">
-          <h1 className="text-2xl font-bold">انتخاب روی نقشه</h1>
+          <h1 className="text-2xl font-bold">Choose on map</h1>
           <button
             onClick={() => window.history.back()}
             className="text-gray-600 hover:text-gray-800"
@@ -108,7 +108,7 @@ export default function ServicesMapPage() {
                 : 'bg-gray-200 text-gray-700'
             }`}
           >
-            دامپزشکان
+            Veterinarians
           </button>
           <button
             onClick={() => setServiceType('transporter')}
@@ -118,22 +118,22 @@ export default function ServicesMapPage() {
                 : 'bg-gray-200 text-gray-700'
             }`}
           >
-            اسب‌کش‌ها
+            Horse transporters
           </button>
         </div>
 
         {/* Radius Selector */}
         <div className="flex items-center gap-2">
-          <label className="text-sm text-gray-600">فاصله:</label>
+          <label className="text-sm text-gray-600">Distance:</label>
           <select
             value={radius}
             onChange={(e) => setRadius(Number(e.target.value))}
             className="border rounded px-2 py-1 text-sm"
           >
-            <option value={10}>10 کیلومتر</option>
-            <option value={25}>25 کیلومتر</option>
-            <option value={50}>50 کیلومتر</option>
-            <option value={100}>100 کیلومتر</option>
+            <option value={10}>10 km</option>
+            <option value={25}>25 km</option>
+            <option value={50}>50 km</option>
+            <option value={100}>100 km</option>
           </select>
         </div>
       </div>
@@ -153,7 +153,7 @@ export default function ServicesMapPage() {
         <div className="bg-white border-t max-h-64 overflow-y-auto">
           <div className="p-4">
             <h3 className="font-bold mb-2">
-              {providers.length} {serviceType === 'veterinarian' ? 'دامپزشک' : 'اسب‌کش'} پیدا شد
+              {providers.length} {serviceType === 'veterinarian' ? 'veterinarians' : 'horse transporters'} found
             </h3>
             <div className="space-y-2">
               {providers.map((provider) => (
@@ -177,7 +177,7 @@ export default function ServicesMapPage() {
                       <p className="text-sm text-gray-500">{provider.phone}</p>
                       {provider.distance && (
                         <p className="text-xs text-primary-600 mt-1">
-                          {provider.distance.toFixed(1)} کیلومتر
+                          {provider.distance.toFixed(1)} km
                         </p>
                       )}
                     </div>
@@ -205,7 +205,7 @@ export default function ServicesMapPage() {
             }}
             className="w-full bg-primary-600 text-white py-3 rounded-lg font-semibold hover:bg-primary-700 transition"
           >
-            رزرو {serviceType === 'veterinarian' ? 'دامپزشک' : 'اسب‌کش'}
+            Book {serviceType === 'veterinarian' ? 'veterinarian' : 'horse transporter'}
           </button>
         </div>
       )}

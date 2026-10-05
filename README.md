@@ -1,206 +1,206 @@
-<p align="center"><img src="brand/logo-horizontal.svg" width="440" alt="استیدلی | Steedly"></p>
+<p align="center"><img src="brand/logo-horizontal.svg" width="440" alt="Steedly"></p>
 
-# **سند نیازمندی‌های نرم‌افزاری (SRS) و طرح توسعه نرم‌افزار (SDP)  
-برای استیدلی (Steedly) — پلتفرم سلامت و مراقبت اسب**
+# **Software Requirements Specification (SRS) and Software Development Plan (SDP)
+for Steedly — a horse health and care platform**
 
-> راهنمای هویت بصری و رنگ‌های سازمانی: [`brand/BRAND.md`](brand/BRAND.md)
+> Visual identity guide and corporate colors: [`brand/BRAND.md`](brand/BRAND.md)
 
 ---
 
-## **1. سند نیازمندی‌های نرم‌افزاری (SRS)**
+## **1. Software Requirements Specification (SRS)**
 
-### **1.1. مقدمه**
-این سند نیازمندی‌های سیستم جامع اطلاعات، خدمات و فروشگاه آنلاین مرتبط با اسب را تشریح می‌کند. سیستم شامل دو بخش اصلی است:
-- **PWA برای iOS و وب**
-- **اپلیکیشن اختصاصی اندروید**
+### **1.1. Introduction**
+This document describes the requirements of a comprehensive horse-related information, services and online shop system. The system has two main parts:
+- **PWA for iOS and web**
+- **Dedicated Android application**
 
-### **1.2. اهداف کلی پروژه**
-- ایجاد مرجع جامع اطلاعاتی درباره‌ی انواع اسب‌ها در قالب بلاگ
-- ارائه خدمات اعزام دامپزشک و اسب‌کش
-- فروشگاه آنلاین متعلقات، داروها و مکمل‌های اسب
-- اطلاع‌رسانی مسابقات داخلی و بین‌المللی اسب
+### **1.2. Overall project goals**
+- Create a comprehensive information reference on horse types in the form of a blog
+- Provide veterinarian and horse transporter dispatch services
+- Online shop for horse accessories, medicines and supplements
+- Announcing domestic and international horse competitions
 
-### **1.3. شرح نیازمندی‌های عملیاتی**
+### **1.3. Description of functional requirements**
 
-#### **1.3.1. ماژول بلاگ**
-- امکان نمایش مقالات با تیتر، عکس مناسب و محتوای ساخت‌یافته
-- دسته‌بندی بر اساس نژاد، کاربرد، جغرافیا و ...
-- سیستم جستجوی پیشرفته در مقالات
-- امکان ذخیره مقالات برای مطالعه آفلاین (PWA)
-- نمایش محتوای چندرسانه‌ای (تصویر، ویدیو، گالری)
+#### **1.3.1. Blog module**
+- Ability to display articles with a headline, suitable image and structured content
+- Categorization by breed, use, geography, etc.
+- Advanced search system in articles
+- Ability to save articles for offline reading (PWA)
+- Display of multimedia content (image, video, gallery)
 
-#### **1.3.2. ماژول خدمات اعزام**
-- فرم ثبت مشخصات دامپزشک (نام، تخصص، منطقه، تماس، رزومه، تصویر)
-- فرم ثبت مشخصات اسب‌کش (اطلاعات حمل، تجهیزات، منطقه فعالیت)
-- سیستم رزرو آنلاین خدمات
-- پیگیری وضعیت درخواست خدمات
-- سیستم امتیازدهی و نظر برای سرویس‌دهندگان
+#### **1.3.2. Dispatch services module**
+- Veterinarian profile registration form (name, specialty, region, contact, resume, image)
+- Horse transporter profile registration form (transport information, equipment, area of activity)
+- Online service booking system
+- Tracking the status of the service request
+- Rating and review system for service providers
 
-#### **1.3.3. ماژول فروشگاه**
-- نمایش محصولات (تجهیزات، داروها، مکمل‌ها)
-- دسته‌بندی محصولات
-- سبد خرید و پرداخت آنلاین
-- پیگیری سفارشات
-- مدیریت موجودی
+#### **1.3.3. Shop module**
+- Display of products (equipment, medicines, supplements)
+- Product categories
+- Shopping cart and online payment
+- Order tracking
+- Inventory management
 
-#### **1.3.4. ماژول مسابقات**
-- تقویم مسابقات داخلی و خارجی
-- فیلتر بر اساس نوع مسابقه (کورس، پرش، درساژ، ...)
-- اعلان‌های یادآوری مسابقات
-- اطلاعات کامل مسابقات (مکان، زمان، جوایز، شرایط شرکت)
-- نتایج مسابقات گذشته
+#### **1.3.4. Competitions module**
+- Calendar of domestic and international competitions
+- Filter by competition type (racing, jumping, dressage, ...)
+- Competition reminder notifications
+- Complete competition information (location, time, prizes, entry conditions)
+- Results of past competitions
 
-### **1.4. نیازمندی‌های غیرعملیاتی**
-- طراحی واکنش‌گرا و سازگار با موبایل و دسکتاپ
-- زمان بارگذاری صفحه کمتر از 3 ثانیه
-- پشتیبانی آفلاین برای PWA
-- امنیت داده‌های کاربری
-- سازگاری با مرورگرهای مدرن و اندروید 8 به بالا
+### **1.4. Non-functional requirements**
+- Responsive design compatible with mobile and desktop
+- Page load time under 3 seconds
+- Offline support for the PWA
+- User data security
+- Compatibility with modern browsers and Android 8 and above
 
-### **1.5. نیازمندی‌های فنی پلتفرم**
+### **1.5. Technical platform requirements**
 
-#### **1.5.1. PWA (iOS و وب)**
+#### **1.5.1. PWA (iOS and web)**
 - Technology Stack: React.js / Next.js + TypeScript
-- Service Worker برای عملکرد آفلاین
+- Service Worker for offline operation
 - Web App Manifest
-- قابلیت نصب روی صفحه اصلی دستگاه‌های iOS و دسکتاپ
+- Installable on the home screen of iOS devices and desktop
 - Push Notifications
 
-#### **1.5.2. اپلیکیشن اندروید**
+#### **1.5.2. Android application**
 - Technology Stack: Kotlin + Jetpack Compose
-- معماری MVVM
-- پشتیبانی از آفلاین
-- استفاده از سیستم‌های نوتیفیکیشن اندروید
-- انتشار در Google Play Store
+- MVVM architecture
+- Offline support
+- Use of Android notification systems
+- Publishing on the Google Play Store
 
-#### **1.5.3. بک‌اند و API**
-- Framework: Node.js + Express یا Django
-- دیتابیس: PostgreSQL + Redis برای کش
-- RESTful API یا GraphQL
-- ذخیره‌سازی فایل: AWS S3 یا مشابه ایرانی
-- سرور: لینوکس
+#### **1.5.3. Backend and API**
+- Framework: Node.js + Express or Django
+- Database: PostgreSQL + Redis for cache
+- RESTful API or GraphQL
+- File storage: AWS S3 or an Iranian equivalent
+- Server: Linux
 
 ---
 
-## **2. طرح توسعه نرم‌افزار (SDP)**
+## **2. Software Development Plan (SDP)**
 
-### **2.1. مراحل توسعه**
+### **2.1. Development phases**
 
-#### **فاز 1: تحقیق و طراحی (4 هفته)**
-- تحقیق کامل در مورد محتوای اسب (نژادها، بیماری‌ها، تجهیزات)
-- طراحی UX/UI
-- ایجاد طرح پایگاه داده
-- تعریف API Endpoints
-- انتخاب تکنولوژی‌ها
+#### **Phase 1: Research and design (4 weeks)**
+- Complete research on horse content (breeds, diseases, equipment)
+- UX/UI design
+- Creating the database design
+- Defining API Endpoints
+- Choosing technologies
 
-#### **فاز 2: توسعه بک‌اند (6 هفته)**
-- راه‌اندازی سرور و دیتابیس
-- توسعه ماژول کاربران و احراز هویت
-- توسعه ماژول بلاگ (CRUD مقالات)
-- توسعه ماژول خدمات
-- توسعه ماژول فروشگاه
-- توسعه ماژول مسابقات
+#### **Phase 2: Backend development (6 weeks)**
+- Setting up the server and database
+- Developing the users and authentication module
+- Developing the blog module (article CRUD)
+- Developing the services module
+- Developing the shop module
+- Developing the competitions module
 
-#### **فاز 3: توسعه فرانت‌اند PWA (8 هفته)**
-- ساخت کامپوننت‌های پایه
-- پیاده‌سازی صفحه بلاگ
-- پیاده‌سازی صفحات خدمات
-- پیاده‌سازی فروشگاه
-- پیاده‌سازی تقویم مسابقات
-- افزودن قابلیت‌های PWA
+#### **Phase 3: PWA frontend development (8 weeks)**
+- Building base components
+- Implementing the blog page
+- Implementing service pages
+- Implementing the shop
+- Implementing the competition calendar
+- Adding PWA features
 
-#### **فاز 4: توسعه اپلیکیشن اندروید (6 هفته)**
-- ایجاد پروژه اندروید
-- پیاده‌سازی رابط کاربری
-- اتصال به API بک‌اند
-- تست و دیباگ
+#### **Phase 4: Android application development (6 weeks)**
+- Creating the Android project
+- Implementing the user interface
+- Connecting to the backend API
+- Testing and debugging
 
-#### **فاز 5: تست و استقرار (4 هفته)**
-- تست یکپارچگی
-- تست عملکرد
-- تست امنیت
-- انتشار نسخه اولیه
-- جمع‌آوری بازخورد
+#### **Phase 5: Testing and deployment (4 weeks)**
+- Integration testing
+- Performance testing
+- Security testing
+- Releasing the initial version
+- Collecting feedback
 
-### **2.2. ساختار تیم توسعه**
-- مدیر پروژه: 1 نفر
-- طراح UX/UI: 1 نفر
-- توسعه‌دهنده بک‌اند: 2 نفر
-- توسعه‌دهنده فرانت‌اند PWA: 2 نفر
-- توسعه‌دهنده اندروید: 2 نفر
-- متخصص محتوا (اسب): 1 نفر
-- تست‌کننده: 1 نفر
+### **2.2. Development team structure**
+- Project manager: 1 person
+- UX/UI designer: 1 person
+- Backend developer: 2 people
+- PWA frontend developer: 2 people
+- Android developer: 2 people
+- Content specialist (horses): 1 person
+- Tester: 1 person
 
-### **2.3. زمان‌بندی کلی پروژه**
-- کل زمان پروژه: **28 هفته** (~7 ماه)
-- شروع: ماه اول
-- تحویل نسخه MVP: پایان ماه 5
-- تحویل نهایی: پایان ماه 7
+### **2.3. Overall project timeline**
+- Total project time: **28 weeks** (~7 months)
+- Start: month 1
+- MVP delivery: end of month 5
+- Final delivery: end of month 7
 
-### **2.4. بودجه تخمینی**
-| بخش | هزینه تخمینی |
+### **2.4. Estimated budget**
+| Section | Estimated cost |
 |------|--------------|
-| طراحی و تحقیق | 40 میلیون تومان |
-| توسعه بک‌اند | 120 میلیون تومان |
-| توسعه PWA | 160 میلیون تومان |
-| توسعه اندروید | 120 میلیون تومان |
-| تولید محتوا | 60 میلیون تومان |
-| تست و استقرار | 40 میلیون تومان |
-| **مجموع** | **540 میلیون تومان** |
+| Design and research | 40 million Toman |
+| Backend development | 120 million Toman |
+| PWA development | 160 million Toman |
+| Android development | 120 million Toman |
+| Content production | 60 million Toman |
+| Testing and deployment | 40 million Toman |
+| **Total** | **540 million Toman** |
 
-### **2.5. ریسک‌ها و راهکارها**
-| ریسک | احتمال | تأثیر | راهکار کاهش |
+### **2.5. Risks and mitigations**
+| Risk | Probability | Impact | Mitigation |
 |------|---------|--------|--------------|
-| کمبود متخصص محتوای اسب | متوسط | زیاد | همکاری با انجمن‌های مرتبط |
-| مشکل در پرداخت آنلاین | کم | متوسط | استفاده از درگاه‌های معتبر |
-| عدم استقبال کاربران | متوسط | زیاد | بازاریابی هدفمند |
-| حجم بالای محتوا | زیاد | متوسط | اولویت‌بندی در تولید محتوا |
+| Shortage of horse content specialists | Medium | High | Cooperation with related associations |
+| Online payment problems | Low | Medium | Use reputable gateways |
+| Lack of user uptake | Medium | High | Targeted marketing |
+| Large volume of content | High | Medium | Prioritization in content production |
 
-### **2.6. معیارهای موفقیت**
-- جذب 5000 کاربر فعال در ماه اول
-- انتشار 200 مقاله تخصصی در 6 ماه اول
-- ثبت 100 سفارش خدمات در ماه
-- فروش 50 میلیون تومان در ماه اول فروشگاه
-- امتیاز 4+ در استورها
+### **2.6. Success criteria**
+- Attract 5000 active users in the first month
+- Publish 200 specialized articles in the first 6 months
+- 100 service orders per month
+- 50 million Toman in sales in the shop's first month
+- Rating of 4+ in the stores
 
 ---
 
-## **3. جدول محتوای نمونه بلاگ**
+## **3. Sample blog content table**
 
-### **دسته‌بندی‌های اصلی مقالات:**
-1. **نژادهای اسب**
-   - اسب عربی
-   - ترکمن
-   - انگلیسی
-   - فریزین
+### **Main article categories:**
+1. **Horse breeds**
+   - Arabian horse
+   - Turkmen
+   - English
+   - Friesian
    - ...
 
-2. **بیماری‌ها و سلامت**
-   - بیماری‌های گوارشی
-   - مشکلات سم
-   - مراقبت‌های دندانی
-   - واکسیناسیون
+2. **Diseases and health**
+   - Digestive diseases
+   - Hoof problems
+   - Dental care
+   - Vaccination
 
-3. **تجهیزات و لوازم**
-   - زین و یراق
-   - مکمل‌های غذایی
-   - وسایل مراقبت
+3. **Equipment and supplies**
+   - Saddle and tack
+   - Nutritional supplements
+   - Care supplies
 
-4. **ورزش‌های سوارکاری**
-   - درساژ
-   - پرش با اسب
-   - چوگان
-   - کورس
+4. **Equestrian sports**
+   - Dressage
+   - Show jumping
+   - Polo
+   - Horse racing
 
-5. **تاریخ و فرهنگ**
-   - اسب در تاریخ ایران
-   - اسب در ادبیات
-   - موزه‌های اسب در جهان
+5. **History and culture**
+   - The horse in Iranian history
+   - The horse in literature
+   - Horse museums around the world
 
 ---
 
-**تهیه و تنظیم:**  
-تیم توسعه پلتفرم جامع اسب  
-تاریخ: ۱۴۰۳/۰۱/۱۵  
+**Prepared and compiled by:**
+The comprehensive horse platform development team
+Date: 2024/04/03
 
-*این سند به صورت دوره‌ای بروزرسانی خواهد شد.*
+*This document will be updated periodically.*

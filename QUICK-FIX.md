@@ -1,58 +1,58 @@
-# راهنمای سریع رفع مشکل
+# Quick Fix Guide
 
-## مشکل: npm error ENOENT
+## Problem: npm error ENOENT
 
-### علت
-شما در مسیر اشتباه هستید. `package.json` در پوشه `steedly` قرار دارد.
+### Cause
+You are in the wrong path. `package.json` is in the `steedly` folder.
 
-### راه حل
+### Solution
 
-#### 1. به مسیر صحیح بروید:
+#### 1. Go to the correct path:
 ```bash
 cd steedly
 ```
 
-#### 2. سپس دستور را اجرا کنید:
+#### 2. Then run the command:
 ```bash
 npm run dev:backend
 ```
 
-یا برای اجرای همزمان Backend و Frontend:
+Or to run Backend and Frontend together:
 ```bash
 npm run dev
 ```
 
-## مسیرهای صحیح
+## Correct paths
 
-- **پروژه اصلی**: `C:\Users\asus\Documents\steedly\steedly`
+- **Main project**: `C:\Users\asus\Documents\steedly\steedly`
 - **Backend**: `C:\Users\asus\Documents\steedly\steedly\backend`
 - **Frontend**: `C:\Users\asus\Documents\steedly\steedly\frontend`
 
-## دستورات مفید
+## Useful Commands
 
-### بررسی مسیر فعلی
+### Checking the current path
 ```bash
 pwd
-# یا در PowerShell:
+# Or in PowerShell:
 Get-Location
 ```
 
-### رفتن به مسیر پروژه
+### Going to the project path
 ```bash
 cd C:\Users\asus\Documents\steedly\steedly
 ```
 
-### اجرای Backend
+### Running the Backend
 ```bash
 npm run dev:backend
 ```
 
-### اجرای Frontend
+### Running the Frontend
 ```bash
 npm run dev:frontend
 ```
 
-### اجرای هر دو
+### Running both
 ```bash
 npm run dev
 ```

@@ -11,9 +11,9 @@ import java.util.TimeZone
 private val persianLocale = Locale("fa", "IR")
 private val jalaliLocale = ULocale("fa_IR@calendar=persian")
 
-/** 1250000.0 -> "۱٬۲۵۰٬۰۰۰ تومان" */
+/** 1250000.0 -> "1,250,000 Toman" */
 fun formatToman(amount: Double?): String =
-    NumberFormat.getInstance(persianLocale).format((amount ?: 0.0).toLong()) + " تومان"
+    NumberFormat.getInstance(persianLocale).format((amount ?: 0.0).toLong()) + " Toman"
 
 fun formatNumber(value: Number): String = NumberFormat.getInstance(persianLocale).format(value)
 
@@ -43,7 +43,7 @@ fun parseApiDate(value: String?): Date? {
     return null
 }
 
-/** Formats as a Persian (Jalali) date, e.g. "۱۴۰۳/۰۲/۱۲" (optionally with time). */
+/** Formats as a Persian (Jalali) date, e.g. "1403/02/12" (optionally with time). */
 fun formatJalaliDate(value: String?, withTime: Boolean = false): String {
     val date = parseApiDate(value) ?: return value ?: ""
     return formatJalaliDate(date, withTime)
@@ -54,7 +54,7 @@ fun formatJalaliDate(date: Date, withTime: Boolean = false): String {
     return IcuDateFormat(pattern, jalaliLocale).format(date)
 }
 
-/** Long form, e.g. "۱۲ اردیبهشت ۱۴۰۳" */
+/** Long form, e.g. "12 Ordibehesht 1403" */
 fun formatJalaliLong(value: String?): String {
     val date = parseApiDate(value) ?: return value ?: ""
     return IcuDateFormat("d MMMM yyyy", jalaliLocale).format(date)
@@ -66,36 +66,36 @@ fun toApiDateTime(date: Date): String =
 
 object StatusLabels {
     fun order(status: String) = when (status) {
-        "pending" -> "در انتظار"
-        "processing" -> "در حال پردازش"
-        "shipped" -> "ارسال شده"
-        "delivered" -> "تحویل داده شده"
-        "cancelled" -> "لغو شده"
+        "pending" -> "Pending"
+        "processing" -> "Processing"
+        "shipped" -> "Shipped"
+        "delivered" -> "Delivered"
+        "cancelled" -> "Cancelled"
         else -> status
     }
 
     fun payment(status: String) = when (status) {
-        "pending" -> "در انتظار پرداخت"
-        "paid" -> "پرداخت شده"
-        "failed" -> "پرداخت ناموفق"
-        "refunded" -> "بازگشت وجه"
+        "pending" -> "Awaiting payment"
+        "paid" -> "Paid"
+        "failed" -> "Payment failed"
+        "refunded" -> "Refunded"
         else -> status
     }
 
     fun booking(status: String) = when (status) {
-        "pending" -> "در انتظار تأیید"
-        "confirmed" -> "تأیید شده"
-        "completed" -> "انجام شده"
-        "cancelled" -> "لغو شده"
+        "pending" -> "Awaiting confirmation"
+        "confirmed" -> "Confirmed"
+        "completed" -> "Completed"
+        "cancelled" -> "Cancelled"
         else -> status
     }
 
     fun competitionType(type: String?) = when (type) {
-        "race" -> "اسب‌دوانی"
-        "jumping" -> "پرش با اسب"
-        "dressage" -> "درساژ"
-        "polo" -> "چوگان"
-        "endurance" -> "استقامت"
+        "race" -> "Racing"
+        "jumping" -> "Show jumping"
+        "dressage" -> "Dressage"
+        "polo" -> "Polo"
+        "endurance" -> "Endurance"
         null -> ""
         else -> type
     }

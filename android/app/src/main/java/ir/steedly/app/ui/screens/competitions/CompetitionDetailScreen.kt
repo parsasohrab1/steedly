@@ -55,7 +55,7 @@ fun CompetitionDetailScreen(navController: NavController, competitionSlug: Strin
         loading = false
     }
 
-    Scaffold(topBar = { AppTopBar("جزئیات مسابقه", onBack = { navController.popBackStack() }) }) { padding ->
+    Scaffold(topBar = { AppTopBar("Competition details", onBack = { navController.popBackStack() }) }) { padding ->
         val comp = competition
         when {
             loading -> LoadingView(Modifier.padding(padding))
@@ -75,7 +75,7 @@ fun CompetitionDetailScreen(navController: NavController, competitionSlug: Strin
                             StatusChip(StatusLabels.competitionType(comp.competition_type), MaterialTheme.colorScheme.primary)
                         }
                         if (comp.is_international == true) {
-                            StatusChip("بین‌المللی", MaterialTheme.colorScheme.tertiary)
+                            StatusChip("International", MaterialTheme.colorScheme.tertiary)
                         }
                         registrationStatus(comp)?.let { (label, color) -> StatusChip(label, color) }
                     }
@@ -83,20 +83,20 @@ fun CompetitionDetailScreen(navController: NavController, competitionSlug: Strin
 
                     Card(Modifier.fillMaxWidth()) {
                         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                            DetailRow(Icons.Default.Place, "محل برگزاری", comp.location)
-                            DetailRow(Icons.Default.CalendarToday, "تاریخ شروع", formatJalaliLong(comp.start_date))
-                            comp.end_date?.let { DetailRow(Icons.Default.Event, "تاریخ پایان", formatJalaliLong(it)) }
-                            comp.registration_deadline?.let { DetailRow(Icons.Default.Schedule, "مهلت ثبت‌نام", formatJalaliLong(it)) }
+                            DetailRow(Icons.Default.Place, "Venue", comp.location)
+                            DetailRow(Icons.Default.CalendarToday, "Start date", formatJalaliLong(comp.start_date))
+                            comp.end_date?.let { DetailRow(Icons.Default.Event, "End date", formatJalaliLong(it)) }
+                            comp.registration_deadline?.let { DetailRow(Icons.Default.Schedule, "Registration deadline", formatJalaliLong(it)) }
                         }
                     }
 
-                    comp.description?.takeIf { it.isNotBlank() }?.let { Section("توضیحات", it) }
-                    comp.prize_info?.takeIf { it.isNotBlank() }?.let { Section("جوایز", it) }
-                    comp.conditions?.takeIf { it.isNotBlank() }?.let { Section("شرایط شرکت", it) }
+                    comp.description?.takeIf { it.isNotBlank() }?.let { Section("Description", it) }
+                    comp.prize_info?.takeIf { it.isNotBlank() }?.let { Section("Prizes", it) }
+                    comp.conditions?.takeIf { it.isNotBlank() }?.let { Section("Entry conditions", it) }
 
                     if (results.isNotEmpty()) {
                         Divider()
-                        Text("نتایج مسابقه", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+                        Text("Competition results", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
                         results.forEach { result -> ResultRow(result) }
                     }
                 }
@@ -107,7 +107,7 @@ fun CompetitionDetailScreen(navController: NavController, competitionSlug: Strin
 
 private fun registrationStatus(comp: Competition): Pair<String, Color>? {
     val deadline = parseApiDate(comp.registration_deadline) ?: return null
-    return if (deadline.after(Date())) "ثبت‌نام باز است" to Color(0xFF16A34A) else "ثبت‌نام بسته شد" to Color(0xFF6B7280)
+    return if (deadline.after(Date())) "Registration is open" to Color(0xFF16A34A) else "Registration closed" to Color(0xFF6B7280)
 }
 
 @Composable
@@ -140,16 +140,16 @@ private fun ResultRow(result: CompetitionResult) {
             Icon(Icons.Default.EmojiEvents, contentDescription = null, tint = medal)
             Column(Modifier.weight(1f)) {
                 Text(
-                    "رتبه ${result.position?.let { formatNumber(it) } ?: "-"}" +
+                    "Rank ${result.position?.let { formatNumber(it) } ?: "-"}" +
                         (result.participant_name?.let { " — $it" } ?: ""),
                     fontWeight = FontWeight.Bold
                 )
-                result.horse_name?.let { Text("اسب: $it", style = MaterialTheme.typography.bodySmall) }
+                result.horse_name?.let { Text("Horse: $it", style = MaterialTheme.typography.bodySmall) }
                 result.notes?.takeIf { it.isNotBlank() }?.let {
                     Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
             }
-            result.score?.let { Text("امتیاز ${formatNumber(it)}", style = MaterialTheme.typography.labelLarge) }
+            result.score?.let { Text("Score ${formatNumber(it)}", style = MaterialTheme.typography.labelLarge) }
         }
     }
 }

@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">استیدلی</string>
-    <string name="home">خانه</string>
-    <string name="blog">مقالات</string>
-    <string name="shop">فروشگاه</string>
-    <string name="services">خدمات</string>
-    <string name="competitions">مسابقات</string>
-    <string name="login">ورود</string>
-    <string name="register">ثبت‌نام</string>
-    <string name="email">ایمیل</string>
-    <string name="password">رمز عبور</string>
-    <string name="full_name">نام کامل</string>
-    <string name="phone">تلفن</string>
-    <string name="notification_channel_name">سفارش‌ها و رزروها</string>
-    <string name="notification_channel_description">اطلاع‌رسانی وضعیت سفارش‌ها، پرداخت‌ها و رزرو خدمات</string>
+    <string name="app_name">Steedly</string>
+    <string name="home">Home</string>
+    <string name="blog">Articles</string>
+    <string name="shop">Shop</string>
+    <string name="services">Services</string>
+    <string name="competitions">Competitions</string>
+    <string name="login">Log in</string>
+    <string name="register">Sign up</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="full_name">Full name</string>
+    <string name="phone">Phone</string>
+    <string name="notification_channel_name">Orders and bookings</string>
+    <string name="notification_channel_description">Notifications about order status, payments and service bookings</string>
 </resources>

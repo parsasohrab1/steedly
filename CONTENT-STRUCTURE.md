@@ -1,248 +1,248 @@
-# ساختار محتوای اپلیکیشن استیدلی
+# Steedly App Content Structure
 
-## 📚 دسته‌بندی‌های محتوا
+## 📚 Content categories
 
-### 1. نژادهای اسب (Horse Breeds)
+### 1. Horse Breeds
 **Slug**: `horse-breeds`
 
-مقالات مربوط به:
-- اسب عربی (Arabian Horse)
-- اسب ترکمن (Turkmen Horse)
-- اسب انگلیسی (Thoroughbred)
-- اسب فریزین (Friesian)
-- اسب آخال‌تکه (Akhal-Teke)
-- اسب کردی (Kurdish Horse)
-- اسب قره‌باغ (Karabakh Horse)
-- و سایر نژادهای ایرانی و بین‌المللی
+Articles related to:
+- Arabian Horse
+- Turkmen Horse
+- Thoroughbred
+- Friesian
+- Akhal-Teke
+- Kurdish Horse
+- Karabakh Horse
+- And other Iranian and international breeds
 
-**محتوا شامل**:
-- تاریخچه نژاد
-- ویژگی‌های فیزیکی
-- خلق و خو
-- کاربردها
-- شرایط نگهداری
-- تصاویر و گالری
+**Content includes**:
+- Breed history
+- Physical characteristics
+- Temperament
+- Uses
+- Care requirements
+- Images and gallery
 
-### 2. بیماری‌ها و سلامت (Health & Diseases)
+### 2. Health & Diseases
 **Slug**: `health-diseases`
 
-مقالات مربوط به:
-- بیماری‌های گوارشی (کولیک، اسهال)
-- مشکلات سم (لنگش، عفونت)
-- بیماری‌های تنفسی
-- بیماری‌های پوستی
-- مشکلات دندانی
-- واکسیناسیون
-- انگل‌ها
-- بیماری‌های عفونی
+Articles related to:
+- Digestive diseases (colic, diarrhea)
+- Hoof problems (lameness, infection)
+- Respiratory diseases
+- Skin diseases
+- Dental problems
+- Vaccination
+- Parasites
+- Infectious diseases
 
-**محتوا شامل**:
-- علائم بیماری
-- علل بروز
-- روش‌های پیشگیری
-- درمان‌های خانگی و دامپزشکی
-- زمان مراجعه به دامپزشک
+**Content includes**:
+- Disease symptoms
+- Causes
+- Prevention methods
+- Home and veterinary treatments
+- When to see a veterinarian
 
-### 3. تجهیزات و لوازم (Equipment)
+### 3. Equipment
 **Slug**: `equipment`
 
-مقالات مربوط به:
-- زین و یراق (انگلیسی، غربی)
-- کلاه ایمنی
-- چکمه و پوتین
-- دستکش
-- شلاق و رکاب
-- طناب و مهار
-- پتو و پوشش
+Articles related to:
+- Saddle and tack (English, Western)
+- Helmet
+- Boots
+- Gloves
+- Whip and stirrup
+- Rope and halter
+- Blanket and covering
 
-**محتوا شامل**:
-- راهنمای خرید
-- نحوه استفاده صحیح
-- نگهداری و تمیز کردن
-- برندهای معتبر
-- قیمت‌گذاری
+**Content includes**:
+- Buying guide
+- Proper use
+- Maintenance and cleaning
+- Reputable brands
+- Pricing
 
-### 4. ورزش‌های سوارکاری (Equestrian Sports)
+### 4. Equestrian Sports
 **Slug**: `equestrian-sports`
 
-مقالات مربوط به:
-- درساژ (Dressage)
-- پرش با اسب (Show Jumping)
-- کورس (Horse Racing)
-- چوگان (Polo)
-- اسبدوانی سنتی
-- راندو (Endurance)
-- وسترن (Western)
+Articles related to:
+- Dressage
+- Show Jumping
+- Horse Racing
+- Polo
+- Traditional horse racing
+- Endurance
+- Western
 
-**محتوا شامل**:
-- قوانین مسابقات
-- تکنیک‌ها و مهارت‌ها
-- تجهیزات مورد نیاز
-- مسابقات داخلی و بین‌المللی
-- تاریخچه ورزش
+**Content includes**:
+- Competition rules
+- Techniques and skills
+- Required equipment
+- Domestic and international competitions
+- Sport history
 
-### 5. تاریخ و فرهنگ (History & Culture)
+### 5. History & Culture
 **Slug**: `history-culture`
 
-مقالات مربوط به:
-- تاریخ اسب در ایران
-- اسب در ادبیات فارسی
-- اسب در هنر و نقاشی
-- موزه‌های اسب
-- اسب در فرهنگ‌های مختلف
-- افسانه‌ها و داستان‌ها
+Articles related to:
+- History of the horse in Iran
+- The horse in Persian literature
+- The horse in art and painting
+- Horse museums
+- The horse in different cultures
+- Legends and stories
 
-### 6. تغذیه و مراقبت (Nutrition & Care)
+### 6. Nutrition & Care
 **Slug**: `nutrition-care`
 
-مقالات مربوط به:
-- رژیم غذایی اسب
-- یونجه و علوفه
-- مکمل‌های غذایی
-- آب و هیدراتاسیون
-- برنامه غذایی روزانه
-- مراقبت از سم
-- نظافت و بهداشت
-- ورزش و فعالیت
+Articles related to:
+- Horse diet
+- Alfalfa and forage
+- Nutritional supplements
+- Water and hydration
+- Daily feeding plan
+- Hoof care
+- Grooming and hygiene
+- Exercise and activity
 
-### 7. آموزش و تربیت (Training & Education)
+### 7. Training & Education
 **Slug**: `training-education`
 
-مقالات مربوط به:
-- تربیت کره اسب
-- آموزش اسب بالغ
-- تکنیک‌های آموزش
-- حل مشکلات رفتاری
-- اعتمادسازی
-- آموزش مهارت‌های خاص
+Articles related to:
+- Foal training
+- Training an adult horse
+- Training techniques
+- Solving behavioral problems
+- Building trust
+- Training special skills
 
-### 8. سوارکاری (Riding)
+### 8. Riding
 **Slug**: `riding`
 
-مقالات مربوط به:
-- تکنیک‌های سوارکاری
-- وضعیت صحیح نشستن
-- کنترل اسب
-- شروع سوارکاری
-- مهارت‌های پیشرفته
-- ایمنی در سوارکاری
+Articles related to:
+- Riding techniques
+- Correct seating position
+- Controlling the horse
+- Starting to ride
+- Advanced skills
+- Riding safety
 
-## 🛍️ دسته‌بندی‌های محصولات
+## 🛍️ Product categories
 
-### 1. تجهیزات سوارکاری
-- زین (انگلیسی، غربی)
-- یراق
-- کلاه ایمنی
-- چکمه و پوتین
-- دستکش
-- شلاق و رکاب
+### 1. Riding equipment
+- Saddle (English, Western)
+- Tack
+- Helmet
+- Boots
+- Gloves
+- Whip and stirrup
 
-### 2. داروهای دامپزشکی
-- آنتی‌بیوتیک‌ها
-- مسکن‌ها
-- ویتامین‌ها
-- پماد و کرم
-- قطره و اسپری
+### 2. Veterinary medicines
+- Antibiotics
+- Painkillers
+- Vitamins
+- Ointments and creams
+- Drops and sprays
 
-### 3. مکمل‌های غذایی
-- ویتامین‌ها
-- مواد معدنی
-- پروبیوتیک
-- مکمل‌های مفصل
-- مکمل‌های پوست و مو
+### 3. Nutritional supplements
+- Vitamins
+- Minerals
+- Probiotics
+- Joint supplements
+- Skin and coat supplements
 
-### 4. وسایل مراقبت
-- برس و شانه
-- شامپو و نرم‌کننده
-- نعل و ابزار نعل‌بندی
-- پتو و پوشش
-- وسایل نظافت
+### 4. Care supplies
+- Brushes and combs
+- Shampoo and conditioner
+- Horseshoes and farrier tools
+- Blankets and covers
+- Cleaning supplies
 
-### 5. خوراک و علوفه
-- یونجه
-- جو و گندم
-- خوراک آماده
-- هویج و سیب
-- نمک و مواد معدنی
+### 5. Feed and forage
+- Alfalfa
+- Barley and wheat
+- Ready-made feed
+- Carrots and apples
+- Salt and minerals
 
-### 6. ابزار و تجهیزات
-- ابزار نعل‌بندی
-- ابزار دامپزشکی
-- طناب و مهار
-- سطل و ظروف
-- وسایل انبار
+### 6. Tools and equipment
+- Farrier tools
+- Veterinary tools
+- Rope and halter
+- Buckets and containers
+- Storage supplies
 
-## 📝 ساختار مقاله
+## 📝 Article structure
 
-هر مقاله شامل:
-1. **تیتر**: جذاب و واضح
-2. **خلاصه (Excerpt)**: 2-3 خط خلاصه
-3. **تصویر شاخص**: تصویر با کیفیت
-4. **محتوای اصلی**: ساختار یافته با:
-   - مقدمه
-   - بخش‌های اصلی
-   - تصاویر و ویدیو
-   - نتیجه‌گیری
-5. **دسته‌بندی**: یک دسته اصلی
-6. **تگ‌ها**: چند تگ مرتبط
-7. **نویسنده**: نام نویسنده
-8. **تاریخ انتشار**
+Each article includes:
+1. **Headline**: Engaging and clear
+2. **Summary (Excerpt)**: 2-3 line summary
+3. **Featured image**: High-quality image
+4. **Main content**: Structured with:
+   - Introduction
+   - Main sections
+   - Images and video
+   - Conclusion
+5. **Category**: One main category
+6. **Tags**: Several related tags
+7. **Author**: Author name
+8. **Publication date**
 
-## 🎯 استراتژی تولید محتوا
+## 🎯 Content production strategy
 
-### فاز 1: محتوای پایه (اولویت بالا)
-1. معرفی 10 نژاد اصلی اسب
-2. 20 بیماری رایج و راه‌های پیشگیری
-3. راهنمای خرید تجهیزات اصلی
-4. معرفی ورزش‌های سوارکاری
+### Phase 1: Base content (high priority)
+1. Introduction of 10 main horse breeds
+2. 20 common diseases and prevention methods
+3. Buying guide for main equipment
+4. Introduction to equestrian sports
 
-### فاز 2: محتوای تخصصی
-1. مقالات عمیق‌تر درباره هر موضوع
-2. ویدیوهای آموزشی
-3. اینفوگرافیک
-4. مصاحبه با متخصصان
+### Phase 2: Specialized content
+1. More in-depth articles on each topic
+2. Educational videos
+3. Infographics
+4. Interviews with specialists
 
-### فاز 3: محتوای تعاملی
-1. پرسش و پاسخ
-2. نظرات کاربران
-3. محتوای تولید شده توسط کاربر (UGC)
+### Phase 3: Interactive content
+1. Questions and answers
+2. User comments
+3. User-generated content (UGC)
 
-## 📊 آمار هدف
+## 📊 Target statistics
 
-طبق SRS:
-- **200 مقاله تخصصی** در 6 ماه اول
-- **حداقل 20 مقاله** در هر دسته‌بندی اصلی
-- **به‌روزرسانی هفتگی** محتوا
+According to the SRS:
+- **200 specialized articles** in the first 6 months
+- **At least 20 articles** in each main category
+- **Weekly content update**
 
-## 🔍 SEO و بهینه‌سازی
+## 🔍 SEO and optimization
 
-- استفاده از کلمات کلیدی مرتبط
+- Use of related keywords
 - Meta descriptions
-- Alt text برای تصاویر
-- ساختار URL مناسب
+- Alt text for images
+- Appropriate URL structure
 - Internal linking
 
-## 📱 فرمت محتوا
+## 📱 Content format
 
-- **متن**: Markdown یا HTML
-- **تصویر**: JPG/PNG با کیفیت بالا
-- **ویدیو**: MP4 (اختیاری)
-- **گالری**: چند تصویر
-- **اینفوگرافیک**: PNG/SVG
+- **Text**: Markdown or HTML
+- **Image**: High-quality JPG/PNG
+- **Video**: MP4 (optional)
+- **Gallery**: Multiple images
+- **Infographic**: PNG/SVG
 
-## ✅ وضعیت فعلی
+## ✅ Current status
 
-- ✅ ساختار دیتابیس آماده است
-- ✅ دسته‌بندی‌ها تعریف شده
-- ✅ API برای CRUD آماده است
-- ⚠️ محتوای واقعی هنوز اضافه نشده
-- ⚠️ Seed data برای محتوا نیاز به تکمیل دارد
+- ✅ Database structure is ready
+- ✅ Categories are defined
+- ✅ API for CRUD is ready
+- ⚠️ Real content has not been added yet
+- ⚠️ Seed data for content needs to be completed
 
-## 🚀 مراحل بعدی
+## 🚀 Next steps
 
-1. ایجاد مقالات نمونه (10-20 مقاله)
-2. اضافه کردن تصاویر
-3. تست نمایش محتوا
-4. بهینه‌سازی برای SEO
-5. راه‌اندازی سیستم مدیریت محتوا
+1. Create sample articles (10-20 articles)
+2. Add images
+3. Test content display
+4. Optimize for SEO
+5. Set up the content management system
 

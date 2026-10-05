@@ -14,7 +14,7 @@ router.post(
       if (!req.file) {
         return res.status(400).json({
           success: false,
-          message: 'فایل تصویری ارسال نشده است',
+          message: 'No image file was sent',
         });
       }
 
@@ -22,7 +22,7 @@ router.post(
 
       res.json({
         success: true,
-        message: 'فایل با موفقیت آپلود شد',
+        message: 'File uploaded successfully',
         data: {
           url: fileUrl,
           filename: req.file.filename,
@@ -45,7 +45,7 @@ router.post(
       if (!req.files || (req.files as Express.Multer.File[]).length === 0) {
         return res.status(400).json({
           success: false,
-          message: 'فایل تصویری ارسال نشده است',
+          message: 'No image file was sent',
         });
       }
 
@@ -57,7 +57,7 @@ router.post(
 
       res.json({
         success: true,
-        message: 'فایل‌ها با موفقیت آپلود شدند',
+        message: 'Files uploaded successfully',
         data: files,
       });
     } catch (error) {
@@ -76,7 +76,7 @@ router.post(
       if (!req.file) {
         return res.status(400).json({
           success: false,
-          message: 'فایل تصویری ارسال نشده است',
+          message: 'No image file was sent',
         });
       }
 
@@ -84,7 +84,7 @@ router.post(
 
       res.json({
         success: true,
-        message: 'آواتار با موفقیت آپلود شد',
+        message: 'Avatar uploaded successfully',
         data: {
           url: fileUrl,
           filename: req.file.filename,

@@ -50,11 +50,11 @@ import ir.steedly.app.ui.screens.shop.ShopScreen
 private data class BottomItem(val route: String, val label: String, val icon: ImageVector)
 
 private val bottomItems = listOf(
-    BottomItem(Routes.HOME, "خانه", Icons.Default.Home),
-    BottomItem(Routes.BLOG, "مقالات", Icons.Default.Article),
-    BottomItem(Routes.SHOP, "فروشگاه", Icons.Default.Storefront),
-    BottomItem(Routes.SERVICES, "خدمات", Icons.Default.MedicalServices),
-    BottomItem(Routes.COMPETITIONS, "مسابقات", Icons.Default.EmojiEvents)
+    BottomItem(Routes.HOME, "Home", Icons.Default.Home),
+    BottomItem(Routes.BLOG, "Articles", Icons.Default.Article),
+    BottomItem(Routes.SHOP, "Shop", Icons.Default.Storefront),
+    BottomItem(Routes.SERVICES, "Services", Icons.Default.MedicalServices),
+    BottomItem(Routes.COMPETITIONS, "Competitions", Icons.Default.EmojiEvents)
 )
 
 /** Switches between top-level tabs without piling them up on the back stack. */

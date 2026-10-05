@@ -1,23 +1,23 @@
-# دریافت Fingerprint برای کافه‌بازار
+# Getting the Fingerprint for Cafe Bazaar
 
-> اثرانگشت کلید نسخه نهایی استیدلی در [`RELEASE-SIGNING.md`](RELEASE-SIGNING.md) آمده است.
+> The fingerprint of Steedly's release key is in [`RELEASE-SIGNING.md`](RELEASE-SIGNING.md).
 
-## دستور دریافت SHA-1 و SHA-256
+## Command to get SHA-1 and SHA-256
 
-### اگر keystore دارید:
+### If you have a keystore:
 
 ```bash
 cd android
 keytool -list -v -keystore steedly-release.jks -alias steedly
 ```
 
-### اگر از debug keystore استفاده می‌کنید:
+### If you use the debug keystore:
 
 ```bash
 keytool -list -v -keystore ~/.android/debug.keystore -alias androiddebugkey -storepass android -keypass android
 ```
 
-## خروجی نمونه
+## Sample output
 
 ```
 Alias name: steedly
@@ -34,23 +34,23 @@ Certificate fingerprints:
          SHA256: XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX
 ```
 
-## فقط SHA-1
+## SHA-1 only
 
 ```bash
 keytool -list -v -keystore steedly-release.jks -alias steedly | grep SHA1
 ```
 
-## فقط SHA-256
+## SHA-256 only
 
 ```bash
 keytool -list -v -keystore steedly-release.jks -alias steedly | grep SHA256
 ```
 
-## اطلاعات مورد نیاز کافه‌بازار
+## Information needed by Cafe Bazaar
 
-کافه‌بازار معمولاً نیاز به:
-- **SHA-1 Fingerprint** دارد
-- **SHA-256 Fingerprint** (اختیاری)
+Cafe Bazaar usually needs:
+- **SHA-1 Fingerprint**
+- **SHA-256 Fingerprint** (optional)
 
-این اطلاعات را در پنل توسعه‌دهنده کافه‌بازار وارد کنید.
+Enter this information in the Cafe Bazaar developer panel.
 

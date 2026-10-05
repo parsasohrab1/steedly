@@ -15,19 +15,19 @@ export default async function CompetitionsPage() {
   const competitions = await getCompetitions();
 
   const competitionTypes: { [key: string]: string } = {
-    race: 'کورس',
-    jumping: 'پرش',
-    dressage: 'درساژ',
-    polo: 'چوگان',
+    race: 'Racing',
+    jumping: 'Jumping',
+    dressage: 'Dressage',
+    polo: 'Polo',
   };
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold mb-8 text-center">مسابقات اسب</h1>
+      <h1 className="text-4xl font-bold mb-8 text-center">Horse competitions</h1>
 
       {competitions.length === 0 ? (
         <div className="text-center py-16">
-          <p className="text-gray-600 text-lg">هنوز مسابقه‌ای ثبت نشده است.</p>
+          <p className="text-gray-600 text-lg">No competitions have been registered yet.</p>
         </div>
       ) : (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -52,7 +52,7 @@ export default async function CompetitionsPage() {
                     {competitionTypes[competition.competition_type] || competition.competition_type}
                   </span>
                   {competition.is_international && (
-                    <span className="text-xs text-gray-500">بین‌المللی</span>
+                    <span className="text-xs text-gray-500">International</span>
                   )}
                 </div>
                 <h2 className="text-xl font-bold mb-2">{competition.title}</h2>

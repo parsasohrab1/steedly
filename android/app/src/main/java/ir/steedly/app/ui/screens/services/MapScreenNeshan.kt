@@ -121,7 +121,7 @@ fun MapScreenNeshan(navController: NavController, initialServiceType: String) {
         map.setZoom(if (radius <= 10) 13f else if (radius <= 25) 11f else 10f, 0f)
     }
 
-    Scaffold(topBar = { AppTopBar("جستجو روی نقشه", onBack = { navController.popBackStack() }) }) { padding ->
+    Scaffold(topBar = { AppTopBar("Search on map", onBack = { navController.popBackStack() }) }) { padding ->
         Column(Modifier.padding(padding).fillMaxSize()) {
             Row(
                 Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp),
@@ -130,13 +130,13 @@ fun MapScreenNeshan(navController: NavController, initialServiceType: String) {
                 FilterChip(
                     selected = serviceType == ServiceType.VETERINARIAN,
                     onClick = { serviceType = ServiceType.VETERINARIAN },
-                    label = { Text("دامپزشکان") },
+                    label = { Text("Veterinarians") },
                     modifier = Modifier.weight(1f)
                 )
                 FilterChip(
                     selected = serviceType == ServiceType.TRANSPORTER,
                     onClick = { serviceType = ServiceType.TRANSPORTER },
-                    label = { Text("اسب‌کش‌ها") },
+                    label = { Text("Horse transporters") },
                     modifier = Modifier.weight(1f)
                 )
             }
@@ -145,18 +145,18 @@ fun MapScreenNeshan(navController: NavController, initialServiceType: String) {
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                item { Text("شعاع:") }
+                item { Text("Radius:") }
                 items(RADIUS_OPTIONS) { option ->
                     FilterChip(
                         selected = radius == option,
                         onClick = { radius = option },
-                        label = { Text("$option کیلومتر") }
+                        label = { Text("$option km") }
                     )
                 }
             }
             if (usingDefaultLocation) {
                 Text(
-                    "موقعیت شما در دسترس نیست؛ نتایج اطراف تهران نمایش داده می‌شود",
+                    "Your location is unavailable; showing results around Tehran",
                     style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp)
@@ -190,7 +190,7 @@ fun MapScreenNeshan(navController: NavController, initialServiceType: String) {
                     },
                     modifier = Modifier.align(Alignment.TopEnd).padding(12.dp)
                 ) {
-                    Icon(Icons.Default.MyLocation, contentDescription = "موقعیت من")
+                    Icon(Icons.Default.MyLocation, contentDescription = "My location")
                 }
                 if (!loading && providers.isEmpty() && center != null && error == null) {
                     Surface(
@@ -199,7 +199,7 @@ fun MapScreenNeshan(navController: NavController, initialServiceType: String) {
                         shape = MaterialTheme.shapes.medium
                     ) {
                         Text(
-                            "در این محدوده ${ServiceType.label(serviceType)} ثبت نشده است. شعاع را افزایش دهید.",
+                            "No ${ServiceType.label(serviceType)} is registered in this area. Increase the radius.",
                             modifier = Modifier.padding(12.dp)
                         )
                     }
@@ -211,7 +211,7 @@ fun MapScreenNeshan(navController: NavController, initialServiceType: String) {
                 Surface(shadowElevation = 8.dp) {
                     Column(Modifier.padding(12.dp)) {
                         Text(
-                            if (selected == null) "${providers.size} مورد پیدا شد — نزدیک‌ترین:" else "انتخاب‌شده:",
+                            if (selected == null) "${providers.size} found — nearest:" else "Selected:",
                             style = MaterialTheme.typography.labelMedium,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )

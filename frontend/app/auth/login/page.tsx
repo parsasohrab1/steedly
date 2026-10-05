@@ -48,7 +48,7 @@ export default function LoginPage() {
         }
       }
     } catch (error: any) {
-      setError(error.response?.data?.message || 'خطا در ورود/ثبت‌نام');
+      setError(error.response?.data?.message || 'Login/registration error');
     } finally {
       setLoading(false);
     }
@@ -59,27 +59,27 @@ export default function LoginPage() {
       <div className="max-w-md w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            {isLogin ? 'ورود به حساب کاربری' : 'ثبت‌نام'}
+            {isLogin ? 'Log in to your account' : 'Sign up'}
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
             {isLogin ? (
               <>
-                حساب کاربری ندارید؟{' '}
+                Need an account?{' '}
                 <button
                   onClick={() => setIsLogin(false)}
                   className="font-medium text-primary-600 hover:text-primary-500"
                 >
-                  ثبت‌نام کنید
+                  Sign up
                 </button>
               </>
             ) : (
               <>
-                قبلاً ثبت‌نام کرده‌اید؟{' '}
+                Already registered?{' '}
                 <button
                   onClick={() => setIsLogin(true)}
                   className="font-medium text-primary-600 hover:text-primary-500"
                 >
-                  وارد شوید
+                  Log in
                 </button>
               </>
             )}
@@ -96,7 +96,7 @@ export default function LoginPage() {
           {!isLogin && (
             <div>
               <label htmlFor="full_name" className="block text-sm font-medium text-gray-700 mb-2">
-                نام کامل
+                Full name
               </label>
               <div className="relative">
                 <FaUserPlus className="absolute right-3 top-3 text-gray-400" />
@@ -108,7 +108,7 @@ export default function LoginPage() {
                   value={formData.full_name}
                   onChange={(e) => setFormData({ ...formData, full_name: e.target.value })}
                   className="appearance-none relative block w-full px-4 py-3 pr-10 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-primary-500 focus:border-primary-500"
-                  placeholder="نام و نام خانوادگی"
+                  placeholder="Full name"
                 />
               </div>
             </div>
@@ -116,7 +116,7 @@ export default function LoginPage() {
 
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-              ایمیل
+              Email
             </label>
             <div className="relative">
               <FaEnvelope className="absolute right-3 top-3 text-gray-400" />
@@ -129,14 +129,14 @@ export default function LoginPage() {
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 className="appearance-none relative block w-full px-4 py-3 pr-10 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-primary-500 focus:border-primary-500"
-                placeholder="ایمیل"
+                placeholder="Email"
               />
             </div>
           </div>
 
           <div>
             <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
-              رمز عبور
+              Password
             </label>
             <div className="relative">
               <FaLock className="absolute right-3 top-3 text-gray-400" />
@@ -149,7 +149,7 @@ export default function LoginPage() {
                 value={formData.password}
                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                 className="appearance-none relative block w-full px-4 py-3 pr-10 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-primary-500 focus:border-primary-500"
-                placeholder="رمز عبور"
+                placeholder="Password"
               />
             </div>
           </div>
@@ -157,7 +157,7 @@ export default function LoginPage() {
           {!isLogin && (
             <div>
               <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
-                شماره تماس (اختیاری)
+                Phone number (optional)
               </label>
               <input
                 id="phone"
@@ -177,7 +177,7 @@ export default function LoginPage() {
               disabled={loading}
               className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:opacity-50"
             >
-              {loading ? 'در حال پردازش...' : isLogin ? 'ورود' : 'ثبت‌نام'}
+              {loading ? 'Processing...' : isLogin ? 'Log in' : 'Sign up'}
             </button>
           </div>
         </form>
@@ -185,11 +185,11 @@ export default function LoginPage() {
         <div className="text-center space-y-2">
           {isLogin && (
             <Link href="/auth/forgot-password" className="block text-sm text-primary-600 hover:text-primary-500">
-              رمز عبور خود را فراموش کرده‌اید؟
+              Forgot your password?
             </Link>
           )}
           <Link href="/" className="text-sm text-primary-600 hover:text-primary-500">
-            بازگشت به صفحه اصلی
+            Back to home page
           </Link>
         </div>
       </div>

@@ -413,7 +413,7 @@ export const createBooking = async (
       `SELECT ${service_type === 'veterinarian' ? 'full_name' : 'contact_name'} as name FROM ${tableName} WHERE id = $1`,
       [service_provider_id]
     );
-    const serviceName = service_type === 'veterinarian' ? 'دامپزشک' : 'اسب‌کش';
+    const serviceName = service_type === 'veterinarian' ? 'veterinarian' : 'horse transporter';
     const providerName = providerResult.rows[0]?.name || serviceName;
 
     // Parse booking date
@@ -426,8 +426,8 @@ export const createBooking = async (
       await createNotification(
         userId,
         'booking',
-        'رزرو جدید',
-        `رزرو شما برای ${serviceName} با موفقیت ثبت شد.`,
+        'New booking',
+        `Your booking for the ${serviceName} was placed successfully.`,
         `/profile/bookings/${result.rows[0].id}`
       );
     } catch (notifError) {

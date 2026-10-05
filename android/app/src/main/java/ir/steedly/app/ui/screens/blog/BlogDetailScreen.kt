@@ -57,16 +57,16 @@ fun BlogDetailScreen(navController: NavController, slug: String) {
 
     Scaffold(
         topBar = {
-            AppTopBar("مقاله", onBack = { navController.popBackStack() }, actions = {
+            AppTopBar("Article", onBack = { navController.popBackStack() }, actions = {
                 post?.let { p ->
                     IconButton(onClick = {
                         val share = Intent(Intent.ACTION_SEND).apply {
                             type = "text/plain"
                             putExtra(Intent.EXTRA_TEXT, "${p.title}\n${RetrofitClient.SERVER_ROOT}/blog/${p.slug}")
                         }
-                        context.startActivity(Intent.createChooser(share, "اشتراک‌گذاری"))
+                        context.startActivity(Intent.createChooser(share, "Share"))
                     }) {
-                        Icon(Icons.Default.Share, contentDescription = "اشتراک‌گذاری")
+                        Icon(Icons.Default.Share, contentDescription = "Share")
                     }
                 }
             })
@@ -93,7 +93,7 @@ fun BlogDetailScreen(navController: NavController, slug: String) {
                         listOfNotNull(
                             current.author_name,
                             formatJalaliLong(current.published_at).ifBlank { null },
-                            current.views_count?.let { "${formatNumber(it)} بازدید" }
+                            current.views_count?.let { "${formatNumber(it)} views" }
                         ).joinToString(" • "),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant

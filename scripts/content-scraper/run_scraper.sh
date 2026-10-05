@@ -1,31 +1,31 @@
 #!/bin/bash
-# اسکریپت اجرای جمع‌آوری محتوا
+# Content collection run script
 
-echo "🚀 شروع جمع‌آوری محتوا..."
+echo "🚀 Starting content collection..."
 echo ""
 
-# بررسی Python
+# Check Python
 if ! command -v python3 &> /dev/null; then
-    echo "❌ Python 3 یافت نشد!"
+    echo "❌ Python 3 not found!"
     exit 1
 fi
 
-# بررسی وابستگی‌ها
-echo "📦 بررسی وابستگی‌ها..."
+# Check dependencies
+echo "📦 Checking dependencies..."
 pip install -r requirements.txt --quiet
 
-# اجرای اسکرپر
+# Run the scraper
 echo ""
-echo "🔍 شروع اسکرپ..."
+echo "🔍 Starting scrape..."
 python3 content_scraper.py
 
-# اعتبارسنجی محتوا
+# Validate the content
 if [ -f "scraped_content/data/scraped_content.json" ]; then
     echo ""
-    echo "✅ اعتبارسنجی محتوا..."
+    echo "✅ Validating content..."
     python3 validate_content.py
 fi
 
 echo ""
-echo "✅ تمام!"
+echo "✅ Done!"
 

@@ -1,29 +1,29 @@
--- محتوای نمونه برای بلاگ اسب
--- این فایل شامل دسته‌بندی‌ها و مقالات نمونه است
+-- Sample content for the horse blog
+-- This file contains sample categories and articles
 
--- دسته‌بندی‌های بلاگ
+-- Blog categories
 INSERT INTO blog_categories (name, slug, description) VALUES
-('نژادهای اسب', 'horse-breeds', 'معرفی و بررسی نژادهای مختلف اسب در ایران و جهان'),
-('بیماری‌ها و سلامت', 'health-diseases', 'بیماری‌های رایج اسب، پیشگیری و درمان'),
-('تجهیزات و لوازم', 'equipment', 'معرفی تجهیزات مورد نیاز برای نگهداری و سوارکاری'),
-('ورزش‌های سوارکاری', 'equestrian-sports', 'مسابقات و ورزش‌های مختلف سوارکاری'),
-('تاریخ و فرهنگ', 'history-culture', 'تاریخ اسب در ایران و جهان، فرهنگ و ادبیات'),
-('تغذیه و مراقبت', 'nutrition-care', 'رژیم غذایی، مکمل‌ها و مراقبت‌های روزانه'),
-('آموزش و تربیت', 'training-education', 'روش‌های آموزش و تربیت اسب'),
-('سوارکاری', 'riding', 'تکنیک‌ها و مهارت‌های سوارکاری')
+('Horse breeds', 'horse-breeds', 'Introduction to and review of different horse breeds in Iran and the world'),
+('Diseases and health', 'health-diseases', 'Common horse diseases, prevention and treatment'),
+('Equipment and supplies', 'equipment', 'Introduction to equipment needed for horse keeping and riding'),
+('Equestrian sports', 'equestrian-sports', 'Various equestrian competitions and sports'),
+('History and culture', 'history-culture', 'The history of the horse in Iran and the world, culture and literature'),
+('Nutrition and care', 'nutrition-care', 'Diet, supplements and daily care'),
+('Training and education', 'training-education', 'Methods of horse training and education'),
+('Riding', 'riding', 'Riding techniques and skills')
 ON CONFLICT (slug) DO NOTHING;
 
--- مقالات نمونه (نیاز به author_id دارد - باید بعد از ایجاد کاربر اضافه شود)
--- این مقالات به عنوان template هستند
+-- Sample articles (require author_id - must be added after creating a user)
+-- These articles are templates
 
--- نمونه مقاله 1: نژاد اسب عربی
+-- Sample article 1: Arabian horse breed
 /*
 INSERT INTO blog_posts (title, slug, excerpt, content, featured_image, category_id, author_id, is_published, published_at)
 VALUES (
-    'اسب عربی: شاهکار طبیعت',
+    'Arabian Horse: A Masterpiece of Nature',
     'arabian-horse',
-    'اسب عربی یکی از قدیمی‌ترین و زیباترین نژادهای اسب در جهان است که تاریخچه‌ای چند هزار ساله دارد.',
-    'محتوا...',
+    'The Arabian horse is one of the oldest and most beautiful horse breeds in the world, with a history spanning several thousand years.',
+    'Content...',
     '/images/arabian-horse.jpg',
     (SELECT id FROM blog_categories WHERE slug = 'horse-breeds'),
     1,
@@ -32,24 +32,24 @@ VALUES (
 );
 */
 
--- دسته‌بندی‌های محصولات
+-- Product categories
 INSERT INTO product_categories (name, slug, description) VALUES
-('تجهیزات سوارکاری', 'riding-equipment', 'زین، یراق، کلاه ایمنی و سایر تجهیزات سوارکاری'),
-('داروهای دامپزشکی', 'veterinary-medicines', 'داروهای مورد نیاز برای درمان و پیشگیری از بیماری‌ها'),
-('مکمل‌های غذایی', 'nutritional-supplements', 'ویتامین‌ها، مواد معدنی و مکمل‌های غذایی'),
-('وسایل مراقبت', 'care-items', 'برس، شامپو، نعل و وسایل نگهداری'),
-('خوراک و علوفه', 'feed-forage', 'خوراک آماده، یونجه، جو و سایر علوفه‌ها'),
-('ابزار و تجهیزات', 'tools-equipment', 'ابزارهای مورد نیاز برای نگهداری و مراقبت')
+('Riding equipment', 'riding-equipment', 'Saddles, tack, helmets and other riding equipment',
+('Veterinary medicines', 'veterinary-medicines', 'Medicines needed for treating and preventing diseases'),
+('Nutritional supplements', 'nutritional-supplements', 'Vitamins, minerals and nutritional supplements'),
+('Care supplies', 'care-items', 'Brushes, shampoo, horseshoes and care supplies'),
+('Feed and forage', 'feed-forage', 'Ready-made feed, alfalfa, barley and other forage'),
+('Tools and equipment', 'tools-equipment', 'Tools needed for keeping and caring for horses')
 ON CONFLICT (slug) DO NOTHING;
 
--- محصولات نمونه
+-- Sample products
 /*
 INSERT INTO products (name, slug, description, short_description, price, stock_quantity, category_id, is_active)
 VALUES (
-    'زین انگلیسی استاندارد',
+    'Standard English Saddle',
     'english-saddle-standard',
-    'زین انگلیسی با کیفیت بالا مناسب برای سوارکاری روزمره...',
-    'زین انگلیسی استاندارد با چرم طبیعی',
+    'High-quality English saddle suitable for everyday riding...',
+    'Standard English saddle with natural leather',
     15000000,
     10,
     (SELECT id FROM product_categories WHERE slug = 'riding-equipment'),

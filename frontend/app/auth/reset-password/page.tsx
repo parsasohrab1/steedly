@@ -18,11 +18,11 @@ function ResetPasswordForm() {
     e.preventDefault();
     setError('');
     if (password.length < 6) {
-      setError('رمز عبور باید حداقل ۶ کاراکتر باشد');
+      setError('Password must be at least 6 characters');
       return;
     }
     if (password !== confirm) {
-      setError('رمز عبور و تکرار آن یکسان نیستند');
+      setError('The password and its confirmation do not match');
       return;
     }
     setLoading(true);
@@ -31,7 +31,7 @@ function ResetPasswordForm() {
       setDone(true);
       setTimeout(() => router.push('/auth/login'), 2500);
     } catch (err: any) {
-      setError(err.response?.data?.message || 'لینک بازیابی نامعتبر یا منقضی شده است');
+      setError(err.response?.data?.message || 'The recovery link is invalid or has expired');
     } finally {
       setLoading(false);
     }
@@ -40,16 +40,16 @@ function ResetPasswordForm() {
   if (!token) {
     return (
       <p className="text-center text-red-600">
-        لینک بازیابی نامعتبر است.{' '}
+        The recovery link is invalid.{' '}
         <Link href="/auth/forgot-password" className="text-primary-600 underline">
-          درخواست لینک جدید
+          Request a new link
         </Link>
       </p>
     );
   }
 
   if (done) {
-    return <p className="text-center text-green-700">رمز عبور با موفقیت تغییر کرد. در حال انتقال به صفحه ورود...</p>;
+    return <p className="text-center text-green-700">Password changed successfully. Redirecting to the login page...</p>;
   }
 
   return (
@@ -61,7 +61,7 @@ function ResetPasswordForm() {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
-        placeholder="رمز عبور جدید"
+        placeholder="New password"
       />
       <input
         type="password"
@@ -69,14 +69,14 @@ function ResetPasswordForm() {
         value={confirm}
         onChange={(e) => setConfirm(e.target.value)}
         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
-        placeholder="تکرار رمز عبور جدید"
+        placeholder="Repeat new password"
       />
       <button
         type="submit"
         disabled={loading}
         className="w-full py-3 rounded-lg text-white bg-primary-600 hover:bg-primary-700 disabled:opacity-50"
       >
-        {loading ? 'در حال ذخیره...' : 'تغییر رمز عبور'}
+        {loading ? 'Saving...' : 'Change password'}
       </button>
     </form>
   );
@@ -86,7 +86,7 @@ export default function ResetPasswordPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4">
       <div className="max-w-md w-full bg-white rounded-lg shadow-md p-8 space-y-6">
-        <h1 className="text-2xl font-bold text-center">تغییر رمز عبور</h1>
+        <h1 className="text-2xl font-bold text-center">Change password</h1>
         <Suspense fallback={null}>
           <ResetPasswordForm />
         </Suspense>

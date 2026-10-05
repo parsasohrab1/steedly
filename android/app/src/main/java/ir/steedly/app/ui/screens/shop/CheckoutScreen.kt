@@ -65,15 +65,15 @@ fun CheckoutScreen(navController: NavController) {
     fun submit() {
         val normalizedPhone = phone.trim().replace(" ", "")
         when {
-            address.trim().length < 10 -> { error = "لطفاً آدرس کامل را وارد کنید"; return }
-            !IRAN_MOBILE.matches(normalizedPhone) -> { error = "شماره موبایل معتبر وارد کنید"; return }
+            address.trim().length < 10 -> { error = "Please enter the full address"; return }
+            !IRAN_MOBILE.matches(normalizedPhone) -> { error = "Enter a valid mobile number"; return }
         }
         scope.launch {
             submitting = true
             error = null
             val request = OrderRequest(
                 items = cartItems.map { OrderItemRequest(it.productId, it.quantity) },
-                shipping_address = "${address.trim()}\nتلفن: $normalizedPhone",
+                shipping_address = "${address.trim()}\nPhone: $normalizedPhone",
                 payment_method = paymentMethod
             )
             apiCall { RetrofitClient.apiService.createOrder(request) }
@@ -95,8 +95,8 @@ fun CheckoutScreen(navController: NavController) {
         }
     }
 
-    Scaffold(topBar = { AppTopBar("تکمیل خرید", onBack = { navController.popBackStack() }) }) { padding ->
-        RequireLogin(navController, Modifier.padding(padding), "برای ثبت سفارش وارد حساب کاربری شوید") {
+    Scaffold(topBar = { AppTopBar("Checkout", onBack = { navController.popBackStack() }) }) { padding ->
+        RequireLogin(navController, Modifier.padding(padding), "Log in to your account to place an order") {
             Column(
                 modifier = Modifier
                     .padding(padding)
@@ -107,12 +107,12 @@ fun CheckoutScreen(navController: NavController) {
             ) {
                 Card(Modifier.fillMaxWidth()) {
                     Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                        Text("اطلاعات ارسال", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+                        Text("Shipping information", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
                         OutlinedTextField(
                             value = address,
                             onValueChange = { address = it },
                             modifier = Modifier.fillMaxWidth(),
-                            label = { Text("آدرس کامل") },
+                            label = { Text("Full address") },
                             minLines = 3,
                             maxLines = 5
                         )
@@ -120,7 +120,7 @@ fun CheckoutScreen(navController: NavController) {
                             value = phone,
                             onValueChange = { phone = it },
                             modifier = Modifier.fillMaxWidth(),
-                            label = { Text("شماره موبایل") },
+                            label = { Text("Mobile number") },
                             placeholder = { Text("09123456789") },
                             singleLine = true,
                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone)
@@ -130,15 +130,15 @@ fun CheckoutScreen(navController: NavController) {
 
                 Card(Modifier.fillMaxWidth()) {
                     Column(Modifier.padding(16.dp)) {
-                        Text("روش پرداخت", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
-                        PaymentOption("پرداخت آنلاین", "درگاه امن زرین‌پال", paymentMethod == "online") { paymentMethod = "online" }
-                        PaymentOption("پرداخت در محل", "پرداخت هنگام تحویل", paymentMethod == "cash") { paymentMethod = "cash" }
+                        Text("Payment method", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+                        PaymentOption("Online payment", "Secure ZarinPal gateway", paymentMethod == "online") { paymentMethod = "online" }
+                        PaymentOption("Cash on delivery", "Pay on delivery", paymentMethod == "cash") { paymentMethod = "cash" }
                     }
                 }
 
                 Card(Modifier.fillMaxWidth()) {
                     Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                        Text("خلاصه سفارش", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+                        Text("Order summary", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
                         cartItems.forEach { item ->
                             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                                 Text("${item.name} × ${formatNumber(item.quantity)}", modifier = Modifier.weight(1f))
@@ -147,7 +147,7 @@ fun CheckoutScreen(navController: NavController) {
                         }
                         Divider()
                         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                            Text("مبلغ قابل پرداخت", fontWeight = FontWeight.Bold)
+                            Text("Amount payable", fontWeight = FontWeight.Bold)
                             Text(formatToman(total), fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary)
                         }
                     }
@@ -165,7 +165,7 @@ fun CheckoutScreen(navController: NavController) {
                     } else {
                         Icon(Icons.Default.Lock, contentDescription = null)
                         Spacer(Modifier.width(8.dp))
-                        Text(if (paymentMethod == "online") "ثبت سفارش و پرداخت" else "ثبت سفارش")
+                        Text(if (paymentMethod == "online") "Place order and pay" else "Place order")
                     }
                 }
             }

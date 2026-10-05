@@ -43,7 +43,7 @@ export default function BlogPostPage() {
         setPost(response.data.data);
       }
     } catch (error: any) {
-      setError('مقاله یافت نشد');
+      setError('Article not found');
     } finally {
       setLoading(false);
     }
@@ -63,9 +63,9 @@ export default function BlogPostPage() {
     return (
       <div className="container mx-auto px-4 py-8">
         <div className="text-center py-16">
-          <h1 className="text-2xl font-bold mb-4">مقاله یافت نشد</h1>
+          <h1 className="text-2xl font-bold mb-4">Article not found</h1>
           <Link href="/blog" className="text-primary-600 hover:text-primary-700">
-            بازگشت به مقالات
+            Back to articles
           </Link>
         </div>
       </div>
@@ -77,9 +77,9 @@ export default function BlogPostPage() {
       {/* Breadcrumb */}
       <nav className="mb-6 text-sm">
         <ol className="flex items-center gap-2 text-gray-600">
-          <li><Link href="/" className="hover:text-primary-600">خانه</Link></li>
+          <li><Link href="/" className="hover:text-primary-600">Home</Link></li>
           <li><FaArrowRight className="text-xs" /></li>
-          <li><Link href="/blog" className="hover:text-primary-600">مقالات</Link></li>
+          <li><Link href="/blog" className="hover:text-primary-600">Articles</Link></li>
           <li><FaArrowRight className="text-xs" /></li>
           <li><Link href={`/blog?category=${post.category_slug}`} className="hover:text-primary-600">{post.category_name}</Link></li>
           <li><FaArrowRight className="text-xs" /></li>
@@ -123,7 +123,7 @@ export default function BlogPostPage() {
           <div className="flex flex-wrap items-center gap-6 mb-8 pb-6 border-b text-gray-600">
             <div className="flex items-center gap-2">
               <FaUser className="text-primary-600" />
-              <span>{post.author_name || 'نویسنده ناشناس'}</span>
+              <span>{post.author_name || 'Unknown author'}</span>
             </div>
             <div className="flex items-center gap-2">
               <FaCalendarAlt className="text-primary-600" />
@@ -131,7 +131,7 @@ export default function BlogPostPage() {
             </div>
             <div className="flex items-center gap-2">
               <FaEye className="text-primary-600" />
-              <span>{post.views_count.toLocaleString('fa-IR')} بازدید</span>
+              <span>{post.views_count.toLocaleString('en-US')} views</span>
             </div>
           </div>
 
@@ -143,16 +143,16 @@ export default function BlogPostPage() {
 
           {/* Share Section */}
           <div className="mt-8 pt-8 border-t">
-            <h3 className="text-lg font-bold mb-4">اشتراک‌گذاری</h3>
+            <h3 className="text-lg font-bold mb-4">Share</h3>
             <div className="flex gap-4">
               <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
-                تلگرام
+                Telegram
               </button>
               <button className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition">
-                واتساپ
+                WhatsApp
               </button>
               <button className="px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-900 transition">
-                کپی لینک
+                Copy link
               </button>
             </div>
           </div>
@@ -161,9 +161,9 @@ export default function BlogPostPage() {
 
       {/* Related Articles */}
       <div className="mt-12">
-        <h2 className="text-2xl font-bold mb-6">مقالات مرتبط</h2>
+        <h2 className="text-2xl font-bold mb-6">Related articles</h2>
         <div className="text-center py-8 text-gray-600">
-          <p>مقالات مرتبط به زودی اضافه خواهد شد</p>
+          <p>Related articles will be added soon</p>
         </div>
       </div>
     </div>

@@ -1,6 +1,6 @@
-# اطلاعات اپلیکیشن برای کافه‌بازار
+# App Information for Cafe Bazaar
 
-## اطلاعات Bundle و Package
+## Bundle and Package information
 
 ### Package Name (Application ID)
 ```
@@ -16,29 +16,29 @@ Steedly
 - **Version Code**: 1
 - **Version Name**: 1.0.0
 
-## اطلاعات Signing Key
+## Signing Key information
 
-### برای ساخت Signing Key
+### Creating a Signing Key
 
-اگر هنوز keystore ندارید، از دستور زیر استفاده کنید:
+If you do not have a keystore yet, use the following command:
 
-> کلید نسخه نهایی ساخته شده است؛ راهنمای کامل و اثرانگشت‌ها: [`RELEASE-SIGNING.md`](RELEASE-SIGNING.md)
+> The release key has been created; full guide and fingerprints: [`RELEASE-SIGNING.md`](RELEASE-SIGNING.md)
 
 ```bash
 keytool -genkey -v -keystore steedly-release.jks -keyalg RSA -keysize 2048 -validity 10000 -alias steedly
 ```
 
-### اطلاعات Key (بعد از ساخت)
+### Key information (after creation)
 
-1. **Keystore File**: `steedly-release.jks` (یا مسیر کامل)
+1. **Keystore File**: `steedly-release.jks` (or the full path)
 2. **Key Alias**: `steedly`
 3. **Key Algorithm**: RSA
 4. **Key Size**: 2048 bit
 5. **Validity**: 10000 days (~27 years)
 
-### فایل keystore.properties
+### The keystore.properties file
 
-فایل `keystore.properties` را در پوشه `android` ایجاد کنید:
+Create the `keystore.properties` file in the `android` folder:
 
 ```properties
 storePassword=YOUR_STORE_PASSWORD
@@ -47,9 +47,9 @@ keyAlias=steedly
 storeFile=steedly-release.jks
 ```
 
-⚠️ **مهم**: این فایل را در `.gitignore` قرار دهید و هرگز commit نکنید!
+⚠️ **Important**: Put this file in `.gitignore` and never commit it!
 
-## ساختار Package
+## Package structure
 
 ```
 Package: ir.steedly.app
@@ -58,50 +58,50 @@ Package: ir.steedly.app
 └── Namespace: ir.steedly.app
 ```
 
-## اطلاعات برای کافه‌بازار
+## Information for Cafe Bazaar
 
-### نام اپلیکیشن
+### App name
 ```
-استیدلی
-```
-
-### دسته‌بندی
-- **دسته اصلی**: سبک زندگی
-- **دسته فرعی**: ورزش
-
-### توضیحات کوتاه
-```
-پلتفرم جامع اطلاعات، خدمات و فروشگاه آنلاین اسب
+Steedly
 ```
 
-### توضیحات کامل
-```
-پلتفرم جامع اطلاعات، خدمات و فروشگاه آنلاین اسب
+### Category
+- **Main category**: Lifestyle
+- **Subcategory**: Sports
 
-ویژگی‌ها:
-✅ مقالات تخصصی درباره نژادها، بیماری‌ها و تجهیزات اسب
-✅ رزرو آنلاین دامپزشک و اسب‌کش با نمایش روی نقشه
-✅ فروشگاه آنلاین تجهیزات، داروها و مکمل‌ها
-✅ اطلاع از مسابقات داخلی و بین‌المللی
-✅ رابط کاربری زیبا و ساده
-✅ پشتیبانی کامل از زبان فارسی
+### Short description
+```
+A comprehensive platform for horse information, services and online shop
 ```
 
-### اطلاعات تماس
-- **ایمیل**: info@steedly.ir
-- **تلفن**: 021-12345678
-- **وب‌سایت**: https://steedly.ir
+### Full description
+```
+A comprehensive platform for horse information, services and online shop
 
-## مراحل ساخت و امضا
+Features:
+✅ Specialized articles on horse breeds, diseases and equipment
+✅ Online booking of veterinarians and horse transporters with map display
+✅ Online shop for equipment, medicines and supplements
+✅ Information on domestic and international competitions
+✅ Beautiful and simple user interface
+✅ Full Persian language support
+```
 
-### 1. ساخت Keystore (اگر ندارید)
+### Contact information
+- **Email**: info@steedly.ir
+- **Phone**: 021-12345678
+- **Website**: https://steedly.ir
+
+## Build and signing steps
+
+### 1. Creating a Keystore (if you do not have one)
 
 ```bash
 cd android
 keytool -genkey -v -keystore steedly-release.jks -keyalg RSA -keysize 2048 -validity 10000 -alias steedly
 ```
 
-سوالات:
+Questions:
 - **First and last name**: Steedly
 - **Organizational unit**: Development
 - **Organization**: Steedly
@@ -109,7 +109,7 @@ keytool -genkey -v -keystore steedly-release.jks -keyalg RSA -keysize 2048 -vali
 - **State**: Tehran
 - **Country code**: IR
 
-### 2. ایجاد فایل keystore.properties
+### 2. Creating the keystore.properties file
 
 ```bash
 cd android
@@ -121,9 +121,9 @@ storeFile=steedly-release.jks
 EOF
 ```
 
-### 3. به‌روزرسانی build.gradle.kts
+### 3. Updating build.gradle.kts
 
-فایل `android/app/build.gradle.kts` را به‌روزرسانی کنید:
+Update the file `android/app/build.gradle.kts`:
 
 ```kotlin
 android {
@@ -155,31 +155,31 @@ android {
 }
 ```
 
-### 4. ساخت Bundle (AAB)
+### 4. Building the Bundle (AAB)
 
 ```bash
 cd android
 ./gradlew bundleRelease
 ```
 
-فایل در مسیر زیر قرار می‌گیرد:
+The file is placed at the following path:
 ```
 android/app/build/outputs/bundle/release/app-release.aab
 ```
 
-### 5. ساخت APK (اختیاری)
+### 5. Building the APK (optional)
 
 ```bash
 cd android
 ./gradlew assembleRelease
 ```
 
-فایل در مسیر زیر قرار می‌گیرد:
+The file is placed at the following path:
 ```
 android/app/build/outputs/apk/release/app-release.apk
 ```
 
-## اطلاعات فنی
+## Technical information
 
 ### Min SDK
 ```
@@ -202,65 +202,65 @@ android/app/build/outputs/apk/release/app-release.apk
 - `android.permission.ACCESS_FINE_LOCATION`
 - `android.permission.ACCESS_COARSE_LOCATION`
 
-## نکات امنیتی
+## Security Notes
 
-1. ✅ **هرگز** فایل `.jks` یا `keystore.properties` را commit نکنید
-2. ✅ فایل keystore را در جای امن نگهداری کنید
-3. ✅ رمزهای عبور را در password manager ذخیره کنید
-4. ✅ از backup منظم استفاده کنید
-5. ✅ بدون keystore نمی‌توانید اپلیکیشن را به‌روزرسانی کنید
+1. ✅ **Never** commit the `.jks` or `keystore.properties` file
+2. ✅ Keep the keystore file in a safe place
+3. ✅ Store passwords in a password manager
+4. ✅ Use regular backups
+5. ✅ Without the keystore you cannot update the application
 
-## چک‌لیست قبل از آپلود
+## Checklist before uploading
 
 - [ ] Package name: `ir.steedly.app`
-- [ ] Version code افزایش یافته
-- [ ] Version name به‌روز شده
-- [ ] Keystore ساخته شده
-- [ ] فایل AAB ساخته شده
-- [ ] اپلیکیشن تست شده
-- [ ] آیکون و اسکرین‌شات‌ها آماده است
-- [ ] توضیحات کامل است
-- [ ] Privacy Policy آماده است (در صورت نیاز)
+- [ ] Version code increased
+- [ ] Version name updated
+- [ ] Keystore created
+- [ ] AAB file built
+- [ ] Application tested
+- [ ] Icon and screenshots are ready
+- [ ] Description is complete
+- [ ] Privacy Policy is ready (if needed)
 
-## اطلاعات Signing Key برای کافه‌بازار
+## Signing Key information for Cafe Bazaar
 
-کافه‌بازار نیاز به اطلاعات زیر دارد:
+Cafe Bazaar needs the following information:
 
 1. **Package Name**: `ir.steedly.app`
-2. **SHA-1 Fingerprint**: (برای دریافت از keystore)
-3. **SHA-256 Fingerprint**: (برای دریافت از keystore)
+2. **SHA-1 Fingerprint**: (to be obtained from the keystore)
+3. **SHA-256 Fingerprint**: (to be obtained from the keystore)
 
-### دریافت Fingerprint
+### Getting the Fingerprint
 
 ```bash
 keytool -list -v -keystore steedly-release.jks -alias steedly
 ```
 
-یا:
+Or:
 
 ```bash
 keytool -list -v -keystore steedly-release.jks -alias steedly | grep -E "(SHA1|SHA256)"
 ```
 
-## به‌روزرسانی نسخه
+## Version update
 
-برای به‌روزرسانی:
+To update:
 
-1. `versionCode` را در `build.gradle.kts` افزایش دهید:
+1. Increase `versionCode` in `build.gradle.kts`:
 ```kotlin
-versionCode = 2  // از 1 به 2
+versionCode = 2  // from 1 to 2
 versionName = "1.0.1"
 ```
 
-2. فایل جدید را بسازید:
+2. Build the new file:
 ```bash
 ./gradlew bundleRelease
 ```
 
-3. در پنل کافه‌بازار، نسخه جدید را آپلود کنید
+3. Upload the new version in the Cafe Bazaar panel
 
 ---
 
-**تاریخ ایجاد**: 1403
-**آخرین به‌روزرسانی**: 1403
+**Created**: 2024
+**Last updated**: 2024
 

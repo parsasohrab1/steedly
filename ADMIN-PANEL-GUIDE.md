@@ -1,96 +1,96 @@
-# راهنمای پنل مدیریت
+# Admin Panel Guide
 
-## دسترسی
+## Access
 
-پنل مدیریت در مسیر `/admin` قرار دارد و فقط برای کاربران با نقش `admin` یا `author` قابل دسترسی است.
+The admin panel is at the path `/admin` and is accessible only to users with the `admin` or `author` role.
 
-### نقش‌های کاربری:
-- **admin**: دسترسی کامل به همه بخش‌ها
-- **author**: دسترسی به مدیریت مقالات
-- **user**: فقط دسترسی به پروفایل
+### User roles:
+- **admin**: Full access to all sections
+- **author**: Access to article management
+- **user**: Profile access only
 
-## صفحات پنل مدیریت
+## Admin panel pages
 
-### 1. داشبورد اصلی (`/admin`)
-- نمایش آمار کلی (مقالات، محصولات، مسابقات، کاربران)
-- دسترسی سریع به عملیات‌های رایج
-- نمایش آخرین مقالات و محصولات
+### 1. Main dashboard (`/admin`)
+- Display of overall statistics (articles, products, competitions, users)
+- Quick access to common operations
+- Display of the latest articles and products
 
-### 2. مدیریت مقالات (`/admin/blog`)
-- لیست تمام مقالات
-- جستجو در مقالات
-- ویرایش و حذف مقالات
-- مشاهده مقاله در سایت
+### 2. Article management (`/admin/blog`)
+- List of all articles
+- Search in articles
+- Edit and delete articles
+- View the article on the site
 
-### 3. ایجاد مقاله جدید (`/admin/blog/new`)
-- فرم ایجاد مقاله جدید
-- انتخاب دسته‌بندی
-- آپلود تصویر شاخص
-- ویرایشگر محتوا (HTML)
+### 3. Create a new article (`/admin/blog/new`)
+- New article creation form
+- Category selection
+- Featured image upload
+- Content editor (HTML)
 
-### 4. مدیریت محصولات (`/admin/products`)
-- لیست تمام محصولات
-- جستجو در محصولات
-- ویرایش و حذف محصولات
-- مشاهده محصول در سایت
+### 4. Product management (`/admin/products`)
+- List of all products
+- Search in products
+- Edit and delete products
+- View the product on the site
 
-### 5. مدیریت مسابقات (`/admin/competitions`)
-- لیست تمام مسابقات
-- جستجو در مسابقات
-- ویرایش و حذف مسابقات
-- مشاهده مسابقه در سایت
+### 5. Competition management (`/admin/competitions`)
+- List of all competitions
+- Search in competitions
+- Edit and delete competitions
+- View the competition on the site
 
-## ویژگی‌ها
+## Features
 
-### امنیت
-- بررسی نقش کاربر قبل از نمایش پنل
-- هدایت خودکار به صفحه ورود در صورت عدم احراز هویت
-- دسترسی محدود بر اساس نقش
+### Security
+- Check the user's role before showing the panel
+- Automatic redirect to the login page if not authenticated
+- Role-based restricted access
 
-### رابط کاربری
-- طراحی ساده و کاربردی
-- جداول با قابلیت جستجو
-- دکمه‌های عملیات سریع
-- نمایش آمار در کارت‌های رنگی
+### User interface
+- Simple and practical design
+- Searchable tables
+- Quick action buttons
+- Statistics shown in colored cards
 
-### عملیات
-- ایجاد محتوای جدید
-- ویرایش محتوای موجود
-- حذف محتوا (با تایید)
-- مشاهده محتوا در سایت (لینک خارجی)
+### Operations
+- Create new content
+- Edit existing content
+- Delete content (with confirmation)
+- View content on the site (external link)
 
-## استفاده
+## Usage
 
-### دسترسی به پنل:
-1. وارد حساب کاربری شوید (با نقش admin یا author)
-2. روی دکمه "پنل مدیریت" در Header کلیک کنید
-3. یا مستقیماً به `/admin` بروید
+### Accessing the panel:
+1. Log in to your account (with the admin or author role)
+2. Click the "Admin panel" button in the Header
+3. Or go directly to `/admin`
 
-### ایجاد مقاله جدید:
-1. به `/admin/blog` بروید
-2. روی "مقاله جدید" کلیک کنید
-3. فرم را پر کنید
-4. روی "ذخیره مقاله" کلیک کنید
+### Creating a new article:
+1. Go to `/admin/blog`
+2. Click "New article"
+3. Fill out the form
+4. Click "Save article"
 
-### ویرایش مقاله:
-1. در لیست مقالات، روی آیکون ویرایش کلیک کنید
-2. فرم ویرایش را پر کنید
-3. تغییرات را ذخیره کنید
+### Editing an article:
+1. In the article list, click the edit icon
+2. Fill out the edit form
+3. Save the changes
 
-## نکات مهم
+## Important Notes
 
-1. **احراز هویت**: همیشه باید وارد حساب کاربری باشید
-2. **نقش کاربری**: فقط admin و author می‌توانند به پنل دسترسی داشته باشند
-3. **API Endpoints**: برخی عملیات (مثل حذف) نیاز به پیاده‌سازی API دارند
-4. **Rich Text Editor**: برای ویرایش محتوا می‌توانید از ویرایشگر HTML استفاده کنید
+1. **Authentication**: You must always be logged in
+2. **User role**: Only admin and author can access the panel
+3. **API Endpoints**: Some operations (such as delete) require API implementation
+4. **Rich Text Editor**: You can use the HTML editor to edit content
 
-## توسعه آینده
+## Future development
 
-- [ ] ویرایشگر Rich Text کامل
-- [ ] آپلود تصویر مستقیم
-- [ ] پیش‌نمایش محتوا
-- [ ] مدیریت کاربران
-- [ ] مدیریت دامپزشکان و اسب‌کش‌ها
-- [ ] آمار و گزارش‌گیری
-- [ ] لاگ فعالیت‌ها
+- [ ] Complete Rich Text editor
+- [ ] Direct image upload
+- [ ] Content preview
+- [ ] User management
+- [ ] Management of veterinarians and horse transporters
+- [ ] Statistics and reporting
+- [ ] Activity log
 

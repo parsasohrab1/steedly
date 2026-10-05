@@ -57,12 +57,12 @@ export default function BookingPage() {
       });
 
       if (response.data.success) {
-        alert('رزرو شما با موفقیت ثبت شد!');
+        alert('Your booking was placed successfully!');
         router.push('/profile/bookings');
       }
     } catch (error: any) {
       alert(
-        error.response?.data?.message || 'خطا در ثبت رزرو. لطفاً دوباره تلاش کنید.'
+        error.response?.data?.message || 'Error placing the booking. Please try again.'
       );
     } finally {
       setSubmitting(false);
@@ -83,12 +83,12 @@ export default function BookingPage() {
     return (
       <div className="container mx-auto px-4 py-8">
         <div className="text-center py-16">
-          <h1 className="text-2xl font-bold mb-4">ارائه‌دهنده خدمات یافت نشد</h1>
+          <h1 className="text-2xl font-bold mb-4">Service provider not found</h1>
           <button
             onClick={() => router.back()}
             className="text-primary-600 hover:text-primary-700"
           >
-            بازگشت
+            Back
           </button>
         </div>
       </div>
@@ -101,20 +101,20 @@ export default function BookingPage() {
     <div className="container mx-auto px-4 py-8">
       <div className="max-w-3xl mx-auto">
         <h1 className="text-3xl font-bold mb-8">
-          رزرو {serviceType === 'veterinarian' ? 'دامپزشک' : 'اسب‌کش'}
+          Book {serviceType === 'veterinarian' ? 'veterinarian' : 'horse transporter'}
         </h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Provider Info */}
           <div className="lg:col-span-1">
             <div className="bg-white rounded-lg shadow-md p-6 sticky top-4">
-              <h2 className="text-xl font-semibold mb-4">اطلاعات ارائه‌دهنده</h2>
+              <h2 className="text-xl font-semibold mb-4">Provider information</h2>
 
               <div className="space-y-4">
                 <div>
                   <div className="flex items-center gap-2 mb-2">
                     <FaUser className="text-primary-600" />
-                    <span className="font-semibold">نام:</span>
+                    <span className="font-semibold">Name:</span>
                   </div>
                   <p>
                     {provider.full_name ||
@@ -127,7 +127,7 @@ export default function BookingPage() {
                   <div>
                     <div className="flex items-center gap-2 mb-2">
                       <FaPhone className="text-primary-600" />
-                      <span className="font-semibold">تلفن:</span>
+                      <span className="font-semibold">Phone:</span>
                     </div>
                     <p>{provider.phone}</p>
                   </div>
@@ -137,7 +137,7 @@ export default function BookingPage() {
                   <div>
                     <div className="flex items-center gap-2 mb-2">
                       <FaMapMarkerAlt className="text-primary-600" />
-                      <span className="font-semibold">آدرس:</span>
+                      <span className="font-semibold">Address:</span>
                     </div>
                     <p className="text-sm">{provider.address}</p>
                   </div>
@@ -145,14 +145,14 @@ export default function BookingPage() {
 
                 {provider.specialization && (
                   <div>
-                    <span className="font-semibold">تخصص:</span>
+                    <span className="font-semibold">Specialization:</span>
                     <p>{provider.specialization}</p>
                   </div>
                 )}
 
                 {provider.rating && (
                   <div>
-                    <span className="font-semibold">امتیاز:</span>
+                    <span className="font-semibold">Rating:</span>
                     <p className="flex items-center gap-1">
                       <span className="text-yellow-500">★</span>
                       {provider.rating.toFixed(1)}
@@ -166,13 +166,13 @@ export default function BookingPage() {
           {/* Booking Form */}
           <div className="lg:col-span-2">
             <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-xl font-semibold mb-6">فرم رزرو</h2>
+              <h2 className="text-xl font-semibold mb-6">Booking form</h2>
 
               <div className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     <FaCalendarAlt className="inline ml-2" />
-                    تاریخ رزرو *
+                    Booking date *
                   </label>
                   <input
                     type="date"
@@ -188,7 +188,7 @@ export default function BookingPage() {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    ساعت رزرو *
+                    Booking time *
                   </label>
                   <input
                     type="time"
@@ -203,7 +203,7 @@ export default function BookingPage() {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    توضیحات (اختیاری)
+                    Notes (optional)
                   </label>
                   <textarea
                     value={formData.description}
@@ -212,7 +212,7 @@ export default function BookingPage() {
                     }
                     rows={4}
                     className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
-                    placeholder="توضیحات اضافی در مورد رزرو خود را وارد کنید..."
+                    placeholder="Enter any additional notes about your booking..."
                   />
                 </div>
 
@@ -221,7 +221,7 @@ export default function BookingPage() {
                   disabled={submitting}
                   className="w-full bg-primary-600 text-white py-3 rounded-lg hover:bg-primary-700 transition font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {submitting ? 'در حال ثبت...' : 'ثبت رزرو'}
+                  {submitting ? 'Submitting...' : 'Place booking'}
                 </button>
               </div>
             </form>

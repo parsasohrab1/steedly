@@ -16,11 +16,11 @@ export default async function ShopPage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold mb-8 text-center">فروشگاه استیدلی</h1>
+      <h1 className="text-4xl font-bold mb-8 text-center">Steedly Shop</h1>
 
       {products.length === 0 ? (
         <div className="text-center py-16">
-          <p className="text-gray-600 text-lg">هنوز محصولی در فروشگاه موجود نیست.</p>
+          <p className="text-gray-600 text-lg">There are no products in the shop yet.</p>
         </div>
       ) : (
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -46,7 +46,7 @@ export default async function ShopPage() {
                 </p>
                 <div className="flex items-center justify-between">
                   <span className="text-xl font-bold text-primary-600">
-                    {Number(product.price).toLocaleString('fa-IR')} تومان
+                    {Number(product.price).toLocaleString('en-US')} Toman
                   </span>
                   {product.compare_at_price && (
                     <span className="text-sm text-gray-400 line-through">
@@ -55,7 +55,7 @@ export default async function ShopPage() {
                   )}
                 </div>
                 {product.stock_quantity === 0 && (
-                  <span className="text-red-600 text-sm mt-2 block">ناموجود</span>
+                  <span className="text-red-600 text-sm mt-2 block">Out of stock</span>
                 )}
               </div>
             </Link>

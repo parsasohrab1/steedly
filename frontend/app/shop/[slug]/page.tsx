@@ -63,7 +63,7 @@ export default function ProductPage() {
         stock_quantity: product.stock_quantity,
       }, quantity);
       
-      alert('محصول به سبد خرید اضافه شد!');
+      alert('Product added to cart!');
     });
   };
 
@@ -81,9 +81,9 @@ export default function ProductPage() {
     return (
       <div className="container mx-auto px-4 py-8">
         <div className="text-center py-16">
-          <h1 className="text-2xl font-bold mb-4">محصول یافت نشد</h1>
+          <h1 className="text-2xl font-bold mb-4">Product not found</h1>
           <Link href="/shop" className="text-primary-600 hover:text-primary-700">
-            بازگشت به فروشگاه
+            Back to shop
           </Link>
         </div>
       </div>
@@ -101,9 +101,9 @@ export default function ProductPage() {
       {/* Breadcrumb */}
       <nav className="mb-6 text-sm">
         <ol className="flex items-center gap-2 text-gray-600">
-          <li><Link href="/" className="hover:text-primary-600">خانه</Link></li>
+          <li><Link href="/" className="hover:text-primary-600">Home</Link></li>
           <li><FaArrowRight className="text-xs" /></li>
-          <li><Link href="/shop" className="hover:text-primary-600">فروشگاه</Link></li>
+          <li><Link href="/shop" className="hover:text-primary-600">Shop</Link></li>
           <li><FaArrowRight className="text-xs" /></li>
           <li><Link href={`/shop?category=${product.category_slug}`} className="hover:text-primary-600">{product.category_name}</Link></li>
           <li><FaArrowRight className="text-xs" /></li>
@@ -137,7 +137,7 @@ export default function ProductPage() {
                     >
                       <Image
                         src={img}
-                        alt={`${product.name} - تصویر ${index + 1}`}
+                        alt={`${product.name} - image ${index + 1}`}
                         fill
                         className="object-cover"
                       />
@@ -177,24 +177,24 @@ export default function ProductPage() {
             <span className="text-4xl font-bold text-primary-600">
               {Number(product.price).toLocaleString('fa-IR')}
             </span>
-            <span className="text-gray-600 mr-2">تومان</span>
+            <span className="text-gray-600 mr-2">Toman</span>
           </div>
 
           {/* Stock Status */}
           <div className="mb-6">
             {product.stock_quantity > 0 ? (
               <span className="text-green-600 font-semibold">
-                ✓ موجود در انبار ({product.stock_quantity} عدد)
+                ✓ In stock ({product.stock_quantity} units)
               </span>
             ) : (
-              <span className="text-red-600 font-semibold">✗ ناموجود</span>
+              <span className="text-red-600 font-semibold">✗ Out of stock</span>
             )}
           </div>
 
           {/* Quantity Selector */}
           {product.stock_quantity > 0 && (
             <div className="mb-6">
-              <label className="block text-sm font-medium text-gray-700 mb-2">تعداد</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Quantity</label>
               <div className="flex items-center gap-4">
                 <button
                   onClick={() => setQuantity(Math.max(1, quantity - 1))}
@@ -227,7 +227,7 @@ export default function ProductPage() {
             className="w-full bg-primary-600 text-white px-6 py-4 rounded-lg hover:bg-primary-700 transition flex items-center justify-center gap-2 font-semibold text-lg disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <FaShoppingCart />
-            {product.stock_quantity > 0 ? 'افزودن به سبد خرید' : 'ناموجود'}
+            {product.stock_quantity > 0 ? 'Add to cart' : 'Out of stock'}
           </button>
         </div>
       </div>
@@ -235,7 +235,7 @@ export default function ProductPage() {
       {/* Description */}
       {product.description && (
         <div className="mt-8 bg-white rounded-lg shadow-md p-6">
-          <h2 className="text-2xl font-bold mb-4">توضیحات محصول</h2>
+          <h2 className="text-2xl font-bold mb-4">Product description</h2>
           <div
             className="prose prose-lg max-w-none"
             dangerouslySetInnerHTML={{ __html: product.description }}

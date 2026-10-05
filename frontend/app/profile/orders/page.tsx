@@ -30,11 +30,11 @@ const statusColors: { [key: string]: string } = {
 };
 
 const statusLabels: { [key: string]: string } = {
-  pending: 'در انتظار',
-  processing: 'در حال پردازش',
-  shipped: 'ارسال شده',
-  delivered: 'تحویل داده شده',
-  cancelled: 'لغو شده'
+  pending: 'Pending',
+  processing: 'Processing',
+  shipped: 'Shipped',
+  delivered: 'Delivered',
+  cancelled: 'Cancelled'
 };
 
 export default function OrdersPage() {
@@ -80,25 +80,25 @@ export default function OrdersPage() {
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-3xl font-bold">سفارشات من</h1>
+        <h1 className="text-3xl font-bold">My orders</h1>
         <Link
           href="/profile"
           className="text-primary-600 hover:text-primary-700 flex items-center gap-2"
         >
-          بازگشت به پروفایل
+          Back to profile
         </Link>
       </div>
 
       {orders.length === 0 ? (
         <div className="bg-white rounded-lg shadow-md p-12 text-center">
           <FaBox className="text-6xl text-gray-300 mx-auto mb-4" />
-          <h2 className="text-xl font-bold mb-2">سفارشی وجود ندارد</h2>
-          <p className="text-gray-600 mb-6">شما هنوز سفارشی ثبت نکرده‌اید</p>
+          <h2 className="text-xl font-bold mb-2">No orders</h2>
+          <p className="text-gray-600 mb-6">You have not placed any orders yet</p>
           <Link
             href="/shop"
             className="inline-block bg-primary-600 text-white px-6 py-3 rounded-lg hover:bg-primary-700 transition"
           >
-            شروع خرید
+            Start shopping
           </Link>
         </div>
       ) : (
@@ -107,7 +107,7 @@ export default function OrdersPage() {
             <div key={order.id} className="bg-white rounded-lg shadow-md p-6">
               <div className="flex items-start justify-between mb-4">
                 <div>
-                  <h3 className="text-lg font-bold">سفارش #{order.order_number}</h3>
+                  <h3 className="text-lg font-bold">Order #{order.order_number}</h3>
                   <p className="text-sm text-gray-500 mt-1">
                     {new Date(order.created_at).toLocaleDateString('fa-IR')}
                   </p>
@@ -121,15 +121,15 @@ export default function OrdersPage() {
 
               <div className="border-t pt-4 mt-4">
                 <div className="flex justify-between items-center mb-2">
-                  <span className="text-gray-600">مبلغ کل:</span>
+                  <span className="text-gray-600">Total amount:</span>
                   <span className="text-xl font-bold text-primary-600">
-                    {Number(order.total_amount).toLocaleString('fa-IR')} تومان
+                    {Number(order.total_amount).toLocaleString('en-US')} Toman
                   </span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-gray-600">وضعیت پرداخت:</span>
+                  <span className="text-gray-600">Payment status:</span>
                   <span className={order.payment_status === 'paid' ? 'text-green-600' : 'text-yellow-600'}>
-                    {order.payment_status === 'paid' ? 'پرداخت شده' : 'در انتظار پرداخت'}
+                    {order.payment_status === 'paid' ? 'Paid' : 'Awaiting payment'}
                   </span>
                 </div>
               </div>
@@ -138,7 +138,7 @@ export default function OrdersPage() {
                 href={`/profile/orders/${order.id}`}
                 className="mt-4 inline-flex items-center gap-2 text-primary-600 hover:text-primary-700 font-semibold"
               >
-                مشاهده جزئیات
+                View details
                 <FaArrowRight />
               </Link>
             </div>

@@ -1,50 +1,50 @@
-# راهنمای اپلیکیشن اندروید استیدلی
+# Steedly Android Application Guide
 
-## پیش‌نیازها
+## Prerequisites
 
-- Android Studio Hedgehog (2023.1.1) یا بالاتر
-- JDK 17 یا بالاتر
-- Android SDK (API Level 24 به بالا)
+- Android Studio Hedgehog (2023.1.1) or higher
+- JDK 17 or higher
+- Android SDK (API Level 24 and above)
 - Kotlin 1.9.20
 
-## نصب و راه‌اندازی
+## Installation and Setup
 
-### 1. باز کردن پروژه
+### 1. Opening the project
 
-1. Android Studio را باز کنید
-2. گزینه "Open" را انتخاب کنید
-3. پوشه `android` را انتخاب کنید
+1. Open Android Studio
+2. Select the "Open" option
+3. Select the `android` folder
 
-### 2. پیکربندی API
+### 2. API configuration
 
-آدرس بک‌اند در `android/gradle.properties` تعریف می‌شود (باید با `/api/` تمام شود):
+The backend address is defined in `android/gradle.properties` (it must end with `/api/`):
 
 ```properties
-STEEDLY_API_URL_DEBUG=http://10.0.2.2:3000/api/     # شبیه‌ساز → کامپیوتر خودتان
+STEEDLY_API_URL_DEBUG=http://10.0.2.2:3000/api/     # emulator → your own computer
 STEEDLY_API_URL_RELEASE=https://api.steedly.ir/api/
 ```
 
-**نسخه آزمایشی (debug) روی گوشی واقعی:** نیازی به بیلد دوباره نیست. در اپ به **تنظیمات ← آدرس سرور** بروید
-(از صفحه ورود هم با آیکون چرخ‌دنده در دسترس است)، IP کامپیوتری که بک‌اند روی آن اجرا می‌شود را وارد کنید
-(مثلاً `192.168.1.10:3000`)، «تست اتصال» و سپس «ذخیره» را بزنید. گوشی و کامپیوتر باید در یک شبکه Wi-Fi باشند.
+**Debug build on a real phone:** no rebuild is needed. In the app go to **Settings ← Server address**
+(also reachable from the login screen with the gear icon), enter the IP of the computer running the backend
+(e.g. `192.168.1.10:3000`), press "Test connection" and then "Save". The phone and computer must be on the same Wi-Fi network.
 
-- IP کامپیوتر: در ویندوز `ipconfig` (مقدار IPv4 Address)، در مک/لینوکس `ipconfig getifaddr en0` یا `hostname -I`.
-- فایروال کامپیوتر باید اتصال ورودی به پورت 3000 را اجازه دهد.
-- برای پرداخت آزمایشی، `API_URL` در `backend/.env` را هم روی همین IP بگذارید (مثلاً `http://192.168.1.10:3000/api`).
+- Computer IP: on Windows `ipconfig` (IPv4 Address value), on Mac/Linux `ipconfig getifaddr en0` or `hostname -I`.
+- The computer firewall must allow incoming connections to port 3000.
+- For test payments, also set `API_URL` in `backend/.env` to the same IP (e.g. `http://192.168.1.10:3000/api`).
 
-نسخه release فقط HTTPS و آدرس `STEEDLY_API_URL_RELEASE` را می‌پذیرد.
+The release build accepts only HTTPS and the `STEEDLY_API_URL_RELEASE` address.
 
-### پرداخت آنلاین (زرین‌پال)
+### Online payment (ZarinPal)
 
-پس از پرداخت، بک‌اند کاربر را به `steedly://payment/result?...` برمی‌گرداند و اپ صفحه نتیجه پرداخت را باز می‌کند.
-در بک‌اند مقدار `API_URL` باید آدرسی باشد که مرورگر گوشی به آن دسترسی دارد.
+After payment, the backend returns the user to `steedly://payment/result?...` and the app opens the payment result screen.
+In the backend, `API_URL` must be an address reachable by the phone's browser.
 
-### 3. اجرای اپلیکیشن
+### 3. Running the application
 
-1. یک دستگاه Android یا Emulator را راه‌اندازی کنید
-2. دکمه "Run" را بزنید یا `Shift + F10` را فشار دهید
+1. Start an Android device or Emulator
+2. Press the "Run" button or press `Shift + F10`
 
-## ساختار پروژه
+## Project Structure
 
 ```
 android/
@@ -53,96 +53,96 @@ android/
 │   │   ├── main/
 │   │   │   ├── java/ir/steedly/app/
 │   │   │   │   ├── data/
-│   │   │   │   │   ├── model/          # مدل‌های داده
-│   │   │   │   │   ├── remote/          # API Service و Retrofit
-│   │   │   │   │   └── local/           # TokenManager و DataStore
+│   │   │   │   │   ├── model/          # Data models
+│   │   │   │   │   ├── remote/          # API Service and Retrofit
+│   │   │   │   │   └── local/           # TokenManager and DataStore
 │   │   │   │   ├── ui/
-│   │   │   │   │   ├── screens/         # صفحات اپلیکیشن
+│   │   │   │   │   ├── screens/         # Application screens
 │   │   │   │   │   ├── navigation/      # Navigation
-│   │   │   │   │   └── theme/           # تم و استایل
+│   │   │   │   │   └── theme/           # Theme and style
 │   │   │   │   ├── MainActivity.kt
 │   │   │   │   └── SteedlyApplication.kt
-│   │   │   └── res/                     # منابع (رنگ، استایل، ...)
-│   │   └── test/                        # تست‌ها
+│   │   │   └── res/                     # Resources (color, style, ...)
+│   │   └── test/                        # Tests
 │   └── build.gradle.kts
 ├── build.gradle.kts
 ├── settings.gradle.kts
 └── gradle.properties
 ```
 
-## ویژگی‌های پیاده‌سازی شده
+## Implemented features
 
-### ✅ معماری MVVM
-- ViewModel برای مدیریت state
-- Repository pattern برای دسترسی به داده
-- استفاده از Kotlin Coroutines و Flow
+### ✅ MVVM architecture
+- ViewModel for state management
+- Repository pattern for data access
+- Use of Kotlin Coroutines and Flow
 
-### ✅ UI با Jetpack Compose
+### ✅ UI with Jetpack Compose
 - Material Design 3
-- Navigation با Navigation Compose
-- Responsive و RTL Support
+- Navigation with Navigation Compose
+- Responsive and RTL Support
 
-### ✅ شبکه‌ای
-- Retrofit برای API calls
-- OkHttp با Logging Interceptor
-- Gson برای JSON parsing
+### ✅ Networking
+- Retrofit for API calls
+- OkHttp with Logging Interceptor
+- Gson for JSON parsing
 
-### ✅ ذخیره‌سازی محلی
-- DataStore برای ذخیره token و تنظیمات
-- SharedPreferences برای داده‌های ساده
+### ✅ Local storage
+- DataStore for storing the token and settings
+- SharedPreferences for simple data
 
-### ✅ صفحات اصلی
-- صفحه اصلی (Home)
-- مقالات (Blog)
-- فروشگاه (Shop)
-- خدمات (Services)
-- مسابقات (Competitions)
-- ورود/ثبت‌نام (Auth)
+### ✅ Main screens
+- Home
+- Articles (Blog)
+- Shop
+- Services
+- Competitions
+- Login/registration (Auth)
 
-## آماده‌سازی برای کافه‌بازار
+## Preparing for Cafe Bazaar
 
-### 1. تغییر Package Name
+### 1. Changing the Package Name
 
-اگر می‌خواهید package name را تغییر دهید:
+If you want to change the package name:
 
-1. در `build.gradle.kts`:
+1. In `build.gradle.kts`:
 ```kotlin
-namespace = "ir.steedly.app"  // تغییر دهید
-applicationId = "ir.steedly.app"  // تغییر دهید
+namespace = "ir.steedly.app"  // change this
+applicationId = "ir.steedly.app"  // change this
 ```
 
-2. پوشه‌های Java را به package name جدید تغییر نام دهید
+2. Rename the Java folders to the new package name
 
-### 2. آیکون اپلیکیشن
+### 2. App icon
 
-آیکون‌های اپلیکیشن را در پوشه‌های زیر قرار دهید:
+Put the app icons in the following folders:
 - `app/src/main/res/mipmap-hdpi/`
 - `app/src/main/res/mipmap-mdpi/`
 - `app/src/main/res/mipmap-xhdpi/`
 - `app/src/main/res/mipmap-xxhdpi/`
 - `app/src/main/res/mipmap-xxxhdpi/`
 
-### 3. اطلاعات اپلیکیشن
+### 3. App information
 
-در `app/src/main/res/values/strings.xml`:
+In `app/src/main/res/values/strings.xml`:
 ```xml
 <resources>
-    <string name="app_name">استیدلی</string>
+    <string name="app_name">Steedly</string>
 </resources>
 ```
 
-### 4. امضای اپلیکیشن (Signing)
+### 4. App signing
 
-برای انتشار در کافه‌بازار، باید اپلیکیشن را امضا کنید:
+To publish on Cafe Bazaar, you must sign the application:
 
-1. یک Keystore ایجاد کنید:
-> کلید نسخه نهایی ساخته شده است؛ راهنمای کامل و اثرانگشت‌ها: [`RELEASE-SIGNING.md`](RELEASE-SIGNING.md)
+1. Create a Keystore:
+> The release key has been created; full guide and fingerprints: [`RELEASE-SIGNING.md`](RELEASE-SIGNING.md)
 
 ```bash
 keytool -genkey -v -keystore steedly-release.jks -keyalg RSA -keysize 2048 -validity 10000 -alias steedly
 ```
 
-2. فایل `keystore.properties` را در پوشه `android` ایجاد کنید:
+2. Create the `keystore.properties` file in the `android` folder:
 ```properties
 storePassword=your_store_password
 keyPassword=your_key_password
@@ -150,7 +150,7 @@ keyAlias=steedly
 storeFile=steedly-release.jks
 ```
 
-3. در `app/build.gradle.kts` اضافه کنید:
+3. Add to `app/build.gradle.kts`:
 ```kotlin
 android {
     signingConfigs {
@@ -176,16 +176,16 @@ android {
 
 ### 5. Build APK/AAB
 
-برای ساخت فایل نهایی:
+To build the final file:
 
 ```bash
-./gradlew assembleRelease  # برای APK
-./gradlew bundleRelease     # برای AAB (توصیه می‌شود)
+./gradlew assembleRelease  # for APK
+./gradlew bundleRelease     # for AAB (recommended)
 ```
 
-فایل نهایی در `app/build/outputs/` قرار می‌گیرد.
+The final file is placed in `app/build/outputs/`.
 
-### 6. الزامات کافه‌بازار
+### 6. Cafe Bazaar requirements
 
 - ✅ Min SDK: 24 (Android 7.0)
 - ✅ Target SDK: 34 (Android 14)
@@ -193,22 +193,22 @@ android {
 - ✅ Persian Language Support
 - ✅ Material Design
 
-### 7. اطلاعات مورد نیاز برای کافه‌بازار
+### 7. Information needed for Cafe Bazaar
 
-- نام اپلیکیشن: استیدلی
-- دسته‌بندی: سبک زندگی / ورزش
-- توضیحات: پلتفرم جامع اطلاعات، خدمات و فروشگاه آنلاین اسب
-- آیکون: 512x512 PNG
-- اسکرین‌شات‌ها: حداقل 3 تصویر
-- نسخه: 1.0.0
-- حجم: کمتر از 100 مگابایت
+- App name: Steedly
+- Category: Lifestyle / Sports
+- Description: A comprehensive platform for horse information, services and online shop
+- Icon: 512x512 PNG
+- Screenshots: at least 3 images
+- Version: 1.0.0
+- Size: under 100 MB
 
-## توسعه بیشتر
+## Further development
 
-### افزودن ViewModel
+### Adding a ViewModel
 
 ```kotlin
-@HiltViewModel  // اگر از Hilt استفاده می‌کنید
+@HiltViewModel  // if you use Hilt
 class BlogViewModel @Inject constructor(
     private val repository: BlogRepository
 ) : ViewModel() {
@@ -220,7 +220,7 @@ class BlogViewModel @Inject constructor(
 }
 ```
 
-### افزودن Repository
+### Adding a Repository
 
 ```kotlin
 class BlogRepository(
@@ -235,25 +235,25 @@ class BlogRepository(
 }
 ```
 
-## تست
+## Testing
 
 ```bash
-./gradlew test          # تست‌های واحد
-./gradlew connectedAndroidTest  # تست‌های UI
+./gradlew test          # Unit tests
+./gradlew connectedAndroidTest  # UI tests
 ```
 
-## مشکلات رایج
+## Common Problems
 
-### مشکل: Cannot resolve symbol 'R'
+### Problem: Cannot resolve symbol 'R'
 - Build -> Clean Project
 - Build -> Rebuild Project
 
-### مشکل: API connection failed
-- بررسی کنید که آدرس API درست باشد
-- بررسی کنید که INTERNET permission در Manifest باشد
-- برای Android 9+، ممکن است نیاز به network security config باشد
+### Problem: API connection failed
+- Check that the API address is correct
+- Check that the INTERNET permission is in the Manifest
+- For Android 9+, a network security config may be needed
 
-## پشتیبانی
+## Support
 
-برای سوالات و مشکلات، issue در repository ایجاد کنید.
+For questions and problems, create an issue in the repository.
 

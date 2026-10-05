@@ -1,86 +1,86 @@
-# اسکریپت جمع‌آوری محتوای مرتبط با اسب
+# Horse-related Content Collection Script
 
-این اسکریپت محتوا، تصاویر و متن‌های SEO شده را از سایت‌های فارسی مرتبط با اسب جمع‌آوری می‌کند.
+This script collects SEO-optimized content, images and text from Persian horse-related websites.
 
-## 📋 ویژگی‌ها
+## 📋 Features
 
-- ✅ جمع‌آوری محتوا از سایت‌های فارسی
-- ✅ دانلود و بهینه‌سازی تصاویر
-- ✅ استخراج Meta Tags برای SEO
-- ✅ ایجاد Slug از عنوان
-- ✅ ذخیره در فرمت JSON و SQL
-- ✅ رعایت robots.txt
-- ✅ تاخیر بین درخواست‌ها برای رعایت اخلاقی
-- ✅ پشتیبانی از Selenium برای سایت‌های JavaScript-heavy
+- ✅ Collecting content from Persian websites
+- ✅ Downloading and optimizing images
+- ✅ Extracting Meta Tags for SEO
+- ✅ Creating a Slug from the title
+- ✅ Saving in JSON and SQL format
+- ✅ Respecting robots.txt
+- ✅ Delay between requests for ethical compliance
+- ✅ Selenium support for JavaScript-heavy sites
 
-## 🚀 نصب
+## 🚀 Installation
 
-### پیش‌نیازها
+### Prerequisites
 
 ```bash
-# Python 3.8 یا بالاتر
+# Python 3.8 or higher
 python --version
 
-# نصب وابستگی‌ها
+# Install dependencies
 pip install -r requirements.txt
 ```
 
-### برای استفاده از Selenium (اختیاری)
+### Using Selenium (optional)
 
 ```bash
-# نصب ChromeDriver
-# Windows: دانلود از https://chromedriver.chromium.org/
+# Install ChromeDriver
+# Windows: download from https://chromedriver.chromium.org/
 # Linux: sudo apt-get install chromium-chromedriver
 # Mac: brew install chromedriver
 ```
 
-## 📖 استفاده
+## 📖 Usage
 
-### استفاده پایه
+### Basic usage
 
 ```bash
 cd scripts/content-scraper
 python content_scraper.py
 ```
 
-### استفاده پیشرفته با Selenium
+### Advanced usage with Selenium
 
 ```bash
 python advanced_scraper.py
 ```
 
-### تنظیمات
+### Settings
 
-فایل `sites_config.json` را ویرایش کنید تا سایت‌های مورد نظر را اضافه کنید:
+Edit the `sites_config.json` file to add the desired sites:
 
 ```json
 {
   "sites": [
     {
-      "name": "نام سایت",
+      "name": "Site name",
       "base_url": "https://example.com",
       "search_paths": ["/articles", "/blog"],
-      "keywords": ["اسب", "سوارکاری"],
+      "keywords": ["horse", "riding"],
       "use_selenium": false
     }
   ]
 }
 ```
 
-## 📁 ساختار خروجی
+## 📁 Output structure
 
 ```
 scraped_content/
 ├── data/
-│   ├── scraped_content.json    # داده‌ها در فرمت JSON
-│   └── scraped_content.sql      # داده‌ها برای import به دیتابیس
+│   ├── scraped_content.json    # data in JSON format
+│   └── scraped_content.sql      # data for import into the database
 └── images/
     ├── image1.jpg
     ├── image2.png
     └── ...
 ```
 
-## 📊 فرمت داده خروجی
+## 📊 Output data format
 
 ### JSON Format
 
@@ -89,20 +89,20 @@ scraped_content/
   "id": "abc123",
   "url": "https://example.com/article",
   "slug": "article-title",
-  "title": "عنوان مقاله",
-  "meta_description": "توضیحات SEO",
-  "meta_keywords": "اسب, سوارکاری",
-  "content": "متن کامل مقاله...",
-  "excerpt": "خلاصه مقاله...",
+  "title": "Article title",
+  "meta_description": "SEO description",
+  "meta_keywords": "horse, riding",
+  "content": "Full article text...",
+  "excerpt": "Article summary...",
   "headings": [
-    {"level": 1, "text": "عنوان اصلی"},
-    {"level": 2, "text": "زیرعنوان"}
+    {"level": 1, "text": "Main heading"},
+    {"level": 2, "text": "Subheading"}
   ],
   "images": [
     {
       "path": "images/image1.jpg",
-      "alt": "توضیحات تصویر",
-      "title": "عنوان تصویر"
+      "alt": "Image description",
+      "title": "Image title"
     }
   ],
   "scraped_at": "2024-01-15T10:30:00",
@@ -118,13 +118,13 @@ INSERT INTO blog_posts (
     meta_description, meta_keywords, author_id, category_id,
     is_published, published_at, created_at
 ) VALUES (
-    'عنوان مقاله',
+    'Article title',
     'article-slug',
-    'خلاصه...',
-    'متن کامل...',
+    'Summary...',
+    'Full text...',
     'images/image1.jpg',
-    'توضیحات SEO',
-    'کلمات کلیدی',
+    'SEO description',
+    'Keywords',
     1,
     1,
     true,
@@ -133,103 +133,103 @@ INSERT INTO blog_posts (
 );
 ```
 
-## ⚙️ تنظیمات پیشرفته
+## ⚙️ Advanced settings
 
-### تغییر تاخیر بین درخواست‌ها
+### Changing the delay between requests
 
-در `content_scraper.py`:
-
-```python
-time.sleep(3)  # تغییر به مقدار دلخواه (ثانیه)
-```
-
-### تغییر کیفیت تصاویر
-
-در `content_scraper.py`:
+In `content_scraper.py`:
 
 ```python
-img.save(image_path, optimize=True, quality=85)  # تغییر quality
+time.sleep(3)  # change to the desired value (seconds)
 ```
 
-### محدود کردن تعداد مقالات
+### Changing image quality
 
-در `sites_config.json`:
+In `content_scraper.py`:
+
+```python
+img.save(image_path, optimize=True, quality=85)  # change quality
+```
+
+### Limiting the number of articles
+
+In `sites_config.json`:
 
 ```json
 {
   "settings": {
-    "max_articles_per_site": 50  # تغییر به تعداد دلخواه
+    "max_articles_per_site": 50  # change to the desired number
   }
 }
 ```
 
-## ⚠️ نکات مهم
+## ⚠️ Important Notes
 
-1. **رعایت قوانین**: همیشه robots.txt را بررسی کنید
-2. **تاخیر**: بین درخواست‌ها تاخیر بگذارید تا سرور overload نشود
-3. **محدودیت**: تعداد درخواست‌ها را محدود کنید
-4. **قانونی**: فقط از سایت‌هایی که اجازه می‌دهند محتوا جمع‌آوری کنید
-5. **حقوق نشر**: محتواهای جمع‌آوری شده را با رعایت حقوق نشر استفاده کنید
+1. **Follow the rules**: Always check robots.txt
+2. **Delay**: Put a delay between requests so the server is not overloaded
+3. **Limits**: Limit the number of requests
+4. **Legal**: Only collect content from sites that allow it
+5. **Copyright**: Use the collected content in compliance with copyright
 
-## 🔧 عیب‌یابی
+## 🔧 Troubleshooting
 
-### خطای Connection
+### Connection error
 
 ```bash
-# بررسی اتصال اینترنت
+# Check the internet connection
 ping google.com
 
-# بررسی فایروال
+# Check the firewall
 ```
 
-### خطای ChromeDriver
+### ChromeDriver error
 
 ```bash
-# نصب ChromeDriver
-# یا استفاده از content_scraper.py بدون Selenium
+# Install ChromeDriver
+# Or use content_scraper.py without Selenium
 ```
 
-### خطای Encoding
+### Encoding error
 
 ```python
-# در content_scraper.py
-response.encoding = 'utf-8'  # یا 'windows-1256' برای برخی سایت‌ها
+# In content_scraper.py
+response.encoding = 'utf-8'  # or 'windows-1256' for some sites
 ```
 
-## 📝 مثال استفاده در کد
+## 📝 Usage example in code
 
 ```python
 from content_scraper import ContentScraper
 
-# ایجاد اسکرپر
+# Create the scraper
 scraper = ContentScraper(output_dir="my_content")
 
-# اسکرپ یک صفحه خاص
+# Scrape a specific page
 data = scraper.scrape_page("https://example.com/article")
 
-# ذخیره نتایج
+# Save the results
 scraper.save_to_json("my_data.json")
 scraper.save_to_sql("my_data.sql")
 ```
 
-## 🎯 استفاده در پروژه
+## 🎯 Usage in the project
 
-پس از جمع‌آوری محتوا، می‌توانید آن‌ها را به دیتابیس import کنید:
+After collecting content, you can import it into the database:
 
 ```bash
-# Import به PostgreSQL
+# Import into PostgreSQL
 psql -U postgres -d steedly -f scraped_content/data/scraped_content.sql
 ```
 
-یا از API استفاده کنید:
+Or use the API:
 
 ```python
-# در backend/src/database/seed.ts
-# می‌توانید فایل JSON را بخوانید و به دیتابیس اضافه کنید
+# In backend/src/database/seed.ts
+# You can read the JSON file and add it to the database
 ```
 
 ---
 
-**تاریخ ایجاد**: ۱۴۰۳/۱۲/۱۵  
-**نسخه**: 1.0
+**Created**: 2025/03/06
+**Version**: 1.0
 

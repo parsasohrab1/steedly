@@ -179,18 +179,18 @@ export default function PushNotificationManager() {
           onClick={unsubscribeFromPush}
           disabled={loading}
           className="text-sm text-gray-600 hover:text-gray-800"
-          title="غیرفعال کردن اعلان‌های Push"
+          title="Disable Push notifications"
         >
-          🔔 اعلان‌ها فعال است
+          🔔 Notifications enabled
         </button>
       ) : (
         <button
           onClick={subscribeToPush}
           disabled={loading || !vapidPublicKey}
           className="text-sm text-primary-600 hover:text-primary-700"
-          title="فعال کردن اعلان‌های Push"
+          title="Enable Push notifications"
         >
-          {loading ? 'در حال فعال‌سازی...' : '🔕 فعال‌سازی اعلان‌ها'}
+          {loading ? 'Enabling...' : '🔕 Enable notifications'}
         </button>
       )}
     </div>

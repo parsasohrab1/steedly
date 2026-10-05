@@ -15,7 +15,7 @@ import ir.steedly.app.ui.navigation.Routes
 fun RequireLogin(
     navController: NavController,
     modifier: Modifier = Modifier,
-    message: String = "برای مشاهده این بخش وارد حساب کاربری شوید",
+    message: String = "Log in to your account to view this section",
     content: @Composable () -> Unit
 ) {
     val token by TokenManager.token.collectAsState()
@@ -24,7 +24,7 @@ fun RequireLogin(
             title = message,
             icon = Icons.Default.Lock,
             modifier = modifier,
-            actionLabel = "ورود / ثبت‌نام",
+            actionLabel = "Log in / Sign up",
             onAction = { navController.navigate(Routes.LOGIN) }
         )
     } else {

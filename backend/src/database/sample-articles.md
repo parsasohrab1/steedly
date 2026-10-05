@@ -1,157 +1,157 @@
-# مقالات نمونه برای بلاگ استیدلی
+# Sample Articles for the Steedly Blog
 
-## مقاله 1: اسب عربی - شاهکار طبیعت
+## Article 1: Arabian Horse - A Masterpiece of Nature
 
-**دسته**: نژادهای اسب
+**Category**: Horse breeds
 **Slug**: `arabian-horse`
 
-### خلاصه
-اسب عربی یکی از قدیمی‌ترین و زیباترین نژادهای اسب در جهان است که تاریخچه‌ای چند هزار ساله دارد. این نژاد به دلیل زیبایی، هوش و استقامت بالا شهرت جهانی دارد.
+### Summary
+The Arabian horse is one of the oldest and most beautiful horse breeds in the world, with a history spanning several thousand years. This breed is world-famous for its beauty, intelligence and high endurance.
 
-### محتوا
-اسب عربی (Arabian Horse) یکی از قدیمی‌ترین و معروف‌ترین نژادهای اسب در جهان است که ریشه در شبه جزیره عربستان دارد. این نژاد بیش از 4500 سال پیش توسط اعراب بادیه‌نشین پرورش داده شد و امروزه در سراسر جهان یافت می‌شود.
+### Content
+The Arabian horse is one of the oldest and best-known horse breeds in the world, with its roots in the Arabian Peninsula. This breed was bred by the Bedouin Arabs more than 4500 years ago and is found all over the world today.
 
-**ویژگی‌های فیزیکی**:
-- قد: 145 تا 155 سانتی‌متر
-- وزن: 400 تا 500 کیلوگرم
-- سر کوچک و زیبا با پیشانی برجسته
-- چشم‌های بزرگ و براق
-- گردن قوسی شکل
-- دم بالا و زیبا
+**Physical characteristics**:
+- Height: 145 to 155 centimeters
+- Weight: 400 to 500 kilograms
+- Small and elegant head with a prominent forehead
+- Large and shiny eyes
+- Arched neck
+- Tail carried high and elegant
 
-**خلق و خو**:
-اسب عربی به هوش بالا، حساسیت و وفاداری معروف است. این اسب‌ها بسیار باهوش و یادگیرنده هستند و با انسان ارتباط عمیقی برقرار می‌کنند.
+**Temperament**:
+The Arabian horse is known for its high intelligence, sensitivity and loyalty. These horses are very intelligent and quick learners and form a deep bond with humans.
 
 ---
 
-## مقاله 2: کولیک در اسب - علائم و درمان
+## Article 2: Colic in Horses - Symptoms and Treatment
 
-**دسته**: بیماری‌ها و سلامت
+**Category**: Diseases and health
 **Slug**: `colic-in-horses`
 
-### خلاصه
-کولیک یکی از شایع‌ترین و خطرناک‌ترین بیماری‌های اسب است که می‌تواند در صورت عدم درمان به موقع، منجر به مرگ شود. آشنایی با علائم و روش‌های پیشگیری ضروری است.
+### Summary
+Colic is one of the most common and dangerous horse diseases and, if not treated in time, can lead to death. Knowing the symptoms and prevention methods is essential.
 
-### محتوا
-کولیک (Colic) به درد شکم در اسب گفته می‌شود که می‌تواند دلایل مختلفی داشته باشد. این بیماری یکی از مهم‌ترین دلایل مرگ اسب‌ها در جهان است.
+### Content
+Colic refers to abdominal pain in a horse, which can have various causes. This disease is one of the most important causes of death in horses worldwide.
 
-**علائم کولیک**:
-- بی‌قراری و ناآرامی
-- نگاه کردن به شکم
-- لگد زدن به شکم
-- غلت زدن
-- تعریق
-- کاهش یا توقف خوردن
+**Symptoms of colic**:
+- Restlessness and agitation
+- Looking at the abdomen
+- Kicking at the abdomen
+- Rolling
+- Sweating
+- Reduced or stopped eating
 
-**علل شایع**:
-- تغذیه نامناسب
-- تغییر ناگهانی رژیم غذایی
-- کمبود آب
-- انگل‌های روده
-- استرس
+**Common causes**:
+- Improper nutrition
+- Sudden change in diet
+- Lack of water
+- Intestinal parasites
+- Stress
 
-**درمان**:
-در صورت مشاهده علائم، باید فوراً با دامپزشک تماس گرفت. درمان شامل مسکن، مایعات وریدی و در موارد شدید جراحی است.
+**Treatment**:
+In case symptoms are observed, a veterinarian must be contacted immediately. Treatment includes painkillers, intravenous fluids and, in severe cases, surgery.
 
 ---
 
-## مقاله 3: راهنمای خرید زین مناسب
+## Article 3: Guide to Buying a Suitable Saddle
 
-**دسته**: تجهیزات و لوازم
+**Category**: Equipment and supplies
 **Slug**: `saddle-buying-guide`
 
-### خلاصه
-انتخاب زین مناسب یکی از مهم‌ترین تصمیمات برای سوارکار است. زین مناسب نه تنها راحتی را فراهم می‌کند بلکه سلامت اسب را نیز تضمین می‌کند.
+### Summary
+Choosing the right saddle is one of the most important decisions for a rider. A suitable saddle not only provides comfort but also ensures the horse's health.
 
-### محتوا
-زین (Saddle) یکی از مهم‌ترین تجهیزات سوارکاری است که باید با دقت انتخاب شود. زین مناسب باید هم برای سوارکار و هم برای اسب راحت باشد.
+### Content
+The saddle is one of the most important pieces of riding equipment and must be chosen carefully. A suitable saddle must be comfortable for both the rider and the horse.
 
-**انواع زین**:
-1. **زین انگلیسی**: برای سوارکاری کلاسیک و مسابقات
-2. **زین غربی**: برای سوارکاری وسترن
-3. **زین درساژ**: مخصوص مسابقات درساژ
-4. **زین پرش**: مخصوص پرش با اسب
+**Types of saddles**:
+1. **English saddle**: For classical riding and competitions
+2. **Western saddle**: For Western riding
+3. **Dressage saddle**: Designed for dressage competitions
+4. **Jumping saddle**: Designed for show jumping
 
-**نکات خرید**:
-- اندازه مناسب برای اسب
-- اندازه مناسب برای سوارکار
-- کیفیت چرم
-- قیمت و بودجه
-- برند معتبر
+**Buying tips**:
+- Suitable size for the horse
+- Suitable size for the rider
+- Leather quality
+- Price and budget
+- Reputable brand
 
 ---
 
-## مقاله 4: درساژ - هنر سوارکاری
+## Article 4: Dressage - The Art of Riding
 
-**دسته**: ورزش‌های سوارکاری
+**Category**: Equestrian sports
 **Slug**: `dressage-equestrian-sport`
 
-### خلاصه
-درساژ یکی از زیباترین و تکنیکی‌ترین ورزش‌های سوارکاری است که به "باله اسب" معروف است. این ورزش نیاز به هماهنگی کامل بین سوارکار و اسب دارد.
+### Summary
+Dressage is one of the most beautiful and technical equestrian sports and is known as "horse ballet". This sport requires complete coordination between rider and horse.
 
-### محتوا
-درساژ (Dressage) یک رشته سوارکاری است که در آن سوارکار و اسب باید حرکات و الگوهای از پیش تعریف شده را با دقت و ظرافت اجرا کنند.
+### Content
+Dressage is an equestrian discipline in which the rider and horse must perform predefined movements and patterns with precision and finesse.
 
-**سطح‌های مسابقه**:
-- مبتدی (Beginner)
-- متوسط (Intermediate)
-- پیشرفته (Advanced)
-- المپیک (Olympic)
+**Competition levels**:
+- Beginner
+- Intermediate
+- Advanced
+- Olympic
 
-**حرکات اصلی**:
-- پیاده‌روی (Walk)
-- یورتمه (Trot)
-- چهارنعل (Canter)
-- حرکات پیشرفته (Piaffe, Passage)
+**Main movements**:
+- Walk
+- Trot
+- Canter
+- Advanced movements (Piaffe, Passage)
 
 ---
 
-## مقاله 5: تغذیه صحیح اسب
+## Article 5: Proper Horse Nutrition
 
-**دسته**: تغذیه و مراقبت
+**Category**: Nutrition and care
 **Slug**: `proper-horse-nutrition`
 
-### خلاصه
-تغذیه صحیح پایه سلامت اسب است. یک رژیم غذایی متعادل شامل علوفه، غلات و مکمل‌ها می‌تواند سلامت و عملکرد اسب را تضمین کند.
+### Summary
+Proper nutrition is the foundation of a horse's health. A balanced diet of forage, grains and supplements can ensure the horse's health and performance.
 
-### محتوا
-تغذیه اسب باید بر اساس سن، وزن، سطح فعالیت و شرایط سلامت تنظیم شود. یک اسب بالغ به طور متوسط روزانه به 1.5 تا 2.5 درصد وزن بدن خود علوفه نیاز دارد.
+### Content
+A horse's diet must be adjusted based on age, weight, activity level and health condition. An adult horse needs on average 1.5 to 2.5 percent of its body weight in forage per day.
 
-**اجزای رژیم غذایی**:
-- **علوفه**: یونجه، کاه (60-80% رژیم)
-- **غلات**: جو، ذرت (20-30% رژیم)
-- **مکمل‌ها**: ویتامین‌ها، مواد معدنی
-- **آب**: دسترسی دائمی به آب تمیز
+**Components of the diet**:
+- **Forage**: Alfalfa, straw (60-80% of the diet)
+- **Grains**: Barley, corn (20-30% of the diet)
+- **Supplements**: Vitamins, minerals
+- **Water**: Constant access to clean water
 
-**نکات مهم**:
-- تغذیه در وعده‌های کوچک و مکرر
-- اجتناب از تغییر ناگهانی رژیم
-- توجه به کیفیت علوفه
-- مشورت با دامپزشک
+**Important tips**:
+- Feed in small, frequent meals
+- Avoid sudden diet changes
+- Pay attention to forage quality
+- Consult a veterinarian
 
 ---
 
-## مقاله 6: تاریخ اسب در ایران
+## Article 6: The History of the Horse in Iran
 
-**دسته**: تاریخ و فرهنگ
+**Category**: History and culture
 **Slug**: `horse-history-iran`
 
-### خلاصه
-ایران یکی از قدیمی‌ترین مراکز پرورش اسب در جهان است. اسب در تاریخ و فرهنگ ایران جایگاه ویژه‌ای دارد.
+### Summary
+Iran is one of the oldest horse-breeding centers in the world. The horse has a special place in Iranian history and culture.
 
-### محتوا
-ایران از دیرباز به عنوان یکی از مهم‌ترین مراکز پرورش اسب در جهان شناخته شده است. اسب در فرهنگ و تاریخ ایران نقش مهمی ایفا کرده است.
+### Content
+Iran has long been known as one of the most important horse-breeding centers in the world. The horse has played an important role in Iranian culture and history.
 
-**نژادهای ایرانی**:
-- اسب ترکمن
-- اسب کردی
-- اسب قره‌باغ
-- اسب دره‌شوری
+**Iranian breeds**:
+- Turkmen horse
+- Kurdish horse
+- Karabakh horse
+- Darehshuri horse
 
-**جایگاه در فرهنگ**:
-اسب در ادبیات فارسی، هنر و فرهنگ ایرانی جایگاه ویژه‌ای دارد. از شاهنامه فردوسی تا نقاشی‌های مینیاتوری، اسب همواره حضور داشته است.
+**Place in culture**:
+The horse has a special place in Persian literature, art and Iranian culture. From Ferdowsi's Shahnameh to miniature paintings, the horse has always been present.
 
 ---
 
-این مقالات نمونه می‌توانند به عنوان الگو برای تولید محتوای بیشتر استفاده شوند.
+These sample articles can be used as a template for producing more content.
 

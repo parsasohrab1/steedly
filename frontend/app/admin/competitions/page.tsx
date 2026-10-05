@@ -37,29 +37,29 @@ export default function AdminCompetitionsPage() {
   };
 
   const handleDelete = async (id: number) => {
-    if (!confirm('آیا مطمئن هستید که می‌خواهید این مسابقه را حذف کنید؟')) {
+    if (!confirm('Are you sure you want to delete this competition?')) {
       return;
     }
     try {
       // TODO: Implement delete competition API when available
-      alert('حذف مسابقه به زودی فعال می‌شود');
+      alert('Deleting competitions will be enabled soon');
       // await competitionsAPI.deleteCompetition(id);
       // loadCompetitions();
     } catch (error) {
-      alert('خطا در حذف مسابقه');
+      alert('Error deleting the competition');
     }
   };
 
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-3xl font-bold">مدیریت مسابقات</h1>
+        <h1 className="text-3xl font-bold">Competition management</h1>
         <Link
           href="/admin/competitions/new"
           className="bg-primary-600 text-white px-6 py-3 rounded-lg hover:bg-primary-700 transition flex items-center gap-2"
         >
           <FaPlus />
-          مسابقه جدید
+          New competition
         </Link>
       </div>
 
@@ -69,7 +69,7 @@ export default function AdminCompetitionsPage() {
           <FaSearch className="absolute right-3 top-3 text-gray-400" />
           <input
             type="text"
-            placeholder="جستجوی مسابقات..."
+            placeholder="Search competitions..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="w-full px-4 py-3 pr-10 border rounded-lg focus:ring-2 focus:ring-primary-500"
@@ -87,18 +87,18 @@ export default function AdminCompetitionsPage() {
           <table className="w-full">
             <thead className="bg-gray-50">
               <tr>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">عنوان</th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">نوع</th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">مکان</th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">تاریخ</th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">عملیات</th>
+                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Title</th>
+                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Type</th>
+                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Location</th>
+                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Date</th>
+                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
               {competitions.length === 0 ? (
                 <tr>
                   <td colSpan={5} className="px-6 py-12 text-center text-gray-500">
-                    مسابقه‌ای یافت نشد
+                    No competitions found
                   </td>
                 </tr>
               ) : (
@@ -108,7 +108,7 @@ export default function AdminCompetitionsPage() {
                       <div className="font-semibold">{competition.title}</div>
                       {competition.is_international && (
                         <span className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded mt-1 inline-block">
-                          بین‌المللی
+                          International
                         </span>
                       )}
                     </td>
@@ -123,21 +123,21 @@ export default function AdminCompetitionsPage() {
                           href={`/competitions/${competition.slug}`}
                           target="_blank"
                           className="p-2 text-green-600 hover:bg-green-50 rounded"
-                          title="مشاهده"
+                          title="View"
                         >
                           <FaEye />
                         </Link>
                         <Link
                           href={`/admin/competitions/${competition.id}/edit`}
                           className="p-2 text-blue-600 hover:bg-blue-50 rounded"
-                          title="ویرایش"
+                          title="Edit"
                         >
                           <FaEdit />
                         </Link>
                         <button
                           onClick={() => handleDelete(competition.id)}
                           className="p-2 text-red-600 hover:bg-red-50 rounded"
-                          title="حذف"
+                          title="Delete"
                         >
                           <FaTrash />
                         </button>

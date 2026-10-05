@@ -73,17 +73,17 @@ fun BookingScreen(navController: NavController, serviceType: String, providerId:
         }.time
     }
 
-    Scaffold(topBar = { AppTopBar("رزرو خدمات", onBack = { navController.popBackStack() }) }) { padding ->
+    Scaffold(topBar = { AppTopBar("Book a service", onBack = { navController.popBackStack() }) }) { padding ->
         val current = provider
         when {
             loading -> LoadingView(Modifier.padding(padding))
             loadError != null -> ErrorView(loadError!!, Modifier.padding(padding))
             success -> EmptyView(
-                title = "رزرو شما با موفقیت ثبت شد",
-                subtitle = "پس از تأیید ${ServiceType.label(serviceType)} به شما اطلاع داده می‌شود",
+                title = "Your booking was successfully placed",
+                subtitle = "You will be notified after the ${ServiceType.label(serviceType)} confirms",
                 icon = Icons.Default.CheckCircle,
                 modifier = Modifier.padding(padding),
-                actionLabel = "مشاهده رزروهای من",
+                actionLabel = "View my bookings",
                 onAction = {
                     navController.navigate(Routes.BOOKINGS) { popUpTo(Routes.SERVICES) }
                 }
@@ -105,16 +105,16 @@ fun BookingScreen(navController: NavController, serviceType: String, providerId:
                         }
                     }
 
-                    Text("تاریخ", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+                    Text("Date", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
                     OutlinedButton(onClick = { showDatePicker = true }, modifier = Modifier.fillMaxWidth()) {
                         Icon(Icons.Default.CalendarToday, contentDescription = null)
                         Spacer(Modifier.width(8.dp))
                         Text(bookingDate()?.let { formatJalaliDate(it) }
-                            ?: selectedDateUtc?.let { "روز انتخاب شد — ساعت را انتخاب کنید" }
-                            ?: "انتخاب تاریخ")
+                            ?: selectedDateUtc?.let { "Day selected — choose the time" }
+                            ?: "Choose date")
                     }
 
-                    Text("ساعت", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+                    Text("Time", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
                     LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         items(TIME_SLOTS) { slot ->
                             FilterChip(
@@ -129,11 +129,11 @@ fun BookingScreen(navController: NavController, serviceType: String, providerId:
                         value = description,
                         onValueChange = { description = it },
                         modifier = Modifier.fillMaxWidth(),
-                        label = { Text("توضیحات (اختیاری)") },
+                        label = { Text("Notes (optional)") },
                         placeholder = {
                             Text(
-                                if (serviceType == ServiceType.VETERINARIAN) "علائم، سن و نژاد اسب..."
-                                else "مبدأ، مقصد و تعداد اسب..."
+                                if (serviceType == ServiceType.VETERINARIAN) "Symptoms, age and breed of the horse..."
+                                else "Origin, destination and number of horses..."
                             )
                         },
                         minLines = 3,
@@ -146,11 +146,11 @@ fun BookingScreen(navController: NavController, serviceType: String, providerId:
                         onClick = {
                             val date = bookingDate()
                             if (date == null) {
-                                error = "لطفاً تاریخ و ساعت را انتخاب کنید"
+                                error = "Please choose a date and time"
                                 return@Button
                             }
                             if (date.before(Date())) {
-                                error = "زمان انتخاب‌شده گذشته است"
+                                error = "The selected time is in the past"
                                 return@Button
                             }
                             scope.launch {
@@ -175,7 +175,7 @@ fun BookingScreen(navController: NavController, serviceType: String, providerId:
                         if (submitting) {
                             CircularProgressIndicator(Modifier.size(20.dp), color = MaterialTheme.colorScheme.onPrimary)
                         } else {
-                            Text("ثبت رزرو")
+                            Text("Place booking")
                         }
                     }
                 }
@@ -190,9 +190,9 @@ fun BookingScreen(navController: NavController, serviceType: String, providerId:
                 TextButton(onClick = {
                     selectedDateUtc = datePickerState.selectedDateMillis
                     showDatePicker = false
-                }) { Text("تأیید") }
+                }) { Text("Confirm") }
             },
-            dismissButton = { TextButton(onClick = { showDatePicker = false }) { Text("انصراف") } }
+            dismissButton = { TextButton(onClick = { showDatePicker = false }) { Text("Cancel") } }
         ) {
             // Material3 1.1 API: past days are disabled through dateValidator
             DatePicker(state = datePickerState, dateValidator = { it >= todayUtc })

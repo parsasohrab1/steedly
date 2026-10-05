@@ -1,30 +1,30 @@
-# راهنمای راه‌اندازی اپلیکیشن
+# Application Startup Guide
 
-## پیش‌نیازها
+## Prerequisites
 
-1. **Node.js** (v18 یا بالاتر)
-2. **PostgreSQL** (در حال اجرا)
-3. **Redis** (در حال اجرا)
+1. **Node.js** (v18 or higher)
+2. **PostgreSQL** (running)
+3. **Redis** (running)
 
-## نصب Dependencies
+## Installing Dependencies
 
 ```bash
 npm run install:all
 ```
 
-## راه‌اندازی
+## Startup
 
-### روش 1: راه‌اندازی همزمان (توصیه می‌شود)
+### Method 1: Simultaneous startup (recommended)
 
 ```bash
 npm run dev
 ```
 
-این دستور هم Backend و هم Frontend را همزمان راه‌اندازی می‌کند:
+This command starts both the Backend and Frontend simultaneously:
 - **Backend**: http://localhost:3000
 - **Frontend**: http://localhost:3001
 
-### روش 2: راه‌اندازی جداگانه
+### Method 2: Separate startup
 
 #### Backend
 ```bash
@@ -38,64 +38,64 @@ cd frontend
 npm run dev
 ```
 
-## بررسی وضعیت
+## Checking status
 
 ### Backend Health Check
 ```bash
 curl http://localhost:3000/health
 ```
 
-یا در مرورگر:
+Or in the browser:
 http://localhost:3000/health
 
 ### Frontend
-در مرورگر:
+In the browser:
 http://localhost:3001
 
-## مشکلات رایج
+## Common Problems
 
 ### ERR_CONNECTION_REFUSED
 
-**علت**: اپلیکیشن متوقف شده است
+**Cause**: The application has stopped
 
-**راه حل**:
-1. مطمئن شوید که `npm run dev` در حال اجرا است
-2. بررسی کنید که PostgreSQL و Redis در حال اجرا هستند
-3. پورت‌ها را بررسی کنید:
+**Solution**:
+1. Make sure `npm run dev` is running
+2. Check that PostgreSQL and Redis are running
+3. Check the ports:
    ```bash
    netstat -ano | findstr ":3000 :3001"
    ```
 
-### پورت در حال استفاده است
+### Port is in use
 
-**راه حل**:
-1. Process را متوقف کنید:
+**Solution**:
+1. Stop the process:
    ```bash
    # Windows PowerShell
    Get-Process -Name node | Stop-Process -Force
    ```
-2. یا پورت را تغییر دهید (در `.env` یا `package.json`)
+2. Or change the port (in `.env` or `package.json`)
 
 ### Database Connection Error
 
-**راه حل**:
-1. مطمئن شوید PostgreSQL در حال اجرا است
-2. تنظیمات `.env` را بررسی کنید
-3. Database را ایجاد کنید
+**Solution**:
+1. Make sure PostgreSQL is running
+2. Check the `.env` settings
+3. Create the Database
 
-## توقف اپلیکیشن
+## Stopping the application
 
-در ترمینال که `npm run dev` در حال اجرا است:
+In the terminal where `npm run dev` is running:
 - `Ctrl + C` (Windows/Linux)
 - `Cmd + C` (Mac)
 
-## ساخت برای Production
+## Building for Production
 
 ```bash
 npm run build
 ```
 
-سپس:
+Then:
 ```bash
 # Backend
 cd backend

@@ -62,7 +62,7 @@ fun SearchScreen(navController: NavController) {
             TopAppBar(
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(Icons.Default.ArrowForward, contentDescription = "بازگشت")
+                        Icon(Icons.Default.ArrowForward, contentDescription = "Back")
                     }
                 },
                 title = {
@@ -70,7 +70,7 @@ fun SearchScreen(navController: NavController) {
                         value = query,
                         onValueChange = { query = it },
                         modifier = Modifier.fillMaxWidth().focusRequester(focusRequester),
-                        placeholder = { Text("جستجو در مقالات، محصولات و مسابقات") },
+                        placeholder = { Text("Search articles, products and competitions") },
                         singleLine = true,
                         colors = TextFieldDefaults.colors(
                             focusedContainerColor = MaterialTheme.colorScheme.surface,
@@ -78,7 +78,7 @@ fun SearchScreen(navController: NavController) {
                         ),
                         trailingIcon = {
                             if (query.isNotEmpty()) {
-                                IconButton(onClick = { query = "" }) { Icon(Icons.Default.Close, contentDescription = "پاک کردن") }
+                                IconButton(onClick = { query = "" }) { Icon(Icons.Default.Close, contentDescription = "Clear") }
                             }
                         },
                         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
@@ -93,14 +93,14 @@ fun SearchScreen(navController: NavController) {
         val products = current?.products.orEmpty()
         val competitions = current?.competitions.orEmpty()
         when {
-            query.trim().length < 2 -> EmptyView("حداقل دو حرف وارد کنید", icon = Icons.Default.Search, modifier = Modifier.padding(padding))
+            query.trim().length < 2 -> EmptyView("Enter at least two characters", icon = Icons.Default.Search, modifier = Modifier.padding(padding))
             loading && current == null -> LoadingView(Modifier.padding(padding))
             error != null -> ErrorView(error!!, Modifier.padding(padding))
             current != null && blog.isEmpty() && products.isEmpty() && competitions.isEmpty() ->
-                EmptyView("نتیجه‌ای برای «${query.trim()}» یافت نشد", icon = Icons.Default.SearchOff, modifier = Modifier.padding(padding))
+                EmptyView("No results found for \"${query.trim()}\"", icon = Icons.Default.SearchOff, modifier = Modifier.padding(padding))
             else -> LazyColumn(Modifier.padding(padding), contentPadding = PaddingValues(vertical = 8.dp)) {
                 if (products.isNotEmpty()) {
-                    item { SectionTitle("محصولات", Modifier.padding(horizontal = 16.dp, vertical = 8.dp)) }
+                    item { SectionTitle("Products", Modifier.padding(horizontal = 16.dp, vertical = 8.dp)) }
                     items(products, key = { "p${it.id}" }) { product ->
                         ListItem(
                             modifier = Modifier.clickable { navController.navigate(Routes.product(product.slug)) },
@@ -111,7 +111,7 @@ fun SearchScreen(navController: NavController) {
                     }
                 }
                 if (blog.isNotEmpty()) {
-                    item { SectionTitle("مقالات", Modifier.padding(horizontal = 16.dp, vertical = 8.dp)) }
+                    item { SectionTitle("Articles", Modifier.padding(horizontal = 16.dp, vertical = 8.dp)) }
                     items(blog, key = { "b${it.id}" }) { post ->
                         ListItem(
                             modifier = Modifier.clickable { navController.navigate(Routes.blog(post.slug)) },
@@ -122,7 +122,7 @@ fun SearchScreen(navController: NavController) {
                     }
                 }
                 if (competitions.isNotEmpty()) {
-                    item { SectionTitle("مسابقات", Modifier.padding(horizontal = 16.dp, vertical = 8.dp)) }
+                    item { SectionTitle("Competitions", Modifier.padding(horizontal = 16.dp, vertical = 8.dp)) }
                     items(competitions, key = { "c${it.id}" }) { comp ->
                         ListItem(
                             modifier = Modifier.clickable { navController.navigate(Routes.competition(comp.slug)) },

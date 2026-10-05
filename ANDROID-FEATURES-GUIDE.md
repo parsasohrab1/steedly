@@ -1,129 +1,129 @@
-# راهنمای قابلیت‌های اضافی Android App
+# Guide to Additional Android App Features
 
-## ✅ قابلیت‌های پیاده‌سازی شده
+## ✅ Implemented features
 
-### 1. کش تصاویر (Image Caching)
+### 1. Image caching (Image Caching)
 
-سیستم کش تصاویر با استفاده از **Coil** پیاده‌سازی شده است:
+The image caching system is implemented using **Coil**:
 
-#### ویژگی‌ها:
-- ✅ **Memory Cache**: 25% از حافظه در دسترس
-- ✅ **Disk Cache**: 50 MB برای تصاویر
-- ✅ **HTTP Cache**: 10 MB برای درخواست‌های شبکه
-- ✅ **Auto Cache**: تصاویر به صورت خودکار کش می‌شوند
+#### Features:
+- ✅ **Memory Cache**: 25% of available memory
+- ✅ **Disk Cache**: 50 MB for images
+- ✅ **HTTP Cache**: 10 MB for network requests
+- ✅ **Auto Cache**: Images are cached automatically
 
-#### استفاده:
+#### Usage:
 ```kotlin
-// در MainActivity، ImageLoader به صورت global تنظیم شده است
+// In MainActivity, ImageLoader is configured globally
 val application = application as SteedlyApplication
 val imageLoader = application.imageLoader
 
-// در Composable
+// In a Composable
 AsyncImage(
     model = imageUrl,
     contentDescription = "Product",
-    imageLoader = imageLoader // استفاده از ImageLoader بهینه شده
+    imageLoader = imageLoader // use the optimized ImageLoader
 )
 ```
 
-#### تنظیمات:
-فایل `ImageCacheConfig.kt` برای تنظیمات کش استفاده می‌شود:
-- Memory Cache: 25% از RAM
+#### Settings:
+The `ImageCacheConfig.kt` file is used for cache settings:
+- Memory Cache: 25% of RAM
 - Disk Cache: 50 MB
-- Cache Policy: همیشه فعال
+- Cache Policy: Always enabled
 
 ---
 
-### 2. آفلاین مود (Offline Mode)
+### 2. Offline mode (Offline Mode)
 
-سیستم آفلاین با استفاده از **Room Database** پیاده‌سازی شده است:
+The offline system is implemented using **Room Database**:
 
-#### ویژگی‌ها:
-- ✅ **Local Database**: Room برای ذخیره داده‌های محلی
-- ✅ **Auto Sync**: همگام‌سازی خودکار هنگام اتصال به اینترنت
-- ✅ **Cache Management**: پاک‌سازی خودکار داده‌های قدیمی (بیش از 7 روز)
-- ✅ **Offline Repository**: Repository pattern برای مدیریت داده‌های آفلاین
+#### Features:
+- ✅ **Local Database**: Room for storing local data
+- ✅ **Auto Sync**: Automatic synchronization when connected to the internet
+- ✅ **Cache Management**: Automatic cleanup of old data (more than 7 days)
+- ✅ **Offline Repository**: Repository pattern for managing offline data
 
 #### Entities:
-- `CachedProduct` - محصولات
-- `CachedBlogPost` - مقالات
-- `CachedCompetition` - مسابقات
-- `CachedOrder` - سفارشات
-- `CachedBooking` - رزروها
+- `CachedProduct` - products
+- `CachedBlogPost` - articles
+- `CachedCompetition` - competitions
+- `CachedOrder` - orders
+- `CachedBooking` - bookings
 
-#### استفاده:
+#### Usage:
 ```kotlin
-// دریافت داده‌های کش شده
+// Retrieve cached data
 val offlineRepository = OfflineRepository(database, { NetworkMonitor.isOnline(context) })
 val cachedProducts = offlineRepository.getCachedProducts().collectAsState()
 
-// کش کردن داده‌ها
+// Cache data
 offlineRepository.cacheProducts(products)
 ```
 
-#### تنظیمات:
-- در صفحه **تنظیمات** می‌توانید حالت آفلاین را فعال/غیرفعال کنید
-- داده‌های قدیمی‌تر از 7 روز به صورت خودکار پاک می‌شوند
+#### Settings:
+- On the **Settings** page you can enable/disable offline mode
+- Data older than 7 days is cleaned up automatically
 
 ---
 
-### 3. بهینه‌سازی مصرف باتری
+### 3. Battery consumption optimization
 
-با استفاده از **WorkManager** برای مدیریت Background Tasks:
+Using **WorkManager** for managing Background Tasks:
 
-#### ویژگی‌ها:
-- ✅ **Periodic Cleanup**: پاک‌سازی دوره‌ای کش (هر 24 ساعت)
-- ✅ **Smart Scheduling**: فقط در WiFi و هنگام شارژ
-- ✅ **Battery Optimization**: بهینه‌سازی برای مصرف کمتر باتری
+#### Features:
+- ✅ **Periodic Cleanup**: Periodic cache cleanup (every 24 hours)
+- ✅ **Smart Scheduling**: Only on WiFi and while charging
+- ✅ **Battery Optimization**: Optimization for lower battery consumption
 
 #### Worker:
-- `CacheCleanupWorker`: پاک‌سازی خودکار داده‌های قدیمی
+- `CacheCleanupWorker`: Automatic cleanup of old data
 
 #### Constraints:
-- **Network**: فقط WiFi (UNMETERED)
-- **Charging**: فقط هنگام شارژ
-- **Period**: هر 24 ساعت
+- **Network**: WiFi only (UNMETERED)
+- **Charging**: Only while charging
+- **Period**: Every 24 hours
 
-#### استفاده:
+#### Usage:
 ```kotlin
-// در SteedlyApplication
+// In SteedlyApplication
 WorkManagerInitializer.initialize(this)
 ```
 
 ---
 
-### 4. Dark Mode (حالت تاریک)
+### 4. Dark Mode
 
-سیستم Dark Mode با تنظیمات کاربر پیاده‌سازی شده است:
+The Dark Mode system is implemented with user settings:
 
-#### ویژگی‌ها:
-- ✅ **Auto Mode**: پیروی از تنظیمات سیستم
-- ✅ **Manual Mode**: فعال/غیرفعال دستی
-- ✅ **Dynamic Colors**: پشتیبانی از Dynamic Colors در Android 12+
-- ✅ **Settings Screen**: صفحه تنظیمات برای تغییر حالت
+#### Features:
+- ✅ **Auto Mode**: Follows system settings
+- ✅ **Manual Mode**: Manual enable/disable
+- ✅ **Dynamic Colors**: Support for Dynamic Colors on Android 12+
+- ✅ **Settings Screen**: Settings page to change the mode
 
-#### تنظیمات:
-در صفحه **تنظیمات**:
-- **حالت تاریک خودکار**: پیروی از تنظیمات سیستم
-- **حالت تاریک**: فعال/غیرفعال دستی (فقط وقتی Auto خاموش است)
+#### Settings:
+On the **Settings** page:
+- **Automatic dark mode**: Follows system settings
+- **Dark mode**: Manual enable/disable (only when Auto is off)
 
-#### استفاده:
+#### Usage:
 ```kotlin
-// در Theme.kt
+// In Theme.kt
 SteedlyTheme(
-    darkTheme = null, // null = استفاده از تنظیمات
+    darkTheme = null, // null = use settings
     content = { ... }
 )
 ```
 
 #### Color Schemes:
-- **Light**: `LightColorScheme` با رنگ‌های آبی
-- **Dark**: `DarkColorScheme` با رنگ‌های آبی
-- **Dynamic**: Dynamic Colors در Android 12+
+- **Light**: `LightColorScheme` with blue colors
+- **Dark**: `DarkColorScheme` with blue colors
+- **Dynamic**: Dynamic Colors on Android 12+
 
 ---
 
-## 📦 Dependencies اضافه شده
+## 📦 Added dependencies
 
 ```kotlin
 // Room Database
@@ -134,17 +134,17 @@ kapt("androidx.room:room-compiler:2.6.1")
 // WorkManager
 implementation("androidx.work:work-runtime-ktx:2.9.0")
 
-// Gson (برای Type Converters)
+// Gson (for Type Converters)
 implementation("com.google.code.gson:gson:2.10.1")
 ```
 
 ---
 
-## 🔧 تنظیمات
+## 🔧 Settings
 
 ### 1. Application Class
 
-`SteedlyApplication` باید در `AndroidManifest.xml` ثبت شود:
+`SteedlyApplication` must be registered in `AndroidManifest.xml`:
 
 ```xml
 <application
@@ -154,7 +154,7 @@ implementation("com.google.code.gson:gson:2.10.1")
 
 ### 2. Database Migration
 
-اگر schema تغییر کند، باید Migration اضافه کنید:
+If the schema changes, you must add a Migration:
 
 ```kotlin
 val MIGRATION_1_2 = object : Migration(1, 2) {
@@ -166,7 +166,7 @@ val MIGRATION_1_2 = object : Migration(1, 2) {
 
 ### 3. WorkManager ProGuard Rules
 
-در `proguard-rules.pro`:
+In `proguard-rules.pro`:
 
 ```proguard
 -keep class androidx.work.** { *; }
@@ -175,9 +175,9 @@ val MIGRATION_1_2 = object : Migration(1, 2) {
 
 ---
 
-## 📱 استفاده در صفحات
+## 📱 Use in pages
 
-### استفاده از Offline Repository
+### Using the Offline Repository
 
 ```kotlin
 @Composable
@@ -206,7 +206,7 @@ fun ShopScreen(navController: NavController) {
 }
 ```
 
-### استفاده از Dark Mode Settings
+### Using Dark Mode Settings
 
 ```kotlin
 @Composable
@@ -222,47 +222,47 @@ fun MyScreen() {
 
 ---
 
-## 🧪 تست
+## 🧪 Testing
 
-### تست Offline Mode
+### Testing Offline Mode
 
-1. اپلیکیشن را باز کنید
-2. به صفحه تنظیمات بروید
-3. "حالت آفلاین" را فعال کنید
-4. اینترنت را خاموش کنید
-5. داده‌های کش شده باید نمایش داده شوند
+2. Go to the Settings page
+3. Enable "Offline mode"
+4. Turn off the internet
+5. Cached data should be displayed
+5. Cached data should be displayed
 
-### تست Dark Mode
+### Testing Dark Mode
 
-1. به صفحه تنظیمات بروید
-2. "حالت تاریک خودکار" را خاموش کنید
-3. "حالت تاریک" را فعال کنید
-4. UI باید به حالت تاریک تغییر کند
+1. Go to the Settings page
+2. Turn off "Automatic dark mode"
+3. Enable "Dark mode"
+4. The UI should change to dark mode
 
-### تست Image Cache
+### Testing Image Cache
 
-1. یک محصول با تصویر باز کنید
-2. اینترنت را خاموش کنید
-3. صفحه را ببندید و دوباره باز کنید
-4. تصویر باید از کش نمایش داده شود
-
----
-
-## ⚠️ نکات مهم
-
-1. **Database Size**: Room Database می‌تواند بزرگ شود. پاک‌سازی دوره‌ای انجام می‌شود.
-
-2. **Cache Expiry**: داده‌های قدیمی‌تر از 7 روز پاک می‌شوند.
-
-3. **Battery**: WorkManager فقط در WiFi و هنگام شارژ کار می‌کند تا مصرف باتری را کاهش دهد.
-
-4. **Memory**: Memory Cache برای تصاویر 25% از RAM است. در دستگاه‌های کم‌حافظه ممکن است نیاز به تنظیم باشد.
-
-5. **Network Monitoring**: `NetworkMonitor` برای بررسی وضعیت اتصال استفاده می‌شود.
+1. Open a product with an image
+2. Turn off the internet
+3. Close the page and reopen it
+4. The image should be displayed from the cache
 
 ---
 
-## 📚 منابع بیشتر
+## ⚠️ Important Notes
+
+1. **Database Size**: Room Database can grow large. Periodic cleanup is performed.
+
+2. **Cache Expiry**: Data older than 7 days is cleaned up.
+
+3. **Battery**: WorkManager works only on WiFi and while charging to reduce battery consumption.
+
+4. **Memory**: Image Memory Cache is 25% of RAM. On low-memory devices it may need adjustment.
+
+5. **Network Monitoring**: `NetworkMonitor` is used to check the connection state.
+
+---
+
+## 📚 More resources
 
 - [Room Database](https://developer.android.com/training/data-storage/room)
 - [WorkManager](https://developer.android.com/topic/libraries/architecture/workmanager)
@@ -271,5 +271,5 @@ fun MyScreen() {
 
 ---
 
-**تاریخ به‌روزرسانی**: ۱۴۰۳/۱۲/۱۵
+**Update date**: 1403/12/15 (Solar Hijri)
 

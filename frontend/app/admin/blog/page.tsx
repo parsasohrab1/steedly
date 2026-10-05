@@ -40,27 +40,27 @@ export default function AdminBlogPage() {
   };
 
   const handleDelete = async (id: number) => {
-    if (!confirm('آیا مطمئن هستید که می‌خواهید این مقاله را حذف کنید؟')) {
+    if (!confirm('Are you sure you want to delete this article?')) {
       return;
     }
     try {
       await blogAPI.deletePost(id);
       loadPosts();
     } catch (error) {
-      alert('خطا در حذف مقاله');
+      alert('Error deleting the article');
     }
   };
 
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-3xl font-bold">مدیریت مقالات</h1>
+        <h1 className="text-3xl font-bold">Article management</h1>
         <Link
           href="/admin/blog/new"
           className="bg-primary-600 text-white px-6 py-3 rounded-lg hover:bg-primary-700 transition flex items-center gap-2"
         >
           <FaPlus />
-          مقاله جدید
+          New article
         </Link>
       </div>
 
@@ -70,7 +70,7 @@ export default function AdminBlogPage() {
           <FaSearch className="absolute right-3 top-3 text-gray-400" />
           <input
             type="text"
-            placeholder="جستجوی مقالات..."
+            placeholder="Search articles..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="w-full px-4 py-3 pr-10 border rounded-lg focus:ring-2 focus:ring-primary-500"
@@ -88,19 +88,19 @@ export default function AdminBlogPage() {
           <table className="w-full">
             <thead className="bg-gray-50">
               <tr>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">عنوان</th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">دسته‌بندی</th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">نویسنده</th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">تاریخ</th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">بازدید</th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">عملیات</th>
+                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Title</th>
+                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Category</th>
+                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Author</th>
+                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Date</th>
+                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Views</th>
+                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
               {posts.length === 0 ? (
                 <tr>
                   <td colSpan={6} className="px-6 py-12 text-center text-gray-500">
-                    مقاله‌ای یافت نشد
+                    No articles found
                   </td>
                 </tr>
               ) : (
@@ -126,21 +126,21 @@ export default function AdminBlogPage() {
                           href={`/blog/${post.slug}`}
                           target="_blank"
                           className="p-2 text-green-600 hover:bg-green-50 rounded"
-                          title="مشاهده"
+                          title="View"
                         >
                           <FaEye />
                         </Link>
                         <Link
                           href={`/admin/blog/${post.id}/edit`}
                           className="p-2 text-blue-600 hover:bg-blue-50 rounded"
-                          title="ویرایش"
+                          title="Edit"
                         >
                           <FaEdit />
                         </Link>
                         <button
                           onClick={() => handleDelete(post.id)}
                           className="p-2 text-red-600 hover:bg-red-50 rounded"
-                          title="حذف"
+                          title="Delete"
                         >
                           <FaTrash />
                         </button>

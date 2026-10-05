@@ -79,7 +79,7 @@ export default function MapComponent({
 
       // Add Neshan tile layer
       window.L.tileLayer('https://api.neshan.org/v1/static', {
-        attribution: '© <a href="https://www.neshan.org">نشان</a>',
+        attribution: '© <a href="https://www.neshan.org">Neshan</a>',
         subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
         key: apiKey,
         maxZoom: 18
@@ -104,7 +104,7 @@ export default function MapComponent({
       const userMarker = window.L.marker([userLocation.lat, userLocation.lng], {
         icon: userIcon
       }).addTo(map);
-      userMarker.bindPopup('موقعیت شما').openPopup();
+      userMarker.bindPopup('Your location').openPopup();
 
       // Custom icon for providers
       const providerIcon = window.L.icon({
@@ -130,7 +130,7 @@ export default function MapComponent({
           <div style="text-align: right; direction: rtl; min-width: 150px;">
             <strong>${provider.full_name || provider.contact_name || provider.company_name}</strong><br/>
             <small>${provider.phone}</small><br/>
-            <small>امتیاز: ${provider.rating.toFixed(1)} ⭐</small>
+            <small>Rating: ${provider.rating.toFixed(1)} ⭐</small>
           </div>
         `;
 

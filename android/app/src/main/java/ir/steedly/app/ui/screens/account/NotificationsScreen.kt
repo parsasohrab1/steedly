@@ -39,12 +39,12 @@ fun NotificationsScreen(navController: NavController) {
 
     Scaffold(
         topBar = {
-            AppTopBar("اعلان‌ها", onBack = { navController.popBackStack() }, actions = {
+            AppTopBar("Notifications", onBack = { navController.popBackStack() }, actions = {
                 if (notifications.any { !it.is_read }) {
                     TextButton(onClick = {
                         notifications = notifications.map { it.copy(is_read = true) }
                         scope.launch { apiCallUnit { RetrofitClient.apiService.markAllNotificationsRead() } }
-                    }) { Text("خواندن همه") }
+                    }) { Text("Mark all as read") }
                 }
             })
         }
@@ -61,7 +61,7 @@ fun NotificationsScreen(navController: NavController) {
             when {
                 loading -> LoadingView(Modifier.padding(padding))
                 error != null -> ErrorView(error!!, Modifier.padding(padding), onRetry = { reloadKey++ })
-                notifications.isEmpty() -> EmptyView("اعلانی ندارید", icon = Icons.Default.NotificationsNone, modifier = Modifier.padding(padding))
+                notifications.isEmpty() -> EmptyView("You have no notifications", icon = Icons.Default.NotificationsNone, modifier = Modifier.padding(padding))
                 else -> LazyColumn(
                     modifier = Modifier.padding(padding),
                     contentPadding = PaddingValues(vertical = 8.dp)
@@ -118,7 +118,7 @@ private fun NotificationRow(notification: AppNotification, onClick: () -> Unit, 
         },
         trailingContent = {
             IconButton(onClick = onDelete) {
-                Icon(Icons.Default.Close, contentDescription = "حذف")
+                Icon(Icons.Default.Close, contentDescription = "Delete")
             }
         }
     )

@@ -1,27 +1,27 @@
-# راهنمای تنظیمات سیستم ایمیل
+# Email System Setup Guide
 
-## 📧 تنظیمات SMTP
+## 📧 SMTP settings
 
-سیستم ایمیل با استفاده از `nodemailer` پیاده‌سازی شده است. برای فعال‌سازی ارسال ایمیل، باید متغیرهای محیطی زیر را در فایل `.env` تنظیم کنید.
+The email system is implemented with `nodemailer`. To enable email sending, you must set the following environment variables in the `.env` file.
 
-### متغیرهای محیطی مورد نیاز
+### Required environment variables
 
 ```env
-# فعال/غیرفعال کردن سیستم ایمیل
+# Enable/disable the email system
 EMAIL_ENABLED=true
 
-# تنظیمات SMTP
+# SMTP settings
 SMTP_HOST=smtp.gmail.com
 SMTP_PORT=587
 SMTP_SECURE=false
 SMTP_USER=your-email@gmail.com
 SMTP_PASS=your-app-password
 
-# آدرس فرانت‌اند (برای لینک‌های ایمیل)
+# Frontend address (for email links)
 FRONTEND_URL=http://localhost:3001
 ```
 
-### تنظیمات برای سرویس‌های مختلف
+### Settings for different services
 
 #### Gmail
 ```env
@@ -29,10 +29,10 @@ SMTP_HOST=smtp.gmail.com
 SMTP_PORT=587
 SMTP_SECURE=false
 SMTP_USER=your-email@gmail.com
-SMTP_PASS=your-app-password  # باید از App Password استفاده کنید
+SMTP_PASS=your-app-password  # You must use an App Password
 ```
 
-**نکته**: برای Gmail باید از [App Password](https://support.google.com/accounts/answer/185833) استفاده کنید، نه رمز عبور اصلی.
+**Note**: For Gmail you must use an [App Password](https://support.google.com/accounts/answer/185833), not your main password.
 
 #### Outlook/Hotmail
 ```env
@@ -52,7 +52,7 @@ SMTP_USER=your-email@yahoo.com
 SMTP_PASS=your-app-password
 ```
 
-#### سرویس‌های ایرانی (مثل میل ایران)
+#### Iranian services (such as Iran Mail)
 ```env
 SMTP_HOST=smtp.your-provider.com
 SMTP_PORT=587
@@ -61,9 +61,9 @@ SMTP_USER=your-email@your-provider.com
 SMTP_PASS=your-password
 ```
 
-### تنظیمات برای Production
+### Production settings
 
-برای محیط Production، توصیه می‌شود از سرویس‌های حرفه‌ای ایمیل استفاده کنید:
+For the Production environment, it is recommended to use professional email services:
 
 #### SendGrid
 ```env
@@ -92,47 +92,47 @@ SMTP_USER=your-ses-username
 SMTP_PASS=your-ses-password
 ```
 
-## 📝 انواع ایمیل‌های ارسالی
+## 📝 Types of emails sent
 
-سیستم ایمیل از تمپلیت‌های زیر پشتیبانی می‌کند:
+The email system supports the following templates:
 
-### 1. تایید ثبت‌نام
-- **زمان ارسال**: پس از ثبت‌نام موفق
-- **محتوای ایمیل**: خوش‌آمدگویی و تایید ثبت‌نام
+### 1. Registration confirmation
+- **When sent**: After successful registration
+- **Email content**: Welcome and registration confirmation
 
-### 2. بازیابی رمز عبور
-- **زمان ارسال**: درخواست بازیابی رمز عبور
-- **محتوای ایمیل**: لینک بازیابی رمز عبور (معتبر برای 1 ساعت)
+### 2. Password recovery
+- **When sent**: When password recovery is requested
+- **Email content**: Password recovery link (valid for 1 hour)
 
-### 3. تایید سفارش
-- **زمان ارسال**: پس از ثبت سفارش موفق
-- **محتوای ایمیل**: جزئیات کامل سفارش شامل:
-  - شماره سفارش
-  - لیست محصولات
-  - مبلغ کل
-  - آدرس ارسال
+### 3. Order confirmation
+- **When sent**: After a successful order is placed
+- **Email content**: Full order details including:
+  - Order number
+  - Product list
+  - Total amount
+  - Shipping address
 
-### 4. تغییر وضعیت سفارش
-- **زمان ارسال**: هنگام تغییر وضعیت سفارش
-- **محتوای ایمیل**: اطلاع از تغییر وضعیت (در حال پردازش، ارسال شده، تحویل داده شده، لغو شده)
+### 4. Order status change
+- **When sent**: When the order status changes
+- **Email content**: Status change notification (processing, shipped, delivered, canceled)
 
-### 5. یادآوری رزرو خدمات
-- **زمان ارسال**: پس از ثبت رزرو موفق
-- **محتوای ایمیل**: جزئیات رزرو شامل:
-  - نوع خدمات (دامپزشک یا اسب‌کش)
-  - نام ارائه‌دهنده خدمات
-  - تاریخ و ساعت رزرو
+### 5. Service booking reminder
+- **When sent**: After a successful booking
+- **Email content**: Booking details including:
+  - Service type (veterinarian or horse transporter)
+  - Service provider name
+  - Booking date and time
 
-## 🔧 استفاده در کد
+## 🔧 Usage in code
 
-### ارسال ایمیل تایید ثبت‌نام
+### Sending the registration confirmation email
 ```typescript
 import { sendRegistrationEmail } from '../services/emailService';
 
 await sendRegistrationEmail(user.email, user.full_name);
 ```
 
-### ارسال ایمیل بازیابی رمز عبور
+### Sending the password recovery email
 ```typescript
 import { sendPasswordResetEmail } from '../services/emailService';
 
@@ -140,7 +140,7 @@ const resetToken = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET, { ex
 await sendPasswordResetEmail(user.email, user.full_name, resetToken);
 ```
 
-### ارسال ایمیل تایید سفارش
+### Sending the order confirmation email
 ```typescript
 import { sendOrderConfirmationEmail } from '../services/emailService';
 
@@ -151,14 +151,14 @@ await sendOrderConfirmationEmail(
     orderNumber: 'ORD-123456',
     totalAmount: 500000,
     items: [
-      { name: 'محصول 1', quantity: 2, price: 250000 }
+      { name: 'Product 1', quantity: 2, price: 250000 }
     ],
-    shippingAddress: 'تهران، خیابان...'
+    shippingAddress: 'Tehran, ... Street',
   }
 );
 ```
 
-### ارسال ایمیل تغییر وضعیت سفارش
+### Sending the order status change email
 ```typescript
 import { sendOrderStatusUpdateEmail } from '../services/emailService';
 
@@ -170,7 +170,7 @@ await sendOrderStatusUpdateEmail(
 );
 ```
 
-### ارسال ایمیل یادآوری رزرو
+### Sending the booking reminder email
 ```typescript
 import { sendBookingReminderEmail } from '../services/emailService';
 
@@ -178,37 +178,37 @@ await sendBookingReminderEmail(
   user.email,
   user.full_name,
   'veterinarian',
-  'دکتر احمدی',
+  'Dr. Ahmadi',
   '1403/12/20',
   '14:00'
 );
 ```
 
-## 🧪 تست در محیط Development
+## 🧪 Testing in the Development environment
 
-در محیط Development، اگر `EMAIL_ENABLED=false` باشد، سیستم ایمیل غیرفعال می‌شود و فقط در console لاگ می‌زند:
+In the Development environment, if `EMAIL_ENABLED=false`, the email system is disabled and only logs to the console:
 
 ```typescript
-// در emailService.ts
+// In emailService.ts
 if (process.env.EMAIL_ENABLED !== 'true') {
   console.log('Email service is disabled. Email would be sent to:', to);
   return true;
 }
 ```
 
-## ⚠️ نکات مهم
+## ⚠️ Important Notes
 
-1. **امنیت**: هرگز رمز عبور یا اطلاعات حساس را در کد hardcode نکنید. همیشه از متغیرهای محیطی استفاده کنید.
+1. **Security**: Never hardcode passwords or sensitive information in code. Always use environment variables.
 
-2. **Rate Limiting**: برای جلوگیری از سوء استفاده، توصیه می‌شود Rate Limiting برای endpoint های مربوط به ایمیل (مثل بازیابی رمز عبور) اعمال شود.
+2. **Rate Limiting**: To prevent abuse, it is recommended to apply Rate Limiting to email-related endpoints (such as password recovery).
 
-3. **Error Handling**: سیستم ایمیل طوری طراحی شده که در صورت خطا در ارسال ایمیل، عملیات اصلی (مثل ثبت‌نام یا ثبت سفارش) متوقف نمی‌شود.
+3. **Error Handling**: The email system is designed so that if sending an email fails, the main operation (such as registration or placing an order) is not stopped.
 
-4. **Logging**: تمام خطاهای مربوط به ایمیل در console لاگ می‌شوند. در Production، این لاگ‌ها را به یک سیستم logging مرکزی ارسال کنید.
+4. **Logging**: All email-related errors are logged to the console. In Production, send these logs to a central logging system.
 
-5. **Spam**: برای جلوگیری از spam، از سرویس‌های حرفه‌ای ایمیل استفاده کنید و SPF، DKIM و DMARC را تنظیم کنید.
+5. **Spam**: To avoid spam, use professional email services and configure SPF, DKIM and DMARC.
 
-## 📚 منابع بیشتر
+## 📚 More resources
 
 - [Nodemailer Documentation](https://nodemailer.com/about/)
 - [Gmail App Passwords](https://support.google.com/accounts/answer/185833)
@@ -216,5 +216,5 @@ if (process.env.EMAIL_ENABLED !== 'true') {
 
 ---
 
-**تاریخ به‌روزرسانی**: ۱۴۰۳/۱۲/۱۵
+**Update date**: 2025/03/06
 

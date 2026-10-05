@@ -91,9 +91,9 @@ export default function CompetitionPage() {
     return (
       <div className="container mx-auto px-4 py-8">
         <div className="text-center py-16">
-          <h1 className="text-2xl font-bold mb-4">مسابقه یافت نشد</h1>
+          <h1 className="text-2xl font-bold mb-4">Competition not found</h1>
           <Link href="/competitions" className="text-primary-600 hover:text-primary-700">
-            بازگشت به مسابقات
+            Back to competitions
           </Link>
         </div>
       </div>
@@ -110,9 +110,9 @@ export default function CompetitionPage() {
       {/* Breadcrumb */}
       <nav className="mb-6 text-sm">
         <ol className="flex items-center gap-2 text-gray-600">
-          <li><Link href="/" className="hover:text-primary-600">خانه</Link></li>
+          <li><Link href="/" className="hover:text-primary-600">Home</Link></li>
           <li><FaArrowRight className="text-xs" /></li>
-          <li><Link href="/competitions" className="hover:text-primary-600">مسابقات</Link></li>
+          <li><Link href="/competitions" className="hover:text-primary-600">Competitions</Link></li>
           <li><FaArrowRight className="text-xs" /></li>
           <li className="text-gray-900">{competition.title}</li>
         </ol>
@@ -141,22 +141,22 @@ export default function CompetitionPage() {
             {competition.is_international && (
               <span className="px-4 py-2 bg-primary-100 text-primary-700 rounded-full text-sm font-semibold flex items-center gap-2">
                 <FaFlag />
-                بین‌المللی
+                International
               </span>
             )}
             {isUpcoming && (
               <span className="px-4 py-2 bg-green-100 text-green-700 rounded-full text-sm font-semibold">
-                در پیش است
+                Upcoming
               </span>
             )}
             {isOngoing && (
               <span className="px-4 py-2 bg-yellow-100 text-yellow-700 rounded-full text-sm font-semibold">
-                در حال برگزاری
+                In progress
               </span>
             )}
             {isEnded && (
               <span className="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-semibold">
-                پایان یافته
+                Finished
               </span>
             )}
           </div>
@@ -169,14 +169,14 @@ export default function CompetitionPage() {
             <div className="flex items-start gap-3">
               <FaMapMarkerAlt className="text-primary-600 text-xl mt-1" />
               <div>
-                <p className="text-sm text-gray-600">مکان</p>
+                <p className="text-sm text-gray-600">Location</p>
                 <p className="font-semibold">{competition.location}</p>
               </div>
             </div>
             <div className="flex items-start gap-3">
               <FaCalendarAlt className="text-primary-600 text-xl mt-1" />
               <div>
-                <p className="text-sm text-gray-600">تاریخ شروع</p>
+                <p className="text-sm text-gray-600">Start date</p>
                 <p className="font-semibold">
                   {new Date(competition.start_date).toLocaleDateString('fa-IR')}
                 </p>
@@ -186,7 +186,7 @@ export default function CompetitionPage() {
               <div className="flex items-start gap-3">
                 <FaCalendarAlt className="text-primary-600 text-xl mt-1" />
                 <div>
-                  <p className="text-sm text-gray-600">تاریخ پایان</p>
+                  <p className="text-sm text-gray-600">End date</p>
                   <p className="font-semibold">
                     {new Date(competition.end_date).toLocaleDateString('fa-IR')}
                   </p>
@@ -197,7 +197,7 @@ export default function CompetitionPage() {
               <div className="flex items-start gap-3">
                 <FaCalendarAlt className="text-primary-600 text-xl mt-1" />
                 <div>
-                  <p className="text-sm text-gray-600">مهلت ثبت‌نام</p>
+                  <p className="text-sm text-gray-600">Registration deadline</p>
                   <p className="font-semibold">
                     {new Date(competition.registration_deadline).toLocaleDateString('fa-IR')}
                   </p>
@@ -209,7 +209,7 @@ export default function CompetitionPage() {
           {/* Description */}
           {competition.description && (
             <div className="mb-8">
-              <h2 className="text-2xl font-bold mb-4">توضیحات</h2>
+              <h2 className="text-2xl font-bold mb-4">Description</h2>
               <div
                 className="prose prose-lg max-w-none"
                 dangerouslySetInnerHTML={{ __html: competition.description }}
@@ -222,7 +222,7 @@ export default function CompetitionPage() {
             <div className="mb-8 p-6 bg-yellow-50 rounded-lg border border-yellow-200">
               <h3 className="text-xl font-bold mb-3 flex items-center gap-2">
                 <FaTrophy className="text-yellow-600" />
-                جوایز
+                Prizes
               </h3>
               <div
                 className="prose max-w-none"
@@ -234,7 +234,7 @@ export default function CompetitionPage() {
           {/* Conditions */}
           {competition.conditions && (
             <div className="mb-8">
-              <h2 className="text-2xl font-bold mb-4">شرایط شرکت</h2>
+              <h2 className="text-2xl font-bold mb-4">Entry conditions</h2>
               <div
                 className="prose prose-lg max-w-none"
                 dangerouslySetInnerHTML={{ __html: competition.conditions }}
@@ -246,7 +246,7 @@ export default function CompetitionPage() {
           {canRegister && (
             <div className="mt-8 pt-8 border-t">
               <button className="w-full bg-primary-600 text-white px-6 py-4 rounded-lg hover:bg-primary-700 transition font-semibold text-lg">
-                ثبت‌نام در مسابقه
+                Register for the competition
               </button>
             </div>
           )}
@@ -256,15 +256,15 @@ export default function CompetitionPage() {
       {/* Results */}
       {showResults && results.length > 0 && (
         <div className="mt-8 bg-white rounded-lg shadow-md p-6">
-          <h2 className="text-2xl font-bold mb-6">نتایج مسابقه</h2>
+          <h2 className="text-2xl font-bold mb-6">Competition results</h2>
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
                 <tr className="border-b">
-                  <th className="text-right p-4">رتبه</th>
-                  <th className="text-right p-4">شرکت‌کننده</th>
-                  <th className="text-right p-4">نام اسب</th>
-                  <th className="text-right p-4">امتیاز</th>
+                  <th className="text-right p-4">Rank</th>
+                  <th className="text-right p-4">Participant</th>
+                  <th className="text-right p-4">Horse name</th>
+                  <th className="text-right p-4">Score</th>
                 </tr>
               </thead>
               <tbody>

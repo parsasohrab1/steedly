@@ -37,7 +37,7 @@ fun AppTopBar(
             if (onBack != null) {
                 IconButton(onClick = onBack) {
                     // Material icons 1.5 are not auto-mirrored; in RTL "back" points right
-                    Icon(Icons.Default.ArrowForward, contentDescription = "بازگشت")
+                    Icon(Icons.Default.ArrowForward, contentDescription = "Back")
                 }
             }
         },
@@ -63,7 +63,7 @@ fun ErrorView(
         title = message,
         modifier = modifier,
         iconTint = MaterialTheme.colorScheme.error,
-        actionLabel = if (onRetry != null) "تلاش مجدد" else null,
+        actionLabel = if (onRetry != null) "Try again" else null,
         onAction = onRetry
     )
 }
@@ -184,7 +184,7 @@ fun RatingRow(rating: Double, reviews: Int? = null) {
         Spacer(Modifier.width(4.dp))
         Text(
             text = String.format(java.util.Locale("fa", "IR"), "%.1f", rating) +
-                (reviews?.let { " (${ir.steedly.app.utils.formatNumber(it)} نظر)" } ?: ""),
+                (reviews?.let { " (${ir.steedly.app.utils.formatNumber(it)} reviews)" } ?: ""),
             style = MaterialTheme.typography.bodySmall
         )
     }
@@ -220,7 +220,7 @@ fun ErrorBanner(message: String, modifier: Modifier = Modifier) {
 fun OfflineBanner() {
     Surface(color = MaterialTheme.colorScheme.tertiaryContainer, modifier = Modifier.fillMaxWidth()) {
         Text(
-            "حالت آفلاین — نمایش محتوای ذخیره‌شده",
+            "Offline mode — showing saved content",
             modifier = Modifier.padding(8.dp),
             style = MaterialTheme.typography.labelMedium,
             textAlign = TextAlign.Center,

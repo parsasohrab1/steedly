@@ -136,13 +136,13 @@ export default function NotificationBell() {
       {showDropdown && (
         <div className="absolute left-0 mt-2 w-80 bg-white rounded-lg shadow-lg border border-gray-200 z-50 max-h-96 overflow-hidden flex flex-col">
           <div className="p-4 border-b flex items-center justify-between">
-            <h3 className="font-bold">اعلان‌ها</h3>
+            <h3 className="font-bold">Notifications</h3>
             {unreadCount > 0 && (
               <button
                 onClick={handleMarkAllRead}
                 className="text-sm text-primary-600 hover:text-primary-700"
               >
-                همه را خوانده شده علامت بزن
+                Mark all as read
               </button>
             )}
           </div>
@@ -151,7 +151,7 @@ export default function NotificationBell() {
             {notifications.length === 0 ? (
               <div className="p-8 text-center text-gray-500">
                 <FaBell className="text-4xl mx-auto mb-2 text-gray-300" />
-                <p>اعلانی وجود ندارد</p>
+                <p>No notifications</p>
               </div>
             ) : (
               <div className="divide-y">
@@ -192,7 +192,7 @@ export default function NotificationBell() {
                 onClick={() => router.push('/notifications')}
                 className="text-sm text-primary-600 hover:text-primary-700"
               >
-                مشاهده همه اعلان‌ها
+                View all notifications
               </button>
             </div>
           )}

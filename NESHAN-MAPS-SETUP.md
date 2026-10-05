@@ -1,28 +1,28 @@
-# راهنمای راه‌اندازی نقشه نشان (Neshan Maps)
+# Neshan Maps Setup Guide
 
-## معرفی
+## Introduction
 
-نشان (Neshan) یک سرویس نقشه ایرانی است که جایگزین مناسبی برای Google Maps در ایران است.
+Neshan is an Iranian map service that is a suitable alternative to Google Maps in Iran.
 
-## دریافت API Key
+## Getting an API key
 
-1. به [پنل توسعه‌دهندگان نشان](https://platform.neshan.org/panel/api-key) بروید
-2. ثبت‌نام یا ورود کنید
-3. پروژه جدید ایجاد کنید
-4. API Key دریافت کنید
+1. Go to the [Neshan developer panel](https://platform.neshan.org/panel/api-key)
+2. Sign up or log in
+3. Create a new project
+4. Get an API key
 
-## تنظیمات Frontend (PWA)
+## Frontend (PWA) settings
 
-### 1. اضافه کردن API Key
+### 1. Adding the API key
 
-در فایل `.env.local`:
+In the `.env.local` file:
 ```
 NEXT_PUBLIC_NESHAN_API_KEY=your_neshan_api_key_here
 ```
 
-### 2. استفاده از MapComponent
+### 2. Using MapComponent
 
-کامپوننت `MapComponent` از Neshan Maps با Leaflet استفاده می‌کند:
+The `MapComponent` component uses Neshan Maps with Leaflet:
 
 ```tsx
 <MapComponent
@@ -33,21 +33,21 @@ NEXT_PUBLIC_NESHAN_API_KEY=your_neshan_api_key_here
 />
 ```
 
-### 3. ویژگی‌ها
+### 3. Features
 
-- ✅ نمایش موقعیت کاربر
-- ✅ نمایش markers برای دامپزشکان و اسب‌کش‌ها
-- ✅ Popup با اطلاعات
-- ✅ کلیک روی marker برای انتخاب
-- ✅ Zoom و Pan
+- ✅ Displaying the user's location
+- ✅ Displaying markers for veterinarians and horse transporters
+- ✅ Popup with information
+- ✅ Click a marker to select
+- ✅ Zoom and Pan
 - ✅ RTL Support
-- ✅ استفاده از Leaflet (رایگان و بدون نیاز به API Key برای tile layer)
+- ✅ Uses Leaflet (free, no API key needed for the tile layer)
 
-## تنظیمات Android
+## Android settings
 
 ### 1. Repository
 
-در `settings.gradle.kts`:
+In `settings.gradle.kts`:
 ```kotlin
 repositories {
     maven { url = uri("https://repo.neshan.org/artifactory/public-maven") }
@@ -56,7 +56,7 @@ repositories {
 
 ### 2. Dependency
 
-در `android/settings.gradle.kts` مخزن نشان و در `app/build.gradle.kts` کتابخانه‌ها:
+Add the Neshan repository in `android/settings.gradle.kts` and the libraries in `app/build.gradle.kts`:
 ```kotlin
 maven { url = uri("https://maven.neshan.org/artifactory/public-maven") }
 
@@ -64,67 +64,67 @@ implementation("neshan-android-sdk:mobile-sdk:1.0.3")
 implementation("neshan-android-sdk:common-sdk:0.0.3")
 ```
 
-### 3. ثبت اپ در پنل نشان
+### 3. Registering the app in the Neshan panel
 
-SDK نسخه ۱ کلید API در کد ندارد؛ نام بسته `ir.steedly.app` و اثرانگشت SHA-1 امضای اپ
-(debug و release — راهنما در `android/GET-FINGERPRINT.md`) را در [پنل توسعه‌دهندگان نشان](https://platform.neshan.org) ثبت کنید.
+SDK version 1 has no API key in code; register the package name `ir.steedly.app` and the SHA-1 fingerprint of the app signature
+(debug and release — guide in `android/GET-FINGERPRINT.md`) in the [Neshan developer panel](https://platform.neshan.org).
 
-### 4. استفاده در اپ
+### 4. Usage in the app
 
-پیاده‌سازی در `ui/screens/services/MapScreenNeshan.kt` است: موقعیت کاربر (بدون نیاز به Google Play Services)،
-نمایش دامپزشک‌ها/اسب‌کش‌ها با `Marker` و انتخاب شعاع جستجو.
+The implementation is in `ui/screens/services/MapScreenNeshan.kt`: user location (without needing Google Play Services),
+showing veterinarians/horse transporters with `Marker` and choosing the search radius.
 
-## مزایای استفاده از نشان
+## Advantages of using Neshan
 
-1. ✅ **سرویس ایرانی**: بدون نیاز به VPN
-2. ✅ **سرعت بالا**: سرورهای داخل ایران
-3. ✅ **پشتیبانی فارسی**: کامل
-4. ✅ **رایگان**: برای استفاده‌های معمولی
-5. ✅ **دقت بالا**: نقشه‌های به‌روز ایران
+1. ✅ **Iranian service**: No VPN needed
+2. ✅ **High speed**: Servers inside Iran
+3. ✅ **Persian support**: Full
+4. ✅ **Free**: For normal usage
+5. ✅ **High accuracy**: Up-to-date maps of Iran
 
-## مستندات
+## Documentation
 
-- [مستندات JavaScript SDK](https://developer.neshan.org/api/web/)
-- [مستندات Android SDK](https://developer.neshan.org/api/android/)
-- [نمونه کدها](https://developer.neshan.org/samples/)
-- [پنل توسعه‌دهندگان](https://platform.neshan.org/)
+- [JavaScript SDK documentation](https://developer.neshan.org/api/web/)
+- [Android SDK documentation](https://developer.neshan.org/api/android/)
+- [Code samples](https://developer.neshan.org/samples/)
+- [Developer panel](https://platform.neshan.org/)
 
-## نکات مهم
+## Important Notes
 
-1. **API Key**: حتماً API Key را در فایل‌های `.env.local` و `strings.xml` قرار دهید
-2. **HTTPS**: برای استفاده در production، از HTTPS استفاده کنید
-3. **محدودیت‌ها**: بررسی کنید که API Key شما محدودیت نداشته باشد
-4. **بهینه‌سازی**: برای کاهش هزینه‌ها، از caching استفاده کنید
+1. **API Key**: Be sure to put the API key in the `.env.local` and `strings.xml` files
+2. **HTTPS**: Use HTTPS in production
+3. **Limits**: Check that your API key has no restrictions
+4. **Optimization**: Use caching to reduce costs
 
-## مقایسه با Google Maps
+## Comparison with Google Maps
 
-| ویژگی | نشان | Google Maps |
+| Feature | Neshan | Google Maps |
 |-------|------|-------------|
-| دسترسی در ایران | ✅ بدون VPN | ❌ نیاز به VPN |
-| سرعت | ✅ بالا | ⚠️ متوسط |
-| پشتیبانی فارسی | ✅ کامل | ⚠️ محدود |
-| هزینه | ✅ رایگان (محدود) | ⚠️ پولی |
-| دقت نقشه ایران | ✅ عالی | ✅ خوب |
+| Access in Iran | ✅ No VPN | ❌ Needs VPN |
+| Speed | ✅ High | ⚠️ Medium |
+| Persian support | ✅ Full | ⚠️ Limited |
+| Cost | ✅ Free (limited) | ⚠️ Paid |
+| Iran map accuracy | ✅ Excellent | ✅ Good |
 
-## مشکلات رایج
+## Common Problems
 
-### نقشه نمایش داده نمی‌شود
-- بررسی کنید API Key درست باشد
-- بررسی کنید script Leaflet لود شده باشد
-- Console مرورگر را بررسی کنید
-- بررسی کنید که URL tile layer درست باشد
+### Map is not displayed
+- Check that the API key is correct
+- Check that the Leaflet script is loaded
+- Check the browser Console
+- Check that the tile layer URL is correct
 
-### موقعیت نمایش داده نمی‌شود
-- بررسی کنید permission داده شده باشد
-- در HTTPS یا localhost تست کنید
+### Location is not displayed
+- Check that permission has been granted
+- Test on HTTPS or localhost
 
-### در Android کار نمی‌کند
-- بررسی کنید repository اضافه شده باشد
-- بررسی کنید dependency درست اضافه شده باشد
-- بررسی کنید API Key در strings.xml قرار گرفته باشد
+### Does not work on Android
+- Check that the repository has been added
+- Check that the dependency has been added correctly
+- Check that the API key is in strings.xml
 
-## پشتیبانی
+## Support
 
-- [پشتیبانی نشان](https://developer.neshan.org/support/)
-- [مستندات کامل](https://developer.neshan.org/docs/)
-- [گیت‌هاب](https://github.com/NeshanMaps)
+- [Neshan support](https://developer.neshan.org/support/)
+- [Full documentation](https://developer.neshan.org/docs/)
+- [GitHub](https://github.com/NeshanMaps)

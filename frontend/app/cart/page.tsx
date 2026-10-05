@@ -29,7 +29,7 @@ export default function CartPage() {
   };
 
   const handleRemoveItem = (productId: number) => {
-    if (confirm('آیا مطمئن هستید که می‌خواهید این محصول را از سبد خرید حذف کنید؟')) {
+    if (confirm('Are you sure you want to remove this product from the cart?')) {
       cartService.removeItem(productId);
       loadCart();
     }
@@ -41,7 +41,7 @@ export default function CartPage() {
   if (loading) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <LoadingSpinner fullScreen text="در حال بارگذاری سبد خرید..." />
+        <LoadingSpinner fullScreen text="Loading cart..." />
       </div>
     );
   }
@@ -51,12 +51,12 @@ export default function CartPage() {
       <div className="container mx-auto px-4 py-8">
         <div className="text-center py-16">
           <FaShoppingCart className="mx-auto text-6xl text-gray-300 mb-4" />
-          <h1 className="text-2xl font-bold mb-4">سبد خرید شما خالی است</h1>
+          <h1 className="text-2xl font-bold mb-4">Your cart is empty</h1>
           <Link
             href="/shop"
             className="inline-block bg-primary-600 text-white px-6 py-3 rounded-lg hover:bg-primary-700 transition"
           >
-            بازگشت به فروشگاه
+            Back to shop
           </Link>
         </div>
       </div>
@@ -71,16 +71,16 @@ export default function CartPage() {
           className="flex items-center text-gray-600 hover:text-primary-600 transition"
         >
           <FaArrowLeft className="ml-2" />
-          بازگشت به فروشگاه
+          Back to shop
         </Link>
-        <h1 className="text-3xl font-bold mr-4">سبد خرید</h1>
+        <h1 className="text-3xl font-bold mr-4">Cart</h1>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Cart Items */}
         <div className="lg:col-span-2">
           <div className="bg-white rounded-lg shadow-md p-6">
-            <h2 className="text-xl font-semibold mb-4">محصولات ({totalItems})</h2>
+            <h2 className="text-xl font-semibold mb-4">Products ({totalItems})</h2>
             <div className="space-y-4">
               {items.map((item) => (
                 <div
@@ -112,7 +112,7 @@ export default function CartPage() {
                       {item.name}
                     </Link>
                     <p className="text-primary-600 font-semibold mt-1">
-                      {item.price.toLocaleString('fa-IR')} تومان
+                      {item.price.toLocaleString('en-US')} Toman
                     </p>
                   </div>
 
@@ -145,7 +145,7 @@ export default function CartPage() {
                     {/* Item Total */}
                     <div className="text-left min-w-[8rem]">
                       <p className="font-semibold">
-                        {(item.price * item.quantity).toLocaleString('fa-IR')} تومان
+                        {(item.price * item.quantity).toLocaleString('en-US')} Toman
                       </p>
                     </div>
 
@@ -153,7 +153,7 @@ export default function CartPage() {
                     <button
                       onClick={() => handleRemoveItem(item.product_id)}
                       className="p-2 text-red-500 hover:text-red-700 hover:bg-red-50 rounded transition"
-                      title="حذف از سبد خرید"
+                      title="Remove from cart"
                     >
                       <FaTrash />
                     </button>
@@ -167,23 +167,23 @@ export default function CartPage() {
         {/* Order Summary */}
         <div className="lg:col-span-1">
           <div className="bg-white rounded-lg shadow-md p-6 sticky top-4">
-            <h2 className="text-xl font-semibold mb-4">خلاصه سفارش</h2>
+            <h2 className="text-xl font-semibold mb-4">Order summary</h2>
 
             <div className="space-y-3 mb-6">
               <div className="flex justify-between">
-                <span>تعداد محصولات:</span>
+                <span>Number of products:</span>
                 <span className="font-semibold">{totalItems}</span>
               </div>
               <div className="flex justify-between">
-                <span>جمع کل:</span>
+                <span>Total:</span>
                 <span className="font-semibold">
-                  {totalPrice.toLocaleString('fa-IR')} تومان
+                  {totalPrice.toLocaleString('en-US')} Toman
                 </span>
               </div>
               <div className="border-t pt-3 flex justify-between text-lg">
-                <span className="font-bold">مبلغ قابل پرداخت:</span>
+                <span className="font-bold">Amount payable:</span>
                 <span className="font-bold text-primary-600">
-                  {totalPrice.toLocaleString('fa-IR')} تومان
+                  {totalPrice.toLocaleString('en-US')} Toman
                 </span>
               </div>
             </div>
@@ -192,14 +192,14 @@ export default function CartPage() {
               href="/checkout"
               className="block w-full bg-primary-600 text-white text-center py-3 rounded-lg hover:bg-primary-700 transition font-semibold"
             >
-              ادامه به پرداخت
+              Continue to payment
             </Link>
 
             <Link
               href="/shop"
               className="block w-full text-center py-3 text-gray-600 hover:text-primary-600 transition mt-3"
             >
-              ادامه خرید
+              Continue shopping
             </Link>
           </div>
         </div>

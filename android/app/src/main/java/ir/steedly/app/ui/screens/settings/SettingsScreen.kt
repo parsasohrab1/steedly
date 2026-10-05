@@ -63,7 +63,7 @@ fun SettingsScreen(
 
     Scaffold(
         snackbarHost = { SnackbarHost(snackbar) },
-        topBar = { AppTopBar("تنظیمات", onBack = { navController.popBackStack() }) }
+        topBar = { AppTopBar("Settings", onBack = { navController.popBackStack() }) }
     ) { padding ->
         Column(
             modifier = Modifier
@@ -73,12 +73,12 @@ fun SettingsScreen(
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            SettingsCard("ظاهر") {
-                SwitchRow("حالت تاریک خودکار", "پیروی از تنظیمات سیستم", darkModeAuto) {
+            SettingsCard("Appearance") {
+                SwitchRow("Automatic dark mode", "Follow system settings", darkModeAuto) {
                     scope.launch { viewModel.setDarkModeAuto(it) }
                 }
                 if (!darkModeAuto) {
-                    SwitchRow("حالت تاریک", null, darkModeManual) {
+                    SwitchRow("Dark mode", null, darkModeManual) {
                         scope.launch { viewModel.setDarkMode(it) }
                     }
                 }
@@ -88,14 +88,14 @@ fun SettingsScreen(
                 ServerAddressCard(snackbar)
             }
 
-            SettingsCard("اعلان‌ها") {
-                SwitchRow("اعلان سفارش‌ها و رزروها", "نمایش اعلان هنگام تغییر وضعیت سفارش یا رزرو", notifications) {
+            SettingsCard("Notifications") {
+                SwitchRow("Order and booking notifications", "Show a notification when an order or booking status changes", notifications) {
                     scope.launch { viewModel.setNotifications(it) }
                 }
             }
 
-            SettingsCard("داده و ذخیره‌سازی") {
-                SwitchRow("حالت آفلاین", "ذخیره مقالات، محصولات و مسابقات برای مشاهده بدون اینترنت", offlineMode) {
+            SettingsCard("Data and storage") {
+                SwitchRow("Offline mode", "Save articles, products and competitions for viewing without internet", offlineMode) {
                     scope.launch { viewModel.setOfflineMode(it) }
                 }
                 Divider()
@@ -103,21 +103,21 @@ fun SettingsScreen(
                     onClick = {
                         scope.launch {
                             viewModel.clearCache(context)
-                            snackbar.showSnackbar("حافظه موقت پاک شد")
+                            snackbar.showSnackbar("Cache cleared")
                         }
                     },
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Icon(Icons.Default.Delete, contentDescription = null)
                     Spacer(Modifier.width(8.dp))
-                    Text("پاک کردن حافظه موقت")
+                    Text("Clear cache")
                 }
             }
 
-            SettingsCard("درباره") {
-                Text("استیدلی (Steedly) — سلامت و مراقبت اسب", style = MaterialTheme.typography.bodyLarge)
+            SettingsCard("About") {
+                Text("Steedly — horse health and care", style = MaterialTheme.typography.bodyLarge)
                 Text(
-                    "نسخه ${BuildConfig.VERSION_NAME}",
+                    "Version ${BuildConfig.VERSION_NAME}",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -160,9 +160,9 @@ private fun ServerAddressCard(snackbar: SnackbarHostState) {
     var current by remember { mutableStateOf(RetrofitClient.baseUrl) }
     var busy by remember { mutableStateOf(false) }
 
-    SettingsCard("آدرس سرور (نسخه آزمایشی)") {
+    SettingsCard("Server address (test version)") {
         Text(
-            "IP کامپیوتری که بک‌اند روی آن اجرا می‌شود را وارد کنید. گوشی و کامپیوتر باید به یک شبکه Wi-Fi وصل باشند.",
+            "Enter the IP of the computer running the backend. The phone and computer must be connected to the same Wi-Fi network.",
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
@@ -170,13 +170,13 @@ private fun ServerAddressCard(snackbar: SnackbarHostState) {
             value = input,
             onValueChange = { input = it },
             modifier = Modifier.fillMaxWidth(),
-            label = { Text("آدرس سرور") },
+            label = { Text("Server address") },
             placeholder = { Text("192.168.1.10:3000") },
             singleLine = true,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Uri)
         )
         Text(
-            "در حال استفاده: $current",
+            "In use: $current",
             style = MaterialTheme.typography.labelSmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
@@ -186,23 +186,23 @@ private fun ServerAddressCard(snackbar: SnackbarHostState) {
                 onClick = {
                     val url = RetrofitClient.normalizeBaseUrl(input)
                     if (url == null) {
-                        scope.launch { snackbar.showSnackbar("آدرس نامعتبر است") }
+                        scope.launch { snackbar.showSnackbar("Invalid address") }
                         return@OutlinedButton
                     }
                     scope.launch {
                         busy = true
                         val ok = RetrofitClient.checkHealth(url)
                         busy = false
-                        snackbar.showSnackbar(if (ok) "اتصال برقرار است ✓" else "سرور پاسخ نداد: $url")
+                        snackbar.showSnackbar(if (ok) "Connection established ✓" else "Server did not respond: $url")
                     }
                 }
-            ) { Text("تست اتصال") }
+            ) { Text("Test connection") }
             Button(
                 enabled = !busy,
                 onClick = {
                     val url = RetrofitClient.normalizeBaseUrl(input)
                     if (url == null) {
-                        scope.launch { snackbar.showSnackbar("آدرس نامعتبر است") }
+                        scope.launch { snackbar.showSnackbar("Invalid address") }
                         return@Button
                     }
                     scope.launch {
@@ -210,10 +210,10 @@ private fun ServerAddressCard(snackbar: SnackbarHostState) {
                         RetrofitClient.setBaseUrl(url)
                         input = url
                         current = url
-                        snackbar.showSnackbar("آدرس سرور ذخیره شد")
+                        snackbar.showSnackbar("Server address saved")
                     }
                 }
-            ) { Text("ذخیره") }
+            ) { Text("Save") }
         }
         TextButton(
             enabled = !busy,
@@ -225,6 +225,6 @@ private fun ServerAddressCard(snackbar: SnackbarHostState) {
                     current = RetrofitClient.DEFAULT_BASE_URL
                 }
             }
-        ) { Text("بازگشت به آدرس پیش‌فرض") }
+        ) { Text("Reset to default address") }
     }
 }

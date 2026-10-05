@@ -1,98 +1,98 @@
-# راهنمای بارگذاری محتوا در سایت
+# Guide to Loading Content on the Site
 
-## مراحل اجرا
+## Steps
 
-### 1. اطمینان از وجود Admin User
+### 1. Making sure an Admin User exists
 
-ابتدا باید کاربر ادمین وجود داشته باشد:
+First an admin user must exist:
 
 ```bash
 cd backend
 npm run seed
 ```
 
-این دستور:
-- کاربر ادمین ایجاد می‌کند (email: `admin@steedly.ir`, password: `admin123`)
-- دسته‌بندی‌های بلاگ و محصولات را ایجاد می‌کند
-- سپس محتوای کامل را اضافه می‌کند
+This command:
+- Creates an admin user (email: `admin@steedly.ir`, password: `admin123`)
+- Creates the blog and product categories
+- Then adds the full content
 
-### 2. محتوای اضافه شده
+### 2. Added content
 
-#### مقالات (6 مقاله):
-1. ✅ اسب عربی - شاهکار طبیعت
-2. ✅ کولیک در اسب - علائم و درمان
-3. ✅ راهنمای خرید زین مناسب
-4. ✅ درساژ - هنر سوارکاری
-5. ✅ تغذیه صحیح اسب
-6. ✅ تاریخ اسب در ایران
+#### Articles (6 articles):
+1. ✅ Arabian horse - a masterpiece of nature
+2. ✅ Colic in horses - symptoms and treatment
+3. ✅ Guide to buying a suitable saddle
+4. ✅ Dressage - the art of riding
+5. ✅ Proper horse nutrition
+6. ✅ History of the horse in Iran
 
-#### محصولات (3 محصول):
-1. ✅ زین انگلیسی استاندارد (15,000,000 تومان)
-2. ✅ ویتامین E برای اسب (500,000 تومان)
-3. ✅ برس تمیز کردن اسب (250,000 تومان)
+#### Products (3 products):
+1. ✅ Standard English saddle (15,000,000 Toman)
+2. ✅ Vitamin E for horses (500,000 Toman)
+3. ✅ Horse cleaning brush (250,000 Toman)
 
-#### مسابقات (1 مسابقه):
-1. ✅ مسابقات درساژ قهرمانی ایران
+#### Competitions (1 competition):
+1. ✅ Iran Dressage Championship
 
-### 3. تصاویر
+### 3. Images
 
-همه تصاویر از **Unsplash** استفاده شده‌اند که:
-- ✅ رایگان و بدون نیاز به مجوز
-- ✅ کیفیت بالا
-- ✅ مناسب برای استفاده تجاری
-- ✅ دارای Alt text مناسب
+All images are from **Unsplash**, which is:
+- ✅ Free and needs no license
+- ✅ High quality
+- ✅ Suitable for commercial use
+- ✅ Has suitable Alt text
 
-### 4. بررسی محتوا
+### 4. Checking the content
 
-بعد از اجرای seed script، می‌توانید محتوا را در سایت مشاهده کنید:
+After running the seed script, you can view the content on the site:
 
-- **مقالات**: `/blog`
-- **محصولات**: `/shop`
-- **مسابقات**: `/competitions`
+- **Articles**: `/blog`
+- **Products**: `/shop`
+- **Competitions**: `/competitions`
 
-### 5. دستورات
+### 5. Commands
 
 ```bash
-# اجرای seed script
+# Run the seed script
 cd backend
 npm run seed
 
-# یا مستقیماً:
+# Or directly:
 npx ts-node src/database/seed.ts
 ```
 
-## نکات مهم
+## Important Notes
 
-1. **تصاویر**: تصاویر از Unsplash استفاده شده‌اند. برای استفاده در production، بهتر است تصاویر را دانلود کرده و در `public/images/` قرار دهید.
+1. **Images**: Images from Unsplash are used. For production, it is better to download the images and put them in `public/images/`.
 
-2. **Alt Text**: همه تصاویر دارای Alt text مناسب با کلمات کلیدی هستند.
+2. **Alt Text**: All images have suitable Alt text with keywords.
 
-3. **محتوا**: محتوا به صورت HTML در دیتابیس ذخیره می‌شود.
+3. **Content**: The content is stored in the database as HTML.
 
-4. **SEO**: همه صفحات دارای:
-   - Title مناسب
+4. **SEO**: All pages have:
+   - Suitable Title
    - Meta description (excerpt)
-   - Alt text برای تصاویر
+   - Alt text for images
    - Structured content
 
-## افزودن محتوای بیشتر
+## Adding more content
 
-برای افزودن محتوای بیشتر، فایل `backend/src/database/content-seed-full.ts` را ویرایش کنید و دوباره seed script را اجرا کنید.
+To add more content, edit the file `backend/src/database/content-seed-full.ts` and run the seed script again.
 
-## عیب‌یابی
+## Troubleshooting
 
-اگر مشکلی پیش آمد:
+If a problem occurs:
 
-1. بررسی کنید که PostgreSQL و Redis در حال اجرا هستند
-2. بررسی کنید که `.env` فایل به درستی تنظیم شده است
-3. لاگ‌های seed script را بررسی کنید
+1. Check that PostgreSQL and Redis are running
+2. Check that the `.env` file is set correctly
+3. Check the seed script logs
 
-## نتیجه
+## Result
 
-بعد از اجرای موفق seed script، شما خواهید داشت:
-- ✅ 6 مقاله کامل با تصاویر
-- ✅ 3 محصول با تصاویر
-- ✅ 1 مسابقه با تصویر
-- ✅ همه با Alt text مناسب
-- ✅ محتوای SEO-friendly
+After a successful seed script run, you will have:
+- ✅ 6 complete articles with images
+- ✅ 3 products with images
+- ✅ 1 competition with an image
+- ✅ All with suitable Alt text
+- ✅ SEO-friendly content
 

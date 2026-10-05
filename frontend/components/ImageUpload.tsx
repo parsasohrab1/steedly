@@ -14,7 +14,7 @@ interface ImageUploadProps {
 export default function ImageUpload({
   onUploadComplete,
   currentImageUrl,
-  label = 'آپلود تصویر',
+  label = 'Upload image',
   maxSize = 5,
 }: ImageUploadProps) {
   const [uploading, setUploading] = useState(false);
@@ -28,13 +28,13 @@ export default function ImageUpload({
 
     // Validate file type
     if (!file.type.startsWith('image/')) {
-      setError('فقط فایل‌های تصویری مجاز هستند');
+      setError('Only image files are allowed');
       return;
     }
 
     // Validate file size
     if (file.size > maxSize * 1024 * 1024) {
-      setError(`حجم فایل نباید بیشتر از ${maxSize} مگابایت باشد`);
+      setError(`File size must not exceed ${maxSize} MB`);
       return;
     }
 
@@ -55,7 +55,7 @@ export default function ImageUpload({
         setError('');
       }
     } catch (err: any) {
-      setError(err.response?.data?.message || 'خطا در آپلود تصویر');
+      setError(err.response?.data?.message || 'Error uploading the image');
       setPreview(null);
     } finally {
       setUploading(false);
@@ -122,12 +122,12 @@ export default function ImageUpload({
             {uploading ? (
               <>
                 <FaSpinner className="animate-spin" />
-                در حال آپلود...
+                Uploading...
               </>
             ) : (
               <>
                 <FaCamera />
-                {preview ? 'تغییر تصویر' : 'انتخاب تصویر'}
+                {preview ? 'Change image' : 'Choose image'}
               </>
             )}
           </label>
@@ -138,7 +138,7 @@ export default function ImageUpload({
               className="mr-2 px-4 py-2 border border-red-300 text-red-600 rounded-lg hover:bg-red-50 transition"
             >
               <FaTimes className="inline ml-1" />
-              حذف
+              Remove
             </button>
           )}
         </div>
@@ -155,12 +155,12 @@ export default function ImageUpload({
       {preview && !uploading && !error && (
         <div className="text-sm text-green-600 bg-green-50 p-2 rounded flex items-center gap-2">
           <FaCheckCircle />
-          تصویر با موفقیت آپلود شد
+          Image uploaded successfully
         </div>
       )}
 
       <p className="text-xs text-gray-500">
-        فرمت‌های مجاز: JPEG, PNG, GIF, WebP (حداکثر {maxSize} مگابایت)
+        Allowed formats: JPEG, PNG, GIF, WebP (maximum {maxSize} MB)
       </p>
     </div>
   );

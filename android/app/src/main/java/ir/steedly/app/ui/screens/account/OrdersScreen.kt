@@ -52,7 +52,7 @@ fun OrdersScreen(navController: NavController) {
     var error by remember { mutableStateOf<String?>(null) }
     var reloadKey by remember { mutableIntStateOf(0) }
 
-    Scaffold(topBar = { AppTopBar("سفارش‌های من", onBack = { navController.popBackStack() }) }) { padding ->
+    Scaffold(topBar = { AppTopBar("My orders", onBack = { navController.popBackStack() }) }) { padding ->
         RequireLogin(navController, Modifier.padding(padding)) {
             LaunchedEffect(reloadKey) {
                 loading = true
@@ -66,10 +66,10 @@ fun OrdersScreen(navController: NavController) {
                 loading -> LoadingView(Modifier.padding(padding))
                 error != null -> ErrorView(error!!, Modifier.padding(padding), onRetry = { reloadKey++ })
                 orders.isEmpty() -> EmptyView(
-                    title = "سفارشی ثبت نکرده‌اید",
+                    title = "You have no orders",
                     icon = Icons.Default.ShoppingBag,
                     modifier = Modifier.padding(padding),
-                    actionLabel = "شروع خرید",
+                    actionLabel = "Start shopping",
                     onAction = { navController.navigate(Routes.SHOP) { launchSingleTop = true } }
                 )
                 else -> LazyColumn(
@@ -81,7 +81,7 @@ fun OrdersScreen(navController: NavController) {
                         Card(Modifier.fillMaxWidth().clickable { navController.navigate(Routes.order(order.id)) }) {
                             Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                                 Row(verticalAlignment = Alignment.CenterVertically) {
-                                    Text("سفارش #${order.order_number}", fontWeight = FontWeight.Bold, modifier = Modifier.weight(1f))
+                                    Text("Order #${order.order_number}", fontWeight = FontWeight.Bold, modifier = Modifier.weight(1f))
                                     StatusChip(StatusLabels.order(order.status), statusColor(order.status))
                                 }
                                 Text(formatJalaliDate(order.created_at, withTime = true), style = MaterialTheme.typography.bodySmall)
@@ -126,7 +126,7 @@ fun OrderDetailScreen(navController: NavController, orderId: Int) {
 
     Scaffold(
         snackbarHost = { SnackbarHost(snackbar) },
-        topBar = { AppTopBar("جزئیات سفارش", onBack = { navController.popBackStack() }) }
+        topBar = { AppTopBar("Order details", onBack = { navController.popBackStack() }) }
     ) { padding ->
         RequireLogin(navController, Modifier.padding(padding)) {
             LaunchedEffect(orderId, reloadKey) {
@@ -154,24 +154,24 @@ fun OrderDetailScreen(navController: NavController, orderId: Int) {
                         Card(Modifier.fillMaxWidth()) {
                             Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                                 Row(verticalAlignment = Alignment.CenterVertically) {
-                                    Text("سفارش #${current.order_number}", fontWeight = FontWeight.Bold, modifier = Modifier.weight(1f))
+                                    Text("Order #${current.order_number}", fontWeight = FontWeight.Bold, modifier = Modifier.weight(1f))
                                     StatusChip(StatusLabels.order(current.status), statusColor(current.status))
                                 }
                                 Text(formatJalaliDate(current.created_at, withTime = true), style = MaterialTheme.typography.bodySmall)
                                 Divider()
-                                LabeledValue("وضعیت پرداخت", StatusLabels.payment(current.payment_status))
-                                LabeledValue("روش پرداخت", if (current.payment_method == "cash") "پرداخت در محل" else "پرداخت آنلاین")
-                                current.shipping_address?.let { LabeledValue("آدرس ارسال", it) }
+                                LabeledValue("Payment status", StatusLabels.payment(current.payment_status))
+                                LabeledValue("Payment method", if (current.payment_method == "cash") "Cash on delivery" else "Online payment")
+                                current.shipping_address?.let { LabeledValue("Shipping address", it) }
                             }
                         }
                     }
-                    item { SectionTitle("اقلام سفارش") }
+                    item { SectionTitle("Order items") }
                     items(current.items.orEmpty(), key = { it.id ?: it.hashCode() }) { item ->
                         Card(Modifier.fillMaxWidth()) {
                             Row(Modifier.padding(12.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                                 RemoteImage(item.product_image, item.product_name, Modifier.size(56.dp))
                                 Column(Modifier.weight(1f)) {
-                                    Text(item.product_name ?: "محصول", fontWeight = FontWeight.Medium)
+                                    Text(item.product_name ?: "Product", fontWeight = FontWeight.Medium)
                                     Text("${formatNumber(item.quantity)} × ${formatToman(item.price)}", style = MaterialTheme.typography.bodySmall)
                                 }
                                 Text(formatToman(item.price * item.quantity))
@@ -180,17 +180,17 @@ fun OrderDetailScreen(navController: NavController, orderId: Int) {
                     }
                     item {
                         Row(Modifier.fillMaxWidth().padding(vertical = 8.dp), horizontalArrangement = Arrangement.SpaceBetween) {
-                            Text("مبلغ کل", fontWeight = FontWeight.Bold)
+                            Text("Total amount", fontWeight = FontWeight.Bold)
                             Text(formatToman(current.total_amount), fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary)
                         }
                     }
                     if (payments.isNotEmpty()) {
-                        item { SectionTitle("تراکنش‌ها") }
+                        item { SectionTitle("Transactions") }
                         items(payments, key = { "p${it.id}" }) { payment ->
                             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                                 Text(formatJalaliDate(payment.created_at, withTime = true), style = MaterialTheme.typography.bodySmall)
                                 Text(
-                                    StatusLabels.payment(payment.status) + (payment.ref_id?.let { " — کد پیگیری $it" } ?: ""),
+                                    StatusLabels.payment(payment.status) + (payment.ref_id?.let { " — tracking code $it" } ?: ""),
                                     color = statusColor(payment.status),
                                     style = MaterialTheme.typography.bodySmall
                                 )
@@ -213,7 +213,7 @@ fun OrderDetailScreen(navController: NavController, orderId: Int) {
                                 ) {
                                     Icon(Icons.Default.CreditCard, contentDescription = null)
                                     Spacer(Modifier.width(6.dp))
-                                    Text("پرداخت آنلاین")
+                                    Text("Online payment")
                                 }
                             }
                             if (current.canCancel()) {
@@ -222,12 +222,12 @@ fun OrderDetailScreen(navController: NavController, orderId: Int) {
                                     enabled = !busy,
                                     modifier = Modifier.fillMaxWidth(),
                                     colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.error)
-                                ) { Text("لغو سفارش") }
+                                ) { Text("Cancel order") }
                             }
                             TextButton(onClick = { reloadKey++ }, modifier = Modifier.fillMaxWidth()) {
                                 Icon(Icons.Default.Refresh, contentDescription = null)
                                 Spacer(Modifier.width(6.dp))
-                                Text("به‌روزرسانی وضعیت")
+                                Text("Update status")
                             }
                         }
                     }
@@ -239,8 +239,8 @@ fun OrderDetailScreen(navController: NavController, orderId: Int) {
     if (confirmCancel) {
         AlertDialog(
             onDismissRequest = { confirmCancel = false },
-            title = { Text("لغو سفارش") },
-            text = { Text("آیا از لغو این سفارش مطمئن هستید؟") },
+            title = { Text("Cancel order") },
+            text = { Text("Are you sure you want to cancel this order?") },
             confirmButton = {
                 TextButton(onClick = {
                     confirmCancel = false
@@ -248,15 +248,15 @@ fun OrderDetailScreen(navController: NavController, orderId: Int) {
                         busy = true
                         apiCall { RetrofitClient.apiService.cancelOrder(orderId) }
                             .onSuccess {
-                                snackbar.showSnackbar("سفارش لغو شد")
+                                snackbar.showSnackbar("Order cancelled")
                                 reloadKey++
                             }
                             .onFailure { snackbar.showSnackbar(it.message ?: "") }
                         busy = false
                     }
-                }) { Text("لغو سفارش") }
+                }) { Text("Cancel order") }
             },
-            dismissButton = { TextButton(onClick = { confirmCancel = false }) { Text("انصراف") } }
+            dismissButton = { TextButton(onClick = { confirmCancel = false }) { Text("Cancel") } }
         )
     }
 }
@@ -276,7 +276,7 @@ fun PaymentResultScreen(navController: NavController, orderId: Int, status: Stri
     val success = status == "success"
     var retryError by remember { mutableStateOf<String?>(null) }
 
-    Scaffold(topBar = { AppTopBar("نتیجه پرداخت") }) { padding ->
+    Scaffold(topBar = { AppTopBar("Payment result") }) { padding ->
         Column(
             Modifier.padding(padding).fillMaxSize().padding(24.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -290,18 +290,18 @@ fun PaymentResultScreen(navController: NavController, orderId: Int, status: Stri
             )
             Spacer(Modifier.height(16.dp))
             Text(
-                if (success) "پرداخت با موفقیت انجام شد" else "پرداخت ناموفق بود",
+                if (success) "Payment was successful" else "Payment failed",
                 style = MaterialTheme.typography.headlineSmall,
                 fontWeight = FontWeight.Bold
             )
             Spacer(Modifier.height(8.dp))
             Text(
-                if (success) "سفارش شما در حال پردازش است." else "سفارش شما ثبت شده و می‌توانید دوباره پرداخت کنید.",
+                if (success) "Your order is being processed." else "Your order has been placed and you can pay again.",
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
             if (success && refId != null) {
                 Spacer(Modifier.height(12.dp))
-                Text("کد پیگیری: $refId", fontWeight = FontWeight.Medium)
+                Text("Tracking code: $refId", fontWeight = FontWeight.Medium)
             }
             retryError?.let {
                 Spacer(Modifier.height(12.dp))
@@ -311,15 +311,15 @@ fun PaymentResultScreen(navController: NavController, orderId: Int, status: Stri
             if (!success) {
                 Button(onClick = {
                     scope.launch { startPayment(context, orderId).onFailure { retryError = it.message } }
-                }, modifier = Modifier.fillMaxWidth()) { Text("تلاش مجدد پرداخت") }
+                }, modifier = Modifier.fillMaxWidth()) { Text("Retry payment") }
                 Spacer(Modifier.height(8.dp))
             }
             OutlinedButton(
                 onClick = { navController.navigate(Routes.order(orderId)) { popUpTo(Routes.HOME) } },
                 modifier = Modifier.fillMaxWidth()
-            ) { Text("مشاهده سفارش") }
+            ) { Text("View order") }
             TextButton(onClick = { navController.navigate(Routes.HOME) { popUpTo(Routes.HOME) { inclusive = true } } }) {
-                Text("بازگشت به خانه")
+                Text("Back to home")
             }
         }
     }

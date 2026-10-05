@@ -48,9 +48,9 @@ fun LoginScreen(navController: NavController) {
     var error by remember { mutableStateOf<String?>(null) }
 
     fun validate(): String? = when {
-        !Patterns.EMAIL_ADDRESS.matcher(email.trim()).matches() -> "ایمیل معتبر وارد کنید"
-        password.length < 6 -> "رمز عبور باید حداقل ۶ کاراکتر باشد"
-        isRegister && fullName.isBlank() -> "نام کامل الزامی است"
+        !Patterns.EMAIL_ADDRESS.matcher(email.trim()).matches() -> "Enter a valid email"
+        password.length < 6 -> "Password must be at least 6 characters"
+        isRegister && fullName.isBlank() -> "Full name is required"
         else -> null
     }
 
@@ -88,10 +88,10 @@ fun LoginScreen(navController: NavController) {
 
     Scaffold(
         topBar = {
-            AppTopBar(if (isRegister) "ثبت‌نام" else "ورود", onBack = { navController.popBackStack() }, actions = {
+            AppTopBar(if (isRegister) "Sign up" else "Log in", onBack = { navController.popBackStack() }, actions = {
                 // Reachable before login so a test build can be pointed at the right server
                 IconButton(onClick = { navController.navigate(Routes.SETTINGS) }) {
-                    Icon(Icons.Default.Settings, contentDescription = "تنظیمات")
+                    Icon(Icons.Default.Settings, contentDescription = "Settings")
                 }
             })
         }
@@ -106,10 +106,10 @@ fun LoginScreen(navController: NavController) {
             verticalArrangement = Arrangement.spacedBy(14.dp)
         ) {
             Surface(shape = RoundedCornerShape(20.dp), color = MaterialTheme.colorScheme.primary, modifier = Modifier.size(84.dp)) {
-                Image(painterResource(R.drawable.ic_launcher_foreground), contentDescription = "استیدلی", modifier = Modifier.fillMaxSize())
+                Image(painterResource(R.drawable.ic_launcher_foreground), contentDescription = "Steedly", modifier = Modifier.fillMaxSize())
             }
             Text(
-                if (isRegister) "ایجاد حساب کاربری جدید" else "به استیدلی خوش آمدید",
+                if (isRegister) "Create a new account" else "Welcome to Steedly",
                 style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold
             )
@@ -118,7 +118,7 @@ fun LoginScreen(navController: NavController) {
                 OutlinedTextField(
                     value = fullName,
                     onValueChange = { fullName = it },
-                    label = { Text("نام کامل") },
+                    label = { Text("Full name") },
                     leadingIcon = { Icon(Icons.Default.Person, contentDescription = null) },
                     modifier = Modifier.fillMaxWidth(),
                     singleLine = true,
@@ -129,7 +129,7 @@ fun LoginScreen(navController: NavController) {
             OutlinedTextField(
                 value = email,
                 onValueChange = { email = it },
-                label = { Text("ایمیل") },
+                label = { Text("Email") },
                 leadingIcon = { Icon(Icons.Default.Email, contentDescription = null) },
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = true,
@@ -140,7 +140,7 @@ fun LoginScreen(navController: NavController) {
                 OutlinedTextField(
                     value = phone,
                     onValueChange = { phone = it },
-                    label = { Text("شماره موبایل (اختیاری)") },
+                    label = { Text("Mobile number (optional)") },
                     leadingIcon = { Icon(Icons.Default.Phone, contentDescription = null) },
                     modifier = Modifier.fillMaxWidth(),
                     singleLine = true,
@@ -151,13 +151,13 @@ fun LoginScreen(navController: NavController) {
             OutlinedTextField(
                 value = password,
                 onValueChange = { password = it },
-                label = { Text("رمز عبور") },
+                label = { Text("Password") },
                 leadingIcon = { Icon(Icons.Default.Lock, contentDescription = null) },
                 trailingIcon = {
                     IconButton(onClick = { showPassword = !showPassword }) {
                         Icon(
                             if (showPassword) Icons.Default.VisibilityOff else Icons.Default.Visibility,
-                            contentDescription = if (showPassword) "پنهان کردن رمز" else "نمایش رمز"
+                            contentDescription = if (showPassword) "Hide password" else "Show password"
                         )
                     }
                 },
@@ -177,18 +177,18 @@ fun LoginScreen(navController: NavController) {
                 if (loading) {
                     CircularProgressIndicator(Modifier.size(20.dp), color = MaterialTheme.colorScheme.onPrimary)
                 } else {
-                    Text(if (isRegister) "ثبت‌نام" else "ورود")
+                    Text(if (isRegister) "Sign up" else "Log in")
                 }
             }
 
             if (!isRegister) {
                 TextButton(onClick = { navController.navigate(Routes.FORGOT_PASSWORD) }) {
-                    Text("رمز عبور را فراموش کرده‌اید؟")
+                    Text("Forgot your password?")
                 }
             }
 
             TextButton(onClick = { isRegister = !isRegister; error = null }) {
-                Text(if (isRegister) "حساب کاربری دارید؟ وارد شوید" else "حساب کاربری ندارید؟ ثبت‌نام کنید")
+                Text(if (isRegister) "Already have an account? Log in" else "Don't have an account? Sign up")
             }
         }
     }

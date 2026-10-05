@@ -1,23 +1,23 @@
-# راهنمای راه‌اندازی Backend
+# Backend Setup Guide
 
-## پیش‌نیازها
+## Prerequisites
 
-1. **PostgreSQL** - باید نصب و در حال اجرا باشد
-2. **Redis** - باید نصب و در حال اجرا باشد
-3. **Node.js** - نسخه 18 یا بالاتر
+1. **PostgreSQL** - must be installed and running
+2. **Redis** - must be installed and running
+3. **Node.js** - version 18 or higher
 
-## مراحل راه‌اندازی
+## Setup steps
 
-### 1. ایجاد فایل `.env`
+### 1. Create the `.env` file
 
-فایل `.env.example` را کپی کنید:
+Copy the `.env.example` file:
 
 ```bash
 cd backend
 copy .env.example .env
 ```
 
-یا به صورت دستی فایل `backend/.env` را ایجاد کنید:
+Or create the `backend/.env` file manually:
 
 ```env
 # Server Configuration
@@ -56,47 +56,47 @@ VAPID_PRIVATE_KEY=your-vapid-private-key
 VAPID_SUBJECT=mailto:support@steedly.ir
 ```
 
-### 2. ایجاد Database
+### 2. Create the database
 
-در PostgreSQL:
+In PostgreSQL:
 
 ```sql
 CREATE DATABASE steedly;
 ```
 
-یا از psql:
+Or from psql:
 
 ```bash
 psql -U postgres -c "CREATE DATABASE steedly;"
 ```
 
-### 3. اجرای Schema
+### 3. Run the schema
 
 ```bash
 cd backend
 psql -U postgres -d steedly -f src/database/schema.sql
 ```
 
-یا از Node.js:
+Or from Node.js:
 
 ```bash
 npm run seed
 ```
 
-### 4. راه‌اندازی Backend
+### 4. Start the Backend
 
 ```bash
 cd backend
 npm run dev
 ```
 
-یا از root directory:
+Or from the root directory:
 
 ```bash
 npm run dev:backend
 ```
 
-## بررسی
+## Verification
 
 ### Health Check
 
@@ -104,49 +104,49 @@ npm run dev:backend
 curl http://localhost:3000/health
 ```
 
-یا در مرورگر:
+Or in the browser:
 http://localhost:3000/health
 
 ### API Documentation
 
-اگر Swagger فعال باشد:
+If Swagger is enabled:
 http://localhost:3000/api-docs
 
-## مشکلات رایج
+## Common Problems
 
 ### Database Connection Error
 
-**علت**: PostgreSQL در حال اجرا نیست یا تنظیمات اشتباه
+**Cause**: PostgreSQL is not running or the settings are wrong
 
-**راه حل**:
-1. مطمئن شوید PostgreSQL در حال اجرا است
-2. تنظیمات `.env` را بررسی کنید
-3. Database را ایجاد کنید
+**Solution**:
+1. Make sure PostgreSQL is running
+2. Check the `.env` settings
+3. Create the database
 
 ### Redis Connection Error
 
-**علت**: Redis در حال اجرا نیست
+**Cause**: Redis is not running
 
-**راه حل**:
-1. Redis را راه‌اندازی کنید
-2. یا `REDIS_URL` را در `.env` تنظیم کنید
+**Solution**:
+1. Start Redis
+2. Or set `REDIS_URL` in `.env`
 
 ### Port Already in Use
 
-**علت**: پورت 3000 در حال استفاده است
+**Cause**: Port 3000 is in use
 
-**راه حل**:
-1. Process را متوقف کنید:
+**Solution**:
+1. Stop the process:
    ```bash
    # Windows
    netstat -ano | findstr :3000
    taskkill /PID <PID> /F
    ```
-2. یا پورت را در `.env` تغییر دهید
+2. Or change the port in `.env`
 
-## نکات
+## Notes
 
-- فایل `.env` را در `.gitignore` قرار دهید
-- در production، از JWT_SECRET قوی استفاده کنید
-- Database password را محافظت کنید
+- Put the `.env` file in `.gitignore`
+- In production, use a strong JWT_SECRET
+- Protect the Database password
 

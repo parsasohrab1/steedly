@@ -66,7 +66,7 @@ export default function NotificationsPage() {
   };
 
   const handleDelete = async (id: number) => {
-    if (!confirm('آیا مطمئن هستید که می‌خواهید این اعلان را حذف کنید؟')) {
+    if (!confirm('Are you sure you want to delete this notification?')) {
       return;
     }
     try {
@@ -89,13 +89,13 @@ export default function NotificationsPage() {
   const getTypeLabel = (type: string) => {
     switch (type) {
       case 'order':
-        return 'سفارش';
+        return 'Order';
       case 'booking':
-        return 'رزرو';
+        return 'Booking';
       case 'system':
-        return 'سیستم';
+        return 'System';
       case 'promotion':
-        return 'پیشنهاد ویژه';
+        return 'Special offer';
       default:
         return type;
     }
@@ -116,14 +116,14 @@ export default function NotificationsPage() {
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-3xl font-bold">اعلان‌ها</h1>
+        <h1 className="text-3xl font-bold">Notifications</h1>
         {unreadCount > 0 && (
           <button
             onClick={handleMarkAllRead}
             className="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition flex items-center gap-2"
           >
             <FaCheck />
-            همه را خوانده شده علامت بزن
+            Mark all as read
           </button>
         )}
       </div>
@@ -131,8 +131,8 @@ export default function NotificationsPage() {
       {notifications.length === 0 ? (
         <div className="bg-white rounded-lg shadow-md p-12 text-center">
           <FaBell className="text-6xl text-gray-300 mx-auto mb-4" />
-          <h2 className="text-xl font-bold mb-2">اعلانی وجود ندارد</h2>
-          <p className="text-gray-600">هنگامی که اعلان جدیدی دریافت کنید، اینجا نمایش داده می‌شود</p>
+          <h2 className="text-xl font-bold mb-2">No notifications</h2>
+          <p className="text-gray-600">When you receive a new notification, it will be displayed here</p>
         </div>
       ) : (
         <div className="space-y-4">
@@ -151,7 +151,7 @@ export default function NotificationsPage() {
                     </span>
                     {!notification.is_read && (
                       <span className="text-xs bg-primary-100 text-primary-700 px-2 py-1 rounded">
-                        خوانده نشده
+                        Unread
                       </span>
                     )}
                     <span className="text-xs text-gray-500">
@@ -165,7 +165,7 @@ export default function NotificationsPage() {
                       onClick={() => handleNotificationClick(notification)}
                       className="text-primary-600 hover:text-primary-700 text-sm font-semibold"
                     >
-                      مشاهده بیشتر →
+                      View more →
                     </button>
                   )}
                 </div>
@@ -174,7 +174,7 @@ export default function NotificationsPage() {
                     <button
                       onClick={() => handleMarkAsRead(notification.id)}
                       className="p-2 text-primary-600 hover:bg-primary-50 rounded"
-                      title="خوانده شده"
+                      title="Read"
                     >
                       <FaCheck />
                     </button>
@@ -182,7 +182,7 @@ export default function NotificationsPage() {
                   <button
                     onClick={() => handleDelete(notification.id)}
                     className="p-2 text-red-600 hover:bg-red-50 rounded"
-                    title="حذف"
+                    title="Delete"
                   >
                     <FaTrash />
                   </button>
